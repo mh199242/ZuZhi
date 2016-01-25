@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_bg_identifying_code_disable"
+    android:paddingLeft="@dimen/margin_edit_follow_items"
+    android:paddingRight="@dimen/margin_edit_follow_items">
+
+    <TextView
+        android:id="@+id/tv_item_class_level_two"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_class_level_one"
+        android:background="@color/color_bg_identifying_code_disable"
+        android:gravity="left|center_vertical"
+        android:text="二级类目"
+        android:textColor="@color/color_normal_text"
+        android:textSize="@dimen/font_size_class_level" />
+
+    <View
+        android:id="@+id/v_class_level_two_separation_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_separation_line"
+        android:layout_below="@+id/tv_item_class_level_two"
+        android:background="@color/color_separation_line" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_class_level_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/v_class_level_two_separation_line"
+        android:layout_centerVertical="true"
+        android:overScrollMode="never"
+        tools:listitem="@layout/item_recyclerview_class_levle_three"></android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
+

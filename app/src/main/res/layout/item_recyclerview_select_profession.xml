@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/cb_item_recyclerview_select_profession"
+        android:layout_width="@dimen/width_checkbox_select_perfession"
+        android:layout_height="@dimen/height_radio_button_regist"
+        android:background="@drawable/check_box_select_profession"
+        android:button="@null"
+        android:gravity="center"
+        android:text="@string/personal_regist"
+        android:textColor="@drawable/text_select_profession_check_box"
+        android:textSize="@dimen/font_size_level_two" />
+</LinearLayout>

@@ -1,0 +1,94 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--main padding 主内边距-->
+    <dimen name="padding_main">17dp</dimen>
+    <!--margin of edit text icon and edit text 输入框图片与文字区间距-->
+    <dimen name="margin_edit_icon_text">20dp</dimen>
+    <!--margin of edit text and follow items 文字编辑框与下方附属项边距-->
+    <dimen name="margin_edit_follow_items">10dp</dimen>
+    <!--top margin of main button 主按钮上边距-->
+    <dimen name="margin_top_button_main">30dp</dimen>
+    <!--top margin of one key login text 一键登录文字区上边距-->
+    <dimen name="margin_top_one_key_login_text">64dp</dimen>
+    <!--margin of one key login separation ling 一键登录文字区与左右分割线边距-->
+    <dimen name="margin_one_key_login_separation_line">28dp</dimen>
+    <!--margin of third login button  第三方登录钮之间边距-->
+    <dimen name="margin_button_third_login">110dp</dimen>
+    <!--top margin of third login button text  第三方登录钮文字去上边距-->
+    <dimen name="margin_top_third_login_text">8dp</dimen>
+    <!--margin top of find password activity's confirm button 找回密码页确定钮上边距-->
+    <dimen name="margin_top_find_pass_word_confirm_button">50dp</dimen>
+    <!--margin top of find password success activity's check icon 找回密码成功页对号图上边距-->
+    <dimen name="margin_top_find_pass_word_success_check_icon">44dp</dimen>
+    <!--margin top of find password success activity's check text 找回密码成功页对号文本上边距-->
+    <dimen name="margin_top_find_pass_word_success_check_text">30dp</dimen>
+    <!--margin left of class level two to one 二级服务类目与一级服务类目左边距-->
+    <dimen name="margin_left_class_level_two_to_one">20dp</dimen>
+    <!--margin top of title bar to system title 应用标题栏与系统标题栏边距-->
+    <dimen name="margin_top_title_bar">20dp</dimen>
+
+    <!--height and width of small check icon 注册页小√的宽高-->
+    <dimen name="hw_regist_check_small">16dp</dimen>
+    <!--button height of back 返回钮高度-->
+    <dimen name="height_button_back">22dp</dimen>
+    <!--button width of back 返回钮宽度-->
+    <dimen name="width_button_back">22dp</dimen>
+    <!--icon height of edittext 文字编辑框图片高度-->
+    <dimen name="height_icon_edit_text">18dp</dimen>
+    <!--icon width of edittext 文字编辑框图片宽度-->
+    <dimen name="width_icon_edit_text">18dp</dimen>
+    <!--button height of third login 第三方登录按钮高度-->
+    <dimen name="height_button_third_login">64dp</dimen>
+    <!--button width of third login 第三方登录按钮宽度-->
+    <dimen name="width_button_third_login">64dp</dimen>
+    <!--height of edit text 文字输入框高度-->
+    <dimen name="height_edit_text">44dp</dimen>
+    <!--height of main button 主按钮高度-->
+    <dimen name="height_button_main">44dp</dimen>
+    <!--height of title bar 标题栏高度-->
+    <dimen name="height_title_bar">44dp</dimen>
+    <!--height of separation line 分割线高度-->
+    <dimen name="height_separation_line">1px</dimen>
+    <!--button height of get identifying code 获取验证验证码按钮高度-->
+    <dimen name="height_button_identifying_code">30dp</dimen>
+    <!--button width of get identifying code 获取验证验证码按钮宽度-->
+    <dimen name="width_button_identifying_code">80dp</dimen>
+    <!--height and width of check icon圆对号图宽高-->
+    <dimen name="hw_icon_check">64dp</dimen>
+    <!--radio button's height of regist activity 注册页radiobutton高度-->
+    <dimen name="height_radio_button_regist">34dp</dimen>
+    <!--radio button's width of regist activity 注册页radiobutton宽度-->
+    <dimen name="width_radio_button_regist">301dp</dimen>
+    <!--title width of edit text文本编辑项标题宽度-->
+    <dimen name="width_title_edit_text">70dp</dimen>
+    <!--width of show password 明文密码按钮宽度-->
+    <dimen name="width_button_show_password">64dp</dimen>
+    <!--height of show password 明文密码按钮高度-->
+    <dimen name="height_button_show_password">24dp</dimen>
+    <!--width of select activity's checkbox 选择职业页多选钮宽度-->
+    <dimen name="width_checkbox_select_perfession">107dp</dimen>
+    <!--height and width of main tab 主页tab按钮宽高-->
+    <dimen name="hw_main_tab">36dp</dimen>
+    <!--width of class level one 一级服务类目宽度-->
+    <dimen name="width_class_level_one">120dp</dimen>
+    <!--height of class level one 一级服务类目高度-->
+    <dimen name="height_class_level_one">40dp</dimen>
+    <!--height of class level index 服务类目下标-->
+    <dimen name="height_class_level_index">2dp</dimen>
+    <!--height of banner banner图高度-->
+    <dimen name="height_banner">150dp</dimen>
+
+
+
+    <!--font size of level one 一级字号-->
+    <dimen name="font_size_level_one">18dp</dimen>
+    <!--font size of level two 二级字号-->
+    <dimen name="font_size_level_two">15dp</dimen>
+    <!--font size of level three 三级字号-->
+    <dimen name="font_size_level_three">12dp</dimen>
+    <!--font size of class level 服务类目字号-->
+    <dimen name="font_size_class_level">14dp</dimen>
+</resources>

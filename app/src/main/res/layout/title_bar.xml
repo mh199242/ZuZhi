@@ -1,0 +1,144 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_bg_title_bar"
+    android:orientation="horizontal"
+    android:paddingLeft="9dp"
+    android:paddingRight="9dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_title_bar_offset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_bg_title_bar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_title_bar">
+
+            <LinearLayout
+                android:id="@+id/ll_title_bar_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/bt_title_bar_left"
+                    android:layout_width="@dimen/width_button_back"
+                    android:layout_height="@dimen/height_button_back"
+                    android:background="@drawable/main_bg" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_title_bar_city"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:gravity="center"
+                android:text="杭州"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_size_level_three"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_title_bar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/login"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_size_level_one"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_title_bar_search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_button_identifying_code"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="9dp"
+                android:layout_toRightOf="@+id/tv_title_bar_city"
+                android:background="@drawable/background_serach"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_title_bar_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:text="@string/product"
+                    android:textColor="@color/color_text_hint"
+                    android:textSize="@dimen/font_size_level_three" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/ser_arrow" />
+
+                <EditText
+                    android:id="@+id/et_title_bar_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="财务咨询"
+                    android:maxEms="20"
+                    android:maxLines="1"
+                    android:textColor="@color/color_black"
+                    android:textColorHint="@color/color_text_hint_default_search"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/font_size_level_three" />
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/ser_search" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_title_bar_right"
+                android:layout_width="@dimen/height_title_bar"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_title_bar_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_bg_title_bar"
+                    android:gravity="center"
+                    android:minWidth="@dimen/height_title_bar"
+                    android:text="@string/search"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/font_size_level_three" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
+
+
+

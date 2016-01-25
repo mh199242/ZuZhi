@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_fragment_class"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg_identifying_code_disable"
+        android:orientation="horizontal">
+
+        <ListView
+            android:overScrollMode="never"
+            android:id="@+id/lv_class_level_one"
+            android:layout_width="@dimen/width_class_level_one"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:scrollbars="none" />
+
+        <ListView
+            android:overScrollMode="never"
+            android:id="@+id/lv_class_level_two"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:background="@color/color_bg_identifying_code_disable"
+            android:divider="@null"
+            android:dividerHeight="30dp"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+
+</LinearLayout>

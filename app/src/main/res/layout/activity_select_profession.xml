@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding_main"
+        android:paddingRight="@dimen/padding_main">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text">
+
+            <TextView
+                android:id="@+id/tv_select_profession_toast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="left"
+                android:text="@string/select_profession_toast"
+                android:textColor="@color/color_normal_text"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
+
+        </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:overScrollMode="never"
+                android:id="@+id/rv_select_profession"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                tools:listitem="@layout/item_recyclerview_select_profession"
+               ></android.support.v7.widget.RecyclerView>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="1dp" />
+
+            <Button
+                android:id="@+id/bt_select_profession_complete"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/height_button_main"
+                android:layout_marginTop="@dimen/margin_top_find_pass_word_confirm_button"
+                android:background="@drawable/button_main"
+                android:text="@string/complete"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_size_level_one" />
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="1dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

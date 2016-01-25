@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_item_class_level_one"
+        android:layout_width="@dimen/width_class_level_one"
+        android:layout_height="@dimen/height_class_level_one"
+        android:background="@color/color_bg_identifying_code_disable"
+        android:gravity="center"
+        android:text="商务服务"
+        android:textColor="@color/color_bg_button_main_normal"
+        android:textSize="@dimen/font_size_class_level" />
+
+    <View
+        android:id="@+id/v_item_class_level_one_lien_right"
+        android:layout_width="@dimen/height_separation_line"
+        android:layout_height="@dimen/height_class_level_one"
+        android:layout_alignRight="@+id/tv_item_class_level_one"
+        android:layout_centerVertical="true"
+        android:background="@color/color_separation_line" />
+
+    <View
+        android:id="@+id/v_item_class_level_one_lien_bottom"
+        android:layout_width="@dimen/width_class_level_one"
+        android:layout_height="@dimen/height_separation_line"
+        android:layout_alignBottom="@+id/tv_item_class_level_one"
+        android:background="@color/color_separation_line" />
+
+    <View
+        android:id="@+id/v_item_class_level_one_lien_left"
+        android:layout_width="@dimen/height_class_level_index"
+        android:layout_height="@dimen/height_class_level_one"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@color/color_bg_button_main_normal" />
+
+</RelativeLayout>
+

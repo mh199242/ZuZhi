@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding_main"
+        android:paddingRight="@dimen/padding_main">
+
+        <RadioGroup
+            android:id="@+id/rg_regist"
+            android:layout_width="@dimen/width_radio_button_regist"
+            android:layout_height="@dimen/height_radio_button_regist"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/padding_main"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_regist_personal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_regist_radio_left"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="@string/personal_regist"
+                android:textColor="@drawable/text_regist_radio"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <RadioButton
+                android:id="@+id/rb_regist_compony"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_regist_radio_right"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="@string/company_regist"
+                android:textColor="@drawable/text_regist_radio"
+                android:textSize="@dimen/font_size_level_two" />
+        </RadioGroup>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text">
+
+            <TextView
+                android:id="@+id/tv_regist_cellphone"
+                android:layout_width="@dimen/width_title_edit_text"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:text="@string/cell_phone"
+                android:textColor="@color/color_normal_text"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <EditText
+                android:id="@+id/et_regist_enter_cellphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_regist_cellphone"
+                android:background="@null"
+                android:hint="@string/hint_enter_conventional_cellphone"
+                android:maxEms="20"
+                android:maxLines="1"
+                android:phoneNumber="true"
+                android:textColor="@color/color_black"
+                android:textColorHint="@color/color_text_hint"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text">
+
+            <TextView
+                android:id="@+id/tv_regist_identifying_code"
+                android:layout_width="@dimen/width_title_edit_text"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:text="@string/identifying_code"
+                android:textColor="@color/color_normal_text"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <EditText
+                android:id="@+id/et_find_password_enter_identifying_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_regist_identifying_code"
+                android:background="@null"
+                android:drawablePadding="@dimen/margin_edit_icon_text"
+                android:hint="@string/hint_identifying_code"
+                android:maxEms="20"
+                android:maxLines="1"
+                android:password="true"
+                android:phoneNumber="true"
+                android:textColor="@color/color_black"
+                android:textColorHint="@color/color_text_hint"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <Button
+                android:id="@+id/bt_regist_identifying_code"
+                android:layout_width="@dimen/width_button_identifying_code"
+                android:layout_height="@dimen/height_button_identifying_code"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_focus_identifying_code"
+                android:text="@string/get_identifying_code"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_size_level_three" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text">
+
+            <TextView
+                android:id="@+id/tv_regist_password"
+                android:layout_width="@dimen/width_title_edit_text"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:text="@string/enter_password"
+                android:textColor="@color/color_normal_text"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <EditText
+                android:id="@+id/et_regist_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_regist_password"
+                android:background="@null"
+                android:hint="@string/hint_password"
+                android:maxEms="20"
+                android:maxLines="1"
+                android:password="true"
+                android:textColor="@color/color_black"
+                android:textColorHint="@color/color_text_hint"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <Button
+
+                android:id="@+id/bt_regist_show_password"
+                android:layout_width="@dimen/width_button_show_password"
+                android:layout_height="@dimen/height_button_show_password"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_regist_show_password"
+                android:text="@string/show_password"
+                android:textColor="@drawable/text_regist_identifying_code"
+                android:textSize="@dimen/font_size_level_three" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_edit_follow_items"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="@dimen/hw_regist_check_small"
+                android:layout_height="@dimen/hw_regist_check_small"
+                android:background="@drawable/login_icon_check" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="6dp"
+                android:text="@string/regist_toast_1"
+                android:textColor="@color/color_text_hint"
+                android:textSize="@dimen/font_size_level_three" />
+
+
+            <TextView
+                android:id="@+id/tv_regist_toast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="6dp"
+                android:text="@string/regist_toast_2"
+                android:textColor="@color/color_bg_button_main_normal"
+                android:textSize="@dimen/font_size_level_three" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="1dp" />
+
+            <Button
+                android:id="@+id/bt_regist_next_step"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/height_button_main"
+                android:layout_marginTop="@dimen/margin_top_find_pass_word_confirm_button"
+                android:background="@drawable/button_main"
+                android:text="@string/next_step"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_size_level_one" />
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="1dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

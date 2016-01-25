@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding_main"
+        android:paddingRight="@dimen/padding_main">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text">
+
+
+            <EditText
+                android:phoneNumber="true"
+                android:textColor="@color/color_black"
+                android:id="@+id/et_find_password_enter_cellphone"
+                android:textCursorDrawable="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:hint="@string/hint_enter_bind_cellphone"
+                android:maxEms="20"
+                android:maxLines="1"
+                android:textColorHint="@color/color_text_hint"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text">
+
+            <EditText
+                android:phoneNumber="true"
+                android:textCursorDrawable="@null"
+                android:textColor="@color/color_black"
+                android:id="@+id/et_find_password_enter_identifying_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:drawablePadding="@dimen/margin_edit_icon_text"
+                android:hint="@string/hint_enter_identifying_code"
+                android:maxEms="20"
+                android:maxLines="1"
+                android:password="true"
+                android:textColorHint="@color/color_text_hint"
+                android:textSize="@dimen/font_size_level_two" />
+            <Button
+                android:id="@+id/bt_find_password_identifying_code"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_size_level_three"
+                android:text="@string/get_identifying_code"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_focus_identifying_code"
+                android:layout_width="@dimen/width_button_identifying_code"
+                android:layout_height="@dimen/height_button_identifying_code" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text">
+
+            <EditText
+                android:password="true"
+                android:textCursorDrawable="@null"
+                android:textColor="@color/color_black"
+                android:id="@+id/et_find_password_enter_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:drawablePadding="@dimen/margin_edit_icon_text"
+                android:hint="@string/hint_enter_password"
+                android:maxEms="20"
+                android:maxLines="1"
+                android:textColorHint="@color/color_text_hint"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text">
+
+            <EditText
+                android:password="true"
+                android:textCursorDrawable="@null"
+                android:textColor="@color/color_black"
+                android:id="@+id/et_find_password_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:drawablePadding="@dimen/margin_edit_icon_text"
+                android:hint="@string/hint_confirm_password"
+                android:maxEms="20"
+                android:maxLines="1"
+                android:textColorHint="@color/color_text_hint"
+                android:textSize="@dimen/font_size_level_two" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="1dp" />
+
+            <Button
+                android:id="@+id/bt_find_password_confirm"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/height_button_main"
+                android:layout_marginTop="@dimen/margin_top_find_pass_word_confirm_button"
+                android:background="@drawable/button_main"
+                android:text="@string/confirm"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_size_level_one" />
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="1dp" />
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</LinearLayout>
