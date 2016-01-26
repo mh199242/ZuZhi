@@ -24,10 +24,6 @@ import android.widget.TextView;
  */
 public abstract class BaseFragment extends Fragment {
 
-	protected Activity activity;
-
-	protected Context context;
-
 	/**
 	 * left title bar layout 左标题栏布局
 	 */
@@ -59,8 +55,6 @@ public abstract class BaseFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		activity = getActivity();
-		context = getContext();
 	}
 
 	@Override

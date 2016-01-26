@@ -137,7 +137,7 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
         if (isExit == false) {
             //ready for exit 准备退出
             isExit = true;
-            ToastUtil.showLongToast(this, getResources().getString(R.string.click_agin_to_exit));
+            ToastUtil.showLongToast(this, getResources().getString(R.string.click_again_to_exit));
             tExit = new Timer();
             tExit.schedule(new TimerTask() {
                 @Override

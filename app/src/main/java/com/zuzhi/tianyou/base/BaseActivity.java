@@ -26,7 +26,7 @@ import com.zuzhi.tianyou.R;
  */
 public abstract class BaseActivity extends FragmentActivity {
 
-    protected Context context;
+    protected Context mContext;
 
     /**
      * left title bar layout 左标题栏布局
@@ -78,7 +78,7 @@ public abstract class BaseActivity extends FragmentActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        context = getApplicationContext();
+        mContext = getApplicationContext();
         setContentView(setContent());
         getIntentData();
         initViews();

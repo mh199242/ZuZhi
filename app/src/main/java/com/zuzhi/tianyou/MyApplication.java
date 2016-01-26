@@ -2,8 +2,6 @@ package com.zuzhi.tianyou;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.Handler;
 
@@ -31,7 +29,7 @@ public class MyApplication extends Application {
 //    //用户信息bean
 //    public static UserBean user;
     //图片显示设置
-    public static DisplayImageOptions dis_imgoptions;
+    public static DisplayImageOptions dis_ImgOptions;
 
 
     // /data/data/[packagename]/cache目录，存放一些其他缓存 File cache = getCacheDir();
@@ -156,8 +154,8 @@ public class MyApplication extends Application {
 
     private void initImageLoader() {
         // TODO Auto-generated method stub
-        dis_imgoptions = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.drawable.ic_stub) // 设置图片下载期间显示的图片
+        dis_ImgOptions = new DisplayImageOptions.Builder()
+//                .showImageOnLoading(R.drawable.empty) // 设置图片下载期间显示的图片
 //                .showImageForEmptyUri(R.drawable.ic_empty) // 设置图片Uri为空或是错误的时候显示的图片
 //                .showImageOnFail(R.drawable.ic_error) // 设置图片加载或解码过程中发生错误显示的图片
                 .resetViewBeforeLoading(false)  // default 设置图片在加载前是否重置、复位

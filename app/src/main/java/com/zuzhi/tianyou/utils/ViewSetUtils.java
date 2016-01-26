@@ -69,7 +69,7 @@ public class ViewSetUtils {
      * @param w       宽比
      * @param h       高比
      */
-    public static void setViewHeigh(Context context, View view, int w, int h) {
+    public static void setViewHeigh(Context context, View view, float w, float h) {
         DisplayMetrics metrics = new DisplayMetrics();
         WindowManager windowManager = ((Activity) context).getWindowManager();
         windowManager.getDefaultDisplay().getMetrics(metrics);

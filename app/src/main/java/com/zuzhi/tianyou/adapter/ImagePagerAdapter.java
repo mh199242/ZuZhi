@@ -76,10 +76,10 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         } else {
             holder = (ViewHolder) view.getTag();
         }
-        holder.imageView.setScaleType(ScaleType.CENTER_CROP);
+        holder.imageView.setScaleType(ScaleType.FIT_XY);
         ImageLoader.getInstance().displayImage(
                 imageIdList.get(getPosition(position)).getUrl(),
-                holder.imageView, MyApplication.dis_imgoptions);
+                holder.imageView, MyApplication.dis_ImgOptions);
 
         return view;
     }

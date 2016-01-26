@@ -204,4 +204,19 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             mHandler.sendMessage(msg);
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //高德地图
+        if (null != locationClient) {
+            /**
+             * 如果AMapLocationClient是在当前Activity实例化的，
+             * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
+             */
+            locationClient.onDestroy();
+            locationClient = null;
+            locationOption = null;
+        }
+    }
 }

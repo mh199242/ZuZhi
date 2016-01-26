@@ -43,7 +43,7 @@
     <string name="other">其他</string>
     <string name="complete">完成</string>
     <string name="cancel">取消</string>
-    <string name="click_agin_to_exit">再按一次退出程序</string>
+    <string name="click_again_to_exit">再按一次退出程序</string>
     <string name="alert_cellphone_already_exist">该手机号已被使用，继续注册将会与原账号解绑。如果您希望使用原账号，请返回登录页直接登录。是否继续注册？</string>
     <string name="index">首页</string>
     <string name="my">我的</string>
@@ -52,4 +52,13 @@
     <string name="search">搜索</string>
     <string name="product">商品</string>
     <string name="go_to_index">去首页逛逛>></string>
+    <string name="nearly_visit">最近访问：</string>
+    <string name="online_service">在线客服</string>
+    <string name="phone_contect">电话联系</string>
+    <string name="consult">顾问咨询</string>
+    <string name="ipo">上市服务</string>
+    <string name="business_proxy">商务代理</string>
+    <string name="gold_master">金牌专家</string>
+    <string name="hot_service">热门服务</string>
+
 </resources>

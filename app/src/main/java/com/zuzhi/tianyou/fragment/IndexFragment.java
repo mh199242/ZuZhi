@@ -1,18 +1,22 @@
 package com.zuzhi.tianyou.fragment;
 
+import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
+import com.zuzhi.tianyou.adapter.recyclerviewadapter.NearlyVisitAdapter;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.bean.BannerImageBaseBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
@@ -20,6 +24,8 @@ import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 import com.zuzhi.tianyou.views.AutoScrollViewPager;
+
+import android.os.Handler;
 
 
 import java.util.ArrayList;
@@ -44,6 +50,35 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     private AutoScrollViewPager asvp_banner;
 
+    /**
+     * list of banner pointer 轮播指示器列表
+     */
+    private List<ImageView> list_bannerPointer = new ArrayList<ImageView>();
+
+    /**
+     * banner pointer 轮播指示器
+     */
+    private LinearLayout ll_pointer_banner;
+
+    /**
+     * handler 消息分发者
+     */
+    private Handler mHandler;
+
+    /**
+     * position of banner pointer 轮播指示器下标
+     */
+    private int i_bannerPointerIndex;
+
+    /**
+     * tag of download banner 轮播图组下载tag
+     */
+    private boolean b_bannerDownload = false;
+
+    /**
+     * recyclerview of nearly visit 最近访问列表
+     */
+    private RecyclerView rv_nearly_visit;
 
     @Override
     protected void initTitleBar(View view) {
@@ -62,10 +97,22 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void initView(View view) {
-        asvp_banner = (AutoScrollViewPager) view.findViewById(R.id.asvp_index);
+        //init data
+        ArrayList<HashMap<String, Object>> mData = new ArrayList<HashMap<String, Object>>();
+        for (int i = 0;i < 10;i ++){
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("string", "最近访问" + i);
+            mData.add(map);
+        }
+        asvp_banner = (AutoScrollViewPager) view.findViewById(R.id.asvp_banner);
+        ll_pointer_banner = (LinearLayout) view.findViewById(R.id.ll_pointer_banner);
+        rv_nearly_visit = (RecyclerView) view.findViewById(R.id.rv_nearly_visit);
 
+        NearlyVisitAdapter adapter = new NearlyVisitAdapter(getContext(), mData);
+        rv_nearly_visit.setAdapter(adapter);
+        rv_nearly_visit.setLayoutManager(new LinearLayoutManager(getContext(), 0, false));
         //set the proportion of autoscrollviewpager 设置轮播宽高比
-        ViewSetUtils.setViewHeigh(getContext(), asvp_banner, 2, 1);
+        ViewSetUtils.setViewHeigh(getContext(), asvp_banner, 2.5f, 1);
         getImage();
 
     }
@@ -89,10 +136,36 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         asvp_banner.startAutoScroll();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        asvp_banner.stopAutoScroll();
+    }
+
     /**
      * get image for net 联网获取轮播图
      */
     private void getImage() {
+
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    //complete download 下载完毕
+                    case 0x01:
+                        b_bannerDownload = true;
+                        setBanner();
+                        break;
+                    //banner scroll message 轮播图滚动
+                    case 0x02:
+                        if (b_bannerDownload) {
+                            setBannerIndex(ll_pointer_banner, (i_bannerPointerIndex) % list_Entity_Banner.size());
+                        }
+                        break;
+
+                }
+            }
+        };
 
         String url = "http://byh.qweweq.com/index.php/App/index/banner";
 
@@ -107,7 +180,9 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                         BannerImageBaseBean bean = MyApplication.gson.fromJson(response, BannerImageBaseBean.class);
                         List<ImageEntity> list = bean.data;
                         list_Entity_Banner.addAll(list);
-                        setBanner();
+                        Message msg = Message.obtain();
+                        msg.what = 0x01;
+                        mHandler.sendMessage(msg);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -126,13 +201,55 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     private void setBanner() {
         // TODO Auto-generated method stub
-        asvp_banner.setAdapter(new ImagePagerAdapter(context, list_Entity_Banner).setInfiniteLoop(true));
+        asvp_banner.setAdapter(new ImagePagerAdapter(getContext(), list_Entity_Banner).setInfiniteLoop(true));
         asvp_banner.setOnPageChangeListener(new MyOnPageChangeListener());
         asvp_banner.setInterval(5000);
         asvp_banner.startAutoScroll();
         asvp_banner.setCurrentItem(100 - 100 % list_Entity_Banner.size());
+        setBannerIndex(ll_pointer_banner, 0);
     }
 
+
+    /**
+     * set banner index 设置banner下标
+     *
+     * @param viewgroup view group of banner pointer 轮播指示器容器
+     * @param position  current position 当前位置
+     * @return
+     */
+    private List<ImageView> setBannerIndex(LinearLayout viewgroup, int position) {
+
+        int size = list_Entity_Banner == null ? 0 : list_Entity_Banner.size();
+
+        if (size == 0)
+            return null;
+
+        viewgroup.removeAllViews();
+
+        for (int i = 0; i < size; i++) {
+
+            ImageView iv_temp = new ImageView(getContext());
+            iv_temp.setLayoutParams(new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            iv_temp.setPadding(5, 0, 5, 0);
+            iv_temp.setMinimumHeight((int) ViewSetUtils.px2dp(getContext(), 15));
+            iv_temp.setMaxHeight((int) ViewSetUtils.px2dp(getContext(), 15));
+            iv_temp.setMinimumWidth((int) ViewSetUtils.px2dp(getContext(), 15));
+            iv_temp.setMaxWidth((int) ViewSetUtils.px2dp(getContext(), 15));
+
+            if (i == position) {
+                iv_temp.setImageResource(R.drawable.bp_focus);
+            } else {
+                iv_temp.setImageResource(R.drawable.bp_disable);
+            }
+
+            list_bannerPointer.add(iv_temp);
+
+            viewgroup.addView(iv_temp);
+        }
+
+        return list_bannerPointer;
+    }
 
     /**
      * banner's listener 轮播图监听
@@ -143,7 +260,11 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
         @Override
         public void onPageSelected(int position) {
-//            setGalleryIndex(layout, (position) % imageIdList.size());
+            i_bannerPointerIndex = position;
+
+            Message msg = Message.obtain();
+            msg.what = 0x02;
+            mHandler.sendMessage(msg);
         }
 
         @Override
