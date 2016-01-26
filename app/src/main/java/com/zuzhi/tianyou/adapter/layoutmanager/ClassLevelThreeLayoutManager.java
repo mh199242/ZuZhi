@@ -1,4 +1,4 @@
-package com.zuzhi.tianyou.layoutmanager;
+package com.zuzhi.tianyou.adapter.layoutmanager;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
@@ -7,17 +7,15 @@ import android.support.v7.widget.RecyclerView.State;
 import android.view.View;
 import android.view.View.MeasureSpec;
 
-import com.zuzhi.tianyou.utils.ViewSetUtils;
-
 
 /**
  * Created by Administrator on 2015/12/20.
  */
-public class SelectPerfessionLayoutManager extends GridLayoutManager {
+public class ClassLevelThreeLayoutManager extends GridLayoutManager {
     int mSpanCount, mSize;
     Context mContext;
 
-    public SelectPerfessionLayoutManager(Context context, int spanCount, int size) {
+    public ClassLevelThreeLayoutManager(Context context, int spanCount, int size) {
         super(context, spanCount);
         mSpanCount = spanCount;
         mSize = size;
@@ -32,11 +30,10 @@ public class SelectPerfessionLayoutManager extends GridLayoutManager {
             int measuredWidth = MeasureSpec.getSize(widthSpec);
             int measuredHeight = view.getMeasuredHeight();
             if (mSize % mSpanCount != 0) {
-                setMeasuredDimension(measuredWidth, measuredHeight * ((mSize / mSpanCount) + 1) + ViewSetUtils.dp2px(mContext, 15) * (mSize / mSpanCount) + ViewSetUtils.dp2px(mContext, 20));
+                setMeasuredDimension(measuredWidth, measuredHeight * ((mSize / mSpanCount) + 1));
             } else {
-                setMeasuredDimension(measuredWidth, measuredHeight * (mSize / mSpanCount) + ViewSetUtils.dp2px(mContext, 15) * ((mSize / mSpanCount) - 1) + ViewSetUtils.dp2px(mContext, 20));
+                setMeasuredDimension(measuredWidth, measuredHeight * (mSize / mSpanCount));
             }
-
         }
     }
 }

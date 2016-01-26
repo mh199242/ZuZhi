@@ -60,6 +60,7 @@ public abstract class BaseFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		activity = getActivity();
+		context = getContext();
 	}
 
 	@Override

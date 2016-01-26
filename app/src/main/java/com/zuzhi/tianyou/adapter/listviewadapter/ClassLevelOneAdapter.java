@@ -1,4 +1,4 @@
-package com.zuzhi.tianyou.listviewadapter;
+package com.zuzhi.tianyou.adapter.listviewadapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

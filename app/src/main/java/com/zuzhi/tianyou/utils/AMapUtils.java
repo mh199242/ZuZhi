@@ -41,7 +41,7 @@ public class AMapUtils {
         StringBuffer sb = new StringBuffer();
         //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
         if (location.getErrorCode() == 0) {
-            sb.append(location.getProvince().substring(0, location.getProvince().length() - 1));
+            sb.append(location.getCity());
         } else {
             //定位失败
             sb.append("失败");

@@ -1,6 +1,7 @@
 package com.zuzhi.tianyou;
 
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.zuzhi.tianyou.activity.MapActivity;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.fragment.ClassFragment;
@@ -55,6 +57,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      */
     private RadioGroup rg_main;
 
+    /**
+     * intent 意图
+     */
+    private Intent mIntent;
     //amap unit 高德地图组件相关
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
@@ -113,6 +119,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         ll_title_bar_search.setVisibility(View.VISIBLE);
 
 
+        tv_title_bar_city.setOnClickListener(this);
+
         locationClient = new AMapLocationClient(getApplicationContext());
         locationOption = new AMapLocationClientOption();
 
@@ -121,7 +129,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         // set location listener 设置定位监听
         locationClient.setLocationListener(this);
         // keep location times 持续定位或单次定位
-        locationOption.setOnceLocation(false);
+        locationOption.setOnceLocation(true);
         // set location params 设置定位参数
         locationClient.setLocationOption(locationOption);
         // start location 启动定位
@@ -177,6 +185,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             case R.id.ll_title_bar_left:
             case R.id.bt_title_bar_left:
                 finish();
+                break;
+            //city 城市
+            case R.id.tv_title_bar_city:
+                mIntent = new Intent(this, MapActivity.class);
+                startActivity(mIntent);
                 break;
         }
     }

@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.itemdecoration.SelectProfessionItemDecoration;
-import com.zuzhi.tianyou.layoutmanager.SelectPerfessionLayoutManager;
-import com.zuzhi.tianyou.recyclerviewadapter.SelectProfessionAdapter;
+import com.zuzhi.tianyou.adapter.layoutmanager.SelectPerfessionLayoutManager;
+import com.zuzhi.tianyou.adapter.recyclerviewadapter.SelectProfessionAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

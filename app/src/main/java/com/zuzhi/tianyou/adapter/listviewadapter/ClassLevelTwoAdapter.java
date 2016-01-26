@@ -1,4 +1,4 @@
-package com.zuzhi.tianyou.listviewadapter;
+package com.zuzhi.tianyou.adapter.listviewadapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
-import com.zuzhi.tianyou.layoutmanager.ClassLevelThreeLayoutManager;
-import com.zuzhi.tianyou.recyclerviewadapter.ClassLevelThreeAdapter;
+import com.zuzhi.tianyou.adapter.layoutmanager.ClassLevelThreeLayoutManager;
+import com.zuzhi.tianyou.adapter.recyclerviewadapter.ClassLevelThreeAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

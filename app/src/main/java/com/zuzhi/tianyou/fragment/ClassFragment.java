@@ -7,8 +7,8 @@ import android.widget.ListView;
 
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseFragment;
-import com.zuzhi.tianyou.listviewadapter.ClassLevelOneAdapter;
-import com.zuzhi.tianyou.listviewadapter.ClassLevelTwoAdapter;
+import com.zuzhi.tianyou.adapter.listviewadapter.ClassLevelOneAdapter;
+import com.zuzhi.tianyou.adapter.listviewadapter.ClassLevelTwoAdapter;
 
 
 import java.util.ArrayList;
