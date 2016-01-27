@@ -74,8 +74,6 @@ public class Cons {
     public final static String CACHE_IMAGE_DIR = "ZuZhi/ImgCache";
 
 
-
-
     /**
      * 手机号验证
      *
@@ -91,5 +89,32 @@ public class Cons {
         b = m.matches();
         return b;
     }
+
+    /**
+     * test data of index guide 首页导航测试数据
+     */
+    public static String[] STRARR_INDEX_GUIDE = new String[]{
+            "商务代理", "鉴证业务", "策划咨询", "兼并上市", "小微企业", "中大企业",
+            "上市公司", "自营业务"
+    };
+
+    public static int[] ID_DRAWABLE_INDEX_GUIDE = new int[]{
+            R.drawable.home_module1, R.drawable.home_module2, R.drawable.home_module3,
+            R.drawable.home_module4, R.drawable.home_module5, R.drawable.home_module6,
+            R.drawable.home_module7, R.drawable.home_module8
+    };
+
+    /**
+     * test data of index report 首页鉴证报告测试数据
+     */
+    public static String[][] STRARR_INDEX_REPORT_TITLE = new String[][]{
+            {"验资报告", "审计报告", "税审报告"},
+            {"验资报告", "审计报告", "税审报告"}
+    };
+
+    public static String[][] STRARR_INDEX_REPORT_INFO = new String[][]{
+            {"财税服务省力省心", "财税服务省力省心", "财税服务省力省心"},
+            {"财税服务省力省心", "财税服务省力省心", "财税服务省力省心"}
+    };
 
 }

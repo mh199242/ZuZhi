@@ -2,8 +2,10 @@ package com.zuzhi.tianyou.fragment;
 
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,7 +18,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
+import com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexGuideAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.NearlyVisitAdapter;
+import com.zuzhi.tianyou.adapter.viewpageradapter.IndexConsultAapter;
+import com.zuzhi.tianyou.adapter.viewpageradapter.IndexGuideAapter;
+import com.zuzhi.tianyou.adapter.viewpageradapter.IndexIPOAapter;
+import com.zuzhi.tianyou.adapter.viewpageradapter.IndexProxyAdapter;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.bean.BannerImageBaseBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
@@ -80,6 +87,74 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     private RecyclerView rv_nearly_visit;
 
+    /**
+     * recyclerview of guide 导航栏列表
+     */
+    private RecyclerView rv_guide;
+
+    /**
+     * viewpager of report 鉴证报告页卡
+     */
+    private ViewPager vp_report;
+
+    /**
+     * viewpager of consult 顾问咨询页卡
+     */
+    private ViewPager vp_consult;
+
+    /**
+     * viewpager of ipo 上市服务页卡
+     */
+    private ViewPager vp_ipo;
+
+    /**
+     * viewpager of business proxy 商务代理页卡
+     */
+    private ViewPager vp_proxy;
+
+    /**
+     * viewpager of gold master 金牌专家页卡
+     */
+    private ViewPager vp_master;
+
+
+
+    /**
+     * view list of report viewpager 鉴证报告页卡view列表
+     */
+    private ArrayList<View> list_reportViews = new ArrayList<View>();
+
+    /**
+     * view list of report viewpager 顾问咨询页卡view列表
+     */
+    private ArrayList<View> list_consultViews = new ArrayList<View>();
+
+    /**
+     * view list of business proxy 商务代理view列表
+     */
+    private ArrayList<View> list_proxyViews = new ArrayList<View>();
+
+    /**
+     * view list of ipo viewpager 上市服务页卡view列表
+     */
+    private ArrayList<View> list_ipoViews = new ArrayList<View>();
+
+    /**
+     * view list of master viewpager 金牌专家页卡view列表
+     */
+    private ArrayList<View> list_masterViews = new ArrayList<View>();
+
+    /**
+     * item layout of report viewpager 鉴证报告页卡item布局
+     */
+    private LinearLayout ll_index_report;
+
+    /**
+     * item layout of consult viewpager 顾问咨询页卡item布局
+     */
+    private LinearLayout ll_index_consult;
+
+
     @Override
     protected void initTitleBar(View view) {
 
@@ -97,20 +172,97 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void initView(View view) {
-        //init data
-        ArrayList<HashMap<String, Object>> mData = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0;i < 10;i ++){
+        //init nearly visti test data
+        ArrayList<HashMap<String, Object>> data_nearlyVisit = new ArrayList<HashMap<String, Object>>();
+        for (int i = 0; i < 10; i++) {
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("string", "最近访问" + i);
-            mData.add(map);
+            data_nearlyVisit.add(map);
         }
+
+        //init guide test data
+        ArrayList<HashMap<String, Object>> data_guide = new ArrayList<HashMap<String, Object>>();
+        for (int i = 0; i < Cons.STRARR_INDEX_GUIDE.length; i++) {
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("string", Cons.STRARR_INDEX_GUIDE[i]);
+            map.put("image", getResources().getDrawable(Cons.ID_DRAWABLE_INDEX_GUIDE[i]));
+            data_guide.add(map);
+        }
+
+
+        //find views
         asvp_banner = (AutoScrollViewPager) view.findViewById(R.id.asvp_banner);
         ll_pointer_banner = (LinearLayout) view.findViewById(R.id.ll_pointer_banner);
         rv_nearly_visit = (RecyclerView) view.findViewById(R.id.rv_nearly_visit);
+        rv_guide = (RecyclerView) view.findViewById(R.id.rv_index_guide);
+        vp_report = (ViewPager) view.findViewById(R.id.vp_index_report);
+        vp_consult = (ViewPager) view.findViewById(R.id.vp_index_consult);
+        vp_ipo = (ViewPager) view.findViewById(R.id.vp_index_ipo);
+        vp_proxy = (ViewPager) view.findViewById(R.id.vp_index_proxy);
+        vp_master = (ViewPager) view.findViewById(R.id.vp_index_master);
 
-        NearlyVisitAdapter adapter = new NearlyVisitAdapter(getContext(), mData);
-        rv_nearly_visit.setAdapter(adapter);
+        ll_index_consult = (LinearLayout) LayoutInflater.from(getContext()).
+                inflate(R.layout.item_viewpager_index_consult, null);
+        ll_index_report = (LinearLayout) LayoutInflater.from(getContext()).
+                inflate(R.layout.item_viewpager_index_report, null);
+//        //log the single view'width in viewpager 记录页卡中单个view的测量宽度
+//        i_singleWidth_reprotViewPaer = ll_index_report.
+//                findViewById(R.id.ll_item_viepager_index_report1).getMeasuredWidth();
+//        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.MATCH_PARENT);
+//        params.height = i_singleWidth_reprotViewPaer;
+//init report test data
+        ArrayList<HashMap<String, Object>> data_report = new ArrayList<HashMap<String, Object>>();
+        for (int i = 0; i < Cons.STRARR_INDEX_REPORT_TITLE.length; i++) {
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("title", Cons.STRARR_INDEX_REPORT_TITLE[i]);
+            map.put("info", Cons.STRARR_INDEX_REPORT_INFO[i]);
+            map.put("image", getResources().getDrawable(R.drawable.temp_vp_report2));
+            data_guide.add(map);
+            View v_tempReport = LayoutInflater.from(
+                    getContext()).
+                    inflate(R.layout.item_viewpager_index_report, null);
+            list_reportViews.add(v_tempReport);
+
+            View v_tempConsult = LayoutInflater.from(
+                    getContext()).
+                    inflate(R.layout.item_viewpager_index_consult, null);
+            list_consultViews.add(v_tempConsult);
+
+            View v_tempIpo = LayoutInflater.from(
+                    getContext()).
+                    inflate(R.layout.item_viewpager_index_report, null);
+            list_ipoViews.add(v_tempIpo);
+
+            View v_tempPorxy = LayoutInflater.from(
+                    getContext()).
+                    inflate(R.layout.item_viewpager_index_consult, null);
+            list_proxyViews.add(v_tempPorxy);
+
+            View v_tempMaster = LayoutInflater.from(
+                    getContext()).
+                    inflate(R.layout.item_viewpager_index_report, null);
+            list_masterViews.add(v_tempMaster);
+        }
+        //set adapters
+        vp_report.setAdapter(new IndexGuideAapter(list_reportViews));
+
+        vp_consult.setAdapter(new IndexConsultAapter(list_consultViews));
+
+        vp_ipo.setAdapter(new IndexIPOAapter(list_ipoViews));
+
+        vp_proxy.setAdapter(new IndexProxyAdapter(list_proxyViews));
+
+        vp_master.setAdapter(new IndexIPOAapter(list_masterViews));
+
+        NearlyVisitAdapter adp_nearlyVisit = new NearlyVisitAdapter(getContext(), data_nearlyVisit);
+        rv_nearly_visit.setAdapter(adp_nearlyVisit);
         rv_nearly_visit.setLayoutManager(new LinearLayoutManager(getContext(), 0, false));
+
+        IndexGuideAdapter adp_guide = new IndexGuideAdapter(getContext(), data_guide);
+        rv_guide.setAdapter(adp_guide);
+        rv_guide.setLayoutManager(new GridLayoutManager(getContext(), 4));
+
         //set the proportion of autoscrollviewpager 设置轮播宽高比
         ViewSetUtils.setViewHeigh(getContext(), asvp_banner, 2.5f, 1);
         getImage();

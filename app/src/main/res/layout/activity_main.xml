@@ -41,7 +41,7 @@
                 android:padding="0dp"
                 android:text="@string/index"
                 android:textColor="@drawable/text_main_radio"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_size_level_four" />
 
             <RadioButton
                 android:id="@+id/rb_main_service"
@@ -54,7 +54,7 @@
                 android:padding="0dp"
                 android:text="@string/service"
                 android:textColor="@drawable/text_main_radio"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_size_level_four" />
 
 
             <RadioButton
@@ -68,7 +68,7 @@
                 android:padding="0dp"
                 android:text="@string/tender"
                 android:textColor="@drawable/text_main_radio"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_size_level_four" />
 
 
             <RadioButton
@@ -82,7 +82,7 @@
                 android:padding="0dp"
                 android:text="@string/my"
                 android:textColor="@drawable/text_main_radio"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_size_level_four" />
         </RadioGroup>
     </LinearLayout>
 </LinearLayout>

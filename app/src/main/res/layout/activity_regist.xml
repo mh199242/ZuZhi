@@ -132,7 +132,7 @@
                 android:background="@drawable/button_focus_identifying_code"
                 android:text="@string/get_identifying_code"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_size_level_four" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -155,7 +155,7 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:gravity="left"
-                android:text="@string/enter_password"
+                android:text="@string/password"
                 android:textColor="@color/color_normal_text"
                 android:textSize="@dimen/font_size_level_two" />
 
@@ -185,7 +185,7 @@
                 android:background="@drawable/button_regist_show_password"
                 android:text="@string/show_password"
                 android:textColor="@drawable/text_regist_identifying_code"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_size_level_four" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -213,7 +213,7 @@
                 android:layout_marginLeft="6dp"
                 android:text="@string/regist_toast_1"
                 android:textColor="@color/color_text_hint"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_size_level_four" />
 
 
             <TextView
@@ -224,7 +224,7 @@
                 android:layout_marginLeft="6dp"
                 android:text="@string/regist_toast_2"
                 android:textColor="@color/color_bg_button_main_normal"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_size_level_four" />
         </LinearLayout>
 
         <LinearLayout

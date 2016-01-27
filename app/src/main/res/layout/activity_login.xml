@@ -98,7 +98,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="@string/forget_password"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_size_level_four" />
 
             <TextView
                 android:id="@+id/tv_login_regist_quickly"
@@ -108,7 +108,7 @@
                 android:layout_centerVertical="true"
                 android:text="@string/regist_quickly"
                 android:textColor="@color/color_normal_text"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_size_level_four" />
 
 
         </RelativeLayout>

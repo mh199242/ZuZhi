@@ -1,37 +1,287 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_fragment_index"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/color_bg_identifying_code_disable"
+    android:scrollbars="none">
 
-    <include layout="@layout/banner" />
     <LinearLayout
-        android:paddingLeft="9dp"
-        android:paddingRight="9dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:id="@+id/ll_fragment_index"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/color_bg_identifying_code_disable"
-        android:layout_height="@dimen/height_button_identifying_code">
-        <ImageView
-            android:background="@drawable/home_record"
-            android:layout_width="24dp"
-            android:layout_height="24dp" />
-        <TextView
-            android:layout_marginLeft="9dp"
-            android:textColor="@color/color_text_hint"
-            android:text="@string/nearly_visit"
-            android:textSize="@dimen/font_size_level_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <android.support.v7.widget.RecyclerView
-            android:overScrollMode="never"
-            android:id="@+id/rv_nearly_visit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
 
+        <include layout="@layout/banner" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_button_identifying_code"
+            android:background="@color/color_bg_identifying_code_disable"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_index"
+            android:paddingRight="@dimen/padding_index">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/home_record" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_index"
+                android:text="@string/nearly_visit"
+                android:textColor="@color/color_text_hint"
+                android:textSize="@dimen/font_size_level_three" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_nearly_visit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"></android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_index_guide"
+            android:layout_width="match_parent"
+            android:layout_height="158dp"
+            android:background="@color/color_white"
+            tools:listitem="@layout/item_recyclerview_index_guide" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_separation_line"
+            android:background="@color/color_separation_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="@dimen/margin_edit_follow_items"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_index_online_service"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/home_service" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:text="@string/online_service"
+                    android:textColor="@color/color_text_hint"
+                    android:textSize="@dimen/font_size_class_level" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_index_phone_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/height_separation_line"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/home_phone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:text="@string/phone_contect"
+                    android:textColor="@color/color_text_hint"
+                    android:textSize="@dimen/font_size_class_level" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_separation_line"
+            android:background="@color/color_separation_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="@dimen/margin_edit_follow_items"
+            android:background="@color/color_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_bg_button_main_normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="@string/report"
+                android:textColor="@color/color_normal_text" />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_index_report"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/height_separation_line"
+            android:background="@color/color_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_separation_line"
+            android:background="@color/color_separation_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="@dimen/margin_edit_follow_items"
+            android:background="@color/color_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_bg_button_main_normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="@string/consult"
+                android:textColor="@color/color_normal_text" />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_index_consult"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/height_separation_line"
+            android:background="@color/color_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_separation_line"
+            android:background="@color/color_separation_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="@dimen/margin_edit_follow_items"
+            android:background="@color/color_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_bg_button_main_normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="@string/ipo"
+                android:textColor="@color/color_normal_text" />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_index_ipo"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/height_separation_line"
+            android:background="@color/color_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_separation_line"
+            android:background="@color/color_separation_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="@dimen/margin_edit_follow_items"
+            android:background="@color/color_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_bg_button_main_normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="@string/business_proxy"
+                android:textColor="@color/color_normal_text" />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_index_proxy"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/height_separation_line"
+            android:background="@color/color_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_separation_line"
+            android:background="@color/color_separation_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="@dimen/margin_edit_follow_items"
+            android:background="@color/color_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_bg_button_main_normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="@string/gold_master"
+                android:textColor="@color/color_normal_text" />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_index_master"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/height_separation_line"
+            android:background="@color/color_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_separation_line"
+            android:background="@color/color_separation_line" />
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
+

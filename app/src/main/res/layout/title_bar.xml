@@ -49,7 +49,7 @@
                 android:gravity="center"
                 android:text="杭州"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/font_size_level_three"
+                android:textSize="@dimen/font_size_level_four"
                 android:visibility="gone" />
 
             <TextView
@@ -84,7 +84,7 @@
                     android:gravity="center"
                     android:text="@string/product"
                     android:textColor="@color/color_text_hint"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_size_level_four" />
 
                 <ImageView
                     android:layout_width="15dp"
@@ -107,7 +107,7 @@
                     android:textColor="@color/color_black"
                     android:textColorHint="@color/color_text_hint_default_search"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_size_level_four" />
 
                 <Button
                     android:layout_width="30dp"
@@ -134,7 +134,7 @@
                     android:minWidth="@dimen/height_title_bar"
                     android:text="@string/search"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_size_level_four" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

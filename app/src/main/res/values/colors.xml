@@ -25,6 +25,9 @@
     <!--disable color of identifying code background 验证码钮不可获取文本色-->
     <color name="color_text_identifying_code_disable">#888888</color>
 
+    <!--background color of empty image 图片为空时背景颜色-->
+    <color name="color_background_empty_image">#f7f7f7</color>
+
     <!--white 白色-->
     <color name="color_white">#ffffff</color>
     <!--black 黑色-->

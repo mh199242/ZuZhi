@@ -65,7 +65,7 @@
             <Button
                 android:id="@+id/bt_find_password_identifying_code"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/font_size_level_three"
+                android:textSize="@dimen/font_size_level_four"
                 android:text="@string/get_identifying_code"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"

@@ -5,6 +5,8 @@
 
     <!--main padding 主内边距-->
     <dimen name="padding_main">17dp</dimen>
+    <!--index padding 首页内边距-->
+    <dimen name="padding_index">9dp</dimen>
     <!--margin of edit text icon and edit text 输入框图片与文字区间距-->
     <dimen name="margin_edit_icon_text">20dp</dimen>
     <!--margin of edit text and follow items 文字编辑框与下方附属项边距-->
@@ -88,7 +90,9 @@
     <!--font size of level two 二级字号-->
     <dimen name="font_size_level_two">15dp</dimen>
     <!--font size of level three 三级字号-->
-    <dimen name="font_size_level_three">12dp</dimen>
+    <dimen name="font_size_level_three">13dp</dimen>
+    <!--font size of level four 四级字号-->
+    <dimen name="font_size_level_four">12dp</dimen>
     <!--font size of class level 服务类目字号-->
     <dimen name="font_size_class_level">14dp</dimen>
 </resources>
