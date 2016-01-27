@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 /**
- * adater of index business proxy viewpager 首页商务代理页卡适配器
+ * adater of index topic viewpager 首页推荐页卡适配器
  * Created by 超 on 2016/1/27.
  */
-public class IndexProxyAdapter extends PagerAdapter {
+public class IndexTopicAdapter extends PagerAdapter {
     /**
      * viewgroup source 容器源
      */
@@ -21,7 +21,7 @@ public class IndexProxyAdapter extends PagerAdapter {
      * constructor of adapter 适配器构造器
      * @param views view列表
      */
-    public IndexProxyAdapter(ArrayList<View> views){
+    public IndexTopicAdapter(ArrayList<View> views){
         mVies = views;
     }
     //viewpager中的组件数量

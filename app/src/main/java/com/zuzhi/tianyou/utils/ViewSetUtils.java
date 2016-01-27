@@ -2,6 +2,7 @@ package com.zuzhi.tianyou.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -151,6 +152,23 @@ public class ViewSetUtils {
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1)) +
                 listItem.getMeasuredHeight() * (listAdapter.getCount());
         listView.setLayoutParams(params);
+    }
+
+    /**
+     * 计算recyclerview高度
+     *
+     * @param recyclerView
+     */
+    public static void setRecyclverViewHeightBasedOnChildren(RecyclerView recyclerView) {
+        // 获取RecyclerView对应的Adapter
+        RecyclerView.Adapter recyclerViewAdapter = recyclerView.getAdapter();
+        if (recyclerViewAdapter == null) {
+            return;
+        }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        params.height = recyclerView.getMeasuredHeight();
+        recyclerView.setLayoutParams(params);
     }
 
 

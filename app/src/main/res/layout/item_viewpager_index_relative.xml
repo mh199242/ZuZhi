@@ -3,12 +3,12 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="150dp"
     android:layout_weight="3"
     android:background="@color/color_bg_identifying_code_disable"
     android:orientation="horizontal">
     <LinearLayout
-        android:id="@+id/ll_item_viepager_index_consult1"
+        android:id="@+id/ll_item_viepager_topic_relative1"
         android:background="@color/color_white"
         android:layout_weight="1"
         android:orientation="vertical"
@@ -17,6 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent">
         <TextView
+            android:id="@+id/tv_item_viepager_topic_title_relative1"
             android:layout_marginTop="@dimen/margin_edit_follow_items"
             android:text="财会咨询"
             android:textSize="@dimen/font_size_class_level"
@@ -24,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_item_viepager_topic_info_relative1"
             android:layout_marginTop="5dp"
             android:text="高效开发"
             android:textSize="@dimen/font_size_level_four"
@@ -32,6 +34,7 @@
             android:layout_height="wrap_content" />
         
         <ImageView
+            android:id="@+id/iv_item_viepager_topic_img_relative1"
             android:layout_marginTop="4dp"
             android:scaleType="centerCrop"
             android:background="@drawable/temp_vp_consult1"
@@ -46,7 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent">
         <RelativeLayout
-            android:id="@+id/rl_item_viepager_index_consult2"
+            android:id="@+id/rl_item_viepager_topic_relative2"
             android:layout_marginLeft="@dimen/height_separation_line"
             android:background="@color/color_white"
             android:layout_weight="1"
@@ -55,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tv_consult2_title"
+                android:id="@+id/tv_item_viepager_topic_title_relative2"
                 android:layout_marginTop="@dimen/margin_edit_follow_items"
                 android:text="税务咨询"
                 android:textSize="@dimen/font_size_class_level"
@@ -63,8 +66,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/tv_consult2_info"
-                android:layout_below="@+id/tv_consult2_title"
+                android:id="@+id/tv_item_viepager_topic_info_relative2"
+                android:layout_below="@+id/tv_item_viepager_topic_title_relative2"
                 android:layout_marginTop="5dp"
                 android:text="财税服务省力省心"
                 android:textSize="@dimen/font_size_level_four"
@@ -73,6 +76,7 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:id="@+id/iv_item_viepager_topic_img_relative2"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="4dp"
                 android:scaleType="centerCrop"
@@ -83,7 +87,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rl_item_viepager_index_consult3"
+            android:id="@+id/rl_item_viepager_topic_relative3"
             android:layout_marginLeft="@dimen/height_separation_line"
             android:background="@color/color_white"
             android:layout_marginTop="@dimen/height_separation_line"
@@ -93,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tv_consult3_title"
+                android:id="@+id/tv_item_viepager_topic_title_relative3"
                 android:layout_marginTop="@dimen/margin_edit_follow_items"
                 android:text="投资咨询"
                 android:textSize="@dimen/font_size_class_level"
@@ -101,8 +105,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/tv_consult3_info"
-                android:layout_below="@+id/tv_consult3_title"
+                android:id="@+id/tv_item_viepager_topic_info_relative3"
+                android:layout_below="@+id/tv_item_viepager_topic_title_relative3"
                 android:layout_marginTop="5dp"
                 android:text="财税服务省力省心"
                 android:textSize="@dimen/font_size_level_four"
@@ -111,6 +115,7 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:id="@+id/iv_item_viepager_topic_img_relative3"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="4dp"
                 android:scaleType="centerCrop"

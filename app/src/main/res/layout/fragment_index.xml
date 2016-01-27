@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fillViewport="true"
     android:layout_height="match_parent"
     android:background="@color/color_bg_identifying_code_disable"
     android:scrollbars="none">
@@ -47,6 +48,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:overScrollMode="never"
             android:id="@+id/rv_index_guide"
             android:layout_width="match_parent"
             android:layout_height="158dp"
@@ -117,170 +119,12 @@
             android:layout_height="@dimen/height_separation_line"
             android:background="@color/color_separation_line" />
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_index_topic"
+            tools:listitem="@layout/item_recyclerview_index_topic"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="@dimen/margin_edit_follow_items"
-            android:background="@color/color_white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_bg_button_main_normal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:text="@string/report"
-                android:textColor="@color/color_normal_text" />
-        </LinearLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_index_report"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/height_separation_line"
-            android:background="@color/color_white" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_separation_line"
-            android:background="@color/color_separation_line" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="@dimen/margin_edit_follow_items"
-            android:background="@color/color_white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_bg_button_main_normal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:text="@string/consult"
-                android:textColor="@color/color_normal_text" />
-        </LinearLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_index_consult"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/height_separation_line"
-            android:background="@color/color_white" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_separation_line"
-            android:background="@color/color_separation_line" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="@dimen/margin_edit_follow_items"
-            android:background="@color/color_white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_bg_button_main_normal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:text="@string/ipo"
-                android:textColor="@color/color_normal_text" />
-        </LinearLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_index_ipo"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/height_separation_line"
-            android:background="@color/color_white" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_separation_line"
-            android:background="@color/color_separation_line" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="@dimen/margin_edit_follow_items"
-            android:background="@color/color_white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_bg_button_main_normal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:text="@string/business_proxy"
-                android:textColor="@color/color_normal_text" />
-        </LinearLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_index_proxy"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/height_separation_line"
-            android:background="@color/color_white" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_separation_line"
-            android:background="@color/color_separation_line" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="@dimen/margin_edit_follow_items"
-            android:background="@color/color_white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_bg_button_main_normal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:text="@string/gold_master"
-                android:textColor="@color/color_normal_text" />
-        </LinearLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_index_master"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/height_separation_line"
-            android:background="@color/color_white" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_separation_line"
-            android:background="@color/color_separation_line" />
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 </ScrollView>
