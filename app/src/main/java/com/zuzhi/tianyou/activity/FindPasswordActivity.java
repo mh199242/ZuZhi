@@ -2,11 +2,13 @@ package com.zuzhi.tianyou.activity;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
 
@@ -45,6 +47,9 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initViews() {
+        //add this to exit list
+        MyApplication.getInstance().addActivity(this);
+
         timeCount = new TimeCount(60000, 1000);
 
         bt_identifying_code = (Button) findViewById(R.id.bt_find_password_identifying_code);
@@ -83,7 +88,8 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
             //返回键
             case R.id.ll_title_bar_left:
             case R.id.bt_title_bar_left:
-                finish();
+                intent = new Intent(this, LoginGuideActivity.class);
+                startActivity(intent);
                 break;
             //获取验证码
             case R.id.bt_find_password_identifying_code:
@@ -98,6 +104,14 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            intent = new Intent(this, LoginGuideActivity.class);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     /**
      * CountDownTimer 计数器

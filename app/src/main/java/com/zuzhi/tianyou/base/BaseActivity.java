@@ -178,10 +178,9 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
 
-
-
-
-
-
-
+    @Override
+    protected void onDestroy() {
+        setContentView(R.layout.view_null);
+        super.onDestroy();
+    }
 }

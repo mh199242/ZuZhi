@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bigkoo.alertview.AlertView;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
 
@@ -66,6 +68,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void initViews() {
+        //add this to exit list
+        MyApplication.getInstance().addActivity(this);
+
         timeCount = new TimeCount(60000, 1000);
 
         bt_next_step = (Button) findViewById(R.id.bt_regist_next_step);
@@ -100,12 +105,21 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            intent = new Intent(this, LoginGuideActivity.class);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             //back button 返回键
             case R.id.ll_title_bar_left:
             case R.id.bt_title_bar_left:
-                finish();
+                intent = new Intent(this, LoginGuideActivity.class);
+                startActivity(intent);
                 break;
             //next step button 下一步键
             case R.id.bt_regist_next_step:

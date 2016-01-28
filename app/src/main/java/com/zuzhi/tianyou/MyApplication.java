@@ -1,9 +1,11 @@
 package com.zuzhi.tianyou;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -18,6 +20,11 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.zuzhi.tianyou.utils.Cons;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MyApplication extends Application {
     //debug mode or release mode 是否debug模式
@@ -26,7 +33,7 @@ public class MyApplication extends Application {
     public static Gson gson;
     //Volley请求队列
     public static RequestQueue mVolleyQueue;
-//    //用户信息bean
+    //    //用户信息bean
 //    public static UserBean user;
     //图片显示设置
     public static DisplayImageOptions dis_ImgOptions;
@@ -44,11 +51,24 @@ public class MyApplication extends Application {
     // /data/data/[packagename]/shared_prefs 应用的SharedPreferences保存
     public static String SHARED_PREFS = "";
 
+    //single application
+    private static MyApplication instance;
+
+    //saved activtys 已保存的activity ，主要针对singleInstance模式
+    private List<Activity> activitys = null;
+
+    public static MyApplication getInstance() {
+
+        return instance;
+    }
+
 
     @Override
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
+        activitys = new LinkedList<Activity>();
+        instance = this;
         initImageLoader();
         readUserInfo();
 
@@ -61,6 +81,8 @@ public class MyApplication extends Application {
         DATABASES = "/data/data/" + getApplicationContext().getPackageName() + "/databases";
         LIB = "/data/data/" + getApplicationContext().getPackageName() + "/lib";
 //        SHARED_PREFS = "/data/data/" + getApplicationContext().getPackageName() + "/shared_prefs";
+
+
     }
 
     /**
@@ -78,7 +100,7 @@ public class MyApplication extends Application {
 //        } catch (Exception e) {
 //
 //            e.printStackTrace();
-            return "检测错误";
+        return "检测错误";
 //        }
     }
 
@@ -132,7 +154,7 @@ public class MyApplication extends Application {
 //        if (sp.getString("id", "0").equals("0")) {
 //            return false;
 //        } else {
-            return true;
+        return true;
 //        }
     }
 
@@ -179,11 +201,11 @@ public class MyApplication extends Application {
                 getApplicationContext()).memoryCacheExtraOptions(480, 800)
                 // 即保存的每个内存缓存文件的最大长宽
                 .threadPoolSize(5)
-                // 线程池内加载的数量
+                        // 线程池内加载的数量
                 .diskCacheFileCount(100)
-                // 设置硬盘缓存的文件的最多个数
+                        // 设置硬盘缓存的文件的最多个数
                 .threadPriority(Thread.NORM_PRIORITY - 2)
-                // 配置线程优先级
+                        // 配置线程优先级
                 .denyCacheImageMultipleSizesInMemory()//.内存缓存
 
                 .diskCache(new UnlimitedDiskCache(cacheDir)).build();//硬盘缓存路径
@@ -200,4 +222,25 @@ public class MyApplication extends Application {
 //        ToastUtil.showLongToast(this, "清除本地缓存成功");
     }
 
+    // 添加Activity到容器中
+    public void addActivity(Activity activity) {
+        if (activitys != null && activitys.size() > 0) {
+            if (!activitys.contains(activity)) {
+                activitys.add(activity);
+            }
+        } else {
+            activitys.add(activity);
+        }
+
+    }
+
+    // 遍历所有Activity并finish
+    public void exit() {
+        if (activitys != null && activitys.size() > 0) {
+            for (Activity activity : activitys) {
+                activity.finish();
+            }
+        }
+        System.exit(0);
+    }
 }

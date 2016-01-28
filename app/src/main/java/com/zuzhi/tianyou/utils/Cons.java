@@ -158,4 +158,79 @@ public class Cons {
 
     };
 
+    /**
+     * test data of index hot service img 首页热门服务图片
+     */
+    public static int[] IDARR_INDEX_HOT_SERVICE_IMG = new int[]{
+            R.drawable.icon_add, R.drawable.icon_add, R.drawable.icon_add,
+            R.drawable.icon_add, R.drawable.icon_add, R.drawable.icon_add};
+
+    /**
+     * test data of index hot service title 首页热门服务标题
+     */
+    public static String[] STRARR_INDEX_HOT_SERVICE_TITLE = new String[]{
+            "创业必备：法律文书1件套——官方律师团亲自打造",
+            "创业必备：法律文书2件套——官方律师团亲自打造",
+            "创业必备：法律文书3件套——官方律师团亲自打造",
+            "创业必备：法律文书4件套——官方律师团亲自打造",
+            "创业必备：法律文书5件套——官方律师团亲自打造",
+            "创业必备：法律文书6件套——官方律师团亲自打造"};
+
+    /**
+     * test data of index hot service info1 首页热门服务描述1
+     */
+    public static String[] STRARR_INDEX_HOT_SERVICE_INFO1 = new String[]{
+            "由李彦宏提供服务",
+            "由马云提供服务",
+            "由马化腾提供服务",
+            "由李彦宏提供服务",
+            "由马云提供服务",
+            "由马化腾提供服务"};
+
+    /**
+     * test data of index hot service info2 首页热门服务描述2
+     */
+    public static String[] STRARR_INDEX_HOT_SERVICE_INFO2 = new String[]{
+            "百度全家桶",
+            "麻风侏儒",
+            "不充QB如何变强？！",
+            "百度全家桶",
+            "麻风侏儒",
+            "不充QB如何变强？！"};
+
+    /**
+     * test data of index hot service price1 首页热门服务价格1
+     */
+    public static String[] STRARR_INDEX_HOT_SERVICE_PRICE1 = new String[]{
+            "￥1000.0",
+            "￥2000.0",
+            "￥2333.0",
+            "￥1000.0",
+            "￥2000.0",
+            "￥2333.0"};
+
+    /**
+     * test data of index hot service price2 首页热门服务价格2
+     */
+    public static String[] STRARR_INDEX_HOT_SERVICE_PRICE2 = new String[]{
+            "￥4204.0",
+            "￥41304.0",
+            "￥3204.0",
+            "￥6204.0",
+            "￥5204.0",
+            "￥8904.0"};
+
+
+    /**
+     * test data of index hot service attribute 首页热门服务属性
+     */
+    public static String[] STRARR_INDEX_HOT_SERVICE_ATTRIBUTE = new String[]{
+            "限时",
+            "普普通通",
+            "减免",
+            "限时",
+            "普普通通",
+            "减免"};
+
+
 }

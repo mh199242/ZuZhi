@@ -24,6 +24,8 @@
     <color name="color_bg_identifying_code_disable">#f5f5f5</color>
     <!--disable color of identifying code background 验证码钮不可获取文本色-->
     <color name="color_text_identifying_code_disable">#888888</color>
+    <!--text color of normarl price 价格正常颜色-->
+    <color name="color_text_price_normal">#fb4747</color>
 
     <!--background color of empty image 图片为空时背景颜色-->
     <color name="color_background_empty_image">#f7f7f7</color>

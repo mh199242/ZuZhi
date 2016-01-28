@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.MainActivity;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.utils.ToastUtil;
@@ -61,6 +62,9 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initViews() {
+        //add this to exit list
+        MyApplication.getInstance().addActivity(this);
+
         et_user_name = (EditText) findViewById(R.id.et_login_guide_user_name);
         et_password = (EditText) findViewById(R.id.et_login_guide_password);
         tv_forget_password = (TextView) findViewById(R.id.tv_login_guide_forget_password);
@@ -149,8 +153,8 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
             // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
 
         } else {
-            finish();
-            System.exit(0);
+            //exit
+            MyApplication.getInstance().exit();
         }
     }
 }

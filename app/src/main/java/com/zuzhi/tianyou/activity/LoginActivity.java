@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.MainActivity;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.utils.ToastUtil;
@@ -53,6 +54,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initViews() {
+        //add this to exit list
+//        MyApplication.getInstance().addActivity(this);
+
         et_login_user_name = (EditText) findViewById(R.id.et_login_user_name);
         et_login_password = (EditText) findViewById(R.id.et_login_password);
         tv_forget_password = (TextView) findViewById(R.id.tv_login_forget_password);

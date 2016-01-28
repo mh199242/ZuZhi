@@ -103,7 +103,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     }
 
-
     @Override
     protected void initTitleBar() {
         tv_title_bar_city = (TextView) findViewById(R.id.tv_title_bar_city);

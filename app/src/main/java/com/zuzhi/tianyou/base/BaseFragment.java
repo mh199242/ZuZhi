@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
+import com.zuzhi.tianyou.R;
 
 
 /**
@@ -95,6 +95,5 @@ public abstract class BaseFragment extends Fragment {
 	 * @param view parent view 父view
 	 */
 	protected abstract void initView(View view);
-
 
 }

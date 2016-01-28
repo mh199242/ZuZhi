@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:fillViewport="true"
     android:layout_height="match_parent"
     android:background="@color/color_bg_identifying_code_disable"
+    android:fillViewport="true"
     android:scrollbars="none">
 
     <LinearLayout
@@ -48,11 +48,11 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:overScrollMode="never"
             android:id="@+id/rv_index_guide"
             android:layout_width="match_parent"
             android:layout_height="158dp"
             android:background="@color/color_white"
+            android:overScrollMode="never"
             tools:listitem="@layout/item_recyclerview_index_guide" />
 
         <TextView
@@ -121,17 +121,25 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_index_topic"
-            tools:listitem="@layout/item_recyclerview_index_topic"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_recyclerview_index_topic"></android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:layout_marginLeft="@dimen/padding_index"
+            android:id="@+id/tv_item_index_topic"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@color/color_white"
+            android:gravity="center_vertical"
+            android:text="@string/hot_service"
+            android:textColor="@color/color_bg_button_main_normal" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_index_hot_service"
-            tools:listitem="@layout/item_recyclerview_index_topic"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_recyclerview_index_hot_service"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 </ScrollView>

@@ -1,6 +1,8 @@
 package com.zuzhi.tianyou.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,6 +24,7 @@ import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
 import com.zuzhi.tianyou.adapter.layoutmanager.GuideLayoutManager;
 import com.zuzhi.tianyou.adapter.layoutmanager.SelectPerfessionLayoutManager;
 import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
+import com.zuzhi.tianyou.adapter.recyclerviewadapter.HotServiceAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexGuideAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.NearlyVisitAdapter;
 import com.zuzhi.tianyou.base.BaseFragment;
@@ -98,6 +101,17 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     private RecyclerView rv_topic;
 
+    /**
+     * recyclerview of hot service 热门服务列表
+     */
+    private RecyclerView rv_hot_service;
+
+    /**
+     * layout of phone contact 电话联系布局
+     */
+    private LinearLayout ll_phone_contact;
+
+
 
     @Override
     protected void initTitleBar(View view) {
@@ -112,6 +126,11 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected int setLayoutID() {
         return R.layout.fragment_index;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     @Override
@@ -148,14 +167,37 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             data_topic.add(map);
         }
 
+
+        //init hot service test data
+        ArrayList<HashMap<String, Object>> data_hotService = new ArrayList<HashMap<String, Object>>();
+        for (int i = 0; i < Cons.STRARR_INDEX_HOT_SERVICE_TITLE.length; i++) {
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("hot_service_img", getResources().getDrawable(Cons.IDARR_INDEX_HOT_SERVICE_IMG[i]));
+            map.put("hot_service_title", Cons.STRARR_INDEX_HOT_SERVICE_TITLE[i]);
+            map.put("hot_service_info1", Cons.STRARR_INDEX_HOT_SERVICE_INFO1[i]);
+            map.put("hot_service_info2", Cons.STRARR_INDEX_HOT_SERVICE_INFO2[i]);
+            map.put("hot_service_price1", Cons.STRARR_INDEX_HOT_SERVICE_PRICE1[i]);
+            map.put("hot_service_price2", Cons.STRARR_INDEX_HOT_SERVICE_PRICE2[i]);
+            map.put("hot_service_attribute", Cons.STRARR_INDEX_HOT_SERVICE_ATTRIBUTE[i]);
+
+            data_hotService.add(map);
+        }
+
         //find views
         asvp_banner = (AutoScrollViewPager) view.findViewById(R.id.asvp_banner);
         ll_pointer_banner = (LinearLayout) view.findViewById(R.id.ll_pointer_banner);
         rv_nearly_visit = (RecyclerView) view.findViewById(R.id.rv_nearly_visit);
         rv_guide = (RecyclerView) view.findViewById(R.id.rv_index_guide);
         rv_topic = (RecyclerView) view.findViewById(R.id.rv_index_topic);
-        ViewSetUtils.setViewHeigh(getContext(), asvp_banner, 2.5f, 1);
+        rv_hot_service = (RecyclerView) view.findViewById(R.id.rv_index_hot_service);
+        ll_phone_contact = (LinearLayout) view.findViewById(R.id.ll_index_phone_contact);
 
+
+
+        //set adapters
+        HotServiceAdapter adp_hotService = new HotServiceAdapter(getContext(), data_hotService);
+        rv_hot_service.setAdapter(adp_hotService);
+        rv_hot_service.setLayoutManager(new TopicLayoutManager(getContext(), OrientationHelper.VERTICAL, false, data_topic.size()));
 
         com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexTopicAdapter adp_topic =
                 new com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexTopicAdapter(getContext(), data_topic);
@@ -174,13 +216,25 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         //set the proportion of autoscrollviewpager 设置轮播宽高比
         ViewSetUtils.setViewHeigh(getContext(), asvp_banner, 2.5f, 1);
 
+        //set listeners
+        ll_phone_contact.setOnClickListener(this);
+
+        //get image from internet
         getImage();
 
     }
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            //call phone 拨打电话
+            case R.id.ll_index_phone_contact:
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.CALL");
+                intent.setData(Uri.parse("tel:" + 10086));
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
