@@ -110,45 +110,52 @@ public class Cons {
      * test data of index topic text 首页推荐类别
      */
     public static String[] STRARR_INDEX_TOPIC = new String[]{
-            "鉴证报告", "顾问咨询", "上市服务", "商务代理", "金牌专家"
+            "鉴证报告",
+            "顾问咨询",
+            "上市服务",
+            "商务代理",
+            "金牌专家"
     };
 
     /**
      * test data of index topic title 首页推荐标题
      */
     public static String[][] STRARR_INDEX_TOPIC_TITLE = new String[][]{
-            { "验资报告", "审计报告", "税审报告", "商务代理", "金牌专家"},
-            { "财会咨询", "税务咨询", "投资咨询", "商务代理", "金牌专家"},
-            { "新三板挂牌", "IPO服务", "并购重组", "商务代理", "金牌专家"},
-            { "小微企业", "外资企业", "高新政府补贴", "商务代理", "金牌专家"},
-            { "李永", "陈斌", "卢汉", "商务代理", "金牌专家"},
+            {"验资报告", "审计报告", "税审报告", "XX报告", "OO报告"},
+            {"财会咨询", "税务咨询", "投资咨询", "XX咨询"},
+            {"新三板挂牌", "IPO服务", "并购重组", "XX重组", "OO重组"},
+            {"小微企业", "外资企业", "高新政府补贴", "XX企业", "OO企业"},
+            {"李永", "陈斌", "卢汉", "李超"},
+
     };
 
     /**
      * test data of index topic info 首页推荐描述
      */
     public static String[][] STRARR_INDEX_TOPIC_INFO = new String[][]{
-            { "财税服务省力省心", "财税服务省力省心", "财税服务省力省心", "财税服务省力省心", "财税服务省力省心"},
-            { "高效开发", "财税服务省力省心", "财税服务省力省心", "高效开发", "财税服务省力省心"},
-            { "新三板挂牌", "IPO服务", "并购重组", "商务代理", "金牌专家"},
-            { "财税服务省力省心", "财税服务省力省心", "财税服务省力省心", "财税服务省力省心", "财税服务省力省心"},
-            { "资深财会专家", "财会协会会员", "海龟计算专家", "商务代理", "金牌专家"},
+            {"财税服务省力省心", "财税服务省力省心", "财税服务省力省心", "财税服务省力省心", "财税服务省力省心"},
+            {"高效开发", "财税服务省力省心", "财税服务省力省心", "高效开发"},
+            {"财税服务省力省心", "财税服务省力省心", "财税服务省力省心", "财税服务省力省心", "财税服务省力省心"},
+            {"高效开发", "财税服务省力省心", "财税服务省力省心", "财税服务省力省心", "财税服务省力省心"},
+            {"资深财会专家", "财会协会会员", "海龟计算专家", "程序员鼓励师"},
+
     };
 
     /**
      * test data of index topic img 首页推荐图片
      */
     public static int[][] IDARR_INDEX_TOPIC_IMG = new int[][]{
-            { R.drawable.temp_vp_report1, R.drawable.temp_vp_report2, R.drawable.temp_vp_report3,
-              R.drawable.temp_vp_report1, R.drawable.temp_vp_report2},
-            { R.drawable.temp_vp_consult1, R.drawable.temp_vp_consult2, R.drawable.temp_vp_consult3,
-                    R.drawable.temp_vp_consult1, R.drawable.temp_vp_consult2},
-            { R.drawable.temp_vp_report1, R.drawable.temp_vp_report2, R.drawable.temp_vp_report3,
+            {R.drawable.temp_vp_report1, R.drawable.temp_vp_report2, R.drawable.temp_vp_report3,
                     R.drawable.temp_vp_report1, R.drawable.temp_vp_report2},
-            { R.drawable.temp_vp_consult1, R.drawable.temp_vp_consult2, R.drawable.temp_vp_consult3,
+            {R.drawable.temp_vp_consult1, R.drawable.temp_vp_consult2, R.drawable.temp_vp_consult3,
+                    R.drawable.temp_vp_consult1},
+            {R.drawable.temp_vp_report1, R.drawable.temp_vp_report2, R.drawable.temp_vp_report3,
+                    R.drawable.temp_vp_report1, R.drawable.temp_vp_report2},
+            {R.drawable.temp_vp_consult1, R.drawable.temp_vp_consult2, R.drawable.temp_vp_consult3,
                     R.drawable.temp_vp_consult1, R.drawable.temp_vp_consult2},
-            { R.drawable.temp_vp_master1, R.drawable.temp_vp_master2, R.drawable.temp_vp_master3,
-                    R.drawable.temp_vp_master1, R.drawable.temp_vp_master2},
+            {R.drawable.temp_vp_master1, R.drawable.temp_vp_master2, R.drawable.temp_vp_master3,
+                    R.drawable.temp_vp_master1},
+
     };
 
 }

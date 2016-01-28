@@ -125,6 +125,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_index_hot_service"
+            tools:listitem="@layout/item_recyclerview_index_topic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 </ScrollView>

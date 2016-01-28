@@ -1,9 +1,7 @@
 package com.zuzhi.tianyou.adapter.recyclerviewadapter;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -16,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 
 import java.util.ArrayList;
@@ -72,7 +71,6 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MyViewHolder holder = new MyViewHolder(
                 LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_index_topic, parent, false));
-
         return holder;
     }
 
@@ -83,17 +81,14 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
         holder.tv_topic.setText((String) mData.get(position).get("topic"));
 
         int length = ((String[]) mData.get(position).get("arr_title")).length;
-        holder.initOrientatonViewPagerViews();
-        holder.initRelativeViewPagerVies();
-        for (int i = 0; i < length; i++) {
 
-            if (getItemViewType(position) == TYPE_ORIENTATION) {
 
-                if((i + 1) % 3 == 1){
-                    String test = ((String[]) mData.get(position).get("arr_title"))[i];
-                    String test1 = ((String[]) mData.get(position).get("arr_info"))[i];
-                    Drawable test2 = ((Drawable[]) mData.get(position).get("arr_img"))[i];
+        if (getItemViewType(position) == TYPE_ORIENTATION) {
+            holder.initOrientatonViewPagerViews();
+            holder.list_Views = new ArrayList<View>();
+            for (int i = 0; i < length; i++) {
 
+                if ((i + 1) % 3 == 1) {
                     //set topic title  设置推荐标题
                     holder.tv_title_orientation1.setText(((String[]) mData.get(position).get("arr_title"))[i]);
 
@@ -102,24 +97,41 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
 
                     //set topic info  设置推荐图片
                     holder.iv_img_orientation1.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
+                    //left one view view余1处理
+                    if (i + 1 > length / 3 * 3 && i == length - 1) {
+                        //set layout style 设置布局样式
+                        holder.ll_layout_orientation3.setAlpha(0.0f);
+                        holder.ll_layout_orientation3.setEnabled(false);
+                        holder.ll_layout_orientation2.setAlpha(0.0f);
+                        holder.ll_layout_orientation2.setEnabled(false);
+
+                        // add new view 添加新的view
+                        holder.vp_data.addView(holder.ll_view);
+                        holder.list_Views.add(holder.ll_view);
+
+                    }
+
                 }
 
-                if((i + 1) % 3 == 2){
-                    String test = ((String[]) mData.get(position).get("arr_title"))[i];
-                    String test1 = ((String[]) mData.get(position).get("arr_info"))[i];
-                    Drawable test2 = ((Drawable[]) mData.get(position).get("arr_img"))[i];
-
+                if ((i + 1) % 3 == 2) {
                     //set topic title  设置推荐标题
                     holder.tv_title_orientation2.setText(((String[]) mData.get(position).get("arr_title"))[i]);
                     //set topic info  设置推荐描述
                     holder.tv_info_orientation2.setText(((String[]) mData.get(position).get("arr_info"))[i]);
                     //set topic info  设置推荐图片
                     holder.iv_img_orientation2.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
+                    //left two view view余2处理
+                    if (i + 1 > length / 3 * 3 && i == length - 1) {
+                        //set layout style 设置布局样式
+                        holder.ll_layout_orientation3.setAlpha(0.0f);
+                        holder.ll_layout_orientation3.setEnabled(false);
+
+                        // add new view 添加新的view
+                        holder.vp_data.addView(holder.ll_view);
+                        holder.list_Views.add(holder.ll_view);
+                    }
                 }
-                if((i + 1) % 3 == 0){
-                    String test = ((String[]) mData.get(position).get("arr_title"))[i];
-                    String test1 = ((String[]) mData.get(position).get("arr_info"))[i];
-                    Drawable test2 = ((Drawable[]) mData.get(position).get("arr_img"))[i];
+                if ((i + 1) % 3 == 0) {
 
                     //set topic title  设置推荐标题
                     holder.tv_title_orientation3.setText(((String[]) mData.get(position).get("arr_title"))[i]);
@@ -127,63 +139,65 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                     holder.tv_info_orientation3.setText(((String[]) mData.get(position).get("arr_info"))[i]);
                     //set topic info  设置推荐图片
                     holder.iv_img_orientation3.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
+
                     holder.vp_data.addView(holder.ll_view);
                     holder.list_Views.add(holder.ll_view);
 
+                    //reset data view 重置数据view
+                    holder.initOrientatonViewPagerViews();
+
                 }
-//                    //left one view view余1处理
-//                    if (j > length / 3 * 3 && length % 3 == 1) {
-//                        holder.ll_layout_orientation2.setVisibility(View.GONE);
-//                        holder.ll_layout_orientation3.setVisibility(View.GONE);
-//
-//                        holder.params.width = holder.i_widthOrientation1;
-//                        holder.ll_layout_orientation1.setLayoutParams(holder.params);
-//                    }
-//                    //left two view view余2处理
-//                    if (j > length / 3 * 3 && length % 3 == 2) {
-//                        holder.ll_layout_orientation3.setVisibility(View.GONE);
-//
-//                        holder.params.width = holder.i_widthOrientation1;
-//                        holder.ll_layout_orientation1.setLayoutParams(holder.params);
-//                        holder.ll_layout_orientation2.setLayoutParams(holder.params);
-//                    }
-//                if ((i + 1) % 3 == 0 && i + 1 >= 3) {
-//
-//                }
-
-
-            } else if (getItemViewType(position) == TYPE_RELATIVE) {
-
-                if((i + 1) % 3 == 1){
-                    String test = ((String[]) mData.get(position).get("arr_title"))[i];
-                    String test1 = ((String[]) mData.get(position).get("arr_info"))[i];
-                    Drawable test2 = ((Drawable[]) mData.get(position).get("arr_img"))[i];
-
+            }
+            holder.vp_data.setAdapter(new com.zuzhi.tianyou.adapter.viewpageradapter.IndexTopicAdapter(holder.list_Views));
+            holder.list_Views = new ArrayList<View>();
+        } else if (getItemViewType(position) == TYPE_RELATIVE) {
+            holder.initRelativeViewPagerViews();
+            holder.list_Views = new ArrayList<View>();
+            for (int i = 0; i < length; i++) {
+                if ((i + 1) % 3 == 1) {
                     //set topic title  设置推荐标题
                     holder.tv_title_relative1.setText(((String[]) mData.get(position).get("arr_title"))[i]);
                     //set topic info  设置推荐描述
                     holder.tv_info_relative1.setText(((String[]) mData.get(position).get("arr_info"))[i]);
                     //set topic info  设置推荐图片
                     holder.iv_img_relative1.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
+
+                    //left one view view余1处理
+                    if (i + 1 > length / 3 * 3 && i == length - 1) {
+                        //set layout style 设置布局样式
+                        holder.rl_layout_relative2.setAlpha(0.0f);
+                        holder.rl_layout_relative2.setEnabled(false);
+                        holder.rl_layout_relative3.setAlpha(0.0f);
+                        holder.rl_layout_relative3.setEnabled(false);
+
+                        // add new view 添加新的view
+                        holder.vp_data.addView(holder.ll_view);
+                        holder.list_Views.add(holder.ll_view);
+
+                    }
                 }
 
-                if((i + 1) % 3 == 2){
-                    String test = ((String[]) mData.get(position).get("arr_title"))[i];
-                    String test1 = ((String[]) mData.get(position).get("arr_info"))[i];
-                    Drawable test2 = ((Drawable[]) mData.get(position).get("arr_img"))[i];
-
+                if ((i + 1) % 3 == 2) {
                     //set topic title  设置推荐标题
                     holder.tv_title_relative2.setText(((String[]) mData.get(position).get("arr_title"))[i]);
                     //set topic info  设置推荐描述
                     holder.tv_info_relative2.setText(((String[]) mData.get(position).get("arr_info"))[i]);
                     //set topic info  设置推荐图片
                     holder.iv_img_relative2.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
-                }
-                if((i + 1) % 3 == 0){
-                    String test = ((String[]) mData.get(position).get("arr_title"))[i];
-                    String test1 = ((String[]) mData.get(position).get("arr_info"))[i];
-                    Drawable test2 = ((Drawable[]) mData.get(position).get("arr_img"))[i];
 
+                    //left two view view余2处理
+                    if (i + 1 > length / 3 * 3 && i == length - 1) {
+                        //set layout style 设置布局样式
+                        holder.rl_layout_relative3.setAlpha(0.0f);
+                        holder.rl_layout_relative3.setEnabled(false);
+
+                        // add new view 添加新的view
+                        holder.vp_data.addView(holder.ll_view);
+                        holder.list_Views.add(holder.ll_view);
+
+                    }
+                }
+                if ((i + 1) % 3 == 0) {
                     //set topic title  设置推荐标题
                     holder.tv_title_relative3.setText(((String[]) mData.get(position).get("arr_title"))[i]);
                     //set topic info  设置推荐描述
@@ -193,31 +207,13 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
 
                     holder.vp_data.addView(holder.ll_view);
                     holder.list_Views.add(holder.ll_view);
-                    holder.vp_data.setAdapter(new com.zuzhi.tianyou.adapter.viewpageradapter.IndexTopicAdapter(holder.list_Views));
-
+                    holder.initRelativeViewPagerViews();
                 }
-//                    //left one view view余1处理
-//                    if (j > length / 3 * 3 && length % 3 == 1) {
-//                        holder.rl_layout_relative2.setVisibility(View.GONE);
-//                        holder.rl_layout_relative3.setVisibility(View.GONE);
-//
-//                        holder.params.width = holder.i_widthOrientation1;
-//                        holder.ll_layout_relative1.setLayoutParams(holder.params);
-//                    }
-//
-//                    //left two view view余2处理
-//                    if (j > length / 3 * 3 && length % 3 == 2) {
-//                        holder.rl_layout_relative3.setVisibility(View.GONE);
-//
-//                        holder.params.width = holder.i_widthOrientation1;
-//                        holder.ll_layout_relative1.setLayoutParams(holder.params);
-//                        holder.params.width = (int) ViewSetUtils.px2dp(mContext, 150);
-//                        holder.rl_layout_relative2.setLayoutParams(holder.params);
-//                    }
-
 
             }
+
             holder.vp_data.setAdapter(new com.zuzhi.tianyou.adapter.viewpageradapter.IndexTopicAdapter(holder.list_Views));
+            holder.list_Views = new ArrayList<View>();
         }
 
 
@@ -370,10 +366,6 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
          */
         LinearLayout ll_layout_orientation3;
 
-        /**
-         * width of orientation1 layout 水平数据1宽度
-         */
-        int i_widthOrientation1;
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams
                         (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -381,7 +373,7 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
         /**
          * view list of viewpager 页卡view列表
          */
-        ArrayList<View> list_Views = new ArrayList<View>();
+        ArrayList<View> list_Views;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -396,7 +388,6 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
             ll_view =
                     (LinearLayout) LayoutInflater.from(mContext).
                             inflate(R.layout.item_viewpager_index_orientation, null);
-            list_Views = new ArrayList<View>();
             //orientation title 水平模式标题
             tv_title_orientation1 =
                     (TextView) ll_view.findViewById(R.id.tv_item_viepager_topic_title_orientation1);
@@ -425,17 +416,15 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                     (LinearLayout) ll_view.findViewById(R.id.ll_item_viepager_topic_orientation2);
             ll_layout_orientation3 =
                     (LinearLayout) ll_view.findViewById(R.id.ll_item_viepager_topic_orientation3);
-
         }
 
         /**
          * inti relative viewpageer views 加载相对页卡视图
          */
-        public void initRelativeViewPagerVies() {
+        public void initRelativeViewPagerViews() {
             ll_view =
                     (LinearLayout) LayoutInflater.from(mContext).
                             inflate(R.layout.item_viewpager_index_relative, null);
-            list_Views = new ArrayList<View>();
             //relative title 相对模式标题
             tv_title_relative1 =
                     (TextView) ll_view.findViewById(R.id.tv_item_viepager_topic_title_relative1);

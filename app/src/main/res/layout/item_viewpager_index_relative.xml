@@ -56,7 +56,7 @@
             android:paddingLeft="@dimen/padding_index"
             android:paddingRight="36dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp">
             <TextView
                 android:id="@+id/tv_item_viepager_topic_title_relative2"
                 android:layout_marginTop="@dimen/margin_edit_follow_items"
@@ -95,7 +95,7 @@
             android:paddingLeft="@dimen/padding_index"
             android:paddingRight="36dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp">
             <TextView
                 android:id="@+id/tv_item_viepager_topic_title_relative3"
                 android:layout_marginTop="@dimen/margin_edit_follow_items"

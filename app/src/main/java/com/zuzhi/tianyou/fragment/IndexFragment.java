@@ -142,7 +142,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             map.put("arr_info", Cons.STRARR_INDEX_TOPIC_INFO[i]);
             Drawable [] drawables = new Drawable[Cons.IDARR_INDEX_TOPIC_IMG[i].length];
             for(int j = 0;j < drawables.length;j ++){
-                drawables[i] = getResources().getDrawable(Cons.IDARR_INDEX_TOPIC_IMG[i][j]);
+                drawables[j] = getResources().getDrawable(Cons.IDARR_INDEX_TOPIC_IMG[i][j]);
             }
             map.put("arr_img", drawables);
             data_topic.add(map);
