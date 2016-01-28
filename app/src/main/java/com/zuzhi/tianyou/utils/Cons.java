@@ -162,8 +162,8 @@ public class Cons {
      * test data of index hot service img 首页热门服务图片
      */
     public static int[] IDARR_INDEX_HOT_SERVICE_IMG = new int[]{
-            R.drawable.icon_add, R.drawable.icon_add, R.drawable.icon_add,
-            R.drawable.icon_add, R.drawable.icon_add, R.drawable.icon_add};
+            R.drawable.temp_icon1, R.drawable.temp_icon2, R.drawable.temp_icon3,
+            R.drawable.temp_icon1, R.drawable.temp_icon2, R.drawable.temp_icon3};
 
     /**
      * test data of index hot service title 首页热门服务标题
