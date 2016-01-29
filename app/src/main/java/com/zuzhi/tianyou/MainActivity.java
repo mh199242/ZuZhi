@@ -6,8 +6,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -15,6 +17,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.zuzhi.tianyou.activity.MapActivity;
+import com.zuzhi.tianyou.activity.SearchActivity;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.fragment.ClassFragment;
@@ -106,7 +109,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void initTitleBar() {
         tv_title_bar_city = (TextView) findViewById(R.id.tv_title_bar_city);
-        ll_title_bar_search = (LinearLayout) findViewById(R.id.ll_title_bar_search);
+        rl_title_bar_search = (RelativeLayout) findViewById(R.id.rl_title_bar_search);
+        bt_title_bar_search = (Button) findViewById(R.id.bt_title_bar_search);
+
+        bt_title_bar_search.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -115,7 +123,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         showSystemUI(getWindow().getDecorView());
 
         tv_title_bar_city.setVisibility(View.VISIBLE);
-        ll_title_bar_search.setVisibility(View.VISIBLE);
+        rl_title_bar_search.setVisibility(View.VISIBLE);
 
 
         tv_title_bar_city.setOnClickListener(this);
@@ -188,6 +196,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             //city 城市
             case R.id.tv_title_bar_city:
                 mIntent = new Intent(this, MapActivity.class);
+                startActivity(mIntent);
+                break;
+            //search 搜索
+            case R.id.bt_title_bar_search:
+                mIntent = new Intent(this, SearchActivity.class);
                 startActivity(mIntent);
                 break;
         }

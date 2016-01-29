@@ -84,7 +84,6 @@
     <dimen name="height_banner">150dp</dimen>
 
 
-
     <!--font size of level one 一级字号-->
     <dimen name="font_size_level_one">18dp</dimen>
     <!--font size of level two 二级字号-->

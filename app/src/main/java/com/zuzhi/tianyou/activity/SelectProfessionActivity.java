@@ -88,6 +88,7 @@ public class SelectProfessionActivity extends BaseActivity implements View.OnCli
 
         ll_title_bar_left.setVisibility(View.VISIBLE);
         tv_title_bar_text.setVisibility(View.VISIBLE);
+        bt_title_bar_left.setVisibility(View.VISIBLE);
 
         tv_title_bar_text.setText(R.string.select_profession);
 

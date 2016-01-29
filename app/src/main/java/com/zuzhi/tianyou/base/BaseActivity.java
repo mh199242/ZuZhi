@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
@@ -46,7 +47,7 @@ public abstract class BaseActivity extends FragmentActivity {
     /**
      * search layout 搜索布局
      */
-    protected LinearLayout ll_title_bar_search;
+    protected RelativeLayout rl_title_bar_search;
 
     /**
      * right layout 右布局
@@ -54,7 +55,13 @@ public abstract class BaseActivity extends FragmentActivity {
     protected LinearLayout ll_title_bar_right;
 
     /**
+     * right layout text 右布局文字
+     */
+    protected TextView tv_title_bar_right;
+
+    /**
      * offset of title bar标题栏偏移量
+     *
      * @param savedInstanceState
      */
     protected ImageView iv_title_bar_offset;
@@ -69,6 +76,10 @@ public abstract class BaseActivity extends FragmentActivity {
      */
     protected LinearLayout ll_title_bar_search_icon;
 
+    /**
+     * search button of search bar搜索栏搜索按钮
+     */
+    protected Button bt_title_bar_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +177,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
     /**
      * get the height of status bar 获取状态栏高度
+     *
      * @return
      */
     protected int getStatusBarHeight() {

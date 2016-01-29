@@ -25,20 +25,20 @@
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
     <!-- amap permission end 高德地图SDK权限end -->
-
-
     <application
         android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
-        <!--index 主页-->
+
+        <!-- index 主页 -->
         <activity android:name=".MainActivity" />
 
         <!-- login activity 登陆页 -->
         <activity
             android:name=".activity.LoginActivity"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance" />
         <!-- login guide activity 导航登陆页 -->
         <activity
             android:name=".activity.LoginGuideActivity"
@@ -60,15 +60,14 @@
             android:name=".activity.RegistActivity"
             android:launchMode="singleInstance" />
         <!-- select profession activity 选择职业页 -->
-        <activity android:name=".activity.SelectProfessionActivity"></activity>
-
+        <activity android:name=".activity.SelectProfessionActivity" />
 
         <!-- amap set start 高德地图SDK配置start -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="4e4323088bdd2c2c366cec4067f775d2" />
         <!-- location's service 定位需要的服务 -->
-        <service android:name="com.amap.api.location.APSService"></service>
+        <service android:name="com.amap.api.location.APSService" />
         <!--
          在android4.0以上系统中的 Activity加上下面这句，可以支持地图横竖屏切换
          android:configChanges="orientation|keyboardHidden|screenSize"
@@ -78,9 +77,10 @@
             android:label="@string/basic_map"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         -->
-        <activity android:name=".activity.MapActivity"></activity>
+        <activity android:name=".activity.MapActivity" />
         <!-- amap set end 高德地图SDK配置end -->
 
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

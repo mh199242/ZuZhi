@@ -35,12 +35,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_index"
-                android:text="@string/nearly_visit"
+                android:text="@string/visit_history"
                 android:textColor="@color/color_text_hint"
                 android:textSize="@dimen/font_size_level_three" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_nearly_visit"
+                android:id="@+id/rv_visit_history"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never"></android.support.v7.widget.RecyclerView>
@@ -126,7 +126,7 @@
             tools:listitem="@layout/item_recyclerview_index_topic"></android.support.v7.widget.RecyclerView>
 
         <TextView
-            android:layout_marginLeft="@dimen/padding_index"
+            android:paddingLeft="@dimen/padding_index"
             android:id="@+id/tv_item_index_topic"
             android:layout_width="match_parent"
             android:layout_height="25dp"

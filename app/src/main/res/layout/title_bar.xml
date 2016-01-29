@@ -1,27 +1,37 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rl_title_bar"
+    android:id="@+id/ll_title_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_bg_title_bar"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/padding_index"
     android:paddingRight="@dimen/padding_index">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/iv_title_bar_offset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/color_bg_title_bar" />
 
-        <ImageView
-            android:id="@+id/iv_title_bar_offset"
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_title_bar_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/color_bg_title_bar" />
+            android:layout_centerInParent="true"
+            android:text="@string/login"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/font_size_level_one"
+            android:visibility="gone" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_title_bar">
+            android:layout_height="@dimen/height_title_bar"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/ll_title_bar_left"
@@ -29,100 +39,95 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/bt_title_bar_left"
                     android:layout_width="@dimen/width_button_back"
                     android:layout_height="@dimen/height_button_back"
-                    android:background="@drawable/main_bg" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_title_bar_city"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:background="@null"
-                android:gravity="center"
-                android:text="杭州"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/font_size_level_four"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tv_title_bar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/login"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/font_size_level_one"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/ll_title_bar_search"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_button_identifying_code"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="9dp"
-                android:layout_toRightOf="@+id/tv_title_bar_city"
-                android:background="@drawable/background_serach"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:visibility="gone">
+                    android:background="@drawable/main_bg"
+                    android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/tv_title_bar_search"
+                    android:id="@+id/tv_title_bar_city"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:background="@null"
                     android:gravity="center"
-                    android:text="@string/product"
-                    android:textColor="@color/color_text_hint"
-                    android:textSize="@dimen/font_size_level_four" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/ser_arrow" />
-
-                <EditText
-                    android:id="@+id/et_title_bar_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="财务咨询"
-                    android:maxEms="20"
-                    android:maxLines="1"
-                    android:textColor="@color/color_black"
-                    android:textColorHint="@color/color_text_hint_default_search"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/font_size_level_four" />
-
-                <Button
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/ser_search" />
-
+                    android:text="杭州"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/font_size_level_four"
+                    android:visibility="gone" />
             </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/rl_title_bar_search"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_title_bar"
+                android:layout_weight="1"
+                android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_button_identifying_code"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="9dp"
+                    android:background="@drawable/background_serach"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_title_bar_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:text="@string/product"
+                        android:textColor="@color/color_text_hint"
+                        android:textSize="@dimen/font_size_level_four" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/ser_arrow" />
+
+                    <EditText
+                        android:id="@+id/et_title_bar_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="财务咨询"
+                        android:maxEms="20"
+                        android:maxLines="1"
+                        android:textColor="@color/color_black"
+                        android:textColorHint="@color/color_text_hint_default_search"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/font_size_level_four" />
+
+                    <Button
+                        android:id="@+id/bt_title_bar_search"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:background="@drawable/ser_search" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/ll_title_bar_right"
                 android:layout_width="@dimen/height_title_bar"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_alignParentRight="true"
                 android:visibility="gone">
 
                 <TextView
@@ -136,9 +141,19 @@
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/font_size_level_four" />
             </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
-</RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical">-->
+
+    <!---->
+
+    <!--</LinearLayout>-->
+</LinearLayout>
 
 
 

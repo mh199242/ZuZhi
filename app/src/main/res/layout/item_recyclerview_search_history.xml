@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingRight="15dp"
+    android:background="@color/color_white"
+    android:paddingTop="16dp">
+
+    <CheckBox
+        android:id="@+id/cb_item_recyclerview_search_history"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/check_box_select_profession"
+        android:button="@null"
+        android:gravity="center"
+        android:paddingLeft="@dimen/font_size_level_four"
+        android:paddingRight="@dimen/font_size_level_four"
+        android:text="公司设立"
+        android:textColor="@drawable/text_select_profession_check_box"
+        android:textSize="@dimen/font_size_level_four" />
+</LinearLayout>

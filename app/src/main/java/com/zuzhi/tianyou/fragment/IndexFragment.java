@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -22,11 +21,10 @@ import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
 import com.zuzhi.tianyou.adapter.layoutmanager.GuideLayoutManager;
-import com.zuzhi.tianyou.adapter.layoutmanager.SelectPerfessionLayoutManager;
 import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.HotServiceAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexGuideAdapter;
-import com.zuzhi.tianyou.adapter.recyclerviewadapter.NearlyVisitAdapter;
+import com.zuzhi.tianyou.adapter.recyclerviewadapter.VisitHistoryAdapter;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.bean.BannerImageBaseBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
@@ -34,7 +32,6 @@ import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 import com.zuzhi.tianyou.views.AutoScrollViewPager;
-import com.zuzhi.tianyou.views.MyRecyclerView;
 
 import android.os.Handler;
 
@@ -89,7 +86,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     /**
      * recyclerview of nearly visit 最近访问列表
      */
-    private RecyclerView rv_nearly_visit;
+    private RecyclerView rv_visit_history;
 
     /**
      * recyclerview of guide 导航栏列表
@@ -110,6 +107,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      * layout of phone contact 电话联系布局
      */
     private LinearLayout ll_phone_contact;
+
 
 
 
@@ -136,11 +134,11 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected void initView(View view) {
         //init nearly visti test data
-        ArrayList<HashMap<String, Object>> data_nearlyVisit = new ArrayList<HashMap<String, Object>>();
+        ArrayList<HashMap<String, Object>> data_visitHistory = new ArrayList<HashMap<String, Object>>();
         for (int i = 0; i < 10; i++) {
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("string", "最近访问" + i);
-            data_nearlyVisit.add(map);
+            data_visitHistory.add(map);
         }
 
         //init guide test data
@@ -186,7 +184,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         //find views
         asvp_banner = (AutoScrollViewPager) view.findViewById(R.id.asvp_banner);
         ll_pointer_banner = (LinearLayout) view.findViewById(R.id.ll_pointer_banner);
-        rv_nearly_visit = (RecyclerView) view.findViewById(R.id.rv_nearly_visit);
+        rv_visit_history = (RecyclerView) view.findViewById(R.id.rv_visit_history);
         rv_guide = (RecyclerView) view.findViewById(R.id.rv_index_guide);
         rv_topic = (RecyclerView) view.findViewById(R.id.rv_index_topic);
         rv_hot_service = (RecyclerView) view.findViewById(R.id.rv_index_hot_service);
@@ -204,9 +202,9 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         rv_topic.setAdapter(adp_topic);
         rv_topic.setLayoutManager(new TopicLayoutManager(getContext(), OrientationHelper.VERTICAL, false, data_topic.size()));
 
-        NearlyVisitAdapter adp_nearlyVisit = new NearlyVisitAdapter(getContext(), data_nearlyVisit);
-        rv_nearly_visit.setAdapter(adp_nearlyVisit);
-        rv_nearly_visit.setLayoutManager(new LinearLayoutManager(getContext(), OrientationHelper.HORIZONTAL, false));
+        VisitHistoryAdapter adp_visitHistory = new VisitHistoryAdapter(getContext(), data_visitHistory);
+        rv_visit_history.setAdapter(adp_visitHistory);
+        rv_visit_history.setLayoutManager(new LinearLayoutManager(getContext(), OrientationHelper.HORIZONTAL, false));
 
         IndexGuideAdapter adp_guide = new IndexGuideAdapter(getContext(), data_guide);
         rv_guide.setAdapter(adp_guide);

@@ -53,7 +53,7 @@
     <string name="search">搜索</string>
     <string name="product">商品</string>
     <string name="go_to_index">去首页逛逛>></string>
-    <string name="nearly_visit">最近访问：</string>
+    <string name="visit_history">最近访问：</string>
     <string name="online_service">在线客服</string>
     <string name="phone_contect">电话联系</string>
     <string name="consult">顾问咨询</string>
@@ -63,4 +63,5 @@
     <string name="hot_service">热门服务</string>
     <string name="report">鉴证报告</string>
     <string name="limited">限时</string>
+    <string name="search_history">最近搜索</string>
 </resources>

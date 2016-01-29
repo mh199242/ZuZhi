@@ -74,6 +74,7 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
 
         ll_title_bar_left.setVisibility(View.VISIBLE);
         tv_title_bar_text.setVisibility(View.VISIBLE);
+        bt_title_bar_left.setVisibility(View.VISIBLE);
 
 
         bt_title_bar_left.setOnClickListener(this);

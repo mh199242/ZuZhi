@@ -7,7 +7,7 @@
     <TextView
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:id="@+id/tv_item_nearly_visit"
+        android:id="@+id/tv_item_visit_history"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="最近访问"

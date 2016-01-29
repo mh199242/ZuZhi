@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
 
@@ -15,9 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * adpater of nearly visit recyclerview 最近访问适配器
+ * adpater of search history recyclerview 搜索历史适配器
  */
-public class NearlyVisitAdapter extends RecyclerView.Adapter<NearlyVisitAdapter.MyViewHolder> {
+public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.MyViewHolder> {
     private ArrayList<HashMap<String, Object>> mData;
     private Context mContext;
     private OnItemClickLitener mOnItemClickLitener;
@@ -36,7 +35,7 @@ public class NearlyVisitAdapter extends RecyclerView.Adapter<NearlyVisitAdapter.
      * @param context 上下文
      * @param data    数据源
      */
-    public NearlyVisitAdapter(Context context, ArrayList<HashMap<String, Object>> data) {
+    public SearchHistoryAdapter(Context context, ArrayList<HashMap<String, Object>> data) {
         mData = data;
         mContext = context;
     }
@@ -44,14 +43,14 @@ public class NearlyVisitAdapter extends RecyclerView.Adapter<NearlyVisitAdapter.
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MyViewHolder holder = new MyViewHolder(
-                LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_nearly_visit, parent, false));
+                LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_search_history, parent, false));
         return holder;
     }
 
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        holder.tv_nearly_visit.setText((String) mData.get(position).get("string"));
+        holder.cb_search_history.setText((String) mData.get(position).get("string"));
 
         if (mOnItemClickLitener != null) {
 
@@ -66,13 +65,13 @@ public class NearlyVisitAdapter extends RecyclerView.Adapter<NearlyVisitAdapter.
 
     class MyViewHolder extends ViewHolder {
         /**
-         * text of nearly visit 最近访问文本
+         * check box of search history 搜索历史多选键
          */
-        TextView tv_nearly_visit;
+        CheckBox cb_search_history;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            tv_nearly_visit = (TextView) itemView.findViewById(R.id.tv_item_nearly_visit);
+            cb_search_history = (CheckBox) itemView.findViewById(R.id.cb_item_recyclerview_search_history);
         }
     }
 }
