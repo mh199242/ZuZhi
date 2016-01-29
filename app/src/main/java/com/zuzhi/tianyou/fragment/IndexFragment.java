@@ -195,7 +195,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         //set adapters
         HotServiceAdapter adp_hotService = new HotServiceAdapter(getContext(), data_hotService);
         rv_hot_service.setAdapter(adp_hotService);
-        rv_hot_service.setLayoutManager(new TopicLayoutManager(getContext(), OrientationHelper.VERTICAL, false, data_topic.size()));
+        rv_hot_service.setLayoutManager(new TopicLayoutManager(getContext(), OrientationHelper.VERTICAL, false, data_hotService.size()));
 
         com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexTopicAdapter adp_topic =
                 new com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexTopicAdapter(getContext(), data_topic);
