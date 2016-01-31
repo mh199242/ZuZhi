@@ -13,7 +13,6 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/padding_main"
         android:paddingRight="@dimen/padding_main">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_edit_text">

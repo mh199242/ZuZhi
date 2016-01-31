@@ -2,6 +2,7 @@ package com.zuzhi.tianyou.activity;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.adapter.layoutmanager.SearchHistoryLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.SearchHistoryAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
 
@@ -35,7 +37,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         ArrayList<HashMap<String, Object>> data_history = new ArrayList<HashMap<String, Object>>();
         for (int i = 0; i < 10; i++) {
             HashMap<String, Object> map = new HashMap<String, Object>();
-            if(i == 3)
+            if(i % 2 == 0)
             map.put("string", "最近");
             else
                 map.put("string", "最近搜索" + i);
@@ -45,7 +47,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         //set adapter
         SearchHistoryAdapter adp_history = new SearchHistoryAdapter(this, data_history);
         rv_history.setAdapter(adp_history);
-        rv_history.setLayoutManager(new GridLayoutManager(this, 3));
+        rv_history.setLayoutManager(new SearchHistoryLayoutManager(this, 4, StaggeredGridLayoutManager.HORIZONTAL));
     }
 
     @Override

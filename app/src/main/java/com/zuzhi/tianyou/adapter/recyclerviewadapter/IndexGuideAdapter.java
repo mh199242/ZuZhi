@@ -1,6 +1,7 @@
 package com.zuzhi.tianyou.adapter.recyclerviewadapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bigkoo.alertview.OnItemClickListener;
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.activity.ClassListActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,9 +57,16 @@ public class IndexGuideAdapter extends RecyclerView.Adapter<IndexGuideAdapter.My
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.tv_guide.setText((String) mData.get(position).get("string"));
         holder.iv_guide.setBackgroundDrawable((Drawable) mData.get(position).get("image"));
+
+        //set on item click listener 设置item点击监听
         if (mOnItemClickLitener != null) {
-
-
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
+                }
+            });
         }
     }
 
@@ -76,10 +86,14 @@ public class IndexGuideAdapter extends RecyclerView.Adapter<IndexGuideAdapter.My
          */
         ImageView iv_guide;
 
+        private OnItemClickListener mListener;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_guide = (TextView) itemView.findViewById(R.id.tv_item_index_guide);
             iv_guide = (ImageView) itemView.findViewById(R.id.iv_item_index_guide);
         }
+
+
     }
 }

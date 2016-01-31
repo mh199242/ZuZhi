@@ -1,11 +1,68 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+    -->
+
+    <style name="AppBaseTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+        -->
     </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:listDivider">@color/color_separation_line</item>
+    </style>
+    <!-- Application theme. -->
+    <style name="Theme.DesignDemo" parent="Base.Theme.DesignDemo"></style>
+
+    <style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#512DA8</item>
+        <item name="colorAccent">@color/color_bg_button_main_normal</item>
+        <item name="android:windowBackground">@color/color_white</item>
+    </style>
+
+    <style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="CustomTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">@dimen/font_size_class_level</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Theme.DesignDemo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.DesignDemo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--<style name="heartRatingBar" parent="@android:style/Widget.RatingBar">-->
+
+    <!--<item name="android:progressDrawable">@drawable/ratingbar_drawable</item>-->
+    <!--<item name="android:minHeight">10.5dp</item>-->
+    <!--<item name="android:maxHeight">10.5dp</item>-->
+    <!--<item name="android:minWidth">12.5dp</item>-->
+    <!--<item name="android:maxWidth">12.5dp</item>-->
+
+    <!--</style>-->
+
+    <!--<style name="starRatingBar" parent="@android:style/Widget.RatingBar">-->
+
+    <!--<item name="android:progressDrawable">@drawable/ratingbar_drawable_star</item>-->
+    <!--<item name="android:minHeight">10dp</item>-->
+    <!--<item name="android:maxHeight">10dp</item>-->
+    <!--<item name="android:minWidth">11dp</item>-->
+    <!--<item name="android:maxWidth">11dp</item>-->
+
+    <!--</style>-->
 
 </resources>

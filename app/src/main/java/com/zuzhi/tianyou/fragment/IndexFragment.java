@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.activity.ClassListActivity;
 import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
 import com.zuzhi.tianyou.adapter.layoutmanager.GuideLayoutManager;
 import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
@@ -109,8 +110,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     private LinearLayout ll_phone_contact;
 
 
-
-
     @Override
     protected void initTitleBar(View view) {
 
@@ -157,8 +156,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             map.put("topic", Cons.STRARR_INDEX_TOPIC[i]);
             map.put("arr_title", Cons.STRARR_INDEX_TOPIC_TITLE[i]);
             map.put("arr_info", Cons.STRARR_INDEX_TOPIC_INFO[i]);
-            Drawable [] drawables = new Drawable[Cons.IDARR_INDEX_TOPIC_IMG[i].length];
-            for(int j = 0;j < drawables.length;j ++){
+            Drawable[] drawables = new Drawable[Cons.IDARR_INDEX_TOPIC_IMG[i].length];
+            for (int j = 0; j < drawables.length; j++) {
                 drawables[j] = getResources().getDrawable(Cons.IDARR_INDEX_TOPIC_IMG[i][j]);
             }
             map.put("arr_img", drawables);
@@ -191,7 +190,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         ll_phone_contact = (LinearLayout) view.findViewById(R.id.ll_index_phone_contact);
 
 
-
         //set adapters
         HotServiceAdapter adp_hotService = new HotServiceAdapter(getContext(), data_hotService);
         rv_hot_service.setAdapter(adp_hotService);
@@ -209,6 +207,15 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         IndexGuideAdapter adp_guide = new IndexGuideAdapter(getContext(), data_guide);
         rv_guide.setAdapter(adp_guide);
         rv_guide.setLayoutManager(new GuideLayoutManager(getContext(), 4, data_guide.size()));
+
+        adp_guide.setOnItemClickLitener(new IndexGuideAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //start class list activity 启动类目列表页面
+                Intent intent = new Intent(getContext(), ClassListActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
 //        rv_guide.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
         //set the proportion of autoscrollviewpager 设置轮播宽高比
@@ -224,7 +231,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             //call phone 拨打电话
             case R.id.ll_index_phone_contact:
                 Intent intent = new Intent();

@@ -38,6 +38,7 @@ public class IndexTopicAdapter extends PagerAdapter {
     //每次滑动的时候生成的组件
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        if(mVies.get(position).getParent() == null)
         ((ViewPager) container).addView(mVies.get(position));
         return mVies.get(position);
     }
