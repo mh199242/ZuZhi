@@ -1,6 +1,8 @@
 package com.zuzhi.tianyou.adapter.recyclerviewadapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.activity.ClassListActivity;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 
@@ -37,7 +40,6 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
      * relative type 相对模式
      */
     private final int TYPE_RELATIVE = 1;
-
 
     public interface OnItemClickLitener {
         void onItemClick(View view, int position);
@@ -213,15 +215,21 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
             }
 
             holder.vp_data.setAdapter(new com.zuzhi.tianyou.adapter.viewpageradapter.IndexTopicAdapter(holder.list_Views));
+
             holder.list_Views = new ArrayList<View>();
+
+
         }
 
-
-        if (mOnItemClickLitener != null)
-
-        {
-
-
+        //set on item click listener 设置item点击监听
+        if (mOnItemClickLitener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
+                }
+            });
         }
     }
 
@@ -230,7 +238,7 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
         return mData.size();
     }
 
-    class MyViewHolder extends ViewHolder {
+    class MyViewHolder extends ViewHolder implements View.OnClickListener {
         /**
          * data viewpager 数据页卡
          */
@@ -416,6 +424,12 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                     (LinearLayout) ll_view.findViewById(R.id.ll_item_viepager_topic_orientation2);
             ll_layout_orientation3 =
                     (LinearLayout) ll_view.findViewById(R.id.ll_item_viepager_topic_orientation3);
+
+            //set listeners
+            ll_layout_orientation1.setOnClickListener(this);
+            ll_layout_orientation2.setOnClickListener(this);
+            ll_layout_orientation3.setOnClickListener(this);
+
         }
 
         /**
@@ -453,6 +467,27 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                     (RelativeLayout) ll_view.findViewById(R.id.rl_item_viepager_topic_relative2);
             rl_layout_relative3 =
                     (RelativeLayout) ll_view.findViewById(R.id.rl_item_viepager_topic_relative3);
+            //set listeners
+            ll_layout_relative1.setOnClickListener(this);
+            rl_layout_relative2.setOnClickListener(this);
+            rl_layout_relative3.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                //start class list activity 启动类目列表页面
+                case R.id.ll_item_viepager_topic_orientation1:
+                case R.id.ll_item_viepager_topic_orientation2:
+                case R.id.ll_item_viepager_topic_orientation3:
+                case R.id.ll_item_viepager_topic_relative1:
+                case R.id.rl_item_viepager_topic_relative2:
+                case R.id.rl_item_viepager_topic_relative3:
+                    Intent intent = new Intent(mContext, ClassListActivity.class);
+                    mContext.startActivity(intent);
+                    break;
+
+            }
         }
     }
 

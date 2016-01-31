@@ -25,6 +25,7 @@ import com.zuzhi.tianyou.adapter.layoutmanager.GuideLayoutManager;
 import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.HotServiceAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexGuideAdapter;
+import com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexTopicAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.VisitHistoryAdapter;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.bean.BannerImageBaseBean;
@@ -208,14 +209,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         rv_guide.setAdapter(adp_guide);
         rv_guide.setLayoutManager(new GuideLayoutManager(getContext(), 4, data_guide.size()));
 
-        adp_guide.setOnItemClickLitener(new IndexGuideAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                //start class list activity 启动类目列表页面
-                Intent intent = new Intent(getContext(), ClassListActivity.class);
-                getContext().startActivity(intent);
-            }
-        });
 //        rv_guide.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
         //set the proportion of autoscrollviewpager 设置轮播宽高比
@@ -223,7 +216,22 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
         //set listeners
         ll_phone_contact.setOnClickListener(this);
-
+        adp_topic.setOnItemClickLitener(new IndexTopicAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //start class level activity 启动类目列表页面
+                Intent intent = new Intent(getContext(), ClassListActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+        adp_guide.setOnItemClickLitener(new IndexGuideAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //start class level activity 启动类目列表页面
+                Intent intent = new Intent(getContext(), ClassListActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
         //get image from internet
         getImage();
 

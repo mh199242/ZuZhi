@@ -1,5 +1,6 @@
 package com.zuzhi.tianyou.adapter.viewpageradapter;
 
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -18,28 +19,38 @@ public class ClassListAdapter extends PagerAdapter {
     private ArrayList<View> mVies;
 
     /**
+     * tab's text source 标签文字源
+     */
+    private ArrayList<String> mTabs;
+
+    /**
      * constructor of adapter 适配器构造器
+     *
      * @param views view列表
      */
-    public ClassListAdapter(ArrayList<View> views){
+    public ClassListAdapter(ArrayList<View> views, ArrayList<String> Tabs) {
         mVies = views;
+        mTabs = Tabs;
     }
+
     //viewpager中的组件数量
     @Override
     public int getCount() {
         return mVies.size();
     }
+
     //滑动切换的时候销毁当前的组件
     @Override
     public void destroyItem(ViewGroup container, int position,
                             Object object) {
         ((ViewPager) container).removeView(mVies.get(position));
     }
+
     //每次滑动的时候生成的组件
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        if(mVies.get(position).getParent() == null)
-        ((ViewPager) container).addView(mVies.get(position));
+        if (mVies.get(position).getParent() == null)
+            ((ViewPager) container).addView(mVies.get(position));
         return mVies.get(position);
     }
 
@@ -55,7 +66,8 @@ public class ClassListAdapter extends PagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return  super.getPageTitle(position);
-//        return mViewGroup.get(position);
+
+        return mTabs.get(position);
+
     }
 }

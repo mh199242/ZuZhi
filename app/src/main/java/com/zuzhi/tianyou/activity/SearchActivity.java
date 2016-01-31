@@ -1,5 +1,7 @@
 package com.zuzhi.tianyou.activity;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -13,16 +15,37 @@ import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.layoutmanager.SearchHistoryLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.SearchHistoryAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.base.BaseFragment;
+import com.zuzhi.tianyou.fragment.ClassFragment;
+import com.zuzhi.tianyou.fragment.IndexFragment;
+import com.zuzhi.tianyou.fragment.SearchHistoryFragment;
+import com.zuzhi.tianyou.utils.Cons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SearchActivity extends BaseActivity implements View.OnClickListener {
+    /**
+     * fragment manager 碎片管理器
+     */
+    private FragmentManager fm;
 
     /**
-     * search history recycyler 搜索历史列表
+     * search history fragment 搜索历史碎片
      */
-    RecyclerView rv_history;
+    private SearchHistoryFragment searchHistoryFragment;
+
+    /**
+     * current fragment information intent 当前碎片信息意图
+     */
+    private Intent mIntent;
+
+    /**
+     * fragment list 碎片列表
+     */
+    private List<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
+
 
     @Override
     protected int setContent() {
@@ -31,23 +54,22 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void initViews() {
-        rv_history = (RecyclerView) findViewById(R.id.rv_search_search_history);
+        mIntent = getIntent();
+        fm = getSupportFragmentManager();
 
-        //init history test data
-        ArrayList<HashMap<String, Object>> data_history = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < 10; i++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            if(i % 2 == 0)
-            map.put("string", "最近");
-            else
-                map.put("string", "最近搜索" + i);
-            data_history.add(map);
+        //display fragment 正确显示fragment
+        switch (mIntent.getStringExtra("type_fragment")) {
+            case Cons.FRAMENT_SEARCH_HISTORY:
+                if (searchHistoryFragment == null) {
+                    searchHistoryFragment = new SearchHistoryFragment();
+                    fragmentList.add(searchHistoryFragment);
+                    fm.beginTransaction().add(R.id.fm_search_container, searchHistoryFragment)
+                            .commit();
+                } else {
+                    fm.beginTransaction().show(searchHistoryFragment).commit();
+                }
+                break;
         }
-
-        //set adapter
-        SearchHistoryAdapter adp_history = new SearchHistoryAdapter(this, data_history);
-        rv_history.setAdapter(adp_history);
-        rv_history.setLayoutManager(new SearchHistoryLayoutManager(this, 4, StaggeredGridLayoutManager.HORIZONTAL));
     }
 
     @Override

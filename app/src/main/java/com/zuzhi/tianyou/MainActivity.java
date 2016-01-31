@@ -23,6 +23,7 @@ import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.fragment.ClassFragment;
 import com.zuzhi.tianyou.fragment.IndexFragment;
 import com.zuzhi.tianyou.utils.AMapUtils;
+import com.zuzhi.tianyou.utils.Cons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,6 +202,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             //search 搜索
             case R.id.bt_title_bar_search:
                 mIntent = new Intent(this, SearchActivity.class);
+                //display SearchHistoryFragment 显示搜索历史碎片
+                mIntent.putExtra("type_fragment", Cons.FRAMENT_SEARCH_HISTORY);
                 startActivity(mIntent);
                 break;
         }
