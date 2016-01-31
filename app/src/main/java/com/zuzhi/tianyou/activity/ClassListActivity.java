@@ -101,10 +101,10 @@ public class ClassListActivity extends BaseActivity implements View.OnClickListe
         //set up with viewpager adpater 给ViewPager设置适配器
         ClassListAdapter adp_classList = new ClassListAdapter(list_views);
         vp_class_list.setAdapter(adp_classList);
-        //tablayout setup with viewPager 将TabLayout和ViewPager关联起来。
-        tl_class_list.setupWithViewPager(vp_class_list);
         //set up with tablayout adpater给Tabs设置适配器
         tl_class_list.setTabsFromPagerAdapter(adp_classList);
+        //tablayout setup with viewPager 将TabLayout和ViewPager关联起来。
+        tl_class_list.setupWithViewPager(vp_class_list);
 
     }
 
