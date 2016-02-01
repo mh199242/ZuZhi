@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_commodity_info_single"
+    android:paddingLeft="@dimen/margin_edit_follow_items">
+
+    <ImageView
+        android:id="@+id/iv_certificate"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ser_certificate" />
+
+    <TextView
+        android:id="@+id/tv_certificate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="9dp"
+        android:layout_toRightOf="@+id/iv_certificate"
+        android:text="证券资格证"
+        android:textColor="@color/color_normal_text"
+        android:textSize="@dimen/font_size_class_level" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/my_click_grey" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_separation_line"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_separation_line" />
+</RelativeLayout>

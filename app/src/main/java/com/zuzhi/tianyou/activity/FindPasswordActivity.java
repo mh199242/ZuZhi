@@ -42,7 +42,7 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected int setContent() {
-        return R.layout.activity_find_pass_word;
+        return R.layout.activity_find_password;
     }
 
     @Override

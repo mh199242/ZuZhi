@@ -2,6 +2,7 @@ package com.zuzhi.tianyou.utils;
 
 import android.graphics.drawable.Drawable;
 
+import com.loc.r;
 import com.zuzhi.tianyou.R;
 
 import java.util.regex.Matcher;
@@ -208,5 +209,51 @@ public class Cons {
             "普普通通",
             "减免"};
 
+    /**
+     * test data of evaluate head 评论头像测试数据
+     */
+    public static int[] IDARR_EVALUATE_HEAD = new int[]{
+            R.drawable.temp_vp_master1,
+            R.drawable.temp_vp_master2,
+            R.drawable.temp_vp_master3,
+            R.drawable.temp_vp_master1
+    };
 
+
+    /**
+     * test data of evaluate rating 评论评分
+     */
+    public static float[] RATINGARR_EVALUATE = new float[]{
+            3.5f,
+            4.5f,
+            3.5f,
+            5.0f
+    };
+
+    /**
+     * test data of evaluate name 评论姓名测试数据
+     */
+    public static String[] STRARR_EVALUATE_NAME = new String[]{
+            "张亮",
+            "李强",
+            "王刚",
+            "周成"};
+
+    /**
+     * test data of evaluate content 评论内容测试数据
+     */
+    public static String[] STRARR_EVALUATE_CONTENT = new String[]{
+            "服务不错，下次还来",
+            "差强人意，继续努力！",
+            "一般一般",
+            "很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长"};
+
+    /**
+     * test data of evaluate date 评论时间测试数据
+     */
+    public static String[] STRARR_EVALUATE_DATE = new String[]{
+            "2天前",
+            "今天",
+            "3小时前",
+            "刚刚"};
 }

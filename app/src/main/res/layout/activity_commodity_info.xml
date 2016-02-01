@@ -25,7 +25,7 @@
                 android:background="@drawable/temp_commodity_icon">
 
                 <Button
-                    android:id="@+id/bt_commodity"
+                    android:id="@+id/bt_commodity_back"
                     android:layout_width="33dp"
                     android:layout_height="33dp"
                     android:layout_alignParentLeft="true"
@@ -41,7 +41,7 @@
                     android:layout_height="48dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignTop="@+id/bt_commodity"
+                    android:layout_alignTop="@+id/bt_commodity_back"
                     android:layout_marginRight="@dimen/padding_main"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -218,10 +218,12 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_commodity_info"
+                android:background="@color/color_white"
+                android:id="@+id/rv_commodity_info_certificate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_edit_follow_items" />
+                android:layout_marginTop="@dimen/margin_edit_follow_items"
+                tools:listitem="@layout/item_recyclerview_certificate" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tl_commodity_info"
@@ -229,9 +231,9 @@
                 android:layout_height="@dimen/height_tab_layout"
                 android:layout_marginTop="@dimen/margin_edit_follow_items"
                 android:background="@color/color_white"
-                app:tabGravity="center"
+
                 app:tabIndicatorColor="@color/color_bg_button_main_normal"
-                app:tabMode="fixed"
+
                 app:tabSelectedTextColor="@color/color_bg_button_main_normal"
                 app:tabTextColor="@color/color_normal_text" />
 

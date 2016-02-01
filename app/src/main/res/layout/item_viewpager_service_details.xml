@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_service_details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp"
+    android:paddingLeft="@dimen/margin_edit_follow_items"
+    android:paddingRight="@dimen/margin_edit_follow_items"
+    android:paddingTop="@dimen/margin_edit_follow_items"
+    android:text="使用阿里云服务使用阿里云服务使用阿里云服务使用阿里云服务使用阿里云服务使用阿里云服务使用阿里云服务使用阿里云服务使用阿里云服务"
+    android:textColor="@color/color_text_hint"
+    android:textSize="@dimen/font_size_class_level" />

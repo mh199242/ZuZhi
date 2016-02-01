@@ -86,6 +86,8 @@
     <dimen name="height_commodity_info_single">44dp</dimen>
     <!--height of tab layout 标签布局高度-->
     <dimen name="height_tab_layout">34dp</dimen>
+    <!--hw of user head icon 用户头像宽高-->
+    <dimen name="hw_icon_user_head">36dp</dimen>
 
 
     <!--font size of level one 一级字号-->

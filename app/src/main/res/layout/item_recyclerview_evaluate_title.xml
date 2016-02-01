@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_commodity_info_single">
+
+    <TextView
+        android:layout_marginLeft="@dimen/margin_edit_follow_items"
+        android:id="@+id/tv_item_evaluate_title_good_evaluate_percent_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="@string/good_evaluate_percent"
+        android:textColor="@color/color_normal_text"
+        android:textSize="@dimen/font_size_class_level" />
+
+    <TextView
+        android:id="@+id/tv_item_evaluate_title_good_evaluate_percent_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tv_item_evaluate_title_good_evaluate_percent_text"
+        android:text="90%"
+        android:textColor="@color/color_text_price_normal"
+        android:textSize="@dimen/font_size_class_level" />
+
+    <TextView
+        android:id="@+id/tv_item_evaluate_title_good_evaluate_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/tv_item_evaluate_title_good_evaluate_percent_number"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_size_class_level"
+        android:text="50人已评价" />
+
+
+    <ImageView
+        android:id="@+id/iv_item_evaluate_title_arrow"
+        android:layout_width="@dimen/height_button_back"
+        android:layout_height="@dimen/width_button_back"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/my_click_grey" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/iv_item_evaluate_title_arrow"
+        android:text="@string/all_evaluate"
+        android:textSize="@dimen/font_size_level_four" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_separation_line"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_separation_line" />
+</RelativeLayout>

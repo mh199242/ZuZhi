@@ -68,4 +68,8 @@
     <string name="collection">收藏</string>
     <string name="contact_us">联系我们</string>
     <string name="buy_right_now">立即购买</string>
+    <string name="service_details">服务详情</string>
+    <string name="evaluate">评价</string>
+    <string name="good_evaluate_percent">好评率</string>
+    <string name="all_evaluate">全部评价</string>
 </resources>
