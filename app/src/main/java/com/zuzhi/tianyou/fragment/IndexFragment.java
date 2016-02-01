@@ -19,7 +19,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
-import com.zuzhi.tianyou.activity.ClassListActivity;
+import com.zuzhi.tianyou.activity.CommodityInfoActivity;
+import com.zuzhi.tianyou.activity.IndexClassListActivity;
 import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
 import com.zuzhi.tianyou.adapter.layoutmanager.GuideLayoutManager;
 import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
@@ -220,7 +221,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void onItemClick(View view, int position) {
                 //start class level activity 启动类目列表页面
-                Intent intent = new Intent(getContext(), ClassListActivity.class);
+                Intent intent = new Intent(getContext(), IndexClassListActivity.class);
                 getContext().startActivity(intent);
             }
         });
@@ -228,7 +229,15 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void onItemClick(View view, int position) {
                 //start class level activity 启动类目列表页面
-                Intent intent = new Intent(getContext(), ClassListActivity.class);
+                Intent intent = new Intent(getContext(), IndexClassListActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+        adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //start class level activity 启动商品详情页面
+                Intent intent = new Intent(getContext(), CommodityInfoActivity.class);
                 getContext().startActivity(intent);
             }
         });

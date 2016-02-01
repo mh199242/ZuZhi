@@ -1,7 +1,6 @@
 package com.zuzhi.tianyou.adapter.recyclerviewadapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
@@ -16,9 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
-import com.zuzhi.tianyou.activity.ClassListActivity;
-import com.zuzhi.tianyou.utils.Logs;
-import com.zuzhi.tianyou.utils.ViewSetUtils;
+import com.zuzhi.tianyou.activity.IndexClassListActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -483,7 +480,7 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                 case R.id.ll_item_viepager_topic_relative1:
                 case R.id.rl_item_viepager_topic_relative2:
                 case R.id.rl_item_viepager_topic_relative3:
-                    Intent intent = new Intent(mContext, ClassListActivity.class);
+                    Intent intent = new Intent(mContext, IndexClassListActivity.class);
                     mContext.startActivity(intent);
                     break;
 

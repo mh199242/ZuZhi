@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,7 +17,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.zuzhi.tianyou.activity.MapActivity;
-import com.zuzhi.tianyou.activity.SearchActivity;
+import com.zuzhi.tianyou.activity.SearchHistoryActivity;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.fragment.ClassFragment;
@@ -181,6 +181,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      * hide all fragment 隐藏所有Fragment布局
      */
     private void hideAllFragment() {
+
         for (int i = 0; i < fragmentList.size(); i++) {
             fm.beginTransaction().hide(fragmentList.get(i)).commit();
         }
@@ -201,9 +202,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 break;
             //search 搜索
             case R.id.bt_title_bar_search:
-                mIntent = new Intent(this, SearchActivity.class);
-                //display SearchHistoryFragment 显示搜索历史碎片
-                mIntent.putExtra("type_fragment", Cons.FRAMENT_SEARCH_HISTORY);
+                //display SearchHistoryActivity 启动搜索历史页面
+                mIntent = new Intent(this, SearchHistoryActivity.class);
                 startActivity(mIntent);
                 break;
         }

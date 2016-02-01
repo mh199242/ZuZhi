@@ -1,7 +1,6 @@
 package com.zuzhi.tianyou.adapter.recyclerviewadapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.bigkoo.alertview.OnItemClickListener;
 import com.zuzhi.tianyou.R;
-import com.zuzhi.tianyou.activity.ClassListActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

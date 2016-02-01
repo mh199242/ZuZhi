@@ -15,9 +15,6 @@ public class Cons {
     //IndexFragment tag
     public static final String FRAMENT_INDEX = "IndexFragment";
 
-    //SearchHistory tag
-    public static final String FRAMENT_SEARCH_HISTORY = "SearchHistoryFragment";
-
     //域名
     public final static String DOMAIN = "http://mysqapp.qweweq.com/index.php/app/index/";
 

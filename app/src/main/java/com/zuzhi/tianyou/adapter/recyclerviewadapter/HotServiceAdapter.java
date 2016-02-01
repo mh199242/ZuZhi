@@ -70,7 +70,13 @@ public class HotServiceAdapter extends RecyclerView.Adapter<HotServiceAdapter.My
             holder.tv_service_attribute.setVisibility(View.GONE);
         }
         if (mOnItemClickLitener != null) {
-
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
+                }
+            });
 
         }
     }

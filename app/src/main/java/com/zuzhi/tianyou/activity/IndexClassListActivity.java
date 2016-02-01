@@ -44,7 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class ClassListActivity extends BaseActivity implements View.OnClickListener {
+public class IndexClassListActivity extends BaseActivity implements View.OnClickListener {
 
     /**
      * tablayout 标签页

@@ -64,4 +64,8 @@
     <string name="report">鉴证报告</string>
     <string name="limited">限时</string>
     <string name="search_history">最近搜索</string>
+    <string name="share">分享</string>
+    <string name="collection">收藏</string>
+    <string name="contact_us">联系我们</string>
+    <string name="buy_right_now">立即购买</string>
 </resources>

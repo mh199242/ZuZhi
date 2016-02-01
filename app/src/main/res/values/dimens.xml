@@ -82,6 +82,10 @@
     <dimen name="height_class_level_index">2dp</dimen>
     <!--height of banner banner图高度-->
     <dimen name="height_banner">150dp</dimen>
+    <!--height of single commodity info 单项商品信息高度-->
+    <dimen name="height_commodity_info_single">44dp</dimen>
+    <!--height of tab layout 标签布局高度-->
+    <dimen name="height_tab_layout">34dp</dimen>
 
 
     <!--font size of level one 一级字号-->
@@ -92,6 +96,8 @@
     <dimen name="font_size_level_three">13dp</dimen>
     <!--font size of level four 四级字号-->
     <dimen name="font_size_level_four">12dp</dimen>
+    <!--font size of level five 五级字号-->
+    <dimen name="font_size_level_five">11dp</dimen>
     <!--font size of class level 服务类目字号-->
     <dimen name="font_size_class_level">14dp</dimen>
 </resources>

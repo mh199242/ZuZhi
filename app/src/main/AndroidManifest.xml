@@ -80,13 +80,18 @@
         <activity android:name=".activity.MapActivity" />
         <!-- amap set end 高德地图SDK配置end -->
 
-        <!--search activity 搜索页-->
-        <activity android:name=".activity.SearchActivity" />
 
-        <!--class list activity 类目列表页-->
+        <!-- search activity 搜索页 -->
+        <activity android:name=".activity.SearchHistoryActivity" />
+
+        <!-- class list activity 类目列表页 -->
         <activity
-            android:name=".activity.ClassListActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:name=".activity.IndexClassListActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <!-- commodity info activity 商品详情页 -->
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.CommodityInfoActivity"></activity>
     </application>
 
 </manifest>
