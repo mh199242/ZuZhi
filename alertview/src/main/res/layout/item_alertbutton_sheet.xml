@@ -23,7 +23,6 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp"
             android:text="222"
             android:textColor="#2f3439"
             android:textSize="14dp" />

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,12 +108,14 @@ public class AlertViewAdapter extends BaseAdapter {
                 tvAlert.setText(data);
                 ivAlert.setBackgroundDrawable(mDrawables.get(position));
                 for (int i = 0; i < mDatas.size(); i++) {
-                    int textLength = mDatas.get(i).length() * ViewSetUtils.dp2px(mContext, 14)
-                            + ivAlert.getPaddingLeft() + ivAlert.getPaddingRight();
+
+                    int textLength = mDatas.get(i).length() * ViewSetUtils.dp2px(mContext, 14) + tvAlert.getPaddingLeft();
                     list_textLength.add(textLength);
+                    Log.i("麻辣隔壁" , "" + textLength);
                 }
 
                 int temp = Collections.max(list_textLength);
+                Log.i("麻辣隔壁" , "最大的是" + temp);
                 tvAlert.setWidth(temp);
 
 

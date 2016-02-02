@@ -238,7 +238,6 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
             //contact us 联系我们
             case R.id.ll_commodity_contact_us:
             case R.id.bt_commodity_info_contact_us:
-
                 new AlertView(mDrawables, null, getResources().getString(R.string.warrning),
                         getResources().getString(R.string.cancel),
                         new String[]{getResources().getString(R.string.send_message),
