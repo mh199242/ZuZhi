@@ -26,6 +26,6 @@
     <!--按钮文字大小-->
     <dimen name="textSize_alert_button">18dp</dimen>
     <!--圆角-->
-    <dimen name="radius_alertview">15px</dimen>
+    <dimen name="radius_alertview">7.5dp</dimen>
 
 </resources>

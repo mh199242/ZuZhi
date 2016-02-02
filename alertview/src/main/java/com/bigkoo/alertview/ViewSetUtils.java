@@ -1,13 +1,10 @@
-package com.zuzhi.tianyou.utils;
+package com.bigkoo.alertview;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -148,30 +145,12 @@ public class ViewSetUtils {
         listItem.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         listItem.measure(0, 0);
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1)) +
                 listItem.getMeasuredHeight() * (listAdapter.getCount());
         listView.setLayoutParams(params);
     }
-
-    /**
-     * 计算recyclerview高度
-     *
-     * @param recyclerView
-     */
-    public static void setRecyclverViewHeightBasedOnChildren(RecyclerView recyclerView) {
-        // 获取RecyclerView对应的Adapter
-        RecyclerView.Adapter recyclerViewAdapter = recyclerView.getAdapter();
-        if (recyclerViewAdapter == null) {
-            return;
-        }
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        params.height = recyclerView.getMeasuredHeight();
-        recyclerView.setLayoutParams(params);
-    }
-
 
 
 
@@ -191,7 +170,7 @@ public class ViewSetUtils {
         listItem.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         listItem.measure(0, 0);
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        LayoutParams params = listView.getLayoutParams();
 
         params.height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1)) +
@@ -288,7 +267,7 @@ public class ViewSetUtils {
         }
 
         int h = totalHeight + horizontalBorderHeight * (rows - 1);// 最后加上分割线总高度
-        ViewGroup.LayoutParams params = gridView.getLayoutParams();
+        LayoutParams params = gridView.getLayoutParams();
         params.height = h;
         gridView.setLayoutParams(params);
 

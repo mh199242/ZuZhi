@@ -1,6 +1,10 @@
 package com.zuzhi.tianyou.activity;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,8 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bigkoo.alertview.AlertView;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.CertificateAdapter;
@@ -20,12 +27,17 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.EvaluateAdapter;
 import com.zuzhi.tianyou.adapter.viewpageradapter.CommodityInfoAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
-public class CommodityInfoActivity extends BaseActivity implements View.OnClickListener {
+public class CommodityInfoActivity extends BaseActivity implements View.OnClickListener, com.bigkoo.alertview.OnItemClickListener, com.bigkoo.alertview.OnDismissListener {
 
     /**
      * commodity certificate recyclerview 商品证书列表
@@ -67,6 +79,36 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
      */
     private Button bt_back;
 
+    /**
+     * collection layout 收藏布局
+     */
+    private LinearLayout ll_collection;
+
+    /**
+     * collection check box 收藏状态钮
+     */
+    private CheckBox cb_collection;
+
+    /**
+     * contanct us layout 联系我们布局
+     */
+    private LinearLayout ll_contact_us;
+
+    /**
+     * contanct us button 联系我们按钮
+     */
+    private Button bt_contact_us;
+
+    /**
+     * coolection boolean 是否收藏
+     */
+    private Boolean b_isCollect = false;
+
+    /**
+     * bottom alertview icon list下部弹出对话框图组
+     */
+    private Drawable[] mDrawables;
+
     @Override
     protected int setContent() {
         return R.layout.activity_commodity_info;
@@ -74,7 +116,11 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initViews() {
-
+        //set sheet alert icon
+        mDrawables = new Drawable[]{
+                getResources().getDrawable(R.drawable.ser_service_blue),
+                getResources().getDrawable(R.drawable.ser_phone)
+        };
         //finde views
         rv_certificate = (RecyclerView) findViewById(R.id.rv_commodity_info_certificate);
         tv_service_details = (TextView) LayoutInflater.from(this).inflate(R.layout.item_viewpager_service_details, null);
@@ -82,6 +128,11 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         tl_commodity_info = (TabLayout) findViewById(R.id.tl_commodity_info);
         vp_commdity_info = (ViewPager) findViewById(R.id.vp_commodity_info);
         bt_back = (Button) findViewById(R.id.bt_commodity_back);
+        ll_collection = (LinearLayout) findViewById(R.id.ll_commodity_collection);
+        cb_collection = (CheckBox) findViewById(R.id.cb_commodity_info_cellection);
+        ll_contact_us = (LinearLayout) findViewById(R.id.ll_commodity_contact_us);
+        bt_contact_us = (Button) findViewById(R.id.bt_commodity_info_contact_us);
+
 
         //init test data
         ArrayList<HashMap<String, Object>> data_certificate = new ArrayList<HashMap<String, Object>>();
@@ -116,6 +167,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         EvaluateAdapter adp_evaluate = new EvaluateAdapter(this, data_evaluate);
         rv_evaluate.setAdapter(adp_evaluate);
         rv_evaluate.setLayoutManager(new LinearLayoutManager(this));
+        ViewSetUtils.setRecyclverViewHeightBasedOnChildren(rv_evaluate);
 //        rv_evaluate.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_evaluate.size()));
 
         //set viewpage
@@ -142,6 +194,10 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
 
         //set listeners
         bt_back.setOnClickListener(this);
+        ll_collection.setOnClickListener(this);
+        cb_collection.setOnClickListener(this);
+        ll_contact_us.setOnClickListener(this);
+        bt_contact_us.setOnClickListener(this);
 
     }
 
@@ -169,8 +225,51 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //back 返回
             case R.id.bt_commodity_back:
                 finish();
+                break;
+            //collect 收藏
+            case R.id.cb_commodity_info_cellection:
+            case R.id.ll_commodity_collection:
+                b_isCollect = !b_isCollect;
+                cb_collection.setChecked(b_isCollect);
+                break;
+            //contact us 联系我们
+            case R.id.ll_commodity_contact_us:
+            case R.id.bt_commodity_info_contact_us:
+
+                new AlertView(mDrawables, null, getResources().getString(R.string.warrning),
+                        getResources().getString(R.string.cancel),
+                        new String[]{getResources().getString(R.string.send_message),
+                                getResources().getString(R.string.our_phone)},
+                        null, this, AlertView.Style.ActionSheet, this)
+                        .setCancelable(true)
+                        .setOnDismissListener(this)
+                        .show();
+                break;
+        }
+    }
+
+    @Override
+    public void onDismiss(Object o) {
+
+    }
+
+    @Override
+    public void onItemClick(Object o, int position) {
+        Logs.i(Cons.ACTIVITY_COMMODITYINFO, "点击了位置为" + position + "的按钮");
+        switch (position) {
+            //send message 发送消息
+            case 0:
+
+                break;
+            //call cellphone 拨打电话
+            case 1:
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.CALL");
+                intent.setData(Uri.parse("tel:" + getResources().getString(R.string.our_phone)));
+                startActivity(intent);
                 break;
         }
     }

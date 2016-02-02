@@ -90,8 +90,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- commodity info activity 商品详情页 -->
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:name=".activity.CommodityInfoActivity"></activity>
+            android:name=".activity.CommodityInfoActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

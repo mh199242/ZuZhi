@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f5f5f5"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/loAlertHeader"
-        android:background="@drawable/bg_actionsheet_header"
-        android:layout_weight="1.0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#f5f5f5"
         android:orientation="vertical">
 
         <TextView
@@ -23,31 +24,37 @@
             android:id="@+id/tvAlertMsg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/marginBottom_actionsheet_msg"
             android:gravity="center"
-            android:textColor="@color/textColor_actionsheet_msg"
-            android:textSize="@dimen/textSize_actionsheet_msg" />
+            android:paddingBottom="15dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="15dp"
+            android:textColor="#ff4747"
+            android:textSize="14dp" />
+
         <ListView
             android:id="@+id/alertButtonListView"
-            android:layout_weight="1.0"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:listSelector="@drawable/bg_alertbutton_none"
+            android:layout_height="wrap_content"
+            android:background="#f5f5f5"
             android:cacheColorHint="@android:color/transparent"
             android:divider="@null"
-            android:scrollbars="none"/>
+            android:dividerHeight="10dp"
+            android:listSelector="@drawable/bg_alertbutton_normal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:scrollbars="none" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tvAlertCancel"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/margin_actionsheet_left_right"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_alert_button"
-        android:gravity="center"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_alertbutton_bottom"
         android:clickable="true"
-        android:background="@drawable/bg_actionsheet_cancel"
-        android:textColor="@color/textColor_alert_button_cancel"
-        android:textStyle="bold"
-        android:textSize="@dimen/textSize_alert_button" />
+        android:gravity="center"
+        android:textColor="#2f3439"
+        android:textSize="14dp"
+        android:visibility="gone" />
 </LinearLayout>

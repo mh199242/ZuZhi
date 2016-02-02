@@ -124,7 +124,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 break;
             //next step button 下一步键
             case R.id.bt_regist_next_step:
-                new AlertView(null, getResources().getString(R.string.alert_cellphone_already_exist),
+                new AlertView(null, null, getResources().getString(R.string.alert_cellphone_already_exist),
                         getResources().getString(R.string.cancel),
                         new String[]{getResources().getString(R.string.confirm)},
                         null, this, AlertView.Style.Alert, this)

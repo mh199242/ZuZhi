@@ -32,7 +32,6 @@ public class TopicLayoutManager extends LinearLayoutManager {
             int measuredWidth = MeasureSpec.getSize(widthSpec);
             int measuredHeight = view.getMeasuredHeight();
             setMeasuredDimension(measuredWidth, measuredHeight * mSize);
-
         }
     }
 }

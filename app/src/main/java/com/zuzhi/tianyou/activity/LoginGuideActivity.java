@@ -91,7 +91,9 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             //alpha navigation bar 透明导航栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
         }
+
     }
 
     @Override

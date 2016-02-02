@@ -16,6 +16,9 @@ public class Cons {
     //IndexFragment tag
     public static final String FRAMENT_INDEX = "IndexFragment";
 
+    //CommodityInfoActivity tag
+    public static final String ACTIVITY_COMMODITYINFO = "CommodityInfoActivity";
+
     //域名
     public final static String DOMAIN = "http://mysqapp.qweweq.com/index.php/app/index/";
 
@@ -215,8 +218,7 @@ public class Cons {
     public static int[] IDARR_EVALUATE_HEAD = new int[]{
             R.drawable.temp_vp_master1,
             R.drawable.temp_vp_master2,
-            R.drawable.temp_vp_master3,
-            R.drawable.temp_vp_master1
+            R.drawable.temp_vp_master3
     };
 
 
@@ -226,8 +228,7 @@ public class Cons {
     public static float[] RATINGARR_EVALUATE = new float[]{
             3.5f,
             4.5f,
-            3.5f,
-            5.0f
+            3.5f
     };
 
     /**
@@ -236,8 +237,7 @@ public class Cons {
     public static String[] STRARR_EVALUATE_NAME = new String[]{
             "张亮",
             "李强",
-            "王刚",
-            "周成"};
+            "王刚"};
 
     /**
      * test data of evaluate content 评论内容测试数据
@@ -245,8 +245,7 @@ public class Cons {
     public static String[] STRARR_EVALUATE_CONTENT = new String[]{
             "服务不错，下次还来",
             "差强人意，继续努力！",
-            "一般一般",
-            "很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长"};
+            "一般一般"};
 
     /**
      * test data of evaluate date 评论时间测试数据
@@ -254,6 +253,5 @@ public class Cons {
     public static String[] STRARR_EVALUATE_DATE = new String[]{
             "2天前",
             "今天",
-            "3小时前",
-            "刚刚"};
+            "3小时前"};
 }

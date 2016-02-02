@@ -34,4 +34,9 @@
     <color name="color_white">#ffffff</color>
     <!--black 黑色-->
     <color name="color_black">#000000</color>
+
+    <!--mask white 半透明遮罩白色-->
+    <color name="color_mask_white">#88ffffff</color>
+    <!--mask black 半透明遮罩黑色-->
+    <color name="color_mask_black">#88000000</color>
 </resources>
