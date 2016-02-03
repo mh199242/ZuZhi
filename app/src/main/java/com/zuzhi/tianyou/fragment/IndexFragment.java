@@ -8,11 +8,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -31,12 +35,15 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.VisitHistoryAdapter;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.bean.BannerImageBaseBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
+import com.zuzhi.tianyou.utils.AMapUtils;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 import com.zuzhi.tianyou.views.AutoScrollViewPager;
 
 import android.os.Handler;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -111,6 +118,14 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     private LinearLayout ll_phone_contact;
 
+    /**
+     * titlebar 标题栏透传
+     */
+    LinearLayout titleBar;
+
+    public IndexFragment(LinearLayout titleBar) {
+        this.titleBar = titleBar;
+    }
 
     @Override
     protected void initTitleBar(View view) {
@@ -119,7 +134,9 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void setTitleBar() {
-
+        if (titleBar.getVisibility() != View.VISIBLE) {
+            titleBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -412,6 +429,17 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
         @Override
         public void onPageScrollStateChanged(int arg0) {
+        }
+    }
+
+    @Override
+    //Fragment 从隐藏切换至显示，会调用onHiddenChanged(boolean hidden)方法
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            if (titleBar.getVisibility() != View.VISIBLE) {
+                titleBar.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

@@ -39,4 +39,6 @@
     <color name="color_mask_white">#88ffffff</color>
     <!--mask black 半透明遮罩黑色-->
     <color name="color_mask_black">#88000000</color>
+    <!--orange text color 橙色字体-->
+    <color name="color_text_orange">#fe8459</color>
 </resources>

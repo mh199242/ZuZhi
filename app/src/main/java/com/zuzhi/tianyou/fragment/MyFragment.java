@@ -1,10 +1,9 @@
 package com.zuzhi.tianyou.fragment;
 
 import android.content.Intent;
-import android.os.Build;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,13 +29,28 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
     private RelativeLayout rl_my_order, rl_my_collection, rl_my_coupons,
     rl_my_opinion, rl_my_help, rl_my_about, rl_my_exit;
 
+    //titlebar 标题栏透传
+    LinearLayout titleBar;
+    public MyFragment(LinearLayout titleBar){
+        this.titleBar = titleBar;
+    }
+
     @Override
     protected void setTitleBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //alpha status bar 透明状态栏
-            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //alpha navigation bar 透明导航栏
-            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        if(titleBar.getVisibility() != View.GONE){
+            titleBar.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    //Fragment 从隐藏切换至显示，会调用onHiddenChanged(boolean hidden)方法
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            if(titleBar.getVisibility() != View.GONE){
+                titleBar.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -55,7 +69,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
         im_my_set = (ImageView)view.findViewById(R.id.im_my_set);
         im_my_notice = (ImageView)view.findViewById(R.id.im_my_notice);
         im_my_info = (ImageView)view.findViewById(R.id.im_my_info);
-        im_my_header = (ImageView)view.findViewById(R.id.im_my_header);
+        im_my_header = (ImageView)view.findViewById(R.id.civ_my_head);
 
         rl_my_order = (RelativeLayout)view.findViewById(R.id.rl_my_order);
         rl_my_collection = (RelativeLayout)view.findViewById(R.id.rl_my_collection);
@@ -93,7 +107,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
             case R.id.im_my_info:       //详情
 //                Toast.makeText(getActivity(),"im_my_info",Toast.LENGTH_SHORT).show();
 //                break;
-            case R.id.im_my_header:     //点击头像个人设置
+            case R.id.civ_my_head:     //点击头像个人设置
                 Intent inPersonalDate = new Intent(getActivity(), PersonalDataActivity.class);
                 startActivity(inPersonalDate);
 //                Toast.makeText(getActivity(),"im_my_header",Toast.LENGTH_SHORT).show();
@@ -157,6 +171,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
                 break;
         }
     }
+
 
 }
 

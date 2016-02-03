@@ -1,16 +1,12 @@
 package com.zuzhi.tianyou.activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +25,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
-import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.HotServiceAdapter;
 import com.zuzhi.tianyou.adapter.viewpageradapter.ClassListAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
@@ -200,7 +195,7 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
     protected void setTitleBar() {
         //open the steep mode 沉浸模式
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            showSystemUI(getWindow().getDecorView());
+            TitileBarSteep(getWindow().getDecorView());
         } else {
             RelativeLayout.LayoutParams params =
                     new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);

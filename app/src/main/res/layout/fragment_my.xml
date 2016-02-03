@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_bg_identifying_code_disable"
-            android:fillViewport="true"
-            android:scrollbars="none">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_identifying_code_disable"
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <LinearLayout
         android:id="@+id/ll_fragment_my"
@@ -27,29 +28,34 @@
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/my_img"/>
+                android:src="@drawable/my_img" />
 
-            <ImageView
-                android:id="@+id/im_my_header"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_my_head"
                 android:layout_width="74dp"
                 android:layout_height="74dp"
                 android:layout_alignBottom="@id/im_my_titlebg"
+                android:layout_alignParentLeft="true"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp"
-                android:src="@drawable/my_empty"/>
+                android:src="@drawable/temp_vp_master1"
+                app:civ_border_color="@color/color_separation_line"
+                app:civ_border_width="2dp" />
+
+
             <TextView
                 android:id="@+id/tv_my_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="杨杨"
-                android:textSize="@dimen/font_size_level_one"
-                android:textColor="@color/color_white"
-                android:layout_alignTop="@id/im_my_header"
-                android:layout_alignBottom="@id/im_my_header"
+                android:layout_alignBottom="@id/civ_my_head"
+                android:layout_alignTop="@id/civ_my_head"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/civ_my_head"
                 android:gravity="center_vertical"
-                android:layout_toRightOf="@id/im_my_header"
-android:layout_marginLeft="15dp"
-                />
+                android:text="杨阳"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_size_level_one" />
+
             <ImageView
                 android:id="@+id/im_my_notice"
                 android:layout_width="22dp"
@@ -57,7 +63,7 @@ android:layout_marginLeft="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/my_notice"/>
+                android:src="@drawable/my_notice" />
 
             <ImageView
                 android:id="@+id/im_my_set"
@@ -67,7 +73,7 @@ android:layout_marginLeft="15dp"
                 android:layout_marginRight="22dp"
                 android:layout_toLeftOf="@+id/im_my_notice"
                 android:layout_toStartOf="@+id/im_my_notice"
-                android:src="@drawable/my_set"/>
+                android:src="@drawable/my_set" />
 
             <ImageView
                 android:id="@+id/im_my_info"
@@ -77,15 +83,14 @@ android:layout_marginLeft="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="35dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/my_click_white"/>
+                android:src="@drawable/my_click_white" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_white"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/rl_my_order"
@@ -98,7 +103,7 @@ android:layout_marginLeft="15dp"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/my_order"/>
+                    android:src="@drawable/my_order" />
 
                 <TextView
                     style="@style/myText"
@@ -106,7 +111,7 @@ android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="28dp"
                     android:text="@string/my_order"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <ImageView
                     android:layout_width="18dp"
@@ -114,14 +119,16 @@ android:layout_marginLeft="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/my_click_grey"/>
+                    android:src="@drawable/my_click_grey" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_separation_line"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="28dp"
-                    android:background="@color/color_separation_line"/>
+                    android:background="@color/color_separation_line" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_my_collection"
                 android:layout_width="match_parent"
@@ -133,7 +140,7 @@ android:layout_marginLeft="15dp"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/my_collection"/>
+                    android:src="@drawable/my_collection" />
 
                 <TextView
                     style="@style/myText"
@@ -141,7 +148,7 @@ android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="28dp"
                     android:text="@string/my_collection"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <ImageView
                     android:layout_width="18dp"
@@ -149,14 +156,16 @@ android:layout_marginLeft="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/my_click_grey"/>
+                    android:src="@drawable/my_click_grey" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_separation_line"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="28dp"
-                    android:background="@color/color_separation_line"/>
+                    android:background="@color/color_separation_line" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_my_coupons"
                 android:layout_width="match_parent"
@@ -168,7 +177,7 @@ android:layout_marginLeft="15dp"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/my_coupons"/>
+                    android:src="@drawable/my_coupons" />
 
                 <TextView
                     style="@style/myText"
@@ -176,7 +185,7 @@ android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="28dp"
                     android:text="@string/my_coupons"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <ImageView
                     android:layout_width="18dp"
@@ -184,22 +193,24 @@ android:layout_marginLeft="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/my_click_grey"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_separation_line"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="28dp"
-                    android:background="@color/color_separation_line"/>
+                    android:src="@drawable/my_click_grey" />
+
+
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/color_white"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/rl_my_opinion"
@@ -212,14 +223,15 @@ android:layout_marginLeft="15dp"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/my_opinion"/>
+                    android:src="@drawable/my_opinion" />
+
                 <TextView
                     style="@style/myText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="28dp"
                     android:text="@string/my_opinion"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <ImageView
                     android:layout_width="18dp"
@@ -227,14 +239,16 @@ android:layout_marginLeft="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/my_click_grey"/>
+                    android:src="@drawable/my_click_grey" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_separation_line"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="28dp"
-                    android:background="@color/color_separation_line"/>
+                    android:background="@color/color_separation_line" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_my_help"
                 android:layout_width="match_parent"
@@ -246,7 +260,7 @@ android:layout_marginLeft="15dp"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/my_help"/>
+                    android:src="@drawable/my_help" />
 
                 <TextView
                     style="@style/myText"
@@ -254,7 +268,7 @@ android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="28dp"
                     android:text="@string/my_help"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <ImageView
                     android:layout_width="18dp"
@@ -262,15 +276,17 @@ android:layout_marginLeft="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/my_click_grey"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_separation_line"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="28dp"
-                    android:background="@color/color_separation_line"/>
+                    android:src="@drawable/my_click_grey" />
+
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
         </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/rl_my_about"
             android:layout_width="match_parent"
@@ -284,7 +300,7 @@ android:layout_marginLeft="15dp"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/my_us"/>
+                android:src="@drawable/my_us" />
 
             <TextView
                 style="@style/myText"
@@ -292,7 +308,7 @@ android:layout_marginLeft="15dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:text="@string/my_about"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <ImageView
                 android:layout_width="18dp"
@@ -300,14 +316,17 @@ android:layout_marginLeft="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/my_click_grey"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_separation_line"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="28dp"
-                android:background="@color/color_separation_line"/>
+                android:src="@drawable/my_click_grey" />
+
+
         </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_separation_line"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_separation_line" />
+
         <RelativeLayout
             android:id="@+id/rl_my_exit"
             android:layout_width="match_parent"
@@ -321,7 +340,7 @@ android:layout_marginLeft="15dp"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/my_exit"/>
+                android:src="@drawable/my_exit" />
 
             <TextView
                 style="@style/myText"
@@ -329,7 +348,7 @@ android:layout_marginLeft="15dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:text="@string/my_exit"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <ImageView
                 android:layout_width="18dp"
@@ -337,14 +356,16 @@ android:layout_marginLeft="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/my_click_grey"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_separation_line"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="28dp"
-                android:background="@color/color_separation_line"/>
+                android:src="@drawable/my_click_grey" />
+
+
         </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_separation_line"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_separation_line" />
     </LinearLayout>
 
 </ScrollView>

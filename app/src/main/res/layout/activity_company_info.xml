@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_identifying_code_disable"
+    android:orientation="vertical"
+    tools:context="com.zuzhi.tianyou.activity.CompanyInfoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:background="@drawable/my_img"
+        android:paddingRight="30dp">
+
+        <Button
+            android:id="@+id/bt_company_back"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/main_bg" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_company_info_icon"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/temp_comany_icon"
+            app:civ_border_color="@color/color_separation_line"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/tv_company_info_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="78dp"
+            android:layout_toEndOf="@+id/civ_company_info_icon"
+            android:layout_toRightOf="@+id/civ_company_info_icon"
+            android:text="永大税务事务所"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/font_size_level_one" />
+
+        <TextView
+            android:id="@+id/tv_company_info_company_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_company_info_company_name"
+            android:layout_below="@+id/tv_company_info_company_name"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="全国排名前7的会计事务所,在业界拥有良好的品牌信用，参与了232家上市公司的财务工作参与了232家上市公司的财务工作参与了232家上市公司的财务工作参与了232家上市公司的财务工作参与了232家上市公司的财务工作参与了232家上市公司的财务工作"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/font_size_level_four" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_commodity_info_single"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/saled"
+                android:textColor="@color/color_text_hint"
+                android:textSize="@dimen/font_size_class_level" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="727单"
+                android:textColor="@color/color_text_orange"
+                android:textSize="@dimen/font_size_class_level" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/height_separation_line"
+            android:layout_height="20dp"
+            android:background="@color/color_separation_line" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/good_evaluate_percent"
+                android:textColor="@color/color_text_hint"
+                android:textSize="@dimen/font_size_class_level" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="96%"
+                android:textColor="@color/color_text_orange"
+                android:textSize="@dimen/font_size_class_level" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/height_separation_line"
+            android:layout_height="20dp"
+            android:background="@color/color_separation_line" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/overall_rating"
+                android:textColor="@color/color_text_hint"
+                android:textSize="@dimen/font_size_class_level" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="4.9分"
+                android:textColor="@color/color_text_orange"
+                android:textSize="@dimen/font_size_class_level" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_separation_line"
+        android:background="@color/color_separation_line" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_company_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_tab_layout"
+        android:layout_marginTop="@dimen/margin_edit_follow_items"
+        android:background="@color/color_white"
+        app:tabIndicatorColor="@color/color_bg_button_main_normal"
+        app:tabSelectedTextColor="@color/color_bg_button_main_normal"
+        app:tabTextColor="@color/color_normal_text" />
+
+    <android.support.v4.view.ViewPager
+        android:overScrollMode="never"
+        android:id="@+id/vp_company_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" />
+
+</LinearLayout>

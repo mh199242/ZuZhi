@@ -222,7 +222,7 @@ public class Cons {
     public static int[] IDARR_EVALUATE_HEAD = new int[]{
             R.drawable.temp_vp_master1,
             R.drawable.temp_vp_master2,
-            R.drawable.temp_vp_master3
+            R.drawable.temp_vp_master3,
     };
 
 
@@ -258,4 +258,77 @@ public class Cons {
             "2天前",
             "今天",
             "3小时前"};
+
+
+    /**
+     * test data of masters head 专家团头像测试数据
+     */
+    public static int[] IDARR_MASTERS_HEAD = new int[]{
+            R.drawable.temp_vp_master1, R.drawable.temp_vp_master2, R.drawable.temp_vp_master3,
+            R.drawable.temp_vp_master1};
+
+    /**
+     * test data of masters name 专家团姓名测试数据
+     */
+    public static String[] STRARR_MASTERS_NAME = new String[]{
+            "张三",
+            "李四",
+            "王五",
+            "赵六"};
+
+    /**
+     * test data of masters exp 专家团经验测试数据
+     */
+    public static String[] STRARR_MASTERS_EXP = new String[]{
+            "9年经验",
+            "7年经验",
+            "3年经验",
+            "4年经验"};
+
+    /**
+     * test data of masters good at1 专家团擅长领域1测试数据
+     */
+    public static String[] STRARR_MASTERS_GODD_AT1 = new String[]{
+            "企业上市",
+            "财会统计",
+            "风险评估",
+            "企业税务"};
+
+    /**
+     * test data of masters good at1 专家团擅长领域2测试数据
+     */
+    public static String[] STRARR_MASTERS_GODD_AT2 = new String[]{
+            "财会统计",
+            "风险评估",
+            "企业税务",
+            "企业上市"};
+
+    /**
+     * test data of masters good evaluate percent 专家团好评率测试数据
+     */
+    public static String[] STRARR_MASTERS_GODD_EVALUATE_PERCENT = new String[]{
+            "74%",
+            "98%",
+            "90%",
+            "94%"};
+
+    /**
+     * test data of masters completer number 专家团完成数量测试数据
+     */
+    public static String[] STRARR_MASTERS_COMPLETE_NUMBER = new String[]{
+            "874单",
+            "74单",
+            "84单",
+            "254单"};
+
+    /**
+     * test data of masters evaluate number 专家团被评价数量测试数据
+     */
+    public static String[] STRARR_MASTERS_EVALUATE_NUMBER = new String[]{
+            "78",
+            "345",
+            "346",
+            "345"};
+
+
 }

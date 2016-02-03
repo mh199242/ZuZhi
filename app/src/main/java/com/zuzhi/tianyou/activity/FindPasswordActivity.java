@@ -83,7 +83,7 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void setTitleBar() {
         //open the steep mode 沉浸模式
-        showSystemUI(getWindow().getDecorView());
+        TitileBarSteep(getWindow().getDecorView());
 
         ll_title_bar_left.setVisibility(View.VISIBLE);
         tv_title_bar_text.setVisibility(View.VISIBLE);

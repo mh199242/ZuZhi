@@ -168,6 +168,7 @@
                 android:paddingLeft="@dimen/padding_main">
 
                 <RelativeLayout
+                    android:id="@+id/rl_commodity_info_company_name"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_commodity_info_single">
 
@@ -232,9 +233,7 @@
                 android:layout_height="@dimen/height_tab_layout"
                 android:layout_marginTop="@dimen/margin_edit_follow_items"
                 android:background="@color/color_white"
-
                 app:tabIndicatorColor="@color/color_bg_button_main_normal"
-
                 app:tabSelectedTextColor="@color/color_bg_button_main_normal"
                 app:tabTextColor="@color/color_normal_text" />
 

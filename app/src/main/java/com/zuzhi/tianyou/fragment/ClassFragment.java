@@ -1,7 +1,9 @@
 package com.zuzhi.tianyou.fragment;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 
@@ -31,11 +33,19 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
      */
     private ListView lv_class_level_two;
 
+    /**
+     * titlebar 标题栏透传
+     */
+    LinearLayout titleBar;
 
-
+    public ClassFragment(LinearLayout titleBar){
+        this.titleBar = titleBar;
+    }
     @Override
     protected void setTitleBar() {
-
+        if (titleBar.getVisibility() != View.VISIBLE) {
+            titleBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -94,6 +104,15 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
     }
 
-
+    @Override
+    //Fragment 从隐藏切换至显示，会调用onHiddenChanged(boolean hidden)方法
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            if (titleBar.getVisibility() != View.VISIBLE) {
+                titleBar.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 }
 

@@ -154,12 +154,12 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     /**
-     * steep status bar 沉浸状态栏
+     * steep mode wiht titlebar 有标题栏沉浸
      *
      * @param view
      */
     @SuppressLint("NewApi")
-    protected void showSystemUI(View view) {
+    protected void TitileBarSteep(View view) {
         //if the api level >= 19, open the steep mode 沉浸模式
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //offset the title bar 偏移标题栏
@@ -182,6 +182,23 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     /**
+     * steep mode without titlebar 无标题栏沉浸
+     * @param view
+     */
+    protected void NormalSteep(View view) {
+        //open the steep mode 沉浸模式
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //alpha status bar 透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //alpha navigation bar 透明导航栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+    }
+    /**
      * get the height of status bar 获取状态栏高度
      *
      * @return
@@ -193,12 +210,5 @@ public abstract class BaseActivity extends FragmentActivity {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        setContentView(R.layout.view_null);
-        super.onDestroy();
     }
 }

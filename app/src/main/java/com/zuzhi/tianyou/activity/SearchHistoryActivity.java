@@ -63,7 +63,7 @@ public class SearchHistoryActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void setTitleBar() {
         //open the steep mode 沉浸模式
-        showSystemUI(getWindow().getDecorView());
+        TitileBarSteep(getWindow().getDecorView());
 
         ll_title_bar_left.setVisibility(View.VISIBLE);
         bt_title_bar_left.setVisibility(View.VISIBLE);

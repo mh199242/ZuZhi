@@ -26,7 +26,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void initViews() {
         tv_personal_name = (TextView) findViewById(R.id.tv_personal_name);
-        iv_personal_head = (ImageView) findViewById(R.id.iv_personal_head);
+        iv_personal_head = (ImageView) findViewById(R.id.civ_personal_head);
 
         //从SharedPreferences里面获取用户名
         //tv_personal_name.setText();
@@ -47,7 +47,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void setTitleBar() {
         //open the steep mode 沉浸模式
-        showSystemUI(getWindow().getDecorView());
+        TitileBarSteep(getWindow().getDecorView());
 
         ll_title_bar_left.setVisibility(View.VISIBLE);
         tv_title_bar_text.setVisibility(View.VISIBLE);
@@ -69,7 +69,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                 break;
 
             //change head icon 修改头像
-            case R.id.iv_personal_head:
+            case R.id.civ_personal_head:
                 Toast.makeText(this, R.string.modify_phone_num, Toast.LENGTH_LONG).show();
                 break;
 

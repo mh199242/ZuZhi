@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -25,7 +24,6 @@ import com.zuzhi.tianyou.fragment.ClassFragment;
 import com.zuzhi.tianyou.fragment.IndexFragment;
 import com.zuzhi.tianyou.fragment.MyFragment;
 import com.zuzhi.tianyou.utils.AMapUtils;
-import com.zuzhi.tianyou.utils.Cons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +38,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     /**
      * class fragment 类目碎片
      */
-    private ClassFragment serviceFragment;
+    private ClassFragment classFragment;
 
     /**
      * index fragment 首页碎片
@@ -126,7 +124,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void setTitleBar() {
         //open the steep mode 沉浸模式
-        showSystemUI(getWindow().getDecorView());
+        TitileBarSteep(getWindow().getDecorView());
 
         tv_title_bar_city.setVisibility(View.VISIBLE);
         rl_title_bar_search.setVisibility(View.VISIBLE);
@@ -161,24 +159,18 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         hideAllFragment();
         switch (checkedId) {
             case R.id.rb_main_service://service 服务
-                if (ll_title_bar.getVisibility() != View.VISIBLE){
-                    ll_title_bar.setVisibility(View.VISIBLE);
-                }
-                if (serviceFragment == null) {
-                    serviceFragment = new ClassFragment();
-                    fragmentList.add(serviceFragment);
-                    fm.beginTransaction().add(R.id.fm_main_container, serviceFragment)
+                if (classFragment == null) {
+                    classFragment = new ClassFragment(ll_title_bar);
+                    fragmentList.add(classFragment);
+                    fm.beginTransaction().add(R.id.fm_main_container, classFragment)
                             .commit();
                 } else {
-                    fm.beginTransaction().show(serviceFragment).commit();
+                    fm.beginTransaction().show(classFragment).commit();
                 }
                 break;
             case R.id.rb_main_index://index 首页
-                if (ll_title_bar.getVisibility() != View.VISIBLE){
-                    ll_title_bar.setVisibility(View.VISIBLE);
-                }
                 if (indexFragment == null) {
-                    indexFragment = new IndexFragment();
+                    indexFragment = new IndexFragment(ll_title_bar);
                     fragmentList.add(indexFragment);
                     fm.beginTransaction().add(R.id.fm_main_container, indexFragment)
                             .commit();
@@ -186,17 +178,16 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     fm.beginTransaction().show(indexFragment).commit();
                 }
                 break;
-            case R.id.rb_main_my://index 我的
-                if (ll_title_bar.getVisibility() != View.GONE){
-                    ll_title_bar.setVisibility(View.GONE);
-                }
+
+            case R.id.rb_main_my://my 我的
                 if (myFragment == null) {
-                    myFragment = new MyFragment();
+                    myFragment = new MyFragment(ll_title_bar);
                     fragmentList.add(myFragment);
                     fm.beginTransaction().add(R.id.fm_main_container, myFragment)
                             .commit();
                 } else {
                     fm.beginTransaction().show(myFragment).commit();
+
                 }
                 break;
 

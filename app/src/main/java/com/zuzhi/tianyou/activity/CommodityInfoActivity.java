@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bigkoo.alertview.AlertView;
@@ -117,6 +118,11 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
      */
     private TextView tv_commodity_info_price2;
 
+    /**
+     * company name layout 公司名字布局
+     */
+    RelativeLayout rl_company_name;
+
     @Override
     protected int setContent() {
         return R.layout.activity_commodity_info;
@@ -142,6 +148,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         bt_contact_us = (Button) findViewById(R.id.bt_commodity_info_contact_us);
         tv_commodity_info_price2 = (TextView) findViewById(R.id.tv_commodity_info_price2);
         tv_commodity_info_price2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        rl_company_name = (RelativeLayout) findViewById(R.id.rl_commodity_info_company_name);
 
         //init test data
         ArrayList<HashMap<String, Object>> data_certificate = new ArrayList<HashMap<String, Object>>();
@@ -207,6 +214,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         cb_collection.setOnClickListener(this);
         ll_contact_us.setOnClickListener(this);
         bt_contact_us.setOnClickListener(this);
+        rl_company_name.setOnClickListener(this);
 
     }
 
@@ -218,17 +226,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void setTitleBar() {
         //open the steep mode 沉浸模式
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
-            //alpha status bar 透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //alpha navigation bar 透明导航栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
+        NormalSteep(getWindow().getDecorView());
     }
 
     @Override
@@ -255,6 +253,11 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
                         .setCancelable(true)
                         .setOnDismissListener(this)
                         .show();
+                break;
+            //comany name 公司名字
+            case R.id.rl_commodity_info_company_name:
+                Intent intent = new Intent(this, CompanyInfoActivity.class);
+                startActivity(intent);
                 break;
         }
     }

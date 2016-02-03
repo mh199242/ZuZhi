@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/color_white"
+    android:layout_height="87dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_item_masters_head"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/temp_vp_master1"
+        app:civ_border_color="@color/color_separation_line"
+        app:civ_border_width="@dimen/height_separation_line" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_separation_line"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/civ_item_masters_head" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/civ_item_masters_head"
+        android:text="王伟杰"
+        android:textColor="@color/color_normal_text"
+        android:textSize="@dimen/font_size_level_two" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_exp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_item_masters_name"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/tv_item_masters_name"
+        android:text="9年经验"
+        android:textColor="@color/color_bg_button_main_normal"
+        android:textSize="@dimen/font_size_class_level" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_good_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_item_masters_name"
+        android:layout_below="@+id/tv_item_masters_name"
+        android:layout_marginTop="5dp"
+        android:text="@string/good_at"
+        android:textColor="@color/color_normal_text"
+        android:textSize="@dimen/font_size_level_three" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_good_at1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_item_masters_good_at"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_item_masters_good_at"
+        android:text="企业上市"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_size_level_four" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_good_at2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_item_masters_good_at"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_item_masters_good_at1"
+        android:text="财务审计"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_size_level_four" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_good_evaluate_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_item_masters_good_at"
+        android:layout_below="@+id/tv_item_masters_good_at"
+        android:layout_marginTop="5dp"
+        android:text="@string/good_evaluate_percent"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_size_level_four" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_good_evaluate_percent_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_masters_good_at"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/tv_item_masters_good_evaluate_percent"
+        android:text="94%"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_size_level_four" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_good_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_masters_good_at"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/tv_item_masters_good_evaluate_percent_number"
+        android:text="@string/complete"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_size_level_four" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_good_complete_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_masters_good_at"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/tv_item_masters_good_complete"
+        android:text="1234单"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_size_level_four" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_evaluate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_masters_good_at"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/tv_item_masters_good_complete_number"
+        android:text="@string/evaluate"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_size_level_four" />
+
+    <TextView
+        android:id="@+id/tv_item_masters_evaluate_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_masters_good_at"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/tv_item_masters_evaluate"
+        android:text="764"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_size_level_four" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_separation_line"
+        android:layout_alignLeft="@+id/tv_item_masters_good_evaluate_percent"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_separation_line" />
+
+</RelativeLayout>

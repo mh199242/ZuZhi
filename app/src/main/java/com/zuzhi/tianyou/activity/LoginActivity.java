@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.MainActivity;
-import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.utils.ToastUtil;
@@ -78,7 +77,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void setTitleBar() {
         //open the steep mode 沉浸模式
-        showSystemUI(getWindow().getDecorView());
+        TitileBarSteep(getWindow().getDecorView());
 
         ll_title_bar_left.setVisibility(View.VISIBLE);
         tv_title_bar_text.setVisibility(View.VISIBLE);

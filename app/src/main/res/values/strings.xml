@@ -101,4 +101,14 @@
     <string name="opinion_hint">请写下您的宝贵意见...</string>
     <string name="determine_if_exit">是否确定退出？</string>
     <string name="determine_exit">确定退出</string>
+    <string name="saled">已售出</string>
+    <string name="overall_rating">综合评分</string>
+    <string name="complete_quality">完成质量</string>
+    <string name="work_speed">工作速度</string>
+    <string name="service_attitude">服务态度</string>
+    <string name="temp_details">企业在收购其他企业、进行内部结构重组、变更控股比例、剥离不良资产、组建合资公司或企业上市等方面的问题时，将遇到多方面的法律监管和涉税问题。明法度将根据企业实际情况及商业目的，提供包括交易谈判支持服务、尽职调查，从税务角度来审查合同草案、可行性分析和交易结构设计，将重组过程中的涉税风险尽可能的降低，协助企业与税务机关确认不明确税务问题的事先裁定等方面的涉税专业服务。</string>
+    <string name="good_at">擅长领域</string>
+    <string name="service_list">服务列表</string>
+    <string name="company_masters">公司专家团</string>
+    <string name="company_details">公司介绍</string>
 </resources>
