@@ -18,6 +18,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.DataCleanManager;
 
 import java.io.File;
 import java.util.Collection;
@@ -88,32 +89,32 @@ public class MyApplication extends Application {
     /**
      * 检测当前缓存值
      */
-    public static String checkCache(Context context) {
-//        try {
-//            long size = DataCleanManager.getFolderSize(new File(CACHE)) +
-//                    DataCleanManager.getFolderSize(new File(DATABASES)) +
-//                    DataCleanManager.getFolderSize(new File(LIB)) +
-////                    DataCleanManager.getFolderSize(new File(SHARED_PREFS)) +
-//                    DataCleanManager.getFolderSize(StorageUtils.getOwnCacheDirectory(context, Cons.CACHE_IMAGE_DIR));
-//            return DataCleanManager.getFormatSize(size);
-//
-//        } catch (Exception e) {
-//
-//            e.printStackTrace();
+    public static String checkCache() {
+        try {
+            long size = DataCleanManager.getFolderSize(new File(CACHE)) +
+                    DataCleanManager.getFolderSize(new File(DATABASES)) +
+                    DataCleanManager.getFolderSize(new File(LIB)) +
+                    DataCleanManager.getFolderSize(new File(SHARED_PREFS)) +
+                    DataCleanManager.getFolderSize(StorageUtils.getOwnCacheDirectory(instance, Cons.CACHE_IMAGE_DIR));
+            return DataCleanManager.getFormatSize(size);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
         return "检测错误";
-//        }
+        }
     }
 
     /**
      * 清除缓存
      */
 
-    public static void clearCache(Context context) {
-//        DataCleanManager.deleteDir(new File(CACHE));
-//        DataCleanManager.deleteDir(new File(DATABASES));
-//        DataCleanManager.deleteDir(new File(LIB));
-////        DataCleanManager.deleteDir(new File(SHARED_PREFS));
-//        DataCleanManager.deleteDir(StorageUtils.getOwnCacheDirectory(context, Cons.CACHE_IMAGE_DIR));
+    public static boolean clearCache() {
+        DataCleanManager.deleteDir(new File(CACHE));
+        DataCleanManager.deleteDir(new File(DATABASES));
+        DataCleanManager.deleteDir(new File(LIB));
+       DataCleanManager.deleteDir(new File(SHARED_PREFS));
+       return DataCleanManager.deleteDir(StorageUtils.getOwnCacheDirectory(instance, Cons.CACHE_IMAGE_DIR));
     }
 
     private void readUserInfo() {

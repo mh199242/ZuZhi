@@ -18,6 +18,10 @@ public class Cons {
 
     //CommodityInfoActivity tag
     public static final String ACTIVITY_COMMODITYINFO = "CommodityInfoActivity";
+    //IndexFragment tag 首页碎片标志
+    public static final String TAG_FRAGMENT_INDEX = "index";
+    //ClassFragment tag 类目碎片标志
+    public static final String TAG_FRAGMENT_CLASS = "class";
 
     //域名
     public final static String DOMAIN = "http://mysqapp.qweweq.com/index.php/app/index/";
@@ -149,56 +153,56 @@ public class Cons {
      * test data of index hot service title 首页热门服务标题
      */
     public static String[] STRARR_INDEX_HOT_SERVICE_TITLE = new String[]{
-            "创业必备：法律文书1件套——官方律师团亲自打造",
-            "创业必备：法律文书2件套——官方律师团亲自打造",
-            "创业必备：法律文书3件套——官方律师团亲自打造",
-            "创业必备：法律文书4件套——官方律师团亲自打造",
-            "创业必备：法律文书5件套——官方律师团亲自打造",
-            "创业必备：法律文书6件套——官方律师团亲自打造"};
+            "大企业税务风险管理1",
+            "大企业税务风险管理2",
+            "大企业税务风险管理3",
+            "大企业税务风险管理4",
+            "大企业税务风险管理5",
+            "大企业税务风险管理6"};
 
     /**
      * test data of index hot service info1 首页热门服务描述1
      */
     public static String[] STRARR_INDEX_HOT_SERVICE_INFO1 = new String[]{
-            "由李彦宏提供服务",
-            "由马云提供服务",
-            "由马化腾提供服务",
-            "由李彦宏提供服务",
-            "由马云提供服务",
-            "由马化腾提供服务"};
+            "由专家1提供服务",
+            "由专家2提供服务",
+            "由专家3提供服务",
+            "由专家4提供服务",
+            "由专家5提供服务",
+            "由专家6提供服务"};
 
     /**
      * test data of index hot service info2 首页热门服务描述2
      */
     public static String[] STRARR_INDEX_HOT_SERVICE_INFO2 = new String[]{
-            "百度全家桶",
-            "麻风侏儒",
-            "不充QB如何变强？！",
-            "百度全家桶",
-            "麻风侏儒",
-            "不充QB如何变强？！"};
+            "10年经验",
+            "5年经验",
+            "3年经验",
+            "2年经验",
+            "3年经验",
+            "5年经验"};
 
     /**
      * test data of index hot service price1 首页热门服务价格1
      */
     public static String[] STRARR_INDEX_HOT_SERVICE_PRICE1 = new String[]{
-            "￥1000.0",
-            "￥2000.0",
-            "￥2333.0",
-            "￥1000.0",
-            "￥2000.0",
-            "￥2333.0"};
+            "￥10000.0",
+            "￥20000.0",
+            "￥23330.0",
+            "￥10000.0",
+            "￥20000.0",
+            "￥23303.0"};
 
     /**
      * test data of index hot service price2 首页热门服务价格2
      */
     public static String[] STRARR_INDEX_HOT_SERVICE_PRICE2 = new String[]{
-            "￥4204.0",
-            "￥41304.0",
-            "￥3204.0",
-            "￥6204.0",
-            "￥5204.0",
-            "￥8904.0"};
+            "￥42004.0",
+            "￥410304.0",
+            "￥32004.0",
+            "￥62004.0",
+            "￥52004.0",
+            "￥89004.0"};
 
 
     /**

@@ -1,6 +1,7 @@
 package com.zuzhi.tianyou.activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -109,6 +110,13 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
      */
     private Drawable[] mDrawables;
 
+    /**
+     * text price2 价格2
+     *
+     * @return
+     */
+    private TextView tv_commodity_info_price2;
+
     @Override
     protected int setContent() {
         return R.layout.activity_commodity_info;
@@ -132,7 +140,8 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         cb_collection = (CheckBox) findViewById(R.id.cb_commodity_info_cellection);
         ll_contact_us = (LinearLayout) findViewById(R.id.ll_commodity_contact_us);
         bt_contact_us = (Button) findViewById(R.id.bt_commodity_info_contact_us);
-
+        tv_commodity_info_price2 = (TextView) findViewById(R.id.tv_commodity_info_price2);
+        tv_commodity_info_price2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         //init test data
         ArrayList<HashMap<String, Object>> data_certificate = new ArrayList<HashMap<String, Object>>();

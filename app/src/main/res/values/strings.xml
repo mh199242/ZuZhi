@@ -75,4 +75,30 @@
     <string name="send_message">发送消息</string>
     <string name="our_phone">400 188 6666</string>
     <string name="warrning">服务商不管以任何形式要求下线交易，都存在诈骗的风险，请提高警惕！</string>
+    <!-- 個人中心 -->
+    <string name="my_order">我的订单</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="my_coupons">优惠券</string>
+    <string name="my_opinion">意见反馈</string>
+    <string name="my_help">帮助</string>
+    <string name="my_about">关于我们</string>
+    <string name="my_exit">退出登录</string>
+    <string name="new_message">新消息通知</string>
+    <string name="modify_password">修改密码</string>
+    <string name="login_phone_number">登录手机号</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="clear_cache_fail">清除缓存失败</string>
+    <string name="clear_chat_message">清除聊天记录</string>
+    <string name="set_title">设置</string>
+    <string name="your_phone_num">你的手机号：</string>
+    <string name="modify_phone_num">更换手机号</string>
+    <!-- 更换手机号提示 -->
+    <string name="set_phone_num_prompt">更换手机号后，登录手机号将改变</string>
+    <string name="head_portrait">头像</string>
+    <string name="real_name">真实姓名</string>
+    <string name="personal_data">个人资料</string>
+    <string name="submit">提交</string>
+    <string name="opinion_hint">请写下您的宝贵意见...</string>
+    <string name="determine_if_exit">是否确定退出？</string>
+    <string name="determine_exit">确定退出</string>
 </resources>

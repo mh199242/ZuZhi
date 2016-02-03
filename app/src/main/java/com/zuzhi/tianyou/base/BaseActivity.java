@@ -81,6 +81,11 @@ public abstract class BaseActivity extends FragmentActivity {
      */
     protected Button bt_title_bar_search;
 
+    /**
+     * layout of titile bar标题栏布局
+     */
+    protected LinearLayout ll_title_bar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub

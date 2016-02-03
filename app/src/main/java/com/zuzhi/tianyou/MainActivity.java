@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.fragment.ClassFragment;
 import com.zuzhi.tianyou.fragment.IndexFragment;
+import com.zuzhi.tianyou.fragment.MyFragment;
 import com.zuzhi.tianyou.utils.AMapUtils;
 import com.zuzhi.tianyou.utils.Cons;
 
@@ -46,6 +48,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private IndexFragment indexFragment;
 
     /**
+     * my fragment 我的碎片
+     */
+    private MyFragment myFragment;
+
+    /**
      * fragment list 碎片列表
      */
     private List<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
@@ -55,6 +62,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      */
     private int[] indexRadioIds = {R.id.rb_main_index,
             R.id.rb_main_service, R.id.rb_main_tender, R.id.rb_main_my};
+
 
     /**
      * 单选按钮组
@@ -97,25 +105,22 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     protected void initViews() {
+
+        ll_title_bar = (LinearLayout) findViewById(R.id.ll_main_titlebar);
+
         fm = getSupportFragmentManager();
         rg_main = (RadioGroup) findViewById(R.id.rg_main);
-
         rg_main.setOnCheckedChangeListener(this);
-
         rg_main.check(indexRadioIds[0]);
-
 
     }
 
     @Override
     protected void initTitleBar() {
+
         tv_title_bar_city = (TextView) findViewById(R.id.tv_title_bar_city);
         rl_title_bar_search = (RelativeLayout) findViewById(R.id.rl_title_bar_search);
         bt_title_bar_search = (Button) findViewById(R.id.bt_title_bar_search);
-
-        bt_title_bar_search.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -144,6 +149,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         locationClient.startLocation();
 
         mHandler.sendEmptyMessage(AMapUtils.MSG_LOCATION_START);
+
+        //set listeners
+        bt_title_bar_search.setOnClickListener(this);
+
     }
 
     @Override
@@ -152,6 +161,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         hideAllFragment();
         switch (checkedId) {
             case R.id.rb_main_service://service 服务
+                if (ll_title_bar.getVisibility() != View.VISIBLE){
+                    ll_title_bar.setVisibility(View.VISIBLE);
+                }
                 if (serviceFragment == null) {
                     serviceFragment = new ClassFragment();
                     fragmentList.add(serviceFragment);
@@ -162,6 +174,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 }
                 break;
             case R.id.rb_main_index://index 首页
+                if (ll_title_bar.getVisibility() != View.VISIBLE){
+                    ll_title_bar.setVisibility(View.VISIBLE);
+                }
                 if (indexFragment == null) {
                     indexFragment = new IndexFragment();
                     fragmentList.add(indexFragment);
@@ -171,6 +186,20 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     fm.beginTransaction().show(indexFragment).commit();
                 }
                 break;
+            case R.id.rb_main_my://index 我的
+                if (ll_title_bar.getVisibility() != View.GONE){
+                    ll_title_bar.setVisibility(View.GONE);
+                }
+                if (myFragment == null) {
+                    myFragment = new MyFragment();
+                    fragmentList.add(myFragment);
+                    fm.beginTransaction().add(R.id.fm_main_container, myFragment)
+                            .commit();
+                } else {
+                    fm.beginTransaction().show(myFragment).commit();
+                }
+                break;
+
             default:
                 break;
         }

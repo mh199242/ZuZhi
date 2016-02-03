@@ -5,7 +5,10 @@
     android:background="@color/color_white"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <include layout="@layout/title_bar" />
+
+    <include android:id="@+id/ll_main_titlebar"
+             layout="@layout/title_bar" />
+
     <FrameLayout
         android:id="@+id/fm_main_container"
         android:layout_width="match_parent"

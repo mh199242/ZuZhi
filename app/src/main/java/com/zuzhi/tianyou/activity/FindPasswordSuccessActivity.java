@@ -29,6 +29,7 @@ public class FindPasswordSuccessActivity extends BaseActivity implements View.On
 
     @Override
     protected void initViews() {
+
         bt_back_to_login = (Button) findViewById(R.id.bt_find_password_success_back_to_login);
 
         bt_back_to_login.setOnClickListener(this);

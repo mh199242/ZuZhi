@@ -90,8 +90,25 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- commodity info activity 商品详情页 -->
         <activity
-            android:name=".activity.CommodityInfoActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.CommodityInfoActivity"></activity>
+        <!-- class my activity 我的设置 -->
+        <activity
+            android:name=".activity.SetActivity"
+            />
+        <!-- class my activity 登录手机号  -->
+        <activity
+            android:name=".activity.SetCellPhoneNumActivity"
+            />
+        <!-- class my activity 个人资料  -->
+        <activity
+            android:name=".activity.PersonalDataActivity"
+            />
+        <!-- class my activity 意见反馈  -->
+        <activity
+            android:name=".activity.OpinionActivity"
+            />
+
     </application>
 
 </manifest>

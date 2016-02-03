@@ -40,6 +40,16 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
      */
     Intent intent;
 
+
+    /** 获取intent 传参title字符串 */
+    private int titleIndex;
+
+    /** 修改密码 */
+    public static final int MODIFY_PASSWORD = 1;
+    /** 修改密码intent传参名字 */
+    public static final String MODIFY_PASSWORD_STR = "MODIFY_PASSWORD_STR";
+
+
     @Override
     protected int setContent() {
         return R.layout.activity_find_password;
@@ -48,6 +58,9 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void initViews() {
         //add this to exit list
+
+        titleIndex = getIntent().getIntExtra(MODIFY_PASSWORD_STR,0);
+
         MyApplication.getInstance().addActivity(this);
 
         timeCount = new TimeCount(60000, 1000);
@@ -79,8 +92,10 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
 
         bt_title_bar_left.setOnClickListener(this);
         ll_title_bar_left.setOnClickListener(this);
-
-        tv_title_bar_text.setText(R.string.find_password);
+        if(titleIndex == MODIFY_PASSWORD)
+            tv_title_bar_text.setText(R.string.modify_password);
+        else
+            tv_title_bar_text.setText(R.string.find_password);
     }
 
     @Override

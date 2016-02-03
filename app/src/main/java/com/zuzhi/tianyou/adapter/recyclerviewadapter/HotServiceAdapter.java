@@ -62,7 +62,7 @@ public class HotServiceAdapter extends RecyclerView.Adapter<HotServiceAdapter.My
 
         holder.tv_service_price1.setText((String) mData.get(position).get("hot_service_price1"));
         holder.tv_service_price2.setText((String) mData.get(position).get("hot_service_price2"));
-        holder.tv_service_price2.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
+        holder.tv_service_price2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         holder.tv_service_attribute.setText((String) mData.get(position).get("hot_service_attribute"));
 

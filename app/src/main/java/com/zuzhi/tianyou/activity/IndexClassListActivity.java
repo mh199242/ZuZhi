@@ -1,6 +1,7 @@
 package com.zuzhi.tianyou.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
@@ -144,6 +145,14 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
             //init and set up wiht recyclerview adapter 初始化并设置recyclerview适配器
             rv_class_list = new RecyclerView(this);
             HotServiceAdapter adp_hotService = new HotServiceAdapter(this, data_hotService);
+            adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    //start commodity info activity 启动商品详情页
+                    Intent intent = new Intent(mContext, CommodityInfoActivity.class);
+                    startActivity(intent);
+                }
+            });
             rv_class_list.setAdapter(adp_hotService);
             //rv_class_list.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_hotService.size()));
             rv_class_list.setLayoutManager(new LinearLayoutManager(this, OrientationHelper.VERTICAL, false));

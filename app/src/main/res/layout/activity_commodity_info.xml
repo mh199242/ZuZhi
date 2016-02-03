@@ -79,7 +79,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:text="创业必备：法律文书6件套—官方律师团亲自打造"
+                    android:text="大企业税务风险管理"
                     android:textColor="@color/color_normal_text"
                     android:textSize="@dimen/font_size_level_one" />
 
@@ -91,7 +91,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/tv_commodity_info_title"
                     android:layout_marginTop="15dp"
-                    android:text="￥1000.0"
+                    android:text="￥10000.0"
                     android:textColor="@color/color_text_price_normal"
                     android:textSize="@dimen/font_size_level_one" />
 
@@ -102,7 +102,7 @@
                     android:layout_alignBottom="@+id/tv_commodity_info_price1"
                     android:layout_marginLeft="@dimen/margin_edit_follow_items"
                     android:layout_toRightOf="@+id/tv_commodity_info_price1"
-                    android:text="￥5200.0"
+                    android:text="￥52000.0"
                     android:textColor="@color/color_text_hint"
                     android:textSize="@dimen/font_size_level_four" />
 
