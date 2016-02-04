@@ -1,8 +1,5 @@
 package com.zuzhi.tianyou.activity;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,10 +9,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zuzhi.tianyou.MainActivity;
 import com.zuzhi.tianyou.R;
-import com.zuzhi.tianyou.adapter.recyclerviewadapter.MyProcessingOrderAdapter;
-import com.zuzhi.tianyou.adapter.viewpageradapter.MyOrderAdapter;
+import com.zuzhi.tianyou.adapter.recyclerviewadapter.MyOrderAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
 
 import java.util.ArrayList;
@@ -40,6 +35,11 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
     private RecyclerView rv_processing_order;
 
     /**
+     * completed recyclerview 已完成的订单列表
+     */
+    private RecyclerView rv_completed_order;
+
+    /**
      * viewpager's view list 页卡列表
      */
     private ArrayList<View> list_views = new ArrayList<View>();
@@ -62,13 +62,20 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
 
         //add view to viewpager
         rv_processing_order = new RecyclerView(this);
-        MyProcessingOrderAdapter adp_processing = new MyProcessingOrderAdapter(this);
+        MyOrderAdapter adp_processing = new MyOrderAdapter(this);
+        adp_processing.setOrderType(adp_processing.PROCESSING);
         rv_processing_order.setAdapter(adp_processing);
         rv_processing_order.setLayoutManager(new LinearLayoutManager(this));
 
+        rv_completed_order = new RecyclerView(this);
+        MyOrderAdapter adp_completed = new MyOrderAdapter(this);
+        adp_completed.setOrderType(adp_processing.COMPLETED);
+        rv_completed_order.setAdapter(adp_completed);
+        rv_completed_order.setLayoutManager(new LinearLayoutManager(this));
+
         list_views.add(rv_processing_order);
         list_tabs.add(getResources().getString(R.string.processing));
-        list_views.add(rv_processing_order);
+        list_views.add(rv_completed_order);
         list_tabs.add(getResources().getString(R.string.completed));
 
         vp_my_order.addView(rv_processing_order);
@@ -76,7 +83,7 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
             tl_my_order.addTab(tl_my_order.newTab().setText(list_tabs.get(i)));
         }
 
-        vp_my_order.setAdapter(new MyOrderAdapter(list_views, list_tabs));
+        vp_my_order.setAdapter(new com.zuzhi.tianyou.adapter.viewpageradapter.MyOrderAdapter(list_views, list_tabs));
         tl_my_order.setupWithViewPager(vp_my_order);
     }
 

@@ -119,6 +119,7 @@ public class ServiceClassListActivity extends BaseActivity implements View.OnCli
         rl_title_bar_search = (RelativeLayout) findViewById(R.id.rl_title_bar_search);
         bt_title_bar_search = (Button) findViewById(R.id.bt_title_bar_search);
         ll_title_bar_right = (LinearLayout) findViewById(R.id.ll_title_bar_right);
+        bt_title_bar_search = (Button) findViewById(R.id.bt_title_bar_search);
     }
 
     @Override
@@ -131,6 +132,7 @@ public class ServiceClassListActivity extends BaseActivity implements View.OnCli
         rl_title_bar_search.setVisibility(View.VISIBLE);
         bt_title_bar_search.setVisibility(View.VISIBLE);
         ll_title_bar_right.setVisibility(View.VISIBLE);
+        bt_title_bar_search.setVisibility(View.GONE);
 
         ll_title_bar_left.setOnClickListener(this);
         bt_title_bar_left.setOnClickListener(this);

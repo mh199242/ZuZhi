@@ -1,7 +1,6 @@
 package com.zuzhi.tianyou.adapter.recyclerviewadapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -17,20 +16,37 @@ import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.activity.CompanyInfoActivity;
+import com.zuzhi.tianyou.activity.PayActivity;
 import com.zuzhi.tianyou.utils.Cons;
 
 /**
  * adpater of processing order recyclerview 进行中订单适配器
  */
-public class MyProcessingOrderAdapter extends RecyclerView.Adapter<MyProcessingOrderAdapter.MyViewHolder> implements View.OnClickListener {
+public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHolder> implements View.OnClickListener {
     private Context mContext;
     private OnItemClickLitener mOnItemClickLitener;
+
+    public int getOrderType() {
+        return i_orderType;
+    }
+
+    public void setOrderType(int i_orderType) {
+        this.i_orderType = i_orderType;
+    }
+
+    /**
+     * my order type我的订单订单类型
+     */
+    private int i_orderType;
+
+    public final int PROCESSING = 0;//processing 进行中
+    public final int COMPLETED = 1;//completed 已完成
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             //company name 商户名称
-            case R.id.ll_item_my_processing_order_company_name:
+            case R.id.ll_item_my_order_company_name:
                 //start company information activity 启动商户信息页
                 Intent intent = new Intent(mContext, CompanyInfoActivity.class);
                 mContext.startActivity(intent);
@@ -51,31 +67,71 @@ public class MyProcessingOrderAdapter extends RecyclerView.Adapter<MyProcessingO
      *
      * @param context 上下文
      */
-    public MyProcessingOrderAdapter(Context context) {
+    public MyOrderAdapter(Context context) {
         mContext = context;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MyViewHolder holder = new MyViewHolder(
-                LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_processing_order, parent, false));
+                LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_my_order, parent, false));
         return holder;
     }
 
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        //wait for pay status button process 待支付状态按钮处理
-        if (Cons.STRARR_ORDER_STATUS[position].equals("待支付")) {
-            holder.bt_main.setText(mContext.getResources().getString(R.string.go_pay));
-            holder.bt_check_info.setVisibility(View.GONE);
-            holder.bt_delay.setVisibility(View.GONE);
 
+        switch (i_orderType) {
+            case PROCESSING:
+                //wait for pay status button process 待支付状态按钮处理
+                if (Cons.STRARR_ORDER_PROCESSING_STATUS[position].equals("待支付")) {
+                    holder.bt_main.setText(mContext.getResources().getString(R.string.go_pay));
+                    holder.bt_child1.setVisibility(View.GONE);
+                    holder.bt_child2.setVisibility(View.GONE);
+                    holder.bt_main.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent in = new Intent(mContext, PayActivity.class);
+                            //订单信息 从bean中get数据
+                            in.putExtra(PayActivity.STR_ORDER_MONEY, 900);
+                            in.putExtra(PayActivity.STR_ORDER_NUM, "6484859");
+                            mContext.startActivity(in);
+                        }
+                    });
+                }
+                //company servicing status button process 商家服务中状态按钮处理
+                else {
+                    holder.bt_main.setText(mContext.getString(R.string.confirm_complete));
+                }
+                holder.tv_status.setText(Cons.STRARR_ORDER_PROCESSING_STATUS[position]);
+                break;
+            case COMPLETED:
+                //euvaluated status button process 已评论状态按钮处理
+                if (Cons.INTARR_ORDER_EVALUATE_STATUS[position] == 0) {
+                    holder.bt_main.setVisibility(View.GONE);
+                    holder.bt_child1.setText(mContext.getString(R.string.evaluated));
+                    holder.bt_child2.setText(mContext.getString(R.string.check_information));
+                    holder.bt_main.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+//                            Intent in = new Intent(mContext, PayActivity.class);
+//                            //订单信息 从bean中get数据
+//                            in.putExtra(PayActivity.STR_ORDER_MONEY, 900);
+//                            in.putExtra(PayActivity.STR_ORDER_NUM, "6484859");
+//                            mContext.startActivity(in);
+                        }
+                    });
+                }
+                //unevaluated status button process 未评论状态按钮处理
+                else {
+                    holder.bt_main.setText(mContext.getString(R.string.evaluate));
+                    holder.bt_child2.setVisibility(View.GONE);
+                }
+                holder.tv_status.setText("交易成功");
+                break;
         }
-        //company servicing status button process 商家服务中状态按钮处理
-        else {
-            holder.bt_main.setText(mContext.getResources().getString(R.string.confirm_complete));
-        }
+
         //order attitude process 订单属性处理
         if (Cons.STRARR_INDEX_HOT_SERVICE_ATTRIBUTE[position].equals("普普通通")) {
             holder.tv_attitude.setVisibility(View.GONE);
@@ -92,7 +148,6 @@ public class MyProcessingOrderAdapter extends RecyclerView.Adapter<MyProcessingO
         holder.tv_price2.setText(Cons.STRARR_INDEX_HOT_SERVICE_PRICE2[position]);
         holder.tv_price2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         holder.tv_total.setText(Cons.STRARR_ORDER_TOTAL_PRICE[position]);
-        holder.tv_status.setText(Cons.STRARR_ORDER_STATUS[position]);
         holder.tv_company_name.setText(Cons.STRARR_ORDER_COMPANY_NAME[position]);
 
         holder.ll_company_name.setOnClickListener(this);
@@ -156,14 +211,14 @@ public class MyProcessingOrderAdapter extends RecyclerView.Adapter<MyProcessingO
         TextView tv_attitude;
 
         /**
-         * delay button 延期按钮
+         * child button2 订单子按钮2
          */
-        Button bt_delay;
+        Button bt_child2;
 
         /**
-         * check information button 查看详情按钮
+         * child button1 订单子按钮1
          */
-        Button bt_check_info;
+        Button bt_child1;
 
         /**
          * order total 总价
@@ -198,9 +253,9 @@ public class MyProcessingOrderAdapter extends RecyclerView.Adapter<MyProcessingO
             tv_attitude = (TextView) itemView.findViewById(R.id.tv_item_my_order_attribute);
             tv_total = (TextView) itemView.findViewById(R.id.tv_item_my_order_total_number);
             bt_main = (Button) itemView.findViewById(R.id.bt_item_my_order_main);
-            bt_check_info = (Button) itemView.findViewById(R.id.bt_item_my_order_check_info);
-            bt_delay = (Button) itemView.findViewById(R.id.bt_item_my_order_delay);
-            ll_company_name = (LinearLayout) itemView.findViewById(R.id.ll_item_my_processing_order_company_name);
+            bt_child1 = (Button) itemView.findViewById(R.id.bt_item_my_order_child1);
+            bt_child2 = (Button) itemView.findViewById(R.id.bt_item_my_order_child2);
+            ll_company_name = (LinearLayout) itemView.findViewById(R.id.ll_item_my_order_company_name);
 
         }
 

@@ -124,4 +124,14 @@
     <string name="processing">进行中</string>
     <string name="confirm_order">确认订单</string>
     <string name="commit_order">提交订单</string>
+    <string name="levae_message_to_service">给服务商留言：</string>
+    <string name="levae_message_to_service_hint">可填写与服务商达成一致的要求</string>
+    <string name="order_money">订单金额</string>
+    <string name="order_num">订单编号</string>
+    <string name="select_hosting">选择托管方式</string>
+    <string name="wechat_pay">微信支付</string>
+    <string name="alipay_pay">支付宝支付</string>
+    <string name="pay_right_now">立即支付</string>
+    <string name="pay">付款</string>
+    <string name="evaluated">已评论</string>
 </resources>

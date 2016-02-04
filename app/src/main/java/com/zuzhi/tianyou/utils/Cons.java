@@ -332,15 +332,39 @@ public class Cons {
 
 
     /**
-     * test data of order status 订单状态测试数据
+     * test data of order status 订单进行中状态测试数据
      */
-    public static String[] STRARR_ORDER_STATUS = new String[]{
+    public static String[] STRARR_ORDER_PROCESSING_STATUS = new String[]{
             "待支付",
             "商家服务中",
             "待支付",
             "商家服务中",
             "商家服务中",
             "商家服务中"
+    };
+
+    /**
+     * test data of order status 订单完成状态测试数据
+     */
+    public static String[] STRARR_ORDER_COMPLETED_STATUS = new String[]{
+            "交易成功",
+            "交易成功",
+            "交易成功",
+            "交易成功",
+            "交易成功",
+            "交易成功"
+    };
+
+    /**
+     * test data of order status 订单评论状态测试数据
+     */
+    public static int[] INTARR_ORDER_EVALUATE_STATUS = new int[]{
+            1,
+            0,
+            0,
+            1,
+            0,
+            1
     };
 
     /**

@@ -113,6 +113,8 @@
             android:name=".activity.MyOrderActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".activity.ConfirmOrderActivity"></activity>
+        <!-- class my activity 付款页面 -->
+        <activity android:name=".activity.PayActivity" />
     </application>
 
 </manifest>

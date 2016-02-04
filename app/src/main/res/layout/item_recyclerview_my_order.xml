@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/ll_item_my_processing_order_company_name"
+        android:id="@+id/ll_item_my_order_company_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_tab_layout"
         android:background="@color/color_white"
@@ -185,7 +185,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/bt_item_my_order_delay"
+                android:id="@+id/bt_item_my_order_child2"
                 android:layout_width="75dp"
                 android:layout_height="25dp"
                 android:layout_alignParentBottom="true"
@@ -197,7 +197,7 @@
                 android:textSize="@dimen/font_14" />
 
             <Button
-                android:id="@+id/bt_item_my_order_check_info"
+                android:id="@+id/bt_item_my_order_child1"
                 android:layout_width="75dp"
                 android:layout_height="25dp"
                 android:layout_alignParentBottom="true"

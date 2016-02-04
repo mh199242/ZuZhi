@@ -13,10 +13,12 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ViewUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -126,6 +128,11 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
      */
     RelativeLayout rl_company_name;
 
+    /**
+     * text buy right now 立即购买文本
+     */
+    private TextView tv_buy;
+
     @Override
     protected int setContent() {
         return R.layout.activity_commodity_info;
@@ -152,6 +159,8 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         tv_commodity_info_price2 = (TextView) findViewById(R.id.tv_commodity_info_price2);
         tv_commodity_info_price2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         rl_company_name = (RelativeLayout) findViewById(R.id.rl_commodity_info_company_name);
+        tv_buy = (TextView) findViewById(R.id.tv_commodity_info_buy);
+
 
         //init test data
         ArrayList<HashMap<String, Object>> data_certificate = new ArrayList<HashMap<String, Object>>();
@@ -228,6 +237,8 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         ll_contact_us.setOnClickListener(this);
         bt_contact_us.setOnClickListener(this);
         rl_company_name.setOnClickListener(this);
+        tv_buy.setOnClickListener(this);
+        //work out the problem : when the edittext in scrollview, edittext can't get the focus
 
     }
 
@@ -244,6 +255,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch (v.getId()) {
             //back 返回
             case R.id.bt_commodity_back:
@@ -258,6 +270,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
             //contact us 联系我们
             case R.id.ll_commodity_contact_us:
             case R.id.bt_commodity_info_contact_us:
+                //alert customs dialog 弹出自己定对话框
                 new AlertView(mDrawables, null, getResources().getString(R.string.warrning),
                         getResources().getString(R.string.cancel),
                         new String[]{getResources().getString(R.string.send_message),
@@ -269,7 +282,14 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
                 break;
             //comany name 公司名字
             case R.id.rl_commodity_info_company_name:
-                Intent intent = new Intent(this, CompanyInfoActivity.class);
+                //start company info activity 启动商户详情页面
+                intent = new Intent(this, CompanyInfoActivity.class);
+                startActivity(intent);
+                break;
+            //buy right now 立即购买
+            case R.id.tv_commodity_info_buy:
+                //start confirm order activity 启动确认订单页面
+                intent = new Intent(this, ConfirmOrderActivity.class);
                 startActivity(intent);
                 break;
         }
