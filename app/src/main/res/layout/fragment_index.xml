@@ -37,7 +37,7 @@
                 android:layout_marginLeft="@dimen/padding_index"
                 android:text="@string/visit_history"
                 android:textColor="@color/color_text_hint"
-                android:textSize="@dimen/font_size_level_three" />
+                android:textSize="@dimen/font_13" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_visit_history"
@@ -85,7 +85,7 @@
                     android:layout_marginLeft="24dp"
                     android:text="@string/online_service"
                     android:textColor="@color/color_text_hint"
-                    android:textSize="@dimen/font_size_class_level" />
+                    android:textSize="@dimen/font_14" />
 
             </LinearLayout>
 
@@ -109,7 +109,7 @@
                     android:layout_marginLeft="24dp"
                     android:text="@string/phone_contect"
                     android:textColor="@color/color_text_hint"
-                    android:textSize="@dimen/font_size_class_level" />
+                    android:textSize="@dimen/font_14" />
 
             </LinearLayout>
         </LinearLayout>

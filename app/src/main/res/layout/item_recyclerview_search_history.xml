@@ -14,9 +14,9 @@
         android:background="@drawable/check_box_select_profession"
         android:button="@null"
         android:gravity="center"
-        android:paddingLeft="@dimen/font_size_level_four"
-        android:paddingRight="@dimen/font_size_level_four"
+        android:paddingLeft="@dimen/font_12"
+        android:paddingRight="@dimen/font_12"
         android:text="公司设立"
         android:textColor="@drawable/text_select_profession_check_box"
-        android:textSize="@dimen/font_size_level_four" />
+        android:textSize="@dimen/font_12" />
 </LinearLayout>

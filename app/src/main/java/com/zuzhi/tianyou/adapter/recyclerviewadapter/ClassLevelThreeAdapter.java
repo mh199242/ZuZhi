@@ -55,8 +55,13 @@ public class ClassLevelThreeAdapter extends RecyclerView.Adapter<ClassLevelThree
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.tv_item_class_level_three.setText(((String[]) mData.get(position).get("level_three"))[position]);
         if (mOnItemClickLitener != null) {
-
-
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
+                }
+            });
         }
     }
 

@@ -34,7 +34,7 @@
                 android:layout_marginLeft="@dimen/margin_edit_follow_items"
                 android:text="@string/search_history"
                 android:textColor="@color/color_normal_text"
-                android:textSize="@dimen/font_size_class_level" />
+                android:textSize="@dimen/font_14" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

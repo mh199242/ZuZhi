@@ -33,7 +33,7 @@
             android:layout_toRightOf="@+id/iv_item_hot_service_icon"
             android:text="创业必备：法律文书6件套——官方律师团亲自打造"
             android:textColor="@color/color_normal_text"
-            android:textSize="@dimen/font_size_level_two" />
+            android:textSize="@dimen/font_15" />
 
         <TextView
             android:id="@+id/tv_item_hot_service_info1"
@@ -44,7 +44,7 @@
             android:layout_marginTop="10dp"
             android:text="由专家提供服务"
             android:textColor="@color/color_text_hint"
-            android:textSize="@dimen/font_size_level_three" />
+            android:textSize="@dimen/font_13" />
 
         <TextView
             android:id="@+id/tv_item_hot_service_info2"
@@ -55,7 +55,7 @@
             android:layout_toRightOf="@+id/tv_item_hot_service_info1"
             android:text="9年经验"
             android:textColor="@color/color_bg_button_main_normal"
-            android:textSize="@dimen/font_size_level_three" />
+            android:textSize="@dimen/font_13" />
 
         <TextView
             android:id="@+id/tv_item_hot_service_price1"
@@ -65,7 +65,7 @@
             android:layout_alignParentBottom="true"
             android:text="￥1000.0"
             android:textColor="@color/color_text_price_normal"
-            android:textSize="@dimen/font_size_level_one" />
+            android:textSize="@dimen/font_18" />
 
         <TextView
             android:id="@+id/tv_item_hot_service_price2"
@@ -76,7 +76,7 @@
             android:layout_toRightOf="@+id/tv_item_hot_service_price1"
             android:text="￥5200.0"
             android:textColor="@color/color_text_hint"
-            android:textSize="@dimen/font_size_level_four" />
+            android:textSize="@dimen/font_12" />
 
         <TextView
             android:id="@+id/tv_item_hot_service_attribute"

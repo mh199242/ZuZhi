@@ -31,7 +31,7 @@
                 android:text="@string/head_portrait"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/color_bg_title_bar"
-                android:textSize="@dimen/font_size_class_level" />
+                android:textSize="@dimen/font_14" />
 
             <ImageView
                 android:id="@+id/iv_rightView"
@@ -40,7 +40,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/my_click_grey" />
+                android:src="@drawable/my_click_gray" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civ_personal_head"

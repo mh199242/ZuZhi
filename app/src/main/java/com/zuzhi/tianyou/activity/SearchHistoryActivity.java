@@ -15,7 +15,9 @@ import com.zuzhi.tianyou.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * search history activity 搜索历史页
+ */
 public class SearchHistoryActivity extends BaseActivity implements View.OnClickListener {
     /**
      * search history recycyler 搜索历史列表

@@ -39,7 +39,7 @@
                 android:textColor="@color/color_black"
                 android:textColorHint="@color/color_text_hint"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                 android:textColor="@color/color_black"
                 android:textColorHint="@color/color_text_hint"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -98,7 +98,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="@string/forget_password"
-                android:textSize="@dimen/font_size_level_four" />
+                android:textSize="@dimen/font_12" />
 
             <TextView
                 android:id="@+id/tv_login_regist_quickly"
@@ -108,7 +108,7 @@
                 android:layout_centerVertical="true"
                 android:text="@string/regist_quickly"
                 android:textColor="@color/color_normal_text"
-                android:textSize="@dimen/font_size_level_four" />
+                android:textSize="@dimen/font_12" />
 
 
         </RelativeLayout>
@@ -132,7 +132,7 @@
                 android:focusable="true"
                 android:text="@string/login"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/font_size_level_one" />
+                android:textSize="@dimen/font_18" />
 
             <TextView
                 android:layout_width="3dp"
@@ -160,7 +160,7 @@
                 android:layout_marginRight="@dimen/margin_one_key_login_separation_line"
                 android:text="@string/one_key_login"
                 android:textColor="@color/color_text_hint"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -198,7 +198,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="@string/wechat"
                         android:textColor="@color/color_text_hint"
-                        android:textSize="@dimen/font_size_level_two" />
+                        android:textSize="@dimen/font_15" />
 
                 </LinearLayout>
 
@@ -220,7 +220,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="@string/qq"
                         android:textColor="@color/color_text_hint"
-                        android:textSize="@dimen/font_size_level_two" />
+                        android:textSize="@dimen/font_15" />
 
                 </LinearLayout>
             </LinearLayout>

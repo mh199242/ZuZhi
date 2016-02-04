@@ -13,5 +13,5 @@
         android:text="最近访问"
         android:gravity="center"
         android:textColor="#c2c2c2"
-        android:textSize="@dimen/font_size_level_three" />
+        android:textSize="@dimen/font_13" />
 </LinearLayout>

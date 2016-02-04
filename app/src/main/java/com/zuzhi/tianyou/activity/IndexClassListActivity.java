@@ -38,7 +38,9 @@ import com.zuzhi.tianyou.views.AutoScrollViewPager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+/**
+ * index class list activity 首页类目列表页
+ */
 
 public class IndexClassListActivity extends BaseActivity implements View.OnClickListener {
 
@@ -110,7 +112,7 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected int setContent() {
-        return R.layout.activity_class_list;
+        return R.layout.activity_index_class_list;
     }
 
     @Override
@@ -188,7 +190,7 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
         bt_title_bar_search = (Button) findViewById(R.id.bt_title_bar_search);
         ll_title_bar_right = (LinearLayout) findViewById(R.id.ll_title_bar_right);
         tv_title_bar_right = (TextView) findViewById(R.id.tv_title_bar_right);
-        abl_class_list_tool = (AppBarLayout) findViewById(R.id.abl_class_list_tool);
+//        abl_class_list_tool = (AppBarLayout) findViewById(R.id.abl_class_list_tool);
     }
 
     @Override
@@ -197,10 +199,10 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             TitileBarSteep(getWindow().getDecorView());
         } else {
-            RelativeLayout.LayoutParams params =
-                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            params.height = ViewSetUtils.dp2px(this, 44);
-            abl_class_list_tool.setLayoutParams(params);
+//            RelativeLayout.LayoutParams params =
+//                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//            params.height = ViewSetUtils.dp2px(this, 44);
+//            abl_class_list_tool.setLayoutParams(params);
         }
         ll_title_bar_left.setVisibility(View.VISIBLE);
         bt_title_bar_left.setVisibility(View.VISIBLE);

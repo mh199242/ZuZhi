@@ -109,20 +109,21 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         fm = getSupportFragmentManager();
         rg_main = (RadioGroup) findViewById(R.id.rg_main);
         rg_main.setOnCheckedChangeListener(this);
-        rg_main.check(indexRadioIds[0]);
+
 
     }
 
     @Override
     protected void initTitleBar() {
-
         tv_title_bar_city = (TextView) findViewById(R.id.tv_title_bar_city);
         rl_title_bar_search = (RelativeLayout) findViewById(R.id.rl_title_bar_search);
         bt_title_bar_search = (Button) findViewById(R.id.bt_title_bar_search);
+        ll_title_bar_right = (LinearLayout) findViewById(R.id.ll_title_bar_right);
     }
 
     @Override
     protected void setTitleBar() {
+        rg_main.check(indexRadioIds[0]);
         //open the steep mode 沉浸模式
         TitileBarSteep(getWindow().getDecorView());
 
@@ -159,6 +160,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         hideAllFragment();
         switch (checkedId) {
             case R.id.rb_main_service://service 服务
+
+                tv_title_bar_city.setVisibility(View.GONE);
+                bt_title_bar_search.setVisibility(View.GONE);
+                ll_title_bar_right.setVisibility(View.VISIBLE);
+
                 if (classFragment == null) {
                     classFragment = new ClassFragment(ll_title_bar);
                     fragmentList.add(classFragment);
@@ -169,6 +175,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 }
                 break;
             case R.id.rb_main_index://index 首页
+
+                tv_title_bar_city.setVisibility(View.VISIBLE);
+                rl_title_bar_search.setVisibility(View.VISIBLE);
+                ll_title_bar_right.setVisibility(View.GONE);
+                bt_title_bar_search.setVisibility(View.VISIBLE);
+
                 if (indexFragment == null) {
                     indexFragment = new IndexFragment(ll_title_bar);
                     fragmentList.add(indexFragment);

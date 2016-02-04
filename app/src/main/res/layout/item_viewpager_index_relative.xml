@@ -20,7 +20,7 @@
             android:id="@+id/tv_item_viepager_topic_title_relative1"
             android:layout_marginTop="@dimen/margin_edit_follow_items"
             android:text="财会咨询"
-            android:textSize="@dimen/font_size_class_level"
+            android:textSize="@dimen/font_14"
             android:textColor="@color/color_bg_button_main_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -28,7 +28,7 @@
             android:id="@+id/tv_item_viepager_topic_info_relative1"
             android:layout_marginTop="5dp"
             android:text="高效开发"
-            android:textSize="@dimen/font_size_level_four"
+            android:textSize="@dimen/font_12"
             android:textColor="@color/color_text_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -61,7 +61,7 @@
                 android:id="@+id/tv_item_viepager_topic_title_relative2"
                 android:layout_marginTop="@dimen/margin_edit_follow_items"
                 android:text="税务咨询"
-                android:textSize="@dimen/font_size_class_level"
+                android:textSize="@dimen/font_14"
                 android:textColor="@color/color_bg_button_main_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -70,7 +70,7 @@
                 android:layout_below="@+id/tv_item_viepager_topic_title_relative2"
                 android:layout_marginTop="5dp"
                 android:text="财税服务省力省心"
-                android:textSize="@dimen/font_size_level_four"
+                android:textSize="@dimen/font_12"
                 android:textColor="@color/color_text_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -100,7 +100,7 @@
                 android:id="@+id/tv_item_viepager_topic_title_relative3"
                 android:layout_marginTop="@dimen/margin_edit_follow_items"
                 android:text="投资咨询"
-                android:textSize="@dimen/font_size_class_level"
+                android:textSize="@dimen/font_14"
                 android:textColor="@color/color_bg_button_main_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -109,7 +109,7 @@
                 android:layout_below="@+id/tv_item_viepager_topic_title_relative3"
                 android:layout_marginTop="5dp"
                 android:text="财税服务省力省心"
-                android:textSize="@dimen/font_size_level_four"
+                android:textSize="@dimen/font_12"
                 android:textColor="@color/color_text_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

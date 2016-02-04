@@ -12,5 +12,5 @@
         android:gravity="center"
         android:text="@string/personal_regist"
         android:textColor="@drawable/text_select_profession_check_box"
-        android:textSize="@dimen/font_size_level_two" />
+        android:textSize="@dimen/font_15" />
 </LinearLayout>

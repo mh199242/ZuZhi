@@ -18,7 +18,7 @@
         android:padding="15dp"
         android:textCursorDrawable="@null"
         android:hint="@string/opinion_hint"
-        android:textSize="@dimen/font_size_class_level"
+        android:textSize="@dimen/font_14"
         android:textColor="@color/color_bg_title_bar"
         android:textColorHint="@color/color_text_hint"/>
     <LinearLayout
@@ -37,7 +37,7 @@
             android:focusable="true"
             android:text="@string/submit"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/font_size_level_one"/>
+            android:textSize="@dimen/font_18"/>
 
     </LinearLayout>
 

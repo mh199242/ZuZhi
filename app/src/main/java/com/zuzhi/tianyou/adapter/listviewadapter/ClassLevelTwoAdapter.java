@@ -1,6 +1,7 @@
 package com.zuzhi.tianyou.adapter.listviewadapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.zuzhi.tianyou.MainActivity;
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.activity.CommodityInfoActivity;
+import com.zuzhi.tianyou.activity.ServiceClassListActivity;
 import com.zuzhi.tianyou.adapter.layoutmanager.ClassLevelThreeLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.ClassLevelThreeAdapter;
 
@@ -70,6 +74,14 @@ public class ClassLevelTwoAdapter extends BaseAdapter {
             holder.rv_class_level_three = (RecyclerView) convertView.findViewById(R.id.rv_class_level_three);
 
             ClassLevelThreeAdapter adapter = new ClassLevelThreeAdapter(mContext, mData, position);
+            adapter.setOnItemClickLitener(new ClassLevelThreeAdapter.OnItemClickLitener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    //start service class list activity 启动服务类目列表页
+                    Intent intent = new Intent(mContext, ServiceClassListActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
             holder.rv_class_level_three.setAdapter(adapter);
             holder.rv_class_level_three.setLayoutManager(new ClassLevelThreeLayoutManager(mContext, 2, ((String[]) mData.get(position).get("level_three")).length));
 //            rv_select_profession.addItemDecoration(new SelectProfessionItemDecoration(this));

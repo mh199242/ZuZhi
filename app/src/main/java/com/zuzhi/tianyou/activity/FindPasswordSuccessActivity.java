@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
-
+/**
+ * find password success activity 找回密码成功页
+ */
 public class FindPasswordSuccessActivity extends BaseActivity implements View.OnClickListener{
 
     /**

@@ -34,7 +34,7 @@
         android:layout_toRightOf="@+id/civ_item_masters_head"
         android:text="王伟杰"
         android:textColor="@color/color_normal_text"
-        android:textSize="@dimen/font_size_level_two" />
+        android:textSize="@dimen/font_15" />
 
     <TextView
         android:id="@+id/tv_item_masters_exp"
@@ -45,7 +45,7 @@
         android:layout_toRightOf="@+id/tv_item_masters_name"
         android:text="9年经验"
         android:textColor="@color/color_bg_button_main_normal"
-        android:textSize="@dimen/font_size_class_level" />
+        android:textSize="@dimen/font_14" />
 
     <TextView
         android:id="@+id/tv_item_masters_good_at"
@@ -56,7 +56,7 @@
         android:layout_marginTop="5dp"
         android:text="@string/good_at"
         android:textColor="@color/color_normal_text"
-        android:textSize="@dimen/font_size_level_three" />
+        android:textSize="@dimen/font_13" />
 
     <TextView
         android:id="@+id/tv_item_masters_good_at1"
@@ -68,7 +68,7 @@
         android:layout_toRightOf="@+id/tv_item_masters_good_at"
         android:text="企业上市"
         android:textColor="@color/color_text_hint"
-        android:textSize="@dimen/font_size_level_four" />
+        android:textSize="@dimen/font_12" />
 
     <TextView
         android:id="@+id/tv_item_masters_good_at2"
@@ -80,7 +80,7 @@
         android:layout_toRightOf="@+id/tv_item_masters_good_at1"
         android:text="财务审计"
         android:textColor="@color/color_text_hint"
-        android:textSize="@dimen/font_size_level_four" />
+        android:textSize="@dimen/font_12" />
 
     <TextView
         android:id="@+id/tv_item_masters_good_evaluate_percent"
@@ -91,7 +91,7 @@
         android:layout_marginTop="5dp"
         android:text="@string/good_evaluate_percent"
         android:textColor="@color/color_text_hint"
-        android:textSize="@dimen/font_size_level_four" />
+        android:textSize="@dimen/font_12" />
 
     <TextView
         android:id="@+id/tv_item_masters_good_evaluate_percent_number"
@@ -103,7 +103,7 @@
         android:layout_toRightOf="@+id/tv_item_masters_good_evaluate_percent"
         android:text="94%"
         android:textColor="@color/color_text_hint"
-        android:textSize="@dimen/font_size_level_four" />
+        android:textSize="@dimen/font_12" />
 
     <TextView
         android:id="@+id/tv_item_masters_good_complete"
@@ -115,7 +115,7 @@
         android:layout_toRightOf="@+id/tv_item_masters_good_evaluate_percent_number"
         android:text="@string/complete"
         android:textColor="@color/color_text_hint"
-        android:textSize="@dimen/font_size_level_four" />
+        android:textSize="@dimen/font_12" />
 
     <TextView
         android:id="@+id/tv_item_masters_good_complete_number"
@@ -127,7 +127,7 @@
         android:layout_toRightOf="@+id/tv_item_masters_good_complete"
         android:text="1234单"
         android:textColor="@color/color_text_hint"
-        android:textSize="@dimen/font_size_level_four" />
+        android:textSize="@dimen/font_12" />
 
     <TextView
         android:id="@+id/tv_item_masters_evaluate"
@@ -139,7 +139,7 @@
         android:layout_toRightOf="@+id/tv_item_masters_good_complete_number"
         android:text="@string/evaluate"
         android:textColor="@color/color_text_hint"
-        android:textSize="@dimen/font_size_level_four" />
+        android:textSize="@dimen/font_12" />
 
     <TextView
         android:id="@+id/tv_item_masters_evaluate_number"
@@ -151,7 +151,7 @@
         android:layout_toRightOf="@+id/tv_item_masters_evaluate"
         android:text="764"
         android:textColor="@color/color_text_hint"
-        android:textSize="@dimen/font_size_level_four" />
+        android:textSize="@dimen/font_12" />
 
     <View
         android:layout_width="match_parent"

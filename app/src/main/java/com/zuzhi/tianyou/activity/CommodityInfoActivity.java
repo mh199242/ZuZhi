@@ -39,6 +39,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * commodity information activity 商品详情页
+ */
 public class CommodityInfoActivity extends BaseActivity implements View.OnClickListener, com.bigkoo.alertview.OnItemClickListener, com.bigkoo.alertview.OnDismissListener {
 
     /**
@@ -181,6 +184,16 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         rv_certificate.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_certificate.size()));
 
         EvaluateAdapter adp_evaluate = new EvaluateAdapter(this, data_evaluate);
+        adp_evaluate.setOnItemClickLitener(new EvaluateAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (position == 0) {
+                    //start all evaluate activity 启动全部评价页面
+                    Intent intent = new Intent(CommodityInfoActivity.this, AllEvaluateActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         rv_evaluate.setAdapter(adp_evaluate);
         rv_evaluate.setLayoutManager(new LinearLayoutManager(this));
         ViewSetUtils.setRecyclverViewHeightBasedOnChildren(rv_evaluate);

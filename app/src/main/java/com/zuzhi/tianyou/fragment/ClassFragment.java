@@ -16,6 +16,9 @@ import com.zuzhi.tianyou.adapter.listviewadapter.ClassLevelTwoAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * class fragement 类目碎片
+ */
 public class ClassFragment extends BaseFragment implements View.OnClickListener {
 
     /**

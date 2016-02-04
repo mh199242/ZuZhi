@@ -34,7 +34,7 @@
                 android:padding="0dp"
                 android:text="@string/personal_regist"
                 android:textColor="@drawable/text_regist_radio"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <RadioButton
                 android:id="@+id/rb_regist_compony"
@@ -47,7 +47,7 @@
                 android:padding="0dp"
                 android:text="@string/company_regist"
                 android:textColor="@drawable/text_regist_radio"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
         </RadioGroup>
 
         <RelativeLayout
@@ -64,7 +64,7 @@
                 android:gravity="left"
                 android:text="@string/cell_phone"
                 android:textColor="@color/color_normal_text"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <EditText
                 android:id="@+id/et_regist_enter_cellphone"
@@ -80,7 +80,7 @@
                 android:textColor="@color/color_black"
                 android:textColorHint="@color/color_text_hint"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/identifying_code"
                 android:textColor="@color/color_normal_text"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <EditText
                 android:id="@+id/et_find_password_enter_identifying_code"
@@ -121,7 +121,7 @@
                 android:textColor="@color/color_black"
                 android:textColorHint="@color/color_text_hint"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <Button
                 android:id="@+id/bt_regist_identifying_code"
@@ -132,7 +132,7 @@
                 android:background="@drawable/button_focus_identifying_code"
                 android:text="@string/get_identifying_code"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/font_size_level_four" />
+                android:textSize="@dimen/font_12" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -157,7 +157,7 @@
                 android:gravity="left"
                 android:text="@string/password"
                 android:textColor="@color/color_normal_text"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <EditText
                 android:id="@+id/et_regist_password"
@@ -173,7 +173,7 @@
                 android:textColor="@color/color_black"
                 android:textColorHint="@color/color_text_hint"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <Button
 
@@ -185,7 +185,7 @@
                 android:background="@drawable/button_regist_show_password"
                 android:text="@string/show_password"
                 android:textColor="@drawable/text_regist_identifying_code"
-                android:textSize="@dimen/font_size_level_four" />
+                android:textSize="@dimen/font_12" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -213,7 +213,7 @@
                 android:layout_marginLeft="6dp"
                 android:text="@string/regist_toast_1"
                 android:textColor="@color/color_text_hint"
-                android:textSize="@dimen/font_size_level_four" />
+                android:textSize="@dimen/font_12" />
 
 
             <TextView
@@ -224,7 +224,7 @@
                 android:layout_marginLeft="6dp"
                 android:text="@string/regist_toast_2"
                 android:textColor="@color/color_bg_button_main_normal"
-                android:textSize="@dimen/font_size_level_four" />
+                android:textSize="@dimen/font_12" />
         </LinearLayout>
 
         <LinearLayout
@@ -245,7 +245,7 @@
                 android:background="@drawable/button_main"
                 android:text="@string/next_step"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/font_size_level_one" />
+                android:textSize="@dimen/font_18" />
 
             <TextView
                 android:layout_width="3dp"

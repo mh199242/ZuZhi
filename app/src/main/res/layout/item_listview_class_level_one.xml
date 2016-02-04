@@ -11,7 +11,7 @@
         android:gravity="center"
         android:text="商务服务"
         android:textColor="@color/color_bg_button_main_normal"
-        android:textSize="@dimen/font_size_class_level" />
+        android:textSize="@dimen/font_14" />
 
     <View
         android:id="@+id/v_item_class_level_one_lien_right"

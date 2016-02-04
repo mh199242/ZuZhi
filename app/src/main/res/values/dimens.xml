@@ -91,15 +91,18 @@
 
 
     <!--font size of level one 一级字号-->
-    <dimen name="font_size_level_one">18dp</dimen>
-    <!--font size of level two 二级字号-->
-    <dimen name="font_size_level_two">15dp</dimen>
+    <dimen name="font_18">18dp</dimen>
+    <!--font size of level three 二级字号-->
+    <dimen name="font_17">17dp</dimen>
     <!--font size of level three 三级字号-->
-    <dimen name="font_size_level_three">13dp</dimen>
+    <dimen name="font_15">15dp</dimen>
     <!--font size of level four 四级字号-->
-    <dimen name="font_size_level_four">12dp</dimen>
+    <dimen name="font_14">14dp</dimen>
     <!--font size of level five 五级字号-->
-    <dimen name="font_size_level_five">11dp</dimen>
-    <!--font size of class level 服务类目字号-->
-    <dimen name="font_size_class_level">14dp</dimen>
+    <dimen name="font_13">13dp</dimen>
+    <!--font size of level six 六级字号-->
+    <dimen name="font_12">12dp</dimen>
+    <!--font size of level seven 七级字号-->
+    <dimen name="font_11">11dp</dimen>
+
 </resources>

@@ -31,7 +31,7 @@
                 android:layout_alignParentTop="true"
                 android:text="公司成立5年"
                 android:textColor="@color/color_normal_text"
-                android:textSize="@dimen/font_size_class_level" />
+                android:textSize="@dimen/font_14" />
 
             <LinearLayout
                 android:id="@+id/ll_complete_quality"
@@ -53,7 +53,7 @@
                     android:layout_marginLeft="8dp"
                     android:text="@string/complete_quality"
                     android:textColor="@color/color_normal_text"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
 
                 <TextView
                     android:id="@+id/tv_company_details_complete_quality_rating"
@@ -62,7 +62,7 @@
                     android:layout_marginLeft="12dp"
                     android:text="5.0分"
                     android:textColor="@color/color_text_orange"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
 
                 <ProgressBar
                     android:id="@+id/pb_company_details_complete_quality_rating"
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:text="高3.67%"
                     android:textColor="@color/color_text_hint_default_search"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
             </LinearLayout>
 
             <LinearLayout
@@ -103,7 +103,7 @@
                     android:layout_marginLeft="8dp"
                     android:text="@string/work_speed"
                     android:textColor="@color/color_normal_text"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
 
                 <TextView
                     android:id="@+id/tv_company_details_work_speed_rating"
@@ -112,7 +112,7 @@
                     android:layout_marginLeft="12dp"
                     android:text="5.0分"
                     android:textColor="@color/color_text_orange"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
 
                 <ProgressBar
                     android:id="@+id/pb_company_details_work_speed_rating"
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:text="高3.67%"
                     android:textColor="@color/color_text_hint_default_search"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
             </LinearLayout>
 
             <LinearLayout
@@ -153,7 +153,7 @@
                     android:layout_marginLeft="8dp"
                     android:text="@string/service_attitude"
                     android:textColor="@color/color_normal_text"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
 
                 <TextView
                     android:id="@+id/tv_company_details_service_attitude_rating"
@@ -162,7 +162,7 @@
                     android:layout_marginLeft="12dp"
                     android:text="5.0分"
                     android:textColor="@color/color_text_orange"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
 
                 <ProgressBar
                     android:id="@+id/pb_company_details_service_attitude_rating"
@@ -180,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:text="高3.67%"
                     android:textColor="@color/color_text_hint_default_search"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
             </LinearLayout>
 
 
@@ -209,6 +209,6 @@
             android:paddingTop="8dp"
             android:text="@string/temp_details"
             android:textColor="@color/color_text_hint"
-            android:textSize="@dimen/font_size_class_level" />
+            android:textSize="@dimen/font_14" />
     </LinearLayout>
 </ScrollView>

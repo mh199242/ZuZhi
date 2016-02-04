@@ -111,4 +111,17 @@
     <string name="service_list">服务列表</string>
     <string name="company_masters">公司专家团</string>
     <string name="company_details">公司介绍</string>
+    <string name="synthesize">综合</string>
+    <string name="sales_volume">销量</string>
+    <string name="price">价格</string>
+    <string name="location">所在地</string>
+    <string name="total">合计:</string>
+    <string name="confirm_complete">确认完成</string>
+    <string name="delay">延期</string>
+    <string name="check_information">查看详情</string>
+    <string name="go_pay">去支付</string>
+    <string name="completed">已完成</string>
+    <string name="processing">进行中</string>
+    <string name="confirm_order">确认订单</string>
+    <string name="commit_order">提交订单</string>
 </resources>

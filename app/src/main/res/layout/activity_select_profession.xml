@@ -28,7 +28,7 @@
                 android:gravity="left"
                 android:text="@string/select_profession_toast"
                 android:textColor="@color/color_normal_text"
-                android:textSize="@dimen/font_size_level_two" />
+                android:textSize="@dimen/font_15" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                 android:background="@drawable/button_main"
                 android:text="@string/complete"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/font_size_level_one" />
+                android:textSize="@dimen/font_18" />
 
             <TextView
                 android:layout_width="3dp"

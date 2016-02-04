@@ -37,7 +37,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/my_click_grey"/>
+                android:src="@drawable/my_click_gray"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_separation_line"
@@ -64,7 +64,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/my_click_grey"/>
+                android:src="@drawable/my_click_gray"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_separation_line"
@@ -92,7 +92,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/my_click_grey"/>
+                android:src="@drawable/my_click_gray"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_separation_line"
@@ -158,7 +158,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/my_click_grey"/>
+            android:src="@drawable/my_click_gray"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_separation_line"

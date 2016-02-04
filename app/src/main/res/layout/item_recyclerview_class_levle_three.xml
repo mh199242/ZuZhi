@@ -13,5 +13,5 @@
         android:gravity="top"
         android:text="@string/personal_regist"
         android:textColor="@color/color_text_identifying_code_disable"
-        android:textSize="@dimen/font_size_level_two" />
+        android:textSize="@dimen/font_15" />
 </LinearLayout>

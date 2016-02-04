@@ -35,7 +35,7 @@
             android:layout_toLeftOf="@+id/iv_item_evaluate_title_arrow"
             android:text="李永"
             android:textColor="@color/color_text_hint"
-            android:textSize="@dimen/font_size_level_four" />
+            android:textSize="@dimen/font_12" />
 
         <RatingBar
             android:id="@+id/rbr_item_evaluate_details_rating"
@@ -52,7 +52,7 @@
             android:gravity="right"
             android:text="10天前"
             android:textColor="@color/color_text_hint"
-            android:textSize="@dimen/font_size_level_four" />
+            android:textSize="@dimen/font_12" />
     </LinearLayout>
 
     <TextView
@@ -64,7 +64,7 @@
         android:layout_marginTop="@dimen/margin_edit_follow_items"
         android:text="服务不错"
         android:textColor="@color/color_normal_text"
-        android:textSize="@dimen/font_size_class_level" />
+        android:textSize="@dimen/font_14" />
 
     <TextView
         android:layout_width="match_parent"

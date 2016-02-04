@@ -58,7 +58,7 @@
                         android:text="@string/share"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/color_white"
-                        android:textSize="@dimen/font_size_level_four" />
+                        android:textSize="@dimen/font_12" />
                 </LinearLayout>
 
             </RelativeLayout>
@@ -81,7 +81,7 @@
                     android:layout_alignParentTop="true"
                     android:text="大企业税务风险管理"
                     android:textColor="@color/color_normal_text"
-                    android:textSize="@dimen/font_size_level_one" />
+                    android:textSize="@dimen/font_18" />
 
 
                 <TextView
@@ -93,7 +93,7 @@
                     android:layout_marginTop="15dp"
                     android:text="￥10000.0"
                     android:textColor="@color/color_text_price_normal"
-                    android:textSize="@dimen/font_size_level_one" />
+                    android:textSize="@dimen/font_18" />
 
                 <TextView
                     android:id="@+id/tv_commodity_info_price2"
@@ -104,7 +104,7 @@
                     android:layout_toRightOf="@+id/tv_commodity_info_price1"
                     android:text="￥52000.0"
                     android:textColor="@color/color_text_hint"
-                    android:textSize="@dimen/font_size_level_four" />
+                    android:textSize="@dimen/font_12" />
 
                 <TextView
                     android:id="@+id/tv_commodity_info_saled"
@@ -114,7 +114,7 @@
                     android:layout_alignParentRight="true"
                     android:text="已售出699单"
                     android:textColor="@color/color_text_hint"
-                    android:textSize="@dimen/font_size_level_four" />
+                    android:textSize="@dimen/font_12" />
 
 
                 <TextView
@@ -139,7 +139,7 @@
                     android:layout_marginTop="@dimen/margin_edit_follow_items"
                     android:text="由专家提供服务"
                     android:textColor="@color/color_text_hint"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
 
                 <TextView
                     android:id="@+id/tv_item_hot_service_info2"
@@ -150,7 +150,7 @@
                     android:layout_toRightOf="@+id/tv_commodity_info_info1"
                     android:text="9年经验"
                     android:textColor="@color/color_bg_button_main_normal"
-                    android:textSize="@dimen/font_size_level_three" />
+                    android:textSize="@dimen/font_13" />
 
             </RelativeLayout>
 
@@ -180,14 +180,14 @@
                         android:layout_centerVertical="true"
                         android:text="服务商（北京）永大财务有限公司"
                         android:textColor="@color/color_normal_text"
-                        android:textSize="@dimen/font_size_class_level" />
+                        android:textSize="@dimen/font_14" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/my_click_grey" />
+                        android:background="@drawable/my_click_gray" />
                 </RelativeLayout>
 
                 <TextView
@@ -207,7 +207,7 @@
                         android:layout_centerVertical="true"
                         android:text="全国排名前7的会计事务所，在业界拥有良好的品牌信誉，参与了232家上市公司的财务工作。"
                         android:textColor="@color/color_normal_text"
-                        android:textSize="@dimen/font_size_class_level" />
+                        android:textSize="@dimen/font_14" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -292,7 +292,7 @@
                     android:layout_marginTop="3dp"
                     android:text="@string/collection"
                     android:textColor="@color/color_text_hint"
-                    android:textSize="@dimen/font_size_level_five" />
+                    android:textSize="@dimen/font_11" />
             </LinearLayout>
 
             <LinearLayout
@@ -316,7 +316,7 @@
                     android:layout_marginTop="3dp"
                     android:text="@string/contact_us"
                     android:textColor="@color/color_text_hint"
-                    android:textSize="@dimen/font_size_level_five" />
+                    android:textSize="@dimen/font_11" />
             </LinearLayout>
 
         </LinearLayout>
@@ -330,7 +330,7 @@
             android:orientation="horizontal"
             android:text="@string/buy_right_now"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/font_size_level_one" />
+            android:textSize="@dimen/font_18" />
     </LinearLayout>
 
 </RelativeLayout>

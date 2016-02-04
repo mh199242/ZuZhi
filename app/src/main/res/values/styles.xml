@@ -42,7 +42,7 @@
     </style>
 
     <style name="CustomTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
-        <item name="android:textSize">@dimen/font_size_class_level</item>
+        <item name="android:textSize">@dimen/font_14</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
@@ -51,7 +51,7 @@
     <style name="Theme.DesignDemo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="myText">
-        <item name="android:textSize">@dimen/font_size_class_level</item>
+        <item name="android:textSize">@dimen/font_14</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textColor">@color/color_bg_title_bar</item>
     </style>

@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="12dp"
-        android:textSize="@dimen/font_size_level_three"
+        android:textSize="@dimen/font_13"
         android:text="商务代理"
         android:textColor="@color/color_normal_text" />
 

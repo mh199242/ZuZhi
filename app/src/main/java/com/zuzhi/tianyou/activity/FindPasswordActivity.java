@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
-
+/**
+ * find password activity 找回密码页
+ */
 public class FindPasswordActivity extends BaseActivity implements View.OnClickListener {
 
     /**

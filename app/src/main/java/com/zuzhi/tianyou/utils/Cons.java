@@ -331,4 +331,38 @@ public class Cons {
             "345"};
 
 
+    /**
+     * test data of order status 订单状态测试数据
+     */
+    public static String[] STRARR_ORDER_STATUS = new String[]{
+            "待支付",
+            "商家服务中",
+            "待支付",
+            "商家服务中",
+            "商家服务中",
+            "商家服务中"
+    };
+
+    /**
+     * test data of company name 订单服务商名称测试数据
+     */
+    public static String[] STRARR_ORDER_COMPANY_NAME = new String[]{
+            "永大会计事务所",
+            "永中会计事务所",
+            "永小会计事务所",
+            "永稍大会计事务所",
+            "永稍小会计事务所",
+            "永不大不小会计事务所",};
+
+    /**
+     * test data of order total price 订单合计价格测试数据
+     */
+    public static String[] STRARR_ORDER_TOTAL_PRICE = new String[]{
+            "￥2000.0",
+            "￥2000.0",
+            "￥2330.0",
+            "￥1000.0",
+            "￥2000.0",
+            "￥2303.0"};
+
 }

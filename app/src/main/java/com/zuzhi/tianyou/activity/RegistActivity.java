@@ -15,7 +15,9 @@ import com.bigkoo.alertview.AlertView;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
-
+/**
+ * regist activity 注册页
+ */
 public class RegistActivity extends BaseActivity implements View.OnClickListener, com.bigkoo.alertview.OnItemClickListener, com.bigkoo.alertview.OnDismissListener {
 
     /**

@@ -21,14 +21,14 @@
         android:layout_toRightOf="@+id/iv_certificate"
         android:text="证券资格证"
         android:textColor="@color/color_normal_text"
-        android:textSize="@dimen/font_size_class_level" />
+        android:textSize="@dimen/font_14" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/my_click_grey" />
+        android:background="@drawable/my_click_gray" />
 
     <TextView
         android:layout_width="match_parent"

@@ -15,7 +15,9 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.SelectProfessionAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * select profession activity 选择职业页
+ */
 public class SelectProfessionActivity extends BaseActivity implements View.OnClickListener {
 
     /**

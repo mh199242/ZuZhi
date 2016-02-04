@@ -15,7 +15,7 @@
         android:gravity="left|center_vertical"
         android:text="二级类目"
         android:textColor="@color/color_normal_text"
-        android:textSize="@dimen/font_size_class_level" />
+        android:textSize="@dimen/font_14" />
 
     <View
         android:id="@+id/v_class_level_two_separation_line"

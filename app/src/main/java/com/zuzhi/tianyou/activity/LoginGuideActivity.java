@@ -17,7 +17,9 @@ import com.zuzhi.tianyou.utils.ToastUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
+/**
+ * login guide activity 导航登录页
+ */
 public class LoginGuideActivity extends BaseActivity implements View.OnClickListener {
     /**
      * edit text of username 用户名文字编辑框

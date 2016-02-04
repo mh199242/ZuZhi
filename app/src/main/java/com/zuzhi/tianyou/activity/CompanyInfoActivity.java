@@ -32,7 +32,9 @@ import com.zuzhi.tianyou.utils.ViewSetUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+/**
+ * company information activity 公司信息页
+ */
 public class CompanyInfoActivity extends BaseActivity implements View.OnClickListener {
 
     /**
