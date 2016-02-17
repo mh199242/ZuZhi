@@ -389,4 +389,44 @@ public class Cons {
             "￥2000.0",
             "￥2303.0"};
 
+    /**
+     * test data of order status 订单状态测试数据
+     */
+    public static String[] STRARR_ORDER_STATUS = new String[]{
+            "您已确认服务完成",
+            "项目已延期",
+            "服务商申请延期",
+            "服务商进行服务中",
+            "订单已生成"};
+
+    /**
+     * test data of order date 订单日期测试数据
+     */
+    public static String[] STRARR_ORDER_DATE = new String[]{
+            "2016-02-20",
+            "2016-02-19",
+            "2016-02-18",
+            "2016-02-17",
+            "2016-02-16"};
+
+    /**
+     * test data of order time 订单时间测试数据
+     */
+    public static String[] STRARR_ORDER_TIME = new String[]{
+            "13:32:23",
+            "13:32:22",
+            "13:32:21",
+            "13:32:10",
+            "13:32:23"};
+
+    /**
+     * test data of order color 订单颜色测试数据
+     */
+    public static int[] IDARR_ORDER_COLOR = new int[]{
+            R.color.color_text_status_green,
+            R.color.color_text_status_red,
+            R.color.color_text_status_red,
+            R.color.color_text_status_gray,
+            R.color.color_text_status_gray};
+
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="78dp"
+    android:background="@color/color_white"
+    android:paddingLeft="20dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_item_order_status_point"
+        android:layout_width="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_height="10dp"
+        android:src="@color/color_text_status_red" />
+
+    <View
+        android:layout_width="@dimen/height_separation_line"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/civ_item_order_status_point"
+        android:layout_marginLeft="5dp"
+        android:background="@color/color_bg_identifying_code_disable" />
+
+    <TextView
+        android:includeFontPadding="false"
+        android:id="@+id/tv_item_order_status_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/civ_item_order_status_point"
+        android:text="您已确认服务完成"
+        android:textColor="@color/color_text_status_red"
+        android:textSize="@dimen/font_15" />
+
+    <TextView
+        android:id="@+id/tv_item_order_status_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_order_status_text"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/civ_item_order_status_point"
+        android:text="2016-02-03"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_12" />
+
+    <TextView
+        android:id="@+id/tv_item_order_status_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_order_status_text"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/tv_item_order_status_date"
+        android:text="13:03:23"
+        android:textColor="@color/color_text_hint"
+        android:textSize="@dimen/font_12" />
+</RelativeLayout>

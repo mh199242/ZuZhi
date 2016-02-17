@@ -26,7 +26,12 @@
     <color name="color_text_identifying_code_disable">#888888</color>
     <!--text color of normarl price 价格正常颜色-->
     <color name="color_text_price_normal">#fb4747</color>
-
+    <!--red text color of status 红状态颜色-->
+    <color name="color_text_status_red">#fb5d5e</color>
+    <!--green text color of status 绿状态颜色-->
+    <color name="color_text_status_green">#6ccc92</color>
+    <!--gray text color of status 灰状态颜色-->
+    <color name="color_text_status_gray">#dddddd</color>
     <!--background color of empty image 图片为空时背景颜色-->
     <color name="color_background_empty_image">#f7f7f7</color>
 
@@ -41,4 +46,9 @@
     <color name="color_mask_black">#88000000</color>
     <!--orange text color 橙色字体-->
     <color name="color_text_orange">#fe8459</color>
+    <!--red color 红色-->
+    <color name="color_red">#ff0000</color>
+    <!--green color 绿色-->
+    <color name="color_green">#00ff00</color>
+
 </resources>

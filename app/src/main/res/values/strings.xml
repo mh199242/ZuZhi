@@ -134,4 +134,10 @@
     <string name="pay_right_now">立即支付</string>
     <string name="pay">付款</string>
     <string name="evaluated">已评论</string>
+    <string name="order_status">订单状态</string>
+    <string name="service_provider">服务商:</string>
+    <string name="order_id">订单编号:</string>
+    <string name="order_info">订单详情</string>
+    <string name="recommend_for_you">为您推荐</string>
+    <string name="check_info">查看详情</string>
 </resources>

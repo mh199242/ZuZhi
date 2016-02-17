@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.activity.CheckInfoActivity;
 import com.zuzhi.tianyou.activity.CompanyInfoActivity;
 import com.zuzhi.tianyou.activity.PayActivity;
 import com.zuzhi.tianyou.utils.Cons;
@@ -44,11 +45,12 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch (v.getId()) {
             //company name 商户名称
             case R.id.ll_item_my_order_company_name:
                 //start company information activity 启动商户信息页
-                Intent intent = new Intent(mContext, CompanyInfoActivity.class);
+                intent = new Intent(mContext, CompanyInfoActivity.class);
                 mContext.startActivity(intent);
                 break;
         }
@@ -105,6 +107,14 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
                     holder.bt_main.setText(mContext.getString(R.string.confirm_complete));
                 }
                 holder.tv_status.setText(Cons.STRARR_ORDER_PROCESSING_STATUS[position]);
+                holder.bt_child1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //start check info activity 启动查看详情页
+                        Intent intent = new Intent(mContext, CheckInfoActivity.class);
+                        mContext.startActivity(intent);
+                    }
+                });
                 break;
             case COMPLETED:
                 //euvaluated status button process 已评论状态按钮处理
@@ -129,6 +139,14 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
                     holder.bt_child2.setVisibility(View.GONE);
                 }
                 holder.tv_status.setText("交易成功");
+                holder.bt_child2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //start check info activity 启动查看详情页
+                        Intent intent = new Intent(mContext, CheckInfoActivity.class);
+                        mContext.startActivity(intent);
+                    }
+                });
                 break;
         }
 
@@ -151,6 +169,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
         holder.tv_company_name.setText(Cons.STRARR_ORDER_COMPANY_NAME[position]);
 
         holder.ll_company_name.setOnClickListener(this);
+
         if (mOnItemClickLitener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

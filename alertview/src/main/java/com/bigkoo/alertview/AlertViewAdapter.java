@@ -111,11 +111,9 @@ public class AlertViewAdapter extends BaseAdapter {
 
                     int textLength = mDatas.get(i).length() * ViewSetUtils.dp2px(mContext, 14) + tvAlert.getPaddingLeft();
                     list_textLength.add(textLength);
-                    Log.i("麻辣隔壁" , "" + textLength);
                 }
 
                 int temp = Collections.max(list_textLength);
-                Log.i("麻辣隔壁" , "最大的是" + temp);
                 tvAlert.setWidth(temp);
 
 

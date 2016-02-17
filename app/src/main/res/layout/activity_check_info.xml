@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zuzhi.tianyou.activity.CheckInfoActivity">
+
+    <include layout="@layout/title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_bg_identifying_code_disable"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/color_white"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_check_info_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/temp_icon1" />
+
+                <TextView
+                    android:id="@+id/tv_check_info_order_status_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/iv_check_info_icon"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/iv_check_info_icon"
+                    android:text="@string/order_status"
+                    android:textColor="@color/color_normal_text"
+                    android:textSize="@dimen/font_14" />
+
+                <TextView
+                    android:id="@+id/tv_check_info_order_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/iv_check_info_icon"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@+id/tv_check_info_order_status_text"
+                    android:text="已完成"
+                    android:textColor="@color/color_text_status_red"
+                    android:textSize="@dimen/font_14" />
+
+                <TextView
+                    android:id="@+id/tv_service_provider_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_check_info_order_status_text"
+                    android:layout_below="@+id/tv_check_info_order_status_text"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/service_provider"
+                    android:textColor="@color/color_text_hint"
+                    android:textSize="@dimen/font_12" />
+
+                <TextView
+                    android:id="@+id/tv_service_provider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_check_info_order_status"
+                    android:layout_below="@+id/tv_check_info_order_status"
+                    android:layout_marginTop="5dp"
+                    android:text="永大会计事务所"
+                    android:textColor="@color/color_text_hint"
+                    android:textSize="@dimen/font_12" />
+
+                <TextView
+                    android:id="@+id/tv_order_id_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_service_provider_text"
+                    android:layout_below="@+id/tv_service_provider_text"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/order_id"
+                    android:textColor="@color/color_text_hint"
+                    android:textSize="@dimen/font_12" />
+
+                <TextView
+                    android:id="@+id/tv_order_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_service_provider"
+                    android:layout_below="@+id/tv_service_provider"
+                    android:layout_marginTop="5dp"
+                    android:text="2333454"
+                    android:textColor="@color/color_text_hint"
+                    android:textSize="@dimen/font_12" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/color_white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/order_info" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_separation_line"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/color_bg_identifying_code_disable" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:background="@color/color_white"
+                android:id="@+id/rv_check_info_order_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="14dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_separation_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_separation_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_separation_line"
+                    android:layout_weight="1"
+                    android:background="@color/color_separation_line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:text="@string/recommend_for_you"
+                    android:textColor="@color/color_normal_text"
+                    android:textSize="@dimen/font_15" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_separation_line"
+                    android:layout_weight="1"
+                    android:background="@color/color_separation_line" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_check_info_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>
