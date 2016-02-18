@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.activity.CollectionActivity;
+import com.zuzhi.tianyou.activity.MyCouponActivity;
 import com.zuzhi.tianyou.activity.MyOrderActivity;
 import com.zuzhi.tianyou.activity.OpinionActivity;
 import com.zuzhi.tianyou.activity.PersonalDataActivity;
@@ -100,6 +102,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch (v.getId()) {
             case R.id.im_my_set:        //设置
                 Intent inSet = new Intent(MyFragment.this.getActivity(), SetActivity.class);
@@ -119,14 +122,17 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
             //列表单项按钮
             case R.id.rl_my_order: //my order 我的订单
                 //start my order activity 启动我的订单页面
-                Intent intent = new Intent(getContext(), MyOrderActivity.class);
+                intent = new Intent(getContext(), MyOrderActivity.class);
                 getContext().startActivity(intent);
                 break;
             case R.id.rl_my_collection: //我的订收藏
-                Toast.makeText(getActivity(), R.string.my_collection, Toast.LENGTH_SHORT).show();
+                //start my collection activity 启动我的收藏页面
+                intent = new Intent(getContext(), CollectionActivity.class);
+                getContext().startActivity(intent);
                 break;
             case R.id.rl_my_coupons:    //优惠券
-                Toast.makeText(getActivity(), R.string.my_coupons, Toast.LENGTH_SHORT).show();
+                Intent MyCoupon = new Intent(getActivity(), MyCouponActivity.class);
+                startActivity(MyCoupon);
                 break;
             case R.id.rl_my_opinion:    //意见反馈
                 Intent inOpinion = new Intent(getActivity(), OpinionActivity.class);

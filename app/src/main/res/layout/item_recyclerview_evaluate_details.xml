@@ -39,7 +39,7 @@
 
         <RatingBar
             android:id="@+id/rbr_item_evaluate_details_rating"
-            style="@style/starRatingBar"
+            style="@style/starRatingBar_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_edit_follow_items"

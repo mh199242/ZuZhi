@@ -104,5 +104,9 @@
     <dimen name="font_12">12dp</dimen>
     <!--font size of level seven 七级字号-->
     <dimen name="font_11">11dp</dimen>
+    <!--优惠券人民币符号-->
+    <dimen name="font_20">20dp</dimen>
+    <!--优惠券人民币金额-->
+    <dimen name="font_30">30dp</dimen>
 
 </resources>

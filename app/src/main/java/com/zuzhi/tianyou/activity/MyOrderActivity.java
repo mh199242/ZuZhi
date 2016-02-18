@@ -1,5 +1,6 @@
 package com.zuzhi.tianyou.activity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,6 +64,13 @@ public class MyOrderActivity extends BaseActivity implements View.OnClickListene
         //add view to viewpager
         rv_processing_order = new RecyclerView(this);
         MyOrderAdapter adp_processing = new MyOrderAdapter(this);
+        adp_processing.setOnItemClickLitener(new MyOrderAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent in = new Intent(MyOrderActivity.this, OrderInfoActivity.class);
+                MyOrderActivity.this.startActivity(in);
+            }
+        });
         adp_processing.setOrderType(adp_processing.PROCESSING);
         rv_processing_order.setAdapter(adp_processing);
         rv_processing_order.setLayoutManager(new LinearLayoutManager(this));

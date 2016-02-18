@@ -140,4 +140,23 @@
     <string name="order_info">订单详情</string>
     <string name="recommend_for_you">为您推荐</string>
     <string name="check_info">查看详情</string>
+    <string name="can_use">未使用</string>
+    <string name="unavailable">不可用</string>
+    <string name="my_coupon">我的优惠</string>
+    <string name="order_servicing">服务商服务中</string>
+    <string name="refund">退款</string>
+    <string name="order_total">订单总额</string>
+    <string name="contect_merchant">联系商家</string>
+    <string name="call_phone">拨打电话</string>
+    <string name="pay_date">付款时间：</string>
+    <string name="service_date">服务时间：</string>
+    <string name="finish_date">完成时间：</string>
+    <string name="refund_reason">退款原因</string>
+    <string name="refund_price">退款金额</string>
+    <string name="refund_des">退款说明</string>
+    <string name="hint_enter_refund_price">请输入退款金额</string>
+    <string name="hint_enter_refund_des">请输入退款说明</string>
+    <string name="submit_application">提交申请</string>
+    <string name="submit_rating">发表评价</string>
+    <string name="hint_rating">请写下对服务商的服务是否满意</string>
 </resources>

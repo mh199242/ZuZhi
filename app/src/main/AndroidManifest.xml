@@ -112,10 +112,23 @@
         <activity
             android:name=".activity.MyOrderActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <!-- confirm order activity 确认订单页 -->
         <activity android:name=".activity.ConfirmOrderActivity" />
         <!-- class my activity 付款页面 -->
         <activity android:name=".activity.PayActivity" />
-        <activity android:name=".activity.CheckInfoActivity"></activity>
+        <!-- check info activity 查看详情页 -->
+        <activity android:name=".activity.CheckInfoActivity" />
+        <!-- my coupon activity 我的优惠券页 -->
+        <activity
+            android:name=".activity.MyCouponActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <!-- order info activity 订单详情 -->
+        <activity android:name=".activity.OrderInfoActivity" />
+        <!-- refund activity 退款页面 -->
+        <activity android:name=".activity.RefundActivity" />
+        <!-- rating activity 评价页面 -->
+        <activity android:name=".activity.RatingActivity" />
+        <activity android:name=".activity.CollectionActivity"></activity>
     </application>
 
 </manifest>

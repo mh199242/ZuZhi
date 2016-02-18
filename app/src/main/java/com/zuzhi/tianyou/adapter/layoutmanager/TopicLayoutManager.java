@@ -26,6 +26,8 @@ public class TopicLayoutManager extends LinearLayoutManager {
 
     @Override
     public void onMeasure(RecyclerView.Recycler recycler, State state, int widthSpec, int heightSpec) {
+        if(recycler.getViewForPosition(0) == null)
+            return;
         View view = recycler.getViewForPosition(0);
         if (view != null) {
             measureChild(view, widthSpec, heightSpec);

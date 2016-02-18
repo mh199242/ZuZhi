@@ -20,7 +20,7 @@ import java.util.HashMap;
  * adpater of hot service recyclerview 热门服务适配器
  */
 public class HotServiceAdapter extends RecyclerView.Adapter<HotServiceAdapter.MyViewHolder> {
-    private ArrayList<HashMap<String, Object>> mData;
+    public ArrayList<HashMap<String, Object>> mData;
     private Context mContext;
     private OnItemClickLitener mOnItemClickLitener;
 
