@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.easemob.chat.EMChat;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -83,7 +84,13 @@ public class MyApplication extends Application {
         LIB = "/data/data/" + getApplicationContext().getPackageName() + "/lib";
 //        SHARED_PREFS = "/data/data/" + getApplicationContext().getPackageName() + "/shared_prefs";
 
-
+        EMChat.getInstance().init(this);
+/**
+ * debugMode == true 时为打开，sdk 会在log里输入调试信息
+ * @param debugMode
+ * 在做代码混淆的时候需要设置成false
+ */
+        EMChat.getInstance().setDebugMode(true);//在做打包混淆时，要关闭debug模式，避免消耗不必要的资源
     }
 
     /**
@@ -101,7 +108,7 @@ public class MyApplication extends Application {
         } catch (Exception e) {
 
             e.printStackTrace();
-        return "检测错误";
+            return "检测错误";
         }
     }
 
@@ -113,8 +120,8 @@ public class MyApplication extends Application {
         DataCleanManager.deleteDir(new File(CACHE));
         DataCleanManager.deleteDir(new File(DATABASES));
         DataCleanManager.deleteDir(new File(LIB));
-       DataCleanManager.deleteDir(new File(SHARED_PREFS));
-       return DataCleanManager.deleteDir(StorageUtils.getOwnCacheDirectory(instance, Cons.CACHE_IMAGE_DIR));
+        DataCleanManager.deleteDir(new File(SHARED_PREFS));
+        return DataCleanManager.deleteDir(StorageUtils.getOwnCacheDirectory(instance, Cons.CACHE_IMAGE_DIR));
     }
 
     private void readUserInfo() {

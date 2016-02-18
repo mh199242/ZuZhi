@@ -26,6 +26,17 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
+
+    <!-- esaemob permission start 环信权限start -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- esaemob permission end 环信权限end -->
+
     <!-- amap permission end 高德地图SDK权限end -->
     <application
         android:name=".MyApplication"
@@ -129,6 +140,13 @@
         <!-- rating activity 评价页面 -->
         <activity android:name=".activity.RatingActivity" />
         <activity android:name=".activity.CollectionActivity"></activity>
+
+        <!-- 设置环信应用的appkey -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="rctx#zuzhi" />
+        <!-- 声明环信sdk所需的service SDK核心功能-->
+        <service android:name="com.easemob.chat.EMChatService" />
     </application>
 
 </manifest>
