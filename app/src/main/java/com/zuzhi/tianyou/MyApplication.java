@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.easemob.EMCallBack;
 import com.easemob.chat.EMChat;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMGroupManager;
+import com.easemob.easeui.controller.EaseUI;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -18,8 +24,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.zuzhi.tianyou.im.DemoHelper;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.DataCleanManager;
+import com.zuzhi.tianyou.utils.Logs;
 
 import java.io.File;
 import java.util.Collection;
@@ -59,6 +67,11 @@ public class MyApplication extends Application {
     //saved activtys 已保存的activity ，主要针对singleInstance模式
     private List<Activity> activitys = null;
 
+    /**
+     * 当前用户nickname,为了苹果推送不是userid而是昵称
+     */
+    public static String currentUserNick = "";
+
     public static MyApplication getInstance() {
 
         return instance;
@@ -84,13 +97,42 @@ public class MyApplication extends Application {
         LIB = "/data/data/" + getApplicationContext().getPackageName() + "/lib";
 //        SHARED_PREFS = "/data/data/" + getApplicationContext().getPackageName() + "/shared_prefs";
 
+        //init easemob SDK 初始化环信SDK
         EMChat.getInstance().init(this);
-/**
- * debugMode == true 时为打开，sdk 会在log里输入调试信息
- * @param debugMode
- * 在做代码混淆的时候需要设置成false
- */
+        EaseUI.getInstance().init(this);
+        //init demo helper
+        DemoHelper.getInstance().init(this);
+
+        /**
+         * debugMode == true 时为打开，sdk 会在log里输入调试信息
+         * @param debugMode
+         * 在做代码混淆的时候需要设置成false
+         */
         EMChat.getInstance().setDebugMode(true);//在做打包混淆时，要关闭debug模式，避免消耗不必要的资源
+
+        //easemob login 登陆环信
+        EMChatManager.getInstance().login("18600364741", "lichaoda38", new EMCallBack() {//回调
+            @Override
+            public void onSuccess() {
+                new Thread(new Runnable() {
+                    public void run() {
+                        EMGroupManager.getInstance().loadAllGroups();
+                        EMChatManager.getInstance().loadAllConversations();
+                        Logs.i("main", "登陆聊天服务器成功！");
+                    }
+                }).start();
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                Logs.i("main", "登陆聊天服务器失败！");
+            }
+        });
     }
 
     /**
@@ -209,11 +251,11 @@ public class MyApplication extends Application {
                 getApplicationContext()).memoryCacheExtraOptions(480, 800)
                 // 即保存的每个内存缓存文件的最大长宽
                 .threadPoolSize(5)
-                        // 线程池内加载的数量
+                // 线程池内加载的数量
                 .diskCacheFileCount(100)
-                        // 设置硬盘缓存的文件的最多个数
+                // 设置硬盘缓存的文件的最多个数
                 .threadPriority(Thread.NORM_PRIORITY - 2)
-                        // 配置线程优先级
+                // 配置线程优先级
                 .denyCacheImageMultipleSizesInMemory()//.内存缓存
 
                 .diskCache(new UnlimitedDiskCache(cacheDir)).build();//硬盘缓存路径

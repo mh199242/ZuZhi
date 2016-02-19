@@ -9,7 +9,6 @@
 //import android.view.View;
 //import android.view.View.OnClickListener;
 //
-//import com.hshy41.mane.MainActivity;
 //
 //import org.xml.sax.XMLReader;
 //
@@ -39,7 +38,6 @@
 //        public void onClick(View widget) {
 //            // TODO Auto-generated method stub
 //            //具体代码，可以是跳转页面，可以是弹出对话框，下面是跳转页面
-//            mContext.startActivity(new Intent(mContext,MainActivity.class));
 //        }
 //    }
 //

@@ -1,6 +1,7 @@
 package com.zuzhi.tianyou.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,8 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
+import com.easemob.easeui.EaseConstant;
+import com.easemob.easeui.ui.EaseChatFragment;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.activity.CollectionActivity;
+import com.zuzhi.tianyou.activity.IMActivity;
 import com.zuzhi.tianyou.activity.MyCouponActivity;
 import com.zuzhi.tianyou.activity.MyOrderActivity;
 import com.zuzhi.tianyou.activity.OpinionActivity;
@@ -109,7 +113,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
                 startActivity(inSet);
                 break;
             case R.id.im_my_notice:     //闹钟
-                Toast.makeText(getActivity(), "im_my_notice", Toast.LENGTH_SHORT).show();
+                //start im activity 启动社交页
+                intent = new Intent(getActivity(), IMActivity.class);
+                startActivity(intent);
                 break;
             case R.id.im_my_info:       //详情
 //                Toast.makeText(getActivity(),"im_my_info",Toast.LENGTH_SHORT).show();
