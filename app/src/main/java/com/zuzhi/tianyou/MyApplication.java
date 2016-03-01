@@ -232,7 +232,7 @@ public class MyApplication extends Application {
 //                .showImageOnFail(R.drawable.ic_error) // 设置图片加载或解码过程中发生错误显示的图片
                 .resetViewBeforeLoading(false)  // default 设置图片在加载前是否重置、复位
 //                .delayBeforeLoading(1000)  // 下载前的延迟时间
-                .cacheInMemory(true) // default  设置下载的图片是否缓存在内存中
+                .cacheInMemory(false) // default  设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // default  设置下载的图片是否缓存在SD卡中
 //                .preProcessor(...)
 //        .postProcessor(...)
