@@ -41,6 +41,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
      */
     LinearLayout titleBar;
 
+    public ClassFragment(){};
     public ClassFragment(LinearLayout titleBar){
         this.titleBar = titleBar;
     }

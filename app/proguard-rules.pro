@@ -37,3 +37,13 @@
 -keep class org.bitlet.** {*;}
 -keep class org.slf4j.** {*;}
 -keep class ch.imvs.** {*;}
+
+-keepclasseswithmembers class com.easemob.media.AVNative {
+    native <methods>;
+}
+-keep class com.easemob.media.IGxStatusCallback {
+    void updateStatus(int);
+}
+-keepclasseswithmembers class com.easemob.media.EIce {
+    static void callbackLog(int, java.lang.String);
+}

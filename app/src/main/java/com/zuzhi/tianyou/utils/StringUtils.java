@@ -137,22 +137,45 @@ public class StringUtils {
 
 		if (null == pwd || pwd.equals(""))
 			return false;
-		if (pwd.length() < 6 || pwd.length() > 20)
+		if (pwd.length() < 6 || pwd.length() > 16)
 			return false;
 		return true;
+	}
+
+
+	/**
+	 * 根据Unicode编码完美的判断中文汉字和符号
+	 */
+	private static boolean isChinese(char c) {
+		Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+		if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+				|| ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
+				|| ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
+				|| ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 完整的判断中文汉字和符号
+	 */
+	public static boolean isChinese(String strName) {
+		char[] ch = strName.toCharArray();
+		for (int i = 0; i < ch.length; i++) {
+			char c = ch[i];
+			if (isChinese(c)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
 	 * 验证手机号
 	 */
 	public static boolean isMobileNO(String mobiles) {
-		/*
-		 * �ƶ���134��135��136��137��138��139��150��151��157(TD)��158��159��187��188
-		 * ��ͨ��130��131��132��152��155��156��185��186
-		 * ���ţ�133��153��180��189����1349��ͨ��
-		 * �ܽ��������ǵ�һλ�ض�Ϊ1���ڶ�λ�ض�Ϊ3��5��8������λ�õĿ���Ϊ0-9
-		 */
-		String telRegex = "[1][3578]\\d{9}";// "[1]"����1λΪ����1��"[358]"���ڶ�λ����Ϊ3��5��8�е�һ����"\\d{9}"�������ǿ�����0��9�����֣���9λ��
+		String telRegex = "[1][3578]\\d{9}";
 		if (TextUtils.isEmpty(mobiles))
 			return false;
 		else

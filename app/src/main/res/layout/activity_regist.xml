@@ -244,6 +244,7 @@
                 android:layout_marginTop="@dimen/margin_top_find_pass_word_confirm_button"
                 android:background="@drawable/button_main"
                 android:text="@string/next_step"
+                android:onClick="register"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/font_18" />
 

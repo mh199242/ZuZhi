@@ -10,7 +10,6 @@ so manually move them:
 * LICENSE
 * README.md
 * build.xml
-* easeui.iml
 * ic_launcher-web.png
 * proguard-project.txt
 * simpledemo\
@@ -99,9 +98,10 @@ so manually move them:
 * simpledemo\gen\
 * simpledemo\gen\com\
 * simpledemo\gen\com\easemob\
+* simpledemo\gen\com\easemob\easeui\
+* simpledemo\gen\com\easemob\easeui\R.java
 * simpledemo\gen\com\easemob\easeuisimpledemo\
 * simpledemo\gen\com\easemob\easeuisimpledemo\BuildConfig.java
-* simpledemo\gen\com\easemob\easeuisimpledemo\Manifest.java
 * simpledemo\gen\com\easemob\easeuisimpledemo\R.java
 * simpledemo\ic_launcher-web.png
 * simpledemo\proguard-project.txt
@@ -139,7 +139,6 @@ so manually move them:
 * simpledemo\res\values\
 * simpledemo\res\values\dimens.xml
 * simpledemo\res\values\strings.xml
-* simpledemo\simpledemo.iml
 * simpledemo\src\
 * simpledemo\src\com\
 * simpledemo\src\com\easemob\

@@ -123,6 +123,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     LinearLayout titleBar;
 
+    public IndexFragment(){};
+
     public IndexFragment(LinearLayout titleBar) {
         this.titleBar = titleBar;
     }

@@ -1,5 +1,6 @@
 package com.zuzhi.tianyou.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.Looper;
@@ -20,6 +21,10 @@ import com.easemob.exceptions.EaseMobException;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.im.DemoHelper;
+import com.zuzhi.tianyou.im.ui.RegisterActivity;
+import com.zuzhi.tianyou.utils.DialogUtils;
+import com.zuzhi.tianyou.utils.StringUtils;
 import com.zuzhi.tianyou.utils.ToastUtil;
 
 /**
@@ -91,7 +96,62 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
         bt_show_password.setOnClickListener(this);
         bt_identifying_code.setOnClickListener(this);
-        bt_next_step.setOnClickListener(this);
+    }
+
+
+    /**
+     * regist 注册
+     */
+    public void register(View view) {
+        if (!StringUtils.isMobileNO(et_enter_cellphone.getText().toString())) {
+            ToastUtil.showLongToast(this, "请输入正确的手机号！");
+        } else if (!StringUtils.isPwd(et_password.getText().toString())) {
+            ToastUtil.showLongToast(this, "密码位数应在6-16位之间！");
+        } else if (StringUtils.isChinese(et_password.getText().toString())) {
+            ToastUtil.showLongToast(this, "密码中不应包含中文汉字和符号！");
+        } else {
+            DialogUtils.showProgressDialog(mContext, "注册中...");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // 调用sdk注册方法
+                    try {
+                        EMChatManager.getInstance().createAccountOnServer(et_enter_cellphone.getText().toString(),
+                                et_password.getText().toString());
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                DialogUtils.dismissProgressDialog();
+                                // 保存用户名
+                                DemoHelper.getInstance().setCurrentUserName(et_enter_cellphone.getText().toString());
+                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.Registered_successfully));
+                                //start selectprofession activity 启动选择职业页
+                                intent = new Intent(mContext, SelectProfessionActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    } catch (final EaseMobException e) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                DialogUtils.dismissProgressDialog();
+                                int errorCode = e.getErrorCode();
+                                if (errorCode == EMError.NONETWORK_ERROR) {
+                                    ToastUtil.showLongToast(mContext, getResources().getString(R.string.network_anomalies));
+                                } else if (errorCode == EMError.USER_ALREADY_EXISTS) {
+                                    ToastUtil.showLongToast(mContext, getResources().getString(R.string.User_already_exists));
+                                } else if (errorCode == EMError.UNAUTHORIZED) {
+                                    ToastUtil.showLongToast(mContext, getResources().getString(R.string.registration_failed_without_permission));
+                                } else if (errorCode == EMError.ILLEGAL_USER_NAME) {
+                                    ToastUtil.showLongToast(mContext, getResources().getString(R.string.illegal_user_name));
+                                } else {
+                                    ToastUtil.showLongToast(mContext, getResources().getString(R.string.Registration_failed) + e.getMessage());
+                                }
+                            }
+                        });
+                    }
+                }
+            }).start();
+
+        }
     }
 
     @Override
@@ -135,15 +195,15 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 startActivity(intent);
                 break;
             //next step button 下一步键
-            case R.id.bt_regist_next_step:
-                new AlertView(null, null, getResources().getString(R.string.alert_cellphone_already_exist),
-                        getResources().getString(R.string.cancel),
-                        new String[]{getResources().getString(R.string.confirm)},
-                        null, this, AlertView.Style.Alert, this)
-                        .setCancelable(true)
-                        .setOnDismissListener(this)
-                        .show();
-                break;
+//            case R.id.bt_regist_next_step:
+//                new AlertView(null, null, getResources().getString(R.string.alert_cellphone_already_exist),
+//                        getResources().getString(R.string.cancel),
+//                        new String[]{getResources().getString(R.string.confirm)},
+//                        null, this, AlertView.Style.Alert, this)
+//                        .setCancelable(true)
+//                        .setOnDismissListener(this)
+//                        .show();
+//                break;
             //get identifying code button 获取验证码
             case R.id.bt_regist_identifying_code:
                 timeCount.start();

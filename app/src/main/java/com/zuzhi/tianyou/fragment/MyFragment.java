@@ -21,6 +21,8 @@ import com.zuzhi.tianyou.activity.OpinionActivity;
 import com.zuzhi.tianyou.activity.PersonalDataActivity;
 import com.zuzhi.tianyou.activity.SetActivity;
 import com.zuzhi.tianyou.base.BaseFragment;
+import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.ToastUtil;
 
 public class MyFragment extends BaseFragment implements View.OnClickListener,
         com.bigkoo.alertview.OnItemClickListener, com.bigkoo.alertview.OnDismissListener {
@@ -41,6 +43,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
     //titlebar 标题栏透传
     LinearLayout titleBar;
 
+    public MyFragment(){};
     public MyFragment(LinearLayout titleBar) {
         this.titleBar = titleBar;
     }
@@ -113,6 +116,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
                 startActivity(inSet);
                 break;
             case R.id.im_my_notice:     //闹钟
+                if(!Cons.B_ISLOGIN){
+                    ToastUtil.showToast(getActivity(), "请先登录！");
+                    return;
+                }
                 //start im activity 启动社交页
                 intent = new Intent(getActivity(), IMActivity.class);
                 startActivity(intent);

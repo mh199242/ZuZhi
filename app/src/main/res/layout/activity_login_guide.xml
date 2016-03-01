@@ -109,7 +109,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/height_button_main"
-
+            android:onClick="loginer"
             android:background="@drawable/button_main"
             android:focusable="true"
             android:text="@string/login"

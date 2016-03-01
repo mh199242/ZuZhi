@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
  * Created by lichao on 2015/12/16.
  */
 public class Cons {
+    //is login 是否登陆
+    public static boolean B_ISLOGIN = false;
     //IndexFragment tag
     public static final String FRAMENT_INDEX = "IndexFragment";
 
