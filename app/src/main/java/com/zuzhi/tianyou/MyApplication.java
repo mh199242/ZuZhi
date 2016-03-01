@@ -98,8 +98,8 @@ public class MyApplication extends Application {
 //        SHARED_PREFS = "/data/data/" + getApplicationContext().getPackageName() + "/shared_prefs";
 
         //init easemob SDK 初始化环信SDK
-        EMChat.getInstance().init(this);
-        EaseUI.getInstance().init(this);
+//        EMChat.getInstance().init(this);
+//        EaseUI.getInstance().init(this);
         //init demo helper
         DemoHelper.getInstance().init(this);
 
@@ -111,7 +111,7 @@ public class MyApplication extends Application {
         EMChat.getInstance().setDebugMode(true);//在做打包混淆时，要关闭debug模式，避免消耗不必要的资源
 
         //easemob login 登陆环信
-        EMChatManager.getInstance().login("18600364741", "lichaoda38", new EMCallBack() {//回调
+        EMChatManager.getInstance().login("123456", "123456", new EMCallBack() {//回调
             @Override
             public void onSuccess() {
                 new Thread(new Runnable() {

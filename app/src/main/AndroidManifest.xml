@@ -150,28 +150,14 @@
 
 
         <!-- 使用时把com.easemob.chatuidemo替换成自己的包名 -->
-        <permission
-            android:name="com.zuzhi.tianyou.permission.C2D_MESSAGE"
+        <permission android:name="com.zuzhi.tianyou.permission.C2D_MESSAGE"
             android:protectionLevel="signature" />
-        <uses-permission android:name="com.easemob.chatuidemo.permission.C2D_MESSAGE" />
+        <uses-permission android:name="com.zuzhi.tianyou.permission.C2D_MESSAGE" />
         <permission
             android:name="com.zuzhi.tianyou.permission.MIPUSH_RECEIVE"
             android:protectionLevel="signature" />
 
         <uses-permission android:name="com.zuzhi.tianyou.permission.MIPUSH_RECEIVE" />
-
-
-        <!-- 开屏页 -->
-        <activity
-            android:name="com.zuzhi.tianyou.im.ui.SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <!-- 登陆 -->
         <activity

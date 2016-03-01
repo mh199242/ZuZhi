@@ -40,6 +40,7 @@ import com.zuzhi.tianyou.im.domain.InviteMessage;
 import com.zuzhi.tianyou.im.ui.ContactListFragment;
 import com.zuzhi.tianyou.im.ui.ConversationListFragment;
 import com.zuzhi.tianyou.im.ui.GroupsActivity;
+import com.zuzhi.tianyou.utils.Logs;
 
 
 /**
@@ -101,11 +102,11 @@ public class IMActivity extends IMBaseActivity implements View.OnClickListener, 
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        setContentView(R.layout.em_activity_main);
+//        setContentView(R.layout.em_activity_main);
 
         unreadLabel = (TextView) findViewById(R.id.unread_msg_number);
         unreadAddressLable = (TextView) findViewById(R.id.unread_address_number);
-        mTabs = new Button[3];
+        mTabs = new Button[2];
         mTabs[0] = (Button) findViewById(R.id.btn_conversation);
         mTabs[1] = (Button) findViewById(R.id.btn_address_list);
         // 把第一个tab设为选中状态
@@ -180,9 +181,9 @@ public class IMActivity extends IMBaseActivity implements View.OnClickListener, 
             case R.id.btn_address_list:
                 index = 1;
                 break;
-            case R.id.btn_setting:
-                index = 2;
-                break;
+//            case R.id.btn_setting:
+//                index = 2;
+//                break;
         }
         if (currentTabIndex != index) {
             FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
@@ -432,7 +433,8 @@ public class IMActivity extends IMBaseActivity implements View.OnClickListener, 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(false);
+            finish();
+//            moveTaskToBack(false);
             return true;
         }
         return super.onKeyDown(keyCode, event);

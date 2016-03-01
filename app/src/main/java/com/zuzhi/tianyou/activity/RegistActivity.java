@@ -2,6 +2,7 @@ package com.zuzhi.tianyou.activity;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.os.Looper;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
@@ -10,11 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
+import com.easemob.EMError;
+import com.easemob.chat.EMChatManager;
+import com.easemob.exceptions.EaseMobException;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.utils.ToastUtil;
+
 /**
  * regist activity 注册页
  */
@@ -46,15 +53,11 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     /**
      * button of show password 明文密码键
-     *
-     * @return
      */
     private Button bt_show_password;
 
     /**
      * edit text of password 密码编辑框
-     *
-     * @return
      */
     private EditText et_password;
 
@@ -62,6 +65,11 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
      * boolean of show password 是否显示密码
      */
     private boolean b_isShowPassWord = false;
+
+    /**
+     * 手机号编辑框
+     */
+    private EditText et_enter_cellphone;
 
     @Override
     protected int setContent() {
@@ -79,6 +87,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         bt_identifying_code = (Button) findViewById(R.id.bt_regist_identifying_code);
         bt_show_password = (Button) findViewById(R.id.bt_regist_show_password);
         et_password = (EditText) findViewById(R.id.et_regist_password);
+        et_enter_cellphone = (EditText) findViewById(R.id.et_regist_enter_cellphone);
 
         bt_show_password.setOnClickListener(this);
         bt_identifying_code.setOnClickListener(this);
@@ -109,12 +118,13 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             intent = new Intent(this, LoginGuideActivity.class);
             startActivity(intent);
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -155,7 +165,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-
     @Override
     public void onItemClick(Object o, int position) {
         //判断是否是拓展窗口View，而且点击的是非取消按钮
@@ -177,6 +186,29 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 break;
             //cnfirm 确定
             case 0:
+                Looper.prepare();
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            // 调用sdk注册方法
+                            EMChatManager.getInstance().createAccountOnServer(et_enter_cellphone.getText().toString(),
+                                    et_password.getText().toString());
+                        } catch (final EaseMobException e) {
+                            //注册失败
+                            int errorCode = e.getErrorCode();
+                            if (errorCode == EMError.NONETWORK_ERROR) {
+                                Toast.makeText(getApplicationContext(), "网络异常，请检查网络！", Toast.LENGTH_SHORT).show();
+                            } else if (errorCode == EMError.USER_ALREADY_EXISTS) {
+                                Toast.makeText(getApplicationContext(), "用户已存在！", Toast.LENGTH_SHORT).show();
+                            } else if (errorCode == EMError.UNAUTHORIZED) {
+                                Toast.makeText(getApplicationContext(), "注册失败，无权限！", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "注册失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                            return;
+                        }
+                    }
+                }).start();
                 intent = new Intent(this, SelectProfessionActivity.class);
                 startActivity(intent);
                 break;
