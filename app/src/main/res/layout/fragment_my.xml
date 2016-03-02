@@ -64,6 +64,20 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="30dp"
                 android:src="@drawable/my_notice" />
+            <TextView
+                android:id="@+id/tv_notice_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/em_unread_count_bg"
+                android:gravity="center"
+                android:text="99"
+                android:textColor="@android:color/white"
+                android:textSize="10dp"
+                android:visibility="gone"
+                android:layout_marginLeft="7dp"
+                android:layout_marginBottom="10dp"
+                android:layout_alignBottom="@+id/im_my_notice"
+                android:layout_alignLeft="@+id/im_my_info" />
 
             <ImageView
                 android:id="@+id/im_my_set"

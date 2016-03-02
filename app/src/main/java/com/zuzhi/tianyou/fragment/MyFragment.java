@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMConversation;
 import com.easemob.easeui.EaseConstant;
 import com.easemob.easeui.ui.EaseChatFragment;
 import com.zuzhi.tianyou.R;
@@ -21,7 +23,9 @@ import com.zuzhi.tianyou.activity.OpinionActivity;
 import com.zuzhi.tianyou.activity.PersonalDataActivity;
 import com.zuzhi.tianyou.activity.SetActivity;
 import com.zuzhi.tianyou.base.BaseFragment;
+import com.zuzhi.tianyou.im.DemoHelper;
 import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
 
 public class MyFragment extends BaseFragment implements View.OnClickListener,
@@ -36,6 +40,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
      */
     private TextView tv_my_name;
 
+    /**
+     * unread notice num 消息数目
+     */
+    private TextView tv_notice_num;
+
     //单项点击区域
     private RelativeLayout rl_my_order, rl_my_collection, rl_my_coupons,
             rl_my_opinion, rl_my_help, rl_my_about, rl_my_exit;
@@ -43,7 +52,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
     //titlebar 标题栏透传
     LinearLayout titleBar;
 
-    public MyFragment(){};
+    public MyFragment() {
+    }
+
+    ;
+
     public MyFragment(LinearLayout titleBar) {
         this.titleBar = titleBar;
     }
@@ -76,6 +89,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
     protected void initView(View view) {
 
         tv_my_name = (TextView) view.findViewById(R.id.tv_my_name);
+        tv_notice_num = (TextView) view.findViewById(R.id.tv_notice_num);
         //从SharedPreferences取用户名赋值
 //        tv_my_name.setText("");
 
@@ -105,6 +119,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
         rl_my_help.setOnClickListener(this);
         rl_my_about.setOnClickListener(this);
         rl_my_exit.setOnClickListener(this);
+
     }
 
     @Override
@@ -116,7 +131,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
                 startActivity(inSet);
                 break;
             case R.id.im_my_notice:     //闹钟
-                if(!Cons.B_ISLOGIN){
+                if (!Cons.B_ISLOGIN) {
                     ToastUtil.showToast(getActivity(), "请先登录！");
                     return;
                 }
@@ -177,6 +192,37 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
         }
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //check message read status 检测消息读取状态
+        int unread = getUnreadMsgCountTotal();
+        Logs.i("测试", unread + "");
+        if (unread > 0) {
+            tv_notice_num.setText(String.valueOf(unread));
+            tv_notice_num.setVisibility(View.VISIBLE);
+        } else {
+            tv_notice_num.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 获取未读消息数
+     *
+     * @return
+     */
+    public int getUnreadMsgCountTotal() {
+        int unreadMsgCountTotal = 0;
+        int chatroomUnreadMsgCount = 0;
+        unreadMsgCountTotal = EMChatManager.getInstance().getUnreadMsgsCount();
+        for (EMConversation conversation : EMChatManager.getInstance().getAllConversations().values()) {
+            if (conversation.getType() == EMConversation.EMConversationType.ChatRoom)
+                chatroomUnreadMsgCount = chatroomUnreadMsgCount + conversation.getUnreadMsgCount();
+        }
+        return unreadMsgCountTotal - chatroomUnreadMsgCount;
     }
 
     @Override
