@@ -63,7 +63,6 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
 
         titleIndex = getIntent().getIntExtra(MODIFY_PASSWORD_STR,0);
 
-        MyApplication.getInstance().addActivity(this);
 
         timeCount = new TimeCount(60000, 1000);
 

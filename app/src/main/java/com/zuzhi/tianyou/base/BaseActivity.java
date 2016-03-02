@@ -88,7 +88,6 @@ public abstract class BaseActivity extends FragmentActivity {
 
     protected Bundle mSavedInstanceState;
 
-    public BaseActivity(){};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub

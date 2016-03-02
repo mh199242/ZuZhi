@@ -269,19 +269,19 @@ public class DemoHelper {
         
         //不设置，则使用easeui默认的
         easeUI.getNotifier().setNotificationInfoProvider(new EaseNotificationInfoProvider() {
-            
+
             @Override
             public String getTitle(EMMessage message) {
               //修改标题,这里使用默认
                 return null;
             }
-            
+
             @Override
             public int getSmallIcon(EMMessage message) {
               //设置小图标，这里为默认
                 return 0;
             }
-            
+
             @Override
             public String getDisplayedText(EMMessage message) {
                 // 设置状态栏的消息提示，可以根据message的类型做相应提示
@@ -296,13 +296,13 @@ public class DemoHelper {
                     return message.getFrom() + ": " + ticker;
                 }
             }
-            
+
             @Override
             public String getLatestText(EMMessage message, int fromUsersNum, int messageNum) {
-                return null;
-                // return fromUsersNum + "个基友，发来了" + messageNum + "条消息";
+//                return null;
+                 return fromUsersNum + "个基友，发来了" + messageNum + "条消息";
             }
-            
+
             @Override
             public Intent getLaunchIntent(EMMessage message) {
                 //设置点击通知栏跳转事件
@@ -325,7 +325,7 @@ public class DemoHelper {
                         }else{
                             intent.putExtra("chatType", Constant.CHATTYPE_CHATROOM);
                         }
-                        
+
                     }
                 }
                 return intent;

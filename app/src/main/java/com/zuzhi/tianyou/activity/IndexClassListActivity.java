@@ -1,6 +1,7 @@
 package com.zuzhi.tianyou.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
@@ -42,8 +46,9 @@ import java.util.List;
  * index class list activity 首页类目列表页
  */
 
-public class IndexClassListActivity extends BaseActivity implements View.OnClickListener {
+public class IndexClassListActivity extends BaseActivity implements View.OnClickListener{
 
+    private String TAG = "com.zuzhi.tianyou.activity.IndexClassListActivity";
     /**
      * tablayout 标签页
      */
@@ -109,6 +114,11 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
      * tag of download banner 轮播图组下载tag
      */
     private boolean b_bannerDownload = false;
+
+    /**
+     * 轮播适配器
+     */
+    ImagePagerAdapter adp_ip;
 
     @Override
     protected int setContent() {
@@ -288,7 +298,8 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
      */
     private void setBanner() {
         // TODO Auto-generated method stub
-        asvp_banner.setAdapter(new ImagePagerAdapter(this, list_Entity_Banner).setInfiniteLoop(true));
+        adp_ip = new ImagePagerAdapter(this, list_Entity_Banner).setInfiniteLoop(true);
+        asvp_banner.setAdapter(adp_ip);
         asvp_banner.setOnPageChangeListener(new MyOnPageChangeListener());
         asvp_banner.setInterval(5000);
         asvp_banner.startAutoScroll();
@@ -338,6 +349,7 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
         return list_bannerPointer;
     }
 
+
     /**
      * banner's listener 轮播图监听
      *
@@ -368,7 +380,7 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
     public void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
-        asvp_banner.startAutoScroll();
+        asvp_banner.stopAutoScroll();
     }
 
     @Override
@@ -376,11 +388,5 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
         // TODO Auto-generated method stub
         super.onResume();
         asvp_banner.startAutoScroll();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        asvp_banner.stopAutoScroll();
     }
 }

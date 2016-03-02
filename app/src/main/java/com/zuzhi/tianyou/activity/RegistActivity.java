@@ -83,9 +83,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void initViews() {
-        //add this to exit list
-        MyApplication.getInstance().addActivity(this);
-
         timeCount = new TimeCount(60000, 1000);
 
         bt_next_step = (Button) findViewById(R.id.bt_regist_next_step);

@@ -93,9 +93,6 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initViews() {
-        //add this to exit list
-        MyApplication.getInstance().addActivity(this);
-
         et_user_name = (EditText) findViewById(R.id.et_login_guide_user_name);
         et_password = (EditText) findViewById(R.id.et_login_guide_password);
         tv_forget_password = (TextView) findViewById(R.id.tv_login_guide_forget_password);
@@ -282,7 +279,7 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
 
         } else {
             //exit
-            MyApplication.getInstance().exit();
+            System.exit(0);
         }
     }
 }

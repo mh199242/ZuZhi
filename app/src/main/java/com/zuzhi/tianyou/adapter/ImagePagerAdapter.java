@@ -6,16 +6,20 @@
 package com.zuzhi.tianyou.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.entity.ImageEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,13 +27,17 @@ import java.util.List;
  *
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2014-2-23
  */
-public class ImagePagerAdapter extends RecyclingPagerAdapter {
+public class ImagePagerAdapter extends RecyclingPagerAdapter{
 
     private Context context;
     private List<ImageEntity> imageIdList;
     private DisplayImageOptions options;
     private int size;
     private boolean isInfiniteLoop;
+    /**
+     * bitmap list 位图列表
+     */
+    List<Bitmap> mBitmaps;
 
     public ImagePagerAdapter(Context context, List<ImageEntity> imageIdList) {
         this.context = context;
@@ -37,7 +45,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         // this.size = ListUtils.getSize(imageIdList);
         this.size = imageIdList.size();
         isInfiniteLoop = false;
-
+        mBitmaps = new ArrayList<Bitmap>();
 
     }
 
@@ -103,4 +111,5 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         this.isInfiniteLoop = isInfiniteLoop;
         return this;
     }
+
 }

@@ -16,6 +16,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zuzhi.tianyou.activity.MapActivity;
 import com.zuzhi.tianyou.activity.SearchHistoryActivity;
 import com.zuzhi.tianyou.base.BaseActivity;
@@ -125,7 +126,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     protected void setTitleBar() {
         rg_main.check(indexRadioIds[0]);
         //open the steep mode 沉浸模式
-        TitileBarSteep(getWindow().getDecorView());
+//        TitileBarSteep(getWindow().getDecorView());
 
         tv_title_bar_city.setVisibility(View.VISIBLE);
         rl_title_bar_search.setVisibility(View.VISIBLE);

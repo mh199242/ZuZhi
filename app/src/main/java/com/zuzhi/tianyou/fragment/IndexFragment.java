@@ -1,6 +1,7 @@
 package com.zuzhi.tianyou.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Message;
@@ -21,6 +22,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.activity.CommodityInfoActivity;
@@ -51,7 +55,12 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class IndexFragment extends BaseFragment implements View.OnClickListener {
+public class IndexFragment extends BaseFragment implements View.OnClickListener{
+
+
+    private String TAG = "com.zuzhi.tianyou.fragment.IndexFragment";
+
+
 
     /**
      * data of class category 首页数据源
@@ -123,11 +132,21 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     LinearLayout titleBar;
 
-    public IndexFragment(){};
+    /**
+     * 轮播适配器
+     */
+    ImagePagerAdapter adp_ip;
+
+    public IndexFragment() {
+    }
+
+    ;
 
     public IndexFragment(LinearLayout titleBar) {
         this.titleBar = titleBar;
     }
+
+
 
     @Override
     protected void initTitleBar(View view) {
@@ -282,7 +301,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     public void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
-        asvp_banner.startAutoScroll();
+        asvp_banner.stopAutoScroll();
     }
 
     @Override
@@ -292,11 +311,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         asvp_banner.startAutoScroll();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        asvp_banner.stopAutoScroll();
-    }
 
     /**
      * get image for net 联网获取轮播图
@@ -357,7 +371,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     private void setBanner() {
         // TODO Auto-generated method stub
-        asvp_banner.setAdapter(new ImagePagerAdapter(getContext(), list_Entity_Banner).setInfiniteLoop(true));
+        adp_ip = new ImagePagerAdapter(getContext(), list_Entity_Banner).setInfiniteLoop(true);
+        asvp_banner.setAdapter(adp_ip);
         asvp_banner.setOnPageChangeListener(new MyOnPageChangeListener());
         asvp_banner.setInterval(5000);
         asvp_banner.startAutoScroll();
@@ -406,6 +421,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
         return list_bannerPointer;
     }
+
 
     /**
      * banner's listener 轮播图监听

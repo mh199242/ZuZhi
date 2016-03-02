@@ -66,9 +66,6 @@ public class MyApplication extends Application {
     //single application
     private static MyApplication instance;
 
-    //saved activtys 已保存的activity ，主要针对singleInstance模式
-    private List<Activity> activitys = null;
-
     /**
      * 当前用户nickname,为了苹果推送不是userid而是昵称
      */
@@ -84,7 +81,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
-        activitys = new LinkedList<Activity>();
         instance = this;
         initImageLoader();
         readUserInfo();
@@ -239,7 +235,7 @@ public class MyApplication extends Application {
 //        .extraForDownloader(...)
                 .considerExifParams(false) // default
                 .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default 设置图片以如何的编码方式显示
-                .bitmapConfig(Bitmap.Config.ARGB_8888) // default 设置图片的解码类型
+                .bitmapConfig(Bitmap.Config.RGB_565) // default 设置图片的解码类型
 //                .decodingOptions(...)  // 图片的解码设置
                 .displayer(new SimpleBitmapDisplayer()) // default  还可以设置圆角图片new RoundedBitmapDisplayer(20)
                 .handler(new Handler()) // default
@@ -272,25 +268,4 @@ public class MyApplication extends Application {
 //        ToastUtil.showLongToast(this, "清除本地缓存成功");
     }
 
-    // 添加Activity到容器中
-    public void addActivity(Activity activity) {
-        if (activitys != null && activitys.size() > 0) {
-            if (!activitys.contains(activity)) {
-                activitys.add(activity);
-            }
-        } else {
-            activitys.add(activity);
-        }
-
-    }
-
-    // 遍历所有Activity并finish
-    public void exit() {
-        if (activitys != null && activitys.size() > 0) {
-            for (Activity activity : activitys) {
-                activity.finish();
-            }
-        }
-        System.exit(0);
-    }
 }
