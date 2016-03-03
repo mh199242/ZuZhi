@@ -48,20 +48,20 @@
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ee_13.png"
     },
     {
-        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_dx_checkbox_off.png",
-        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_dx_checkbox_off.png"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_mm_listitem_pressed.9.png",
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_mm_listitem_pressed.9.png"
     },
     {
-        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ee_30.png",
-        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ee_30.png"
+        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_dx_checkbox_off.png",
+        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_dx_checkbox_off.png"
     },
     {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_icon_marka.png",
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_icon_marka.png"
+    },
+    {
+        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ee_30.png",
+        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ee_30.png"
     },
     {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_groups_icon.png",
@@ -168,12 +168,12 @@
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_contact_list_selected.png"
     },
     {
-        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_chatto_bg_normal.9.png",
-        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_chatto_bg_normal.9.png"
-    },
-    {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_chatto_bg_focused.9.png",
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_chatto_bg_focused.9.png"
+    },
+    {
+        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_chatto_bg_normal.9.png",
+        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_chatto_bg_normal.9.png"
     },
     {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_record_animate_05.png",
@@ -236,12 +236,12 @@
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ee_5.png"
     },
     {
-        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ee_15.png",
-        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ee_15.png"
-    },
-    {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_record_animate_12.png",
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_record_animate_12.png"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ee_15.png",
+        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ee_15.png"
     },
     {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_ic_launcher.png",

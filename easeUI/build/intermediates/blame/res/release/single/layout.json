@@ -72,12 +72,12 @@
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_row_received_voice.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_voice_recorder.xml",
-        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_widget_voice_recorder.xml"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_fragment_conversation_list.xml",
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_fragment_conversation_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_voice_recorder.xml",
+        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_widget_voice_recorder.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_layout_chat_primary_menu.xml",
@@ -120,12 +120,12 @@
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_activity_show_big_image.xml"
     },
     {
-        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_title_bar.xml",
-        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_widget_title_bar.xml"
-    },
-    {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_row_received_bigexpression.xml",
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_row_received_bigexpression.xml"
+    },
+    {
+        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_title_bar.xml",
+        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_widget_title_bar.xml"
     },
     {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_search_bar_with_padding.xml",

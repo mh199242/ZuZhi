@@ -10,7 +10,7 @@
         android:id="@+id/left_layout"
         android:layout_width="50dip"
         android:layout_height="match_parent"
-        
+
         android:clickable="true" >
 
         <ImageView

@@ -16,12 +16,12 @@
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_widget_voice_recorder.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_search_bar_with_padding.xml",
-        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_search_bar_with_padding.xml"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_row_sent_message.xml",
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_row_sent_message.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_search_bar_with_padding.xml",
+        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_search_bar_with_padding.xml"
     },
     {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_layout_chat_primary_menu.xml",
@@ -88,12 +88,12 @@
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_row_sent_video.xml"
     },
     {
-        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_widget_emojicon_tab_bar.xml",
-        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_widget_emojicon_tab_bar.xml"
-    },
-    {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_row_sent_location.xml",
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_row_sent_location.xml"
+    },
+    {
+        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_widget_emojicon_tab_bar.xml",
+        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_widget_emojicon_tab_bar.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_row_contact.xml",

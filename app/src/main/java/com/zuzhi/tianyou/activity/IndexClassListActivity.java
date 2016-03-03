@@ -389,4 +389,6 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
         super.onResume();
         asvp_banner.startAutoScroll();
     }
+
+
 }

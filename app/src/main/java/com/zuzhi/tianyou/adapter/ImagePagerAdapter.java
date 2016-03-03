@@ -34,10 +34,6 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter{
     private DisplayImageOptions options;
     private int size;
     private boolean isInfiniteLoop;
-    /**
-     * bitmap list 位图列表
-     */
-    List<Bitmap> mBitmaps;
 
     public ImagePagerAdapter(Context context, List<ImageEntity> imageIdList) {
         this.context = context;
@@ -45,7 +41,6 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter{
         // this.size = ListUtils.getSize(imageIdList);
         this.size = imageIdList.size();
         isInfiniteLoop = false;
-        mBitmaps = new ArrayList<Bitmap>();
 
     }
 
