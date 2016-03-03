@@ -404,10 +404,6 @@ public class IMActivity extends IMBaseActivity implements View.OnClickListener, 
             updateUnreadAddressLable();
         }
 
-        // unregister this event listener when this activity enters the
-        // background
-        DemoHelper sdkHelper = DemoHelper.getInstance();
-        sdkHelper.pushActivity(this);
 
         // register the event listener when enter the foreground
         EMChatManager.getInstance().registerEventListener(this,
@@ -416,11 +412,12 @@ public class IMActivity extends IMBaseActivity implements View.OnClickListener, 
 
     @Override
     protected void onStop() {
-        EMChatManager.getInstance().unregisterEventListener(this);
-        DemoHelper sdkHelper = DemoHelper.getInstance();
-        sdkHelper.popActivity(this);
-
         super.onStop();
+        // unregister this event listener when this activity enters the
+        // background
+        EMChatManager.getInstance().unregisterEventListener(this);
+
+
     }
 
     @Override

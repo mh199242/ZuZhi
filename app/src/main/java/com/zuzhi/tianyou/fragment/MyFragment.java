@@ -1,7 +1,11 @@
 package com.zuzhi.tianyou.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,10 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
+import com.easemob.EMEventListener;
+import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
+import com.easemob.chat.EMMessage;
 import com.easemob.easeui.EaseConstant;
 import com.easemob.easeui.ui.EaseChatFragment;
+import com.easemob.easeui.utils.EaseCommonUtils;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.activity.CollectionActivity;
 import com.zuzhi.tianyou.activity.IMActivity;
@@ -23,13 +31,14 @@ import com.zuzhi.tianyou.activity.OpinionActivity;
 import com.zuzhi.tianyou.activity.PersonalDataActivity;
 import com.zuzhi.tianyou.activity.SetActivity;
 import com.zuzhi.tianyou.base.BaseFragment;
+import com.zuzhi.tianyou.im.Constant;
 import com.zuzhi.tianyou.im.DemoHelper;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
 
 public class MyFragment extends BaseFragment implements View.OnClickListener,
-        com.bigkoo.alertview.OnItemClickListener, com.bigkoo.alertview.OnDismissListener {
+        com.bigkoo.alertview.OnItemClickListener, com.bigkoo.alertview.OnDismissListener, EMEventListener {
 
 
     //获取头部控件
@@ -194,19 +203,15 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
 
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
-
         //check message read status 检测消息读取状态
-        int unread = getUnreadMsgCountTotal();
-        Logs.i("测试", unread + "");
-        if (unread > 0) {
-            tv_notice_num.setText(String.valueOf(unread));
-            tv_notice_num.setVisibility(View.VISIBLE);
-        } else {
-            tv_notice_num.setVisibility(View.GONE);
-        }
+        // register the event listener when enter the foreground
+        EMChatManager.getInstance().registerEventListener(this,
+                new EMNotifierEvent.Event[]{EMNotifierEvent.Event.EventNewMessage, EMNotifierEvent.Event.EventOfflineMessage, EMNotifierEvent.Event.EventConversationListChanged});
+        updateUnreadLabel();
     }
 
     /**
@@ -223,6 +228,28 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
                 chatroomUnreadMsgCount = chatroomUnreadMsgCount + conversation.getUnreadMsgCount();
         }
         return unreadMsgCountTotal - chatroomUnreadMsgCount;
+    }
+
+    /**
+     * 刷新未读消息数
+     */
+    private void updateUnreadLabel() {
+        int unread = getUnreadMsgCountTotal();
+        if (unread > 0) {
+            tv_notice_num.setText(String.valueOf(unread));
+            tv_notice_num.setVisibility(View.VISIBLE);
+        } else {
+            tv_notice_num.setVisibility(View.GONE);
+        }
+    }
+
+    private void refreshUIWithMessage() {
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                // 刷新bottom bar消息未读数
+                updateUnreadLabel();
+            }
+        });
     }
 
     @Override
@@ -245,5 +272,30 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
     }
 
 
+    @Override
+    public void onEvent(EMNotifierEvent emNotifierEvent) {
+
+        switch (emNotifierEvent.getEvent()) {
+            case EventNewMessage: // 普通消息
+            {
+                EMMessage message = (EMMessage) emNotifierEvent.getData();
+                refreshUIWithMessage();
+                break;
+            }
+
+            case EventOfflineMessage: {
+                refreshUIWithMessage();
+                break;
+            }
+
+            case EventConversationListChanged: {
+                refreshUIWithMessage();
+                break;
+            }
+
+            default:
+                break;
+        }
+    }
 }
 
