@@ -46,13 +46,11 @@
         <activity android:name=".MainActivity" />
 
         <!-- login activity 登陆页 -->
-        <activity
-            android:name=".activity.LoginActivity"
-            android:launchMode="singleInstance" />
+        <activity android:name=".activity.LoginActivity" />
         <!-- login guide activity 导航登陆页 -->
         <activity
             android:name=".activity.LoginGuideActivity"
-            android:launchMode="singleInstance">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,15 +58,11 @@
             </intent-filter>
         </activity>
         <!-- findpassword activity 找回密码页 -->
-        <activity
-            android:name=".activity.FindPasswordActivity"
-            android:launchMode="singleInstance" />
+        <activity android:name=".activity.FindPasswordActivity" />
         <!-- findpassword success activity 找回密码成功页 -->
         <activity android:name=".activity.FindPasswordSuccessActivity" />
         <!-- regist activity 注册页 -->
-        <activity
-            android:name=".activity.RegistActivity"
-            android:launchMode="singleInstance" />
+        <activity android:name=".activity.RegistActivity" />
         <!-- select profession activity 选择职业页 -->
         <activity android:name=".activity.SelectProfessionActivity" />
 
@@ -104,6 +98,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- class my activity 我的设置 -->
         <activity android:name=".activity.SetActivity" />
+        <!-- 新消息通知页 -->
+        <activity android:name=".activity.NewAlerts" />
         <!-- class my activity 登录手机号 -->
         <activity android:name=".activity.SetCellPhoneNumActivity" />
         <!-- class my activity 个人资料 -->
@@ -152,7 +148,8 @@
 
 
         <!-- 使用时把com.easemob.chatuidemo替换成自己的包名 -->
-        <permission android:name="com.zuzhi.tianyou.permission.C2D_MESSAGE"
+        <permission
+            android:name="com.zuzhi.tianyou.permission.C2D_MESSAGE"
             android:protectionLevel="signature" />
         <uses-permission android:name="com.zuzhi.tianyou.permission.C2D_MESSAGE" />
         <permission
@@ -350,6 +347,20 @@
             android:name="com.zuzhi.tianyou.im.ui.UserProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"></activity>
+
+        <!--微信回调页-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="sdksample" />
+            </intent-filter>
+        </activity>
 
         <!-- 开机自启动服务 -->
         <receiver android:name="com.easemob.chat.StartServiceReceiver">

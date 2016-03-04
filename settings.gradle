@@ -1,1 +1,1 @@
-include ':easeUI', ':alertview', ':app'
+include ':easeUI', ':alertview', ':app', ':ToggleButtonLib'

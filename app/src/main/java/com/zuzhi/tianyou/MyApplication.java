@@ -25,6 +25,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zuzhi.tianyou.im.DemoHelper;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.DataCleanManager;
@@ -39,6 +41,20 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class MyApplication extends Application {
+    public String getWECHAT_CODE() {
+        return WECHAT_CODE;
+    }
+
+    public void setWECHAT_CODE(String WECHAT_CODE) {
+        this.WECHAT_CODE = WECHAT_CODE;
+    }
+
+    //wechat sdk anthorization code 微信SDK 授权code
+    private String WECHAT_CODE = null;
+
+    //wechart api
+    public IWXAPI wechat;
+
     //debug mode or release mode 是否debug模式
     public static boolean b_Debug = true;
     //Gson
@@ -76,6 +92,16 @@ public class MyApplication extends Application {
         return instance;
     }
 
+    /**
+     * regist app to wechat 注册应用到微信
+     */
+    private void regToWx() {
+        //通过WXAPIFactory工厂，获取IWXAPI的实例
+        wechat = WXAPIFactory.createWXAPI(this, Cons.WECHAT_APPID, true);
+
+        //将应用注册到微信
+        wechat.registerApp(Cons.WECHAT_APPID);
+    }
 
     @Override
     public void onCreate() {
@@ -106,29 +132,7 @@ public class MyApplication extends Application {
          */
         EMChat.getInstance().setDebugMode(true);//在做打包混淆时，要关闭debug模式，避免消耗不必要的资源
 
-        //easemob login 登陆环信
-//        EMChatManager.getInstance().login("18600364741", "199315", new EMCallBack() {//回调
-//            @Override
-//            public void onSuccess() {
-//                new Thread(new Runnable() {
-//                    public void run() {
-//                        EMGroupManager.getInstance().loadAllGroups();
-//                        EMChatManager.getInstance().loadAllConversations();
-//                        Logs.i("main", "登陆聊天服务器成功！");
-//                    }
-//                }).start();
-//            }
-//
-//            @Override
-//            public void onProgress(int progress, String status) {
-//
-//            }
-//
-//            @Override
-//            public void onError(int code, String message) {
-//                Logs.i("main", "登陆聊天服务器失败！");
-//            }
-//        });
+        regToWx();
     }
 
     /**
@@ -200,7 +204,7 @@ public class MyApplication extends Application {
         if (sp.getString("id", "0").equals("0")) {
             return false;
         } else {
-        return true;
+            return true;
         }
     }
 

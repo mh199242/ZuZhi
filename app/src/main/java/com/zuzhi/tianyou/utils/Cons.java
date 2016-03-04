@@ -13,6 +13,9 @@ import java.util.regex.Pattern;
  * Created by lichao on 2015/12/16.
  */
 public class Cons {
+    //wechat sdk appid 微信SDK APPID
+    public static final String WECHAT_APPID = "wx9a7ee3b009a54abe";
+
     //is login 是否登陆
     public static boolean B_ISLOGIN = false;
     //IndexFragment tag

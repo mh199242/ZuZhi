@@ -1,6 +1,5 @@
 package com.zuzhi.tianyou.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.Looper;
@@ -14,15 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bigkoo.alertview.AlertView;
 import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
 import com.easemob.exceptions.EaseMobException;
-import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.im.DemoHelper;
-import com.zuzhi.tianyou.im.ui.RegisterActivity;
 import com.zuzhi.tianyou.utils.DialogUtils;
 import com.zuzhi.tianyou.utils.StringUtils;
 import com.zuzhi.tianyou.utils.ToastUtil;

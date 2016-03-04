@@ -3,12 +3,10 @@ package com.zuzhi.tianyou.activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,6 +16,10 @@ import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.easeui.utils.EaseCommonUtils;
+import com.tencent.mm.sdk.modelbase.BaseReq;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.zuzhi.tianyou.MainActivity;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
@@ -86,6 +88,11 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
      */
     private boolean progressShow;
 
+    /**
+     * the wechat authorization code 微信授权码
+     */
+    private String wx_code;
+
     @Override
     protected int setContent() {
         return R.layout.activity_login_guide;
@@ -103,6 +110,15 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
         tv_go_to_index.setOnClickListener(this);
         tv_forget_password.setOnClickListener(this);
         tv_regist_quickly.setOnClickListener(this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (MyApplication.getInstance().getWECHAT_CODE() != null) {
+            Logs.i("微信", MyApplication.getInstance().getWECHAT_CODE());
+        }
     }
 
     @Override
@@ -121,6 +137,17 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
 //
 //        }
 
+    }
+
+    /**
+     * wechat login 微信登陆
+     */
+    public void wechatLogin(View view) {
+        // send oauth request
+        SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "wechat_sdk_demo_test";
+        MyApplication.getInstance().wechat.sendReq(req);
     }
 
     /**
@@ -279,7 +306,9 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
 
         } else {
             //exit
-            System.exit(0);
+            android.os.Process.killProcess(android.os.Process.myPid());
         }
     }
+
+
 }

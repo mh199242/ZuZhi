@@ -311,7 +311,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener{
         asvp_banner.startAutoScroll();
     }
 
-
     /**
      * get image for net 联网获取轮播图
      */

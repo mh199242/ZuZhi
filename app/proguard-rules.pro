@@ -47,3 +47,7 @@
 -keepclasseswithmembers class com.easemob.media.EIce {
     static void callbackLog(int, java.lang.String);
 }
+
+-keep class com.tencent.mm.sdk.** {
+   *;
+}
