@@ -31,6 +31,8 @@ import com.easemob.easeui.utils.EaseSmileUtils;
 import com.easemob.easeui.utils.EaseUserUtils;
 import com.easemob.util.DateUtils;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * 会话列表adapter
  *
@@ -87,7 +89,7 @@ public class EaseConversationAdapater extends ArrayAdapter<EMConversation> {
             holder.unreadLabel = (TextView) convertView.findViewById(R.id.unread_msg_number);
             holder.message = (TextView) convertView.findViewById(R.id.message);
             holder.time = (TextView) convertView.findViewById(R.id.time);
-            holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
+            holder.avatar = (CircleImageView) convertView.findViewById(R.id.avatar);
             holder.msgState = convertView.findViewById(R.id.msg_state);
             holder.list_itease_layout = (RelativeLayout) convertView.findViewById(R.id.list_itease_layout);
             convertView.setTag(holder);
@@ -280,7 +282,7 @@ public class EaseConversationAdapater extends ArrayAdapter<EMConversation> {
         /** 最后一条消息的时间 */
         TextView time;
         /** 用户头像 */
-        ImageView avatar;
+        CircleImageView avatar;
         /** 最后一条消息的发送状态 */
         View msgState;
         /** 整个list中每一行总布局 */

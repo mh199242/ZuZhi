@@ -73,9 +73,9 @@ public class EaseConversationList extends ListView {
     private void init(Context context, AttributeSet attrs) {
         this.context = context;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EaseConversationList);
-        primaryColor = ta.getColor(R.styleable.EaseConversationList_cvsListPrimaryTextColor, R.color.list_itease_primary_color);
-        secondaryColor = ta.getColor(R.styleable.EaseConversationList_cvsListSecondaryTextColor, R.color.list_itease_secondary_color);
-        timeColor = ta.getColor(R.styleable.EaseConversationList_cvsListTimeTextColor, R.color.list_itease_secondary_color);
+        primaryColor = ta.getColor(R.styleable.EaseConversationList_cvsListPrimaryTextColor, context.getResources().getColor(R.color.list_itease_primary_color));
+        secondaryColor = ta.getColor(R.styleable.EaseConversationList_cvsListSecondaryTextColor, context.getResources().getColor(R.color.list_itease_secondary_color));
+        timeColor = ta.getColor(R.styleable.EaseConversationList_cvsListTimeTextColor, context.getResources().getColor(R.color.list_itease_secondary_color));
         primarySize = ta.getDimensionPixelSize(R.styleable.EaseConversationList_cvsListPrimaryTextSize, 0);
         secondarySize = ta.getDimensionPixelSize(R.styleable.EaseConversationList_cvsListSecondaryTextSize, 0);
         timeSize = ta.getDimension(R.styleable.EaseConversationList_cvsListTimeTextSize, 0);
@@ -116,8 +116,7 @@ public class EaseConversationList extends ListView {
 
     /**
      * 获取所有会话
-     * 
-     * @param context
+     *
      * @return
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         +    */
     private List<EMConversation> loadConversationsWithRecentChat() {
@@ -154,7 +153,7 @@ public class EaseConversationList extends ListView {
     /**
      * 根据最后一条消息的时间排序
      * 
-     * @param usernames
+     * @param conversationList
      */
     private void sortConversationByLastChatTime(List<Pair<Long, EMConversation>> conversationList) {
         Collections.sort(conversationList, new Comparator<Pair<Long, EMConversation>>() {
