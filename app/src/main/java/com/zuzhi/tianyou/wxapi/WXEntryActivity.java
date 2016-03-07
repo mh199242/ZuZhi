@@ -45,22 +45,14 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
+        setContentView(R.layout.activity_wxentry);
         MyApplication.getInstance().wechat.handleIntent(getIntent(), this);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (getIntent().getIntExtra("request", 1) == 0) {
-            // send oauth request
-            SendAuth.Req req = new SendAuth.Req();
-            req.scope = "snsapi_userinfo";
-            req.state = "wechat_sdk_demo_test";
-            MyApplication.getInstance().wechat.sendReq(req);
-            finish();
-        }
+
     }
 
     @Override
@@ -103,7 +95,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
      */
     private void getAccessToken(final WXLoginBean wxLoginBean, final BaseResp baseResp) {
         wxLoginBean.setCode(((SendAuth.Resp) baseResp).code);
-        wxLoginBean.setOpenid(((SendAuth.Resp) baseResp).openId);
 
         //use the code to get access_token
         final Request<JSONObject> request =
@@ -123,6 +114,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
             @Override
             public void onSucceed(int what, Response<JSONObject> response) {
+
                 JSONObject jsonObject = null;
                 try {
                     if (response.get() == null) {
@@ -131,13 +123,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     }
                     jsonObject = response.get();
                     wxLoginBean.setAccess_token(jsonObject.get("access_token").toString());
+                    wxLoginBean.setOpenid(jsonObject.get("openid").toString());
                     getUserInfo(wxLoginBean, baseResp);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("WXLoginBean", wxLoginBean);
-//                    Intent resultIntent = new Intent();
-//                    resultIntent.putExtras(bundle);
-//                    setResult(RESULT_OK, resultIntent);
-//                    finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -182,14 +169,11 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         ToastUtil.showToast(WXEntryActivity.this, getResources().getString(R.string.data_error));
                         return;
                     }
+                    Logs.i("微信", "onSucceed");
                     jsonObject = response.get();
                     wxLoginBean.setNickname(jsonObject.get("nickname").toString());
                     wxLoginBean.setHeadimgurl(jsonObject.get("headimgurl").toString());
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("WXLoginBean", wxLoginBean);
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtras(bundle);
-                    setResult(RESULT_OK, resultIntent);
+                    LoginGuideActivity.actionStart(WXEntryActivity.this, wxLoginBean);
                     finish();
                 } catch (JSONException e) {
                     e.printStackTrace();

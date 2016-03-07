@@ -32,13 +32,13 @@ public class Cons {
     public static final String TAG_FRAGMENT_CLASS = "class";
 
     //域名
-    public final static String DOMAIN = "http://mysqapp.qweweq.com/index.php/app/index/";
+    public final static String DOMAIN = "http://101.201.208.117:8080/";
 
     //注册发送验证码接口
     public final static String IDENTIFYING_CODE_REGIST = "reginsertYzm";
 
     //注册接口
-    public final static String REGIST = "reginsert";
+    public final static String REGIST = "reg";
 
     //找回密码接口
     public final static String FIND_PASSWORD = "Member/resetpass";

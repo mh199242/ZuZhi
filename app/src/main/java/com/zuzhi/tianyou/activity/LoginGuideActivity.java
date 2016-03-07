@@ -1,6 +1,7 @@
 package com.zuzhi.tianyou.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -23,6 +24,7 @@ import com.easemob.easeui.utils.EaseCommonUtils;
 //import com.google.android.gms.appindexing.AppIndex;
 //import com.google.android.gms.common.api.GoogleApiClient;
 //import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnResponseListener;
 import com.yolanda.nohttp.Request;
@@ -111,11 +113,28 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
      * the wechat authorization code 微信授权码
      */
     private String wx_code;
+
+    /**
+     * wx login information
+     */
+    private static WXLoginBean mWXLoginBean;
 //    /**
 //     * ATTENTION: This was auto-generated to implement the App Indexing API.
 //     * See https://g.co/AppIndexing/AndroidStudio for more information.
 //     */
 //    private GoogleApiClient client;
+
+    /**
+     * start this activity with WXLoginBean
+     *
+     * @param context
+     * @param wxLoginBean
+     */
+    public static void actionStart(Context context, WXLoginBean wxLoginBean) {
+        mWXLoginBean = wxLoginBean;
+        Intent intent = new Intent(context, LoginGuideActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int setContent() {
@@ -140,6 +159,9 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
+        if (mWXLoginBean != null) {
+            wxLogin();
+        }
 
     }
 
@@ -165,72 +187,73 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
      * wechat login 微信登陆
      */
     public void wechatLogin(View view) {
-        Intent intent = new Intent(this, WXEntryActivity.class);
-        intent.putExtra("request", REQUEST_WX_LOGIN);
-        startActivityForResult(intent, REQUEST_WX_LOGIN);
+        // send oauth request
+        SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "wechat_sdk_demo_test";
+        MyApplication.getInstance().wechat.sendReq(req);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_WX_LOGIN:
-                switch (resultCode) {
-                    case RESULT_OK:
-                        if (data.getExtras() != null) {
-                            WXLoginBean wxLoginBean =
-                                    (WXLoginBean) data.getExtras().getSerializable("WXLoginBean");
-                            // NoHttp wechat login
-                            final Request<JSONObject> request =
-                                    NoHttp.createJsonObjectRequest(Cons.DOMAIN + Cons.LOGIN
-                                            + "?type=wx&openid=" + wxLoginBean.getOpenid()
-                                            + "&headimgurl=" + wxLoginBean.getHeadimgurl()
-                                            + "&nickname=" + wxLoginBean.getNickname());
-                            MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
-                                @Override
-                                public void onStart(int what) {
+    /**
+     * wechat login
+     */
+    private void wxLogin() {
 
-                                }
+        // NoHttp wechat login
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(Cons.DOMAIN + Cons.LOGIN
+                        + "?type=wx&openid=" + mWXLoginBean.getOpenid()
+                        + "&headimgurl=" + mWXLoginBean.getHeadimgurl()
+                        + "&nickname=" + mWXLoginBean.getNickname());
+        Logs.i("微信登录", "---------WXLoginUrl---------");
+        Logs.i("微信登录", (Cons.DOMAIN + Cons.LOGIN
+                + "?type=wx&openid=" + mWXLoginBean.getOpenid()
+                + "&headimgurl=" + mWXLoginBean.getHeadimgurl()
+                + "&nickname=" + mWXLoginBean.getNickname()));
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
 
-                                @Override
-                                public void onSucceed(int what, Response<JSONObject> response) {
-                                    JSONObject jsonObject = null;
-                                    try {
-                                        if (response.get() == null) {
-                                            ToastUtil.showToast(LoginGuideActivity.this, getResources().getString(R.string.data_error));
-                                            return;
-                                        }
-                                        jsonObject = response.get();
-                                        if (jsonObject.get("isSuccess").equals("true")) {
-                                            LoginBean bean = MyApplication.gson.fromJson(jsonObject.toString(), LoginBean.class);
-                                            LoginEntity value = bean.value;
-                                            ToastUtil.showToast(LoginGuideActivity.this, jsonObject.getString("message"));
+            }
 
-                                        } else if (jsonObject.get("isSuccess").equals("false")) {
-                                            ToastUtil.showToast(LoginGuideActivity.this, jsonObject.getString("errorMessage"));
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-                                    ToastUtil.showToast(LoginGuideActivity.this, getResources().getString(R.string.request_fail));
-                                }
-
-                                @Override
-                                public void onFinish(int what) {
-
-                                }
-                            });
-                        }
-
-
-                        break;
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(LoginGuideActivity.this, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("微信登录", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+                        LoginBean bean = MyApplication.gson.fromJson(jsonObject.toString(), LoginBean.class);
+                        LoginEntity value = bean.value;
+                        ToastUtil.showToast(LoginGuideActivity.this, jsonObject.getString("message"));
+                    } else if (!jsonObject.getBoolean("success")) {
+                        ToastUtil.showToast(LoginGuideActivity.this, jsonObject.getString("errorMessage"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    mWXLoginBean = null;
                 }
-                break;
-        }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(LoginGuideActivity.this, getResources().getString(R.string.request_fail));
+                mWXLoginBean = null;
+                Logs.i("微信登录", "----------Error-------");
+                Logs.i("微信登录", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
     }
 
     /**
