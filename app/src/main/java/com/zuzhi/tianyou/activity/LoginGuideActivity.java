@@ -3,6 +3,9 @@ package com.zuzhi.tianyou.activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Process;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,18 +19,29 @@ import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.easeui.utils.EaseCommonUtils;
-import com.tencent.mm.sdk.modelbase.BaseReq;
-import com.tencent.mm.sdk.modelbase.BaseResp;
-import com.tencent.mm.sdk.modelmsg.SendAuth;
-import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+//import com.google.android.gms.appindexing.Action;
+//import com.google.android.gms.appindexing.AppIndex;
+//import com.google.android.gms.common.api.GoogleApiClient;
+//import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.OnResponseListener;
+import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.Response;
 import com.zuzhi.tianyou.MainActivity;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.bean.LoginBean;
+import com.zuzhi.tianyou.bean.WXLoginBean;
+import com.zuzhi.tianyou.entity.LoginEntity;
 import com.zuzhi.tianyou.im.DemoHelper;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
+import com.zuzhi.tianyou.wxapi.WXEntryActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,6 +50,11 @@ import java.util.TimerTask;
  * login guide activity 导航登录页
  */
 public class LoginGuideActivity extends BaseActivity implements View.OnClickListener {
+    /**
+     * wechat login request code
+     */
+    private final int REQUEST_WX_LOGIN = 0;
+
     private String TAG = "com.zuzhi.tianyou.activity.LoginGuideActivity";
     /**
      * edit text of username 用户名文字编辑框
@@ -92,6 +111,11 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
      * the wechat authorization code 微信授权码
      */
     private String wx_code;
+//    /**
+//     * ATTENTION: This was auto-generated to implement the App Indexing API.
+//     * See https://g.co/AppIndexing/AndroidStudio for more information.
+//     */
+//    private GoogleApiClient client;
 
     @Override
     protected int setContent() {
@@ -116,9 +140,7 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        if (MyApplication.getInstance().getWECHAT_CODE() != null) {
-            Logs.i("微信", MyApplication.getInstance().getWECHAT_CODE());
-        }
+
     }
 
     @Override
@@ -143,11 +165,72 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
      * wechat login 微信登陆
      */
     public void wechatLogin(View view) {
-        // send oauth request
-        SendAuth.Req req = new SendAuth.Req();
-        req.scope = "snsapi_userinfo";
-        req.state = "wechat_sdk_demo_test";
-        MyApplication.getInstance().wechat.sendReq(req);
+        Intent intent = new Intent(this, WXEntryActivity.class);
+        intent.putExtra("request", REQUEST_WX_LOGIN);
+        startActivityForResult(intent, REQUEST_WX_LOGIN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_WX_LOGIN:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        if (data.getExtras() != null) {
+                            WXLoginBean wxLoginBean =
+                                    (WXLoginBean) data.getExtras().getSerializable("WXLoginBean");
+                            // NoHttp wechat login
+                            final Request<JSONObject> request =
+                                    NoHttp.createJsonObjectRequest(Cons.DOMAIN + Cons.LOGIN
+                                            + "?type=wx&openid=" + wxLoginBean.getOpenid()
+                                            + "&headimgurl=" + wxLoginBean.getHeadimgurl()
+                                            + "&nickname=" + wxLoginBean.getNickname());
+                            MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+                                @Override
+                                public void onStart(int what) {
+
+                                }
+
+                                @Override
+                                public void onSucceed(int what, Response<JSONObject> response) {
+                                    JSONObject jsonObject = null;
+                                    try {
+                                        if (response.get() == null) {
+                                            ToastUtil.showToast(LoginGuideActivity.this, getResources().getString(R.string.data_error));
+                                            return;
+                                        }
+                                        jsonObject = response.get();
+                                        if (jsonObject.get("isSuccess").equals("true")) {
+                                            LoginBean bean = MyApplication.gson.fromJson(jsonObject.toString(), LoginBean.class);
+                                            LoginEntity value = bean.value;
+                                            ToastUtil.showToast(LoginGuideActivity.this, jsonObject.getString("message"));
+
+                                        } else if (jsonObject.get("isSuccess").equals("false")) {
+                                            ToastUtil.showToast(LoginGuideActivity.this, jsonObject.getString("errorMessage"));
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+
+                                @Override
+                                public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                                    ToastUtil.showToast(LoginGuideActivity.this, getResources().getString(R.string.request_fail));
+                                }
+
+                                @Override
+                                public void onFinish(int what) {
+
+                                }
+                            });
+                        }
+
+
+                        break;
+                }
+                break;
+        }
     }
 
     /**
@@ -306,9 +389,25 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
 
         } else {
             //exit
-            android.os.Process.killProcess(android.os.Process.myPid());
+            Process.killProcess(Process.myPid());
         }
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
 }

@@ -19,34 +19,35 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.OnResponseListener;
+import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.Response;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.HotServiceAdapter;
 import com.zuzhi.tianyou.adapter.viewpageradapter.ClassListAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
-import com.zuzhi.tianyou.bean.BannerImageBaseBean;
+import com.zuzhi.tianyou.bean.BannerImageBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
+import com.zuzhi.tianyou.utils.ToastUtil;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 import com.zuzhi.tianyou.views.AutoScrollViewPager;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 /**
  * index class list activity 首页类目列表页
  */
 
-public class IndexClassListActivity extends BaseActivity implements View.OnClickListener{
+public class IndexClassListActivity extends BaseActivity implements View.OnClickListener {
 
     private String TAG = "com.zuzhi.tianyou.activity.IndexClassListActivity";
     /**
@@ -266,30 +267,61 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
 
         String url = "http://byh.qweweq.com/index.php/App/index/banner";
 
-        //create a volley request queue for url 根据给定的URL新建一个请求
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //ui safe 在这里操作UI组件是安全的，因为响应返回时这个函数会被post到UI线程来执行
-                        // 在这里尽情蹂躏响应的String。
-                        Logs.i(Cons.FRAMENT_INDEX, response);
-                        BannerImageBaseBean bean = MyApplication.gson.fromJson(response, BannerImageBaseBean.class);
-                        List<ImageEntity> list = bean.data;
-                        list_Entity_Banner.addAll(list);
-                        Message msg = Message.obtain();
-                        msg.what = 0x01;
-                        mHandler.sendMessage(msg);
-                    }
-                }, new Response.ErrorListener() {
+
+        mHandler = new Handler() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                // error 出错了怎么办？凉拌！并且在这里拌。
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    //complete download 下载完毕
+                    case 0x01:
+                        b_bannerDownload = true;
+                        setBanner();
+                        break;
+                    //banner scroll message 轮播图滚动
+                    case 0x02:
+                        if (b_bannerDownload) {
+                            setBannerIndex(ll_pointer_banner, (i_bannerPointerIndex) % list_Entity_Banner.size());
+                        }
+                        break;
+
+                }
+            }
+        };
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url);
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                if (response.get() == null) {
+                    ToastUtil.showToast(IndexClassListActivity.this, getResources().getString(R.string.data_error));
+                    return;
+                }
+                jsonObject = response.get();
+                BannerImageBean bean = MyApplication.gson.fromJson(jsonObject.toString(), BannerImageBean.class);
+                List<ImageEntity> list = bean.data;
+                list_Entity_Banner.addAll(list);
+                Message msg = Message.obtain();
+                msg.what = 0x01;
+                mHandler.sendMessage(msg);
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(IndexClassListActivity.this, getResources().getString(R.string.request_fail));
+            }
+
+            @Override
+            public void onFinish(int what) {
+
             }
         });
-        //add the request to volley request queue把这个请求加入请求队列
-        MyApplication.mVolleyQueue.add(stringRequest);
-
     }
 
 
@@ -376,6 +408,7 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
         public void onPageScrollStateChanged(int arg0) {
         }
     }
+
     @Override
     public void onPause() {
         // TODO Auto-generated method stub

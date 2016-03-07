@@ -16,6 +16,9 @@ public class Cons {
     //wechat sdk appid 微信SDK APPID
     public static final String WECHAT_APPID = "wx9a7ee3b009a54abe";
 
+    //wechat sdk app secret 微信SDK SECRET
+    public static final String WECHAT_SECRET = "17be9786ed83131bfd2fc22ba5521495";
+
     //is login 是否登陆
     public static boolean B_ISLOGIN = false;
     //IndexFragment tag

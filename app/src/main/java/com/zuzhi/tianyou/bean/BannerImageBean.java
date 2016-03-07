@@ -5,7 +5,7 @@ import com.zuzhi.tianyou.entity.ImageEntity;
 import java.util.List;
 
 
-public class BannerImageBaseBean {
+public class BannerImageBean {
 
     public int Result;
     public String Message;

@@ -462,6 +462,9 @@
     <string name="new_alerts_prompt">如果你要关闭或者开启足智的新消息通知，请在手机的 &quot;应用程序信息&quot; - &quot;显示通知&quot; 进行修改</string>
     <string name="cancle_login">取消登录</string>
     <string name="refuse_login">登录被拒</string>
-  <string name="new_alerts_show_details">通知消息显示详情</string>
+    <string name="new_alerts_show_details">通知消息显示详情</string>
     <string name="new_alerts_details">若关闭，当收到消息时，通知提示将不显示发信人的内容摘要</string>
+    <string name="data_error">数据解析错误</string>
+    <string name="request_fail">请求失败</string>
+
 </resources>

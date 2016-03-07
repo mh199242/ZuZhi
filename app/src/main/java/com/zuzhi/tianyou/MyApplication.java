@@ -1,22 +1,12 @@
 package com.zuzhi.tianyou;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.easemob.EMCallBack;
 import com.easemob.chat.EMChat;
-import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMGroupManager;
-import com.easemob.easeui.controller.EaseUI;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -27,10 +17,11 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.RequestQueue;
 import com.zuzhi.tianyou.im.DemoHelper;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.DataCleanManager;
-import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.SharepreUtil;
 
 import java.io.File;
@@ -41,17 +32,6 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class MyApplication extends Application {
-    public String getWECHAT_CODE() {
-        return WECHAT_CODE;
-    }
-
-    public void setWECHAT_CODE(String WECHAT_CODE) {
-        this.WECHAT_CODE = WECHAT_CODE;
-    }
-
-    //wechat sdk anthorization code 微信SDK 授权code
-    private String WECHAT_CODE = null;
-
     //wechart api
     public IWXAPI wechat;
 
@@ -59,12 +39,14 @@ public class MyApplication extends Application {
     public static boolean b_Debug = true;
     //Gson
     public static Gson gson;
-    //Volley请求队列
-    public static RequestQueue mVolleyQueue;
+
     //    //用户信息bean
 //    public static UserBean user;
     //图片显示设置
     public static DisplayImageOptions dis_ImgOptions;
+
+    // 创建请求队列
+    public RequestQueue queue;
 
 
     // /data/data/[packagename]/cache目录，存放一些其他缓存 File cache = getCacheDir();
@@ -113,8 +95,10 @@ public class MyApplication extends Application {
 
         //初始化Gson
         gson = new Gson();
-        //init a volley request queue 初始化一个volley请求队列
-        mVolleyQueue = Volley.newRequestQueue(this);
+
+        //init a NoHttp request queue 初始化一个NoHttp请求队列
+        NoHttp.init(this);
+        queue = NoHttp.newRequestQueue();
 
         CACHE = "/data/data/" + getApplicationContext().getPackageName() + "/cache";
         DATABASES = "/data/data/" + getApplicationContext().getPackageName() + "/databases";
@@ -271,5 +255,6 @@ public class MyApplication extends Application {
 //        ImageLoader.getInstance().clearDiskCache();  // 清除本地缓存
 //        ToastUtil.showLongToast(this, "清除本地缓存成功");
     }
+
 
 }

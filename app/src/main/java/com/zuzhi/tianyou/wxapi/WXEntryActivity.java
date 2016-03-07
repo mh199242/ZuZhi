@@ -2,6 +2,7 @@ package com.zuzhi.tianyou.wxapi;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -15,12 +16,22 @@ import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.OnResponseListener;
+import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.Response;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.activity.LoginGuideActivity;
+import com.zuzhi.tianyou.bean.LoginBean;
+import com.zuzhi.tianyou.bean.WXLoginBean;
+import com.zuzhi.tianyou.entity.LoginEntity;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -36,6 +47,20 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         MyApplication.getInstance().wechat.handleIntent(getIntent(), this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent().getIntExtra("request", 1) == 0) {
+            // send oauth request
+            SendAuth.Req req = new SendAuth.Req();
+            req.scope = "snsapi_userinfo";
+            req.state = "wechat_sdk_demo_test";
+            MyApplication.getInstance().wechat.sendReq(req);
+            finish();
+        }
     }
 
     @Override
@@ -51,25 +76,137 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         Intent intent;
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
-                //get the wechat grant 获得微信权授code
-                MyApplication.getInstance().setWECHAT_CODE(((SendAuth.Resp) baseResp).code);
-                finish();
-                //start loginguide activity 启动登陆导航页
-                intent = new Intent(this, LoginGuideActivity.class);
-                startActivity(intent);
+                final WXLoginBean wxLoginBean = new WXLoginBean();
+                getAccessToken(wxLoginBean, baseResp);
                 break;
             //取消登录
             case BaseResp.ErrCode.ERR_USER_CANCEL:
                 ToastUtil.showToast(this, getResources().getString(R.string.cancle_login));
+                finish();
                 break;
             //登陆被拒
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
                 ToastUtil.showToast(this, getResources().getString(R.string.refuse_login));
+                finish();
                 break;
             default:
 
                 break;
         }
 
+
     }
+
+
+    /**
+     * get access_token
+     */
+    private void getAccessToken(final WXLoginBean wxLoginBean, final BaseResp baseResp) {
+        wxLoginBean.setCode(((SendAuth.Resp) baseResp).code);
+        wxLoginBean.setOpenid(((SendAuth.Resp) baseResp).openId);
+
+        //use the code to get access_token
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(
+                        "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" +
+                                Cons.WECHAT_APPID +
+                                "&secret=" +
+                                Cons.WECHAT_SECRET +
+                                "&code=" +
+                                wxLoginBean.getCode() +
+                                "&grant_type=authorization_code");
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(WXEntryActivity.this, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    wxLoginBean.setAccess_token(jsonObject.get("access_token").toString());
+                    getUserInfo(wxLoginBean, baseResp);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("WXLoginBean", wxLoginBean);
+//                    Intent resultIntent = new Intent();
+//                    resultIntent.putExtras(bundle);
+//                    setResult(RESULT_OK, resultIntent);
+//                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(WXEntryActivity.this, getResources().getString(R.string.request_fail));
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+    }
+
+
+    /**
+     * get user info
+     */
+    private void getUserInfo(final WXLoginBean wxLoginBean, BaseResp baseResp) {
+        // NoHttp wechat get user info
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(
+                        "https://api.weixin.qq.com/sns/userinfo?access_token=" +
+                                wxLoginBean.getAccess_token() +
+                                "&openid=" +
+                                wxLoginBean.getOpenid());
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(WXEntryActivity.this, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    wxLoginBean.setNickname(jsonObject.get("nickname").toString());
+                    wxLoginBean.setHeadimgurl(jsonObject.get("headimgurl").toString());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("WXLoginBean", wxLoginBean);
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtras(bundle);
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(WXEntryActivity.this, getResources().getString(R.string.request_fail));
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+    }
+
 }

@@ -31,4 +31,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile project(':easeUI')
     compile project(':ToggleButtonLib')
+    compile 'com.yolanda.nohttp:nohttp:+'
 }
