@@ -405,7 +405,7 @@ public class IMActivity extends IMBaseActivity implements View.OnClickListener, 
         }
 
 
-        // register the event listener when enter the foreground
+        // nextStep the event listener when enter the foreground
         EMChatManager.getInstance().registerEventListener(this,
                 new EMNotifierEvent.Event[]{EMNotifierEvent.Event.EventNewMessage, EMNotifierEvent.Event.EventOfflineMessage, EMNotifierEvent.Event.EventConversationListChanged});
     }

@@ -1,7 +1,6 @@
 package com.zuzhi.tianyou.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Message;
@@ -31,22 +30,15 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexTopicAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.VisitHistoryAdapter;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.bean.BannerImageBean;
-import com.zuzhi.tianyou.bean.LoginBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
-import com.zuzhi.tianyou.entity.LoginEntity;
-import com.zuzhi.tianyou.utils.AMapUtils;
 import com.zuzhi.tianyou.utils.Cons;
-import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 import com.zuzhi.tianyou.views.AutoScrollViewPager;
 
 import android.os.Handler;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

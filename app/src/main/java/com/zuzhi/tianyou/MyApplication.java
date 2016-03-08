@@ -19,6 +19,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestQueue;
+import com.zuzhi.tianyou.entity.UserEntity;
 import com.zuzhi.tianyou.im.DemoHelper;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.DataCleanManager;
@@ -41,7 +42,7 @@ public class MyApplication extends Application {
     public static Gson gson;
 
     //    //用户信息bean
-//    public static UserBean user;
+    public static UserEntity user;
     //图片显示设置
     public static DisplayImageOptions dis_ImgOptions;
 
@@ -103,7 +104,7 @@ public class MyApplication extends Application {
         CACHE = "/data/data/" + getApplicationContext().getPackageName() + "/cache";
         DATABASES = "/data/data/" + getApplicationContext().getPackageName() + "/databases";
         LIB = "/data/data/" + getApplicationContext().getPackageName() + "/lib";
-//        SHARED_PREFS = "/data/data/" + getApplicationContext().getPackageName() + "/shared_prefs";
+        SHARED_PREFS = "/data/data/" + getApplicationContext().getPackageName() + "/shared_prefs";
 
         //init easemob SDK 初始化环信SDK
         //init demo helper
@@ -152,15 +153,16 @@ public class MyApplication extends Application {
 
     private void readUserInfo() {
         // TODO Auto-generated method stub
-//        user = new UserBean();
-//        SharedPreferences sp = SharepreUtil.getInstant(getApplicationContext());
-//        user.setId(sp.getString("id", "0"));
-//        user.setFace(sp.getString("face", ""));
-//        user.setJifen(sp.getInt("jifen", 0));
-//        user.setMoney(sp.getFloat("money", 0));
-//        user.setNickname(sp.getString("nickname", ""));
-//        user.setPhone(sp.getString("phone", ""));
-//        user.setUsername(sp.getString("username", ""));
+        user = new UserEntity();
+        SharedPreferences sp = SharepreUtil.getInstant(getApplicationContext());
+        user.setId(sp.getLong("id", 0));
+        user.setPhone(sp.getString("phone", ""));
+        user.setHeadImg(sp.getString("headImg", ""));
+        user.setName(sp.getString("name", ""));
+        user.setHasPhone(sp.getString("hasPhone", ""));
+        user.setWorkId(sp.getLong("workId", 0));
+        user.setCompanyName(sp.getString("companyName", ""));
+        user.setType(sp.getInt("type", 0));
     }
 
     /**
@@ -168,15 +170,17 @@ public class MyApplication extends Application {
      */
     public static void updataUserInfo(Context context) {
 
-//        Editor edit = SharepreUtil.getInstant(context).edit();
-//        edit.putString("id", user.getId());
-//        edit.putString("nickname", user.getNickname());
-//        edit.putString("username", user.getUsername());
-//        edit.putFloat("money", user.getMoney());
-//        edit.putString("face", user.getFace());
-//        edit.putInt("jifen", user.getJifen());
-//        edit.putString("phone", user.getPhone());
-//        edit.commit();
+        SharedPreferences.Editor edit = SharepreUtil.getInstant(context).edit();
+
+        edit.putLong("id", user.getId());
+        edit.putString("phone", user.getPhone());
+        edit.putString("headImg", user.getHeadImg());
+        edit.putString("name", user.getName());
+        edit.putString("hasPhone", user.getHasPhone());
+        edit.putLong("workId", user.getWorkId());
+        edit.putString("companyName", user.getCompanyName());
+        edit.putInt("type", user.getType());
+        edit.commit();
 
     }
 
@@ -198,14 +202,15 @@ public class MyApplication extends Application {
      * @param context
      */
     public static void clearUserInfo(Context context) {
-//        user.setNickname("");
-//        user.setJifen(0);
-//        user.setMoney(0);
-//        user.setPhone("");
-//        user.setId("0");
-//        user.setFace("");
-//        user.setUsername("");
-//        updataUserInfo(context);
+        user.setId(0);
+        user.setPhone("");
+        user.setHeadImg("");
+        user.setName("未登录");
+        user.setHasPhone("");
+        user.setWorkId(0);
+        user.setCompanyName("");
+        user.setType(0);
+        updataUserInfo(context);
     }
 
     private void initImageLoader() {

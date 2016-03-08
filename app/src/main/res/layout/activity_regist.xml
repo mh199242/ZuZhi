@@ -130,6 +130,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/button_focus_identifying_code"
+                android:onClick="identifyingCode"
                 android:text="@string/get_identifying_code"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/font_12" />
@@ -176,13 +177,13 @@
                 android:textSize="@dimen/font_15" />
 
             <Button
-
                 android:id="@+id/bt_regist_show_password"
                 android:layout_width="@dimen/width_button_show_password"
                 android:layout_height="@dimen/height_button_show_password"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/button_regist_show_password"
+                android:onClick="showPass"
                 android:text="@string/show_password"
                 android:textColor="@drawable/text_regist_identifying_code"
                 android:textSize="@dimen/font_12" />
@@ -239,12 +240,12 @@
             <Button
                 android:id="@+id/bt_regist_next_step"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="@dimen/height_button_main"
                 android:layout_marginTop="@dimen/margin_top_find_pass_word_confirm_button"
+                android:layout_weight="1"
                 android:background="@drawable/button_main"
+                android:onClick="nextStep"
                 android:text="@string/next_step"
-                android:onClick="register"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/font_18" />
 

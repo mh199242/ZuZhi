@@ -128,16 +128,18 @@ public class StringUtils {
     }
 
 	/**
-	 * 验证密码
+	 * check number length
 	 * 
-	 * @param pwd
+	 * @param num
+	 * @param min
+	 * @param max
 	 * @return
 	 */
-	public static boolean isPwd(String pwd) {
+	public static boolean checkNumLength(String num, int min, int max) {
 
-		if (null == pwd || pwd.equals(""))
+		if (null == num || num.equals(""))
 			return false;
-		if (pwd.length() < 6 || pwd.length() > 16)
+		if (num.length() < min || num.length() > max)
 			return false;
 		return true;
 	}

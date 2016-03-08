@@ -208,7 +208,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
     public void onResume() {
         super.onResume();
         //check message read status 检测消息读取状态
-        // register the event listener when enter the foreground
+        // nextStep the event listener when enter the foreground
         EMChatManager.getInstance().registerEventListener(this,
                 new EMNotifierEvent.Event[]{EMNotifierEvent.Event.EventNewMessage, EMNotifierEvent.Event.EventOfflineMessage, EMNotifierEvent.Event.EventConversationListChanged});
         updateUnreadLabel();

@@ -34,20 +34,24 @@ public class Cons {
     //域名
     public final static String DOMAIN = "http://101.201.208.117:8080/";
 
-    //注册发送验证码接口
-    public final static String IDENTIFYING_CODE_REGIST = "reginsertYzm";
+    //域名
+//    public final static String DOMAIN = "http://192.168.1.136:9080/";
+
+
+    //发送验证码接口
+    public final static String IDENTIFYING_CODE = "sendYzm";
 
     //注册接口
     public final static String REGIST = "reg";
 
-    //找回密码接口
-    public final static String FIND_PASSWORD = "Member/resetpass";
-
-    //找回密码发送验证码接口
-    public final static String IDENTIFYING_CODE_FIND_PASSWORD = "Member/resetYzm";
+    //找回密码
+    public final static String FIND_PASSWORD = "restPassWord";
 
     //登陆接口
     public final static String LOGIN = "login";
+
+    //get profession interface
+    public final static String GET_PROFESSION = "dict";
 
     //修改头像接口
     public final static String CHANGE_HEAD = "Member/changeavatar";

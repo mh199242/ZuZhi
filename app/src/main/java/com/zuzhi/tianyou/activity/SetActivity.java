@@ -83,7 +83,7 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.rl_modify_password:
                 Intent inModifyPassword = new Intent(SetActivity.this, FindPasswordActivity.class);
-                inModifyPassword.putExtra(FindPasswordActivity.MODIFY_PASSWORD_STR,FindPasswordActivity.MODIFY_PASSWORD);
+                inModifyPassword.putExtra("title",FindPasswordActivity.MODIFY_PASSWORD);
                 startActivity(inModifyPassword);
                 Toast.makeText(SetActivity.this,R.string.modify_password,Toast.LENGTH_SHORT).show();
                 break;

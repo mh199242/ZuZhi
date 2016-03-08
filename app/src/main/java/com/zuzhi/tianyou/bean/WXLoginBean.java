@@ -1,7 +1,5 @@
 package com.zuzhi.tianyou.bean;
 
-import com.zuzhi.tianyou.entity.LoginEntity;
-
 import java.io.Serializable;
 
 /**
@@ -28,8 +26,6 @@ public class WXLoginBean implements Serializable {
     public void setAccess_token(String access_token) {
         this.access_token = access_token;
     }
-
-
 
     public String getCode() {
         return code;

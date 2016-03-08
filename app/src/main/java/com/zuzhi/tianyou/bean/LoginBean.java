@@ -1,122 +1,145 @@
 package com.zuzhi.tianyou.bean;
 
-import com.zuzhi.tianyou.entity.LoginEntity;
+import com.zuzhi.tianyou.entity.UserEntity;
 
 /**
  * Created by Administrator on 2015/12/29.
  */
 public class LoginBean {
+
+
     /**
-     * isSuccess:方法是否成功  true 成功 false失败,
-     * errorMessage:错误信息,
-     * message:成功返回值,
-     * errorCode:错误代码 同步一个枚举类ErrorCode,
-     * totalCount:返回值中的总记录数,
-     * pageSize:每页多少数据,默认20条,
-     * pageNo:当前第几页,
-     * pageCount:总页数,
-     * nextPageNo:下一页页数，如果为0则表示无下一页,
-     * imgHost:图片服务器地址
-     * value:LoginEntity
+     * models : null
+     * message : 登录成功
+     * errorMessage :
+     * pageCount : 0
+     * nextPageNo : 0
+     * pageStr :
+     * totalCount : 0
+     * pageNo : 1
+     * value : {"id":1457407576021000,"phone":null,"headImg":"http://wx.qlogo.cn/mmopen/7Xp96QiaBrG0PSOib5CmlrkOMGL6verr39GAc3oAyZ9jQbocibW4AMqcNrr4CvcuaH6UkOb9Mvvf4ZibLlT4icu8tZg/0","name":"卐","hasPhone":"0","workId":null,"companyName":null,"type":1}
+     * pageSize : 20
+     * errorCode : 0
+     * imgHost : http://101.200.160.210
+     * success : true
      */
-    private boolean isSuccess;
-    private String errorMessage;
+
+    private Object models;
     private String message;
-    private String errorCode;
-    private String totalCount;
-    private String pageSize;
-    private String pageNo;
+    private String errorMessage;
+    private int pageCount;
+    private int nextPageNo;
+    private String pageStr;
+    private int totalCount;
+    private int pageNo;
+    private int pageSize;
+    private int errorCode;
+    private String imgHost;
+    private boolean success;
+    public UserEntity value;
 
-    public boolean isSuccess() {
-        return isSuccess;
+    public UserEntity getValue() {
+        return value;
     }
 
-    public void setSuccess(boolean success) {
-        isSuccess = success;
+    public void setValue(UserEntity value) {
+        this.value = value;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public String getMessage() {
-        return message;
+    public void setModels(Object models) {
+        this.models = models;
     }
 
     public void setMessage(String message) {
         this.message = message;
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public String getTotalCount() {
-        return totalCount;
-    }
-
-    public void setTotalCount(String totalCount) {
-        this.totalCount = totalCount;
-    }
-
-    public String getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(String pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public String getPageNo() {
-        return pageNo;
-    }
-
-    public void setPageNo(String pageNo) {
-        this.pageNo = pageNo;
-    }
-
-    public String getPageCount() {
-        return pageCount;
-    }
-
-    public void setPageCount(String pageCount) {
+    public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
 
-    public String getNextPageNo() {
-        return nextPageNo;
-    }
-
-    public void setNextPageNo(String nextPageNo) {
+    public void setNextPageNo(int nextPageNo) {
         this.nextPageNo = nextPageNo;
     }
 
-    public String getImgHost() {
-        return imgHost;
+    public void setPageStr(String pageStr) {
+        this.pageStr = pageStr;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public void setPageNo(int pageNo) {
+        this.pageNo = pageNo;
+    }
+
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
     }
 
     public void setImgHost(String imgHost) {
         this.imgHost = imgHost;
     }
 
-    public LoginEntity getValue() {
-        return value;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
-    public void setValue(LoginEntity value) {
-        this.value = value;
+    public Object getModels() {
+        return models;
     }
 
-    public String pageCount;
-    public String nextPageNo;
-    public String imgHost;
-    public LoginEntity value;
+    public String getMessage() {
+        return message;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public int getNextPageNo() {
+        return nextPageNo;
+    }
+
+    public String getPageStr() {
+        return pageStr;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public int getPageNo() {
+        return pageNo;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public String getImgHost() {
+        return imgHost;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
 }

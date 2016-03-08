@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Process;
 import android.text.TextUtils;
@@ -28,6 +27,7 @@ import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnResponseListener;
 import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.Response;
 import com.zuzhi.tianyou.MainActivity;
 import com.zuzhi.tianyou.MyApplication;
@@ -35,12 +35,11 @@ import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.bean.LoginBean;
 import com.zuzhi.tianyou.bean.WXLoginBean;
-import com.zuzhi.tianyou.entity.LoginEntity;
+import com.zuzhi.tianyou.entity.UserEntity;
 import com.zuzhi.tianyou.im.DemoHelper;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
-import com.zuzhi.tianyou.wxapi.WXEntryActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -162,7 +161,6 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
         if (mWXLoginBean != null) {
             wxLogin();
         }
-
     }
 
     @Override
@@ -180,7 +178,6 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 //
 //        }
-
     }
 
     /**
@@ -200,16 +197,25 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
     private void wxLogin() {
 
         // NoHttp wechat login
+        String url = Cons.DOMAIN + Cons.LOGIN;
         final Request<JSONObject> request =
-                NoHttp.createJsonObjectRequest(Cons.DOMAIN + Cons.LOGIN
-                        + "?type=wx&openid=" + mWXLoginBean.getOpenid()
-                        + "&headimgurl=" + mWXLoginBean.getHeadimgurl()
-                        + "&nickname=" + mWXLoginBean.getNickname());
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+
+        JSONObject postJson = new JSONObject();
+        try {
+            postJson.put("callback", "");
+            postJson.put("type", "wx");
+            postJson.put("openid", mWXLoginBean.getOpenid());
+            postJson.put("headimgurl", mWXLoginBean.getHeadimgurl());
+            postJson.put("nickname", mWXLoginBean.getNickname());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request.setRequestBody(postJson.toString());
+
         Logs.i("微信登录", "---------WXLoginUrl---------");
-        Logs.i("微信登录", (Cons.DOMAIN + Cons.LOGIN
-                + "?type=wx&openid=" + mWXLoginBean.getOpenid()
-                + "&headimgurl=" + mWXLoginBean.getHeadimgurl()
-                + "&nickname=" + mWXLoginBean.getNickname()));
+        Logs.i("微信登录", url);
+
         MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
             @Override
             public void onStart(int what) {
@@ -226,10 +232,20 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
                     }
                     jsonObject = response.get();
                     Logs.i("微信登录", jsonObject.toString());
+                    //success
                     if (jsonObject.getBoolean("success")) {
                         LoginBean bean = MyApplication.gson.fromJson(jsonObject.toString(), LoginBean.class);
-                        LoginEntity value = bean.value;
-                        ToastUtil.showToast(LoginGuideActivity.this, jsonObject.getString("message"));
+                        UserEntity value = bean.value;
+                        //update user information
+                        MyApplication.updataUserInfo(LoginGuideActivity.this);
+                        //start bind phone activity
+                        if (value.getPhone() == null) {
+                            Intent intent = new Intent(LoginGuideActivity.this, FindPasswordActivity.class);
+                            intent.putExtra("title", FindPasswordActivity.BIND_CELLPHONE);
+                            ToastUtil.showToast(LoginGuideActivity.this, getResources().getString(R.string.please_bind_cellphone));
+                            startActivity(intent);
+                        }
+                    //fail
                     } else if (!jsonObject.getBoolean("success")) {
                         ToastUtil.showToast(LoginGuideActivity.this, jsonObject.getString("errorMessage"));
                     }
@@ -254,6 +270,13 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
 
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplication.getInstance().queue.cancelAll();// 退出APP时停止所有请求
+        MyApplication.getInstance().queue.stop();// 退出APP时停止队列
     }
 
     /**

@@ -2,14 +2,12 @@ package com.zuzhi.tianyou.wxapi;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -23,9 +21,7 @@ import com.yolanda.nohttp.Response;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.activity.LoginGuideActivity;
-import com.zuzhi.tianyou.bean.LoginBean;
 import com.zuzhi.tianyou.bean.WXLoginBean;
-import com.zuzhi.tianyou.entity.LoginEntity;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;

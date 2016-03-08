@@ -62,6 +62,7 @@
                 android:id="@+id/bt_select_profession_complete"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:onClick="regist"
                 android:layout_height="@dimen/height_button_main"
                 android:layout_marginTop="@dimen/margin_top_find_pass_word_confirm_button"
                 android:background="@drawable/button_main"

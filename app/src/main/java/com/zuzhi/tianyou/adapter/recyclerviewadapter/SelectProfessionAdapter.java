@@ -9,15 +9,17 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.entity.ProfessionEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * adpater of setlect profession recyclerview 选择职业适配器
  */
 public class SelectProfessionAdapter extends RecyclerView.Adapter<SelectProfessionAdapter.MyViewHolder> {
-    private ArrayList<HashMap<String, Object>> mData;
+    private List<ProfessionEntity> mData;
     private Context mContext;
     private OnItemClickLitener mOnItemClickLitener;
 
@@ -35,7 +37,7 @@ public class SelectProfessionAdapter extends RecyclerView.Adapter<SelectProfessi
      * @param context 上下文
      * @param data    数据源
      */
-    public SelectProfessionAdapter(Context context, ArrayList<HashMap<String, Object>> data) {
+    public SelectProfessionAdapter(Context context, List<ProfessionEntity> data) {
         mData = data;
         mContext = context;
     }
@@ -50,7 +52,7 @@ public class SelectProfessionAdapter extends RecyclerView.Adapter<SelectProfessi
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        holder.cb_select_profession.setText((String) mData.get(position).get("string"));
+        holder.cb_select_profession.setText(mData.get(position).getName());
 
         if (mOnItemClickLitener != null) {
 

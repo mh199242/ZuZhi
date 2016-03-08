@@ -16,12 +16,25 @@ import android.widget.Toast;
 import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
 import com.easemob.exceptions.EaseMobException;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.OnResponseListener;
+import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.RequestMethod;
+import com.yolanda.nohttp.Response;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.bean.LoginBean;
+import com.zuzhi.tianyou.entity.UserEntity;
 import com.zuzhi.tianyou.im.DemoHelper;
+import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.DialogUtils;
+import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.StringUtils;
 import com.zuzhi.tianyou.utils.ToastUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * regist activity 注册页
@@ -72,6 +85,11 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
      */
     private EditText et_enter_cellphone;
 
+    /**
+     * indetifying code edit text
+     */
+    private EditText et_find_password_enter_identifying_code;
+
     @Override
     protected int setContent() {
         return R.layout.activity_regist;
@@ -83,68 +101,111 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
         bt_next_step = (Button) findViewById(R.id.bt_regist_next_step);
         bt_identifying_code = (Button) findViewById(R.id.bt_regist_identifying_code);
-        bt_show_password = (Button) findViewById(R.id.bt_regist_show_password);
         et_password = (EditText) findViewById(R.id.et_regist_password);
         et_enter_cellphone = (EditText) findViewById(R.id.et_regist_enter_cellphone);
+        et_find_password_enter_identifying_code = (EditText) findViewById(R.id.et_find_password_enter_identifying_code);
 
-        bt_show_password.setOnClickListener(this);
-        bt_identifying_code.setOnClickListener(this);
     }
 
 
     /**
-     * regist 注册
+     * next step
      */
-    public void register(View view) {
-        if (!StringUtils.isMobileNO(et_enter_cellphone.getText().toString())) {
-            ToastUtil.showLongToast(this, "请输入正确的手机号！");
-        } else if (!StringUtils.isPwd(et_password.getText().toString())) {
-            ToastUtil.showLongToast(this, "密码位数应在6-16位之间！");
-        } else if (StringUtils.isChinese(et_password.getText().toString())) {
-            ToastUtil.showLongToast(this, "密码中不应包含中文汉字和符号！");
-        } else {
-            DialogUtils.showProgressDialog(mContext, "注册中...");
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // 调用sdk注册方法
-                    try {
-                        EMChatManager.getInstance().createAccountOnServer(et_enter_cellphone.getText().toString(),
-                                et_password.getText().toString());
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                DialogUtils.dismissProgressDialog();
-                                // 保存用户名
-                                DemoHelper.getInstance().setCurrentUserName(et_enter_cellphone.getText().toString());
-                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.Registered_successfully));
-                                //start selectprofession activity 启动选择职业页
-                                intent = new Intent(mContext, SelectProfessionActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                    } catch (final EaseMobException e) {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                DialogUtils.dismissProgressDialog();
-                                int errorCode = e.getErrorCode();
-                                if (errorCode == EMError.NONETWORK_ERROR) {
-                                    ToastUtil.showLongToast(mContext, getResources().getString(R.string.network_anomalies));
-                                } else if (errorCode == EMError.USER_ALREADY_EXISTS) {
-                                    ToastUtil.showLongToast(mContext, getResources().getString(R.string.User_already_exists));
-                                } else if (errorCode == EMError.UNAUTHORIZED) {
-                                    ToastUtil.showLongToast(mContext, getResources().getString(R.string.registration_failed_without_permission));
-                                } else if (errorCode == EMError.ILLEGAL_USER_NAME) {
-                                    ToastUtil.showLongToast(mContext, getResources().getString(R.string.illegal_user_name));
-                                } else {
-                                    ToastUtil.showLongToast(mContext, getResources().getString(R.string.Registration_failed) + e.getMessage());
-                                }
-                            }
-                        });
-                    }
-                }
-            }).start();
+    public void nextStep(View view) {
+        String cellphone = et_enter_cellphone.getText().toString();
+        String password = et_password.getText().toString();
+        String identifyingCode = et_find_password_enter_identifying_code.getText().toString();
 
+        if (!StringUtils.isMobileNO(cellphone)) {
+            ToastUtil.showLongToast(this, "请输入正确的手机号");
+            return;
+        } else if (!StringUtils.checkNumLength(password, 6, 16)) {
+            ToastUtil.showLongToast(this, "密码位数应在6-16位之间");
+            return;
+        } else if (StringUtils.isChinese(password)) {
+            ToastUtil.showLongToast(this, "密码中不应包含中文汉字和符号");
+            return;
+        } else if (StringUtils.isChinese(identifyingCode)) {
+            ToastUtil.showLongToast(this, "验证码中不应包含中文汉字和符号");
+            return;
+        } else if (!StringUtils.checkNumLength(identifyingCode, 4, 4)) {
+            ToastUtil.showLongToast(this, "验证码位数不正确");
+            return;
         }
+        intent = new Intent(this, SelectProfessionActivity.class);
+        intent.putExtra("phone", cellphone);
+        intent.putExtra("password", password);
+        intent.putExtra("yzm", identifyingCode);
+        startActivity(intent);
+    }
+
+    /**
+     * get identifying code
+     */
+    public void identifyingCode(View view) {
+        String cellphone = et_enter_cellphone.getText().toString();
+        //check cellphone number
+        if (!StringUtils.isMobileNO(cellphone)) {
+            ToastUtil.showToast(this, getResources().getString(R.string.cellphone_error));
+            return;
+        }
+        timeCount.start();
+        // NoHttp get indentifying code
+        String url = Cons.DOMAIN + Cons.IDENTIFYING_CODE;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+
+        JSONObject postJson = new JSONObject();
+        try {
+            postJson.put("callback", "");
+            postJson.put("phone", cellphone);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request.setRequestBody(postJson.toString());
+
+        Logs.i("获取验证码", "---------url---------");
+        Logs.i("获取验证码", url);
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(RegistActivity.this, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("获取验证码", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+                        ToastUtil.showToast(RegistActivity.this, getResources().getString(R.string.send_success));
+                    } else {
+                        ToastUtil.showToast(RegistActivity.this, getResources().getString(R.string.send_fail));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(RegistActivity.this, getResources().getString(R.string.request_fail));
+                Logs.i("获取验证码", "----------Error-------");
+                Logs.i("获取验证码", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
     }
 
     @Override
@@ -172,8 +233,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            intent = new Intent(this, LoginGuideActivity.class);
-            startActivity(intent);
+            back();
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -184,39 +244,35 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             //back button 返回键
             case R.id.ll_title_bar_left:
             case R.id.bt_title_bar_left:
-                intent = new Intent(this, LoginGuideActivity.class);
-                startActivity(intent);
+                back();
                 break;
-            //next step button 下一步键
-//            case R.id.bt_regist_next_step:
-//                new AlertView(null, null, getResources().getString(R.string.alert_cellphone_already_exist),
-//                        getResources().getString(R.string.cancel),
-//                        new String[]{getResources().getString(R.string.confirm)},
-//                        null, this, AlertView.Style.Alert, this)
-//                        .setCancelable(true)
-//                        .setOnDismissListener(this)
-//                        .show();
-//                break;
-            //get identifying code button 获取验证码
-            case R.id.bt_regist_identifying_code:
-                timeCount.start();
-                break;
-            //show password buton 明文密码键
-            case R.id.bt_regist_show_password:
-                if (!b_isShowPassWord) {
-                    et_password.setTransformationMethod(HideReturnsTransformationMethod
-                            .getInstance());
-                    b_isShowPassWord = !b_isShowPassWord;
-                } else {
-                    et_password.setTransformationMethod(PasswordTransformationMethod
-                            .getInstance());
-                    b_isShowPassWord = !b_isShowPassWord;
-                }
-                break;
-
         }
     }
 
+    /**
+     * back button
+     */
+    public void back() {
+        intent = new Intent(this, LoginGuideActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * show or hide password
+     *
+     * @param view
+     */
+    public void showPass(View view) {
+        if (!b_isShowPassWord) {
+            et_password.setTransformationMethod(HideReturnsTransformationMethod
+                    .getInstance());
+            b_isShowPassWord = !b_isShowPassWord;
+        } else {
+            et_password.setTransformationMethod(PasswordTransformationMethod
+                    .getInstance());
+            b_isShowPassWord = !b_isShowPassWord;
+        }
+    }
 
     @Override
     public void onItemClick(Object o, int position) {
@@ -262,8 +318,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                         }
                     }
                 }).start();
-                intent = new Intent(this, SelectProfessionActivity.class);
-                startActivity(intent);
+
                 break;
         }
     }
