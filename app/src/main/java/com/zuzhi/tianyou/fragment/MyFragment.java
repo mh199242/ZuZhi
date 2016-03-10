@@ -22,9 +22,13 @@ import com.easemob.chat.EMMessage;
 import com.easemob.easeui.EaseConstant;
 import com.easemob.easeui.ui.EaseChatFragment;
 import com.easemob.easeui.utils.EaseCommonUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.activity.CollectionActivity;
 import com.zuzhi.tianyou.activity.IMActivity;
+import com.zuzhi.tianyou.activity.LoginActivity;
+import com.zuzhi.tianyou.activity.LoginGuideActivity;
 import com.zuzhi.tianyou.activity.MyCouponActivity;
 import com.zuzhi.tianyou.activity.MyOrderActivity;
 import com.zuzhi.tianyou.activity.OpinionActivity;
@@ -37,6 +41,8 @@ import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MyFragment extends BaseFragment implements View.OnClickListener,
         com.bigkoo.alertview.OnItemClickListener, com.bigkoo.alertview.OnDismissListener, EMEventListener {
 
@@ -48,6 +54,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
      * 用户名
      */
     private TextView tv_my_name;
+
+    /**
+     * head
+     */
+    private CircleImageView civ_my_head;
 
     /**
      * unread notice num 消息数目
@@ -97,10 +108,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
     @Override
     protected void initView(View view) {
 
+
         tv_my_name = (TextView) view.findViewById(R.id.tv_my_name);
+        civ_my_head = (CircleImageView) view.findViewById(R.id.civ_my_head);
         tv_notice_num = (TextView) view.findViewById(R.id.tv_notice_num);
-        //从SharedPreferences取用户名赋值
-//        tv_my_name.setText("");
+
 
         im_my_set = (ImageView) view.findViewById(R.id.im_my_set);
         im_my_notice = (ImageView) view.findViewById(R.id.im_my_notice);
@@ -129,6 +141,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
         rl_my_about.setOnClickListener(this);
         rl_my_exit.setOnClickListener(this);
 
+
     }
 
     @Override
@@ -140,7 +153,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
                 startActivity(inSet);
                 break;
             case R.id.im_my_notice:     //闹钟
-                if (!Cons.B_ISLOGIN) {
+                //unlogin state
+                if (MyApplication.user.getId() == 0) {
                     ToastUtil.showToast(getActivity(), "请先登录！");
                     return;
                 }
@@ -152,8 +166,17 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
 //                Toast.makeText(getActivity(),"im_my_info",Toast.LENGTH_SHORT).show();
 //                break;
             case R.id.civ_my_head:     //点击头像个人设置
-                Intent inPersonalDate = new Intent(getActivity(), PersonalDataActivity.class);
-                startActivity(inPersonalDate);
+                //unlogin state
+                if (MyApplication.user.getId() == 0) {
+                    //start LoginActiity
+                    LoginActivity.actionStart(getContext());
+                }
+                //login state
+                else {
+                    Intent inPersonalDate = new Intent(getActivity(), PersonalDataActivity.class);
+                    startActivity(inPersonalDate);
+                }
+
 //                Toast.makeText(getActivity(),"im_my_header",Toast.LENGTH_SHORT).show();
                 break;
             //列表单项按钮
@@ -212,6 +235,22 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
         EMChatManager.getInstance().registerEventListener(this,
                 new EMNotifierEvent.Event[]{EMNotifierEvent.Event.EventNewMessage, EMNotifierEvent.Event.EventOfflineMessage, EMNotifierEvent.Event.EventConversationListChanged});
         updateUnreadLabel();
+
+        //read&set userinformation
+        //set user name
+        if (MyApplication.user.getName().equals("")) {
+            tv_my_name.setText(R.string.unlogin);
+        } else {
+            tv_my_name.setText(MyApplication.user.getName());
+        }
+        //set head
+        if (MyApplication.user.getHeadImg().equals("")) {
+            civ_my_head.setImageResource(R.drawable.empty);
+        } else {
+            ImageLoader.getInstance().displayImage(
+                    Cons.IMG_HOST + MyApplication.user.getHeadImg(),
+                    civ_my_head, MyApplication.dis_ImgOptions);
+        }
     }
 
     /**
@@ -266,7 +305,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
                 break;
             //cnfirm 确定
             case 0:
+                //easi chat logout
+                EMChatManager.getInstance().logout();
+                //zuzhi logout
+                MyApplication.clearUserInfo(getActivity());
 
+                civ_my_head.setImageResource(R.drawable.empty);
+                tv_my_name.setText(R.string.unlogin);
                 break;
         }
     }
@@ -297,5 +342,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
                 break;
         }
     }
+
+
 }
 

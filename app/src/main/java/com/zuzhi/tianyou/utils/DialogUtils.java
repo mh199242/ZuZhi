@@ -3,6 +3,7 @@ package com.zuzhi.tianyou.utils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.view.WindowManager.BadTokenException;
 
@@ -34,18 +35,29 @@ public class DialogUtils {
         str_msg = msg;
     }
 
+    public static boolean isShow() {
+        return isShow;
+    }
+
+    /**
+     * dialog is showing
+     */
+    private static boolean isShow = false;
+
     /**
      * 显示dialog
      */
     public static void showProgressDialog(Context context, String msg) {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
+            isShow = false;
             progressDialog = null;
         }
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(msg);
         try {
             progressDialog.show();
+            isShow = true;
         } catch (BadTokenException exception) {
             exception.printStackTrace();
         }
@@ -57,18 +69,20 @@ public class DialogUtils {
     public static void showProgressDialog(Context context) {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
+            isShow = false;
             progressDialog = null;
         }
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(str_msg);
         try {
             progressDialog.show();
+            isShow = true;
         } catch (BadTokenException exception) {
             exception.printStackTrace();
         }
     }
 
-    static Handler welHandler = new Handler() {
+    static Handler welHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             dismisDialog();
@@ -106,6 +120,7 @@ public class DialogUtils {
     private static void dismisDialog() {
         if (null != progressDialog && progressDialog.isShowing() == true) {
             progressDialog.dismiss();
+            isShow = false;
             progressDialog = null;
         }
     }

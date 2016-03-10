@@ -473,4 +473,8 @@
     <string name="set_success">设置成功</string>
     <string name="set_fail">设置失败</string>
     <string name="loading">处理中...</string>
+    <string name="bind_successful">绑定成功!</string>
+    <string name="modify_successful">修改成功！</string>
+    <string name="go_index">去首页</string>
+    <string name="unlogin">未登录</string>
 </resources>

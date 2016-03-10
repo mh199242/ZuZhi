@@ -43,14 +43,17 @@
         android:label="@string/app_name">
 
         <!-- index 主页 -->
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.zuzhi.tianyou.activity.MainActivity"/>
 
         <!-- login activity 登陆页 -->
         <activity android:name=".activity.LoginActivity" />
         <!-- login guide activity 导航登陆页 -->
         <activity
             android:name=".activity.LoginGuideActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,7 +63,7 @@
         <!-- findpassword activity 找回密码页 -->
         <activity android:name=".activity.FindPasswordActivity" />
         <!-- findpassword success activity 找回密码成功页 -->
-        <activity android:name=".activity.FindPasswordSuccessActivity" />
+        <activity android:name=".activity.SuccessActivity" />
         <!-- regist activity 注册页 -->
         <activity android:name=".activity.RegistActivity" />
         <!-- select profession activity 选择职业页 -->
@@ -351,16 +354,7 @@
         <!--微信回调页-->
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:launchMode="singleTop">
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="sdksample" />
-            </intent-filter>
-        </activity>
+            android:exported="true"></activity>
 
         <!-- 开机自启动服务 -->
         <receiver android:name="com.easemob.chat.StartServiceReceiver">

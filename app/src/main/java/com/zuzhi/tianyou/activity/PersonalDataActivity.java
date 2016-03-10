@@ -7,8 +7,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.utils.Cons;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * personal information activity 个人资料页
@@ -16,7 +21,7 @@ import com.zuzhi.tianyou.base.BaseActivity;
 public class PersonalDataActivity extends BaseActivity implements View.OnClickListener {
 
     TextView tv_personal_name;
-    ImageView iv_personal_head;
+    CircleImageView civ_personal_head;
 
     @Override
     protected int setContent() {
@@ -26,15 +31,19 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void initViews() {
         tv_personal_name = (TextView) findViewById(R.id.tv_personal_name);
-        iv_personal_head = (ImageView) findViewById(R.id.civ_personal_head);
+        civ_personal_head = (CircleImageView) findViewById(R.id.civ_personal_head);
 
-        //从SharedPreferences里面获取用户名
-        //tv_personal_name.setText();
-
-        iv_personal_head.setOnClickListener(this);
+        civ_personal_head.setOnClickListener(this);
 
         //修改姓名看是否跳页，如果不跳改成edittext
         tv_personal_name.setOnClickListener(this);
+
+        //set user information
+        tv_personal_name.setText(MyApplication.user.getName());
+        ImageLoader.getInstance().displayImage(
+                Cons.IMG_HOST + MyApplication.user.getHeadImg(),
+                civ_personal_head
+        );
     }
 
     @Override

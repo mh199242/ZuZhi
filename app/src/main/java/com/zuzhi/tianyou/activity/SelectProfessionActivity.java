@@ -20,6 +20,7 @@ import com.yolanda.nohttp.Response;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.bean.LoginBean;
 import com.zuzhi.tianyou.bean.RegistBean;
 import com.zuzhi.tianyou.entity.ProfessionEntity;
 import com.zuzhi.tianyou.im.DemoHelper;
@@ -236,11 +237,14 @@ public class SelectProfessionActivity extends BaseActivity implements View.OnCli
 
                     Logs.i("注册", jsonObject.toString());
 
-
-                    if (!jsonObject.getBoolean("success")) {
-                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
+                    if (jsonObject.getBoolean("success")) {
+                        LoginBean bean = MyApplication.gson.fromJson(jsonObject.toString(), LoginBean.class);
+                        MyApplication.user = bean.value;
+                        //update user information
+                        MyApplication.updataUserInfo(mContext);
+                        ToastUtil.showToast(mContext, jsonObject.getString("message"));
                     } else {
-                        HXRegist(phone, password);
+                        ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
                     }
 
                 } catch (JSONException e) {
@@ -258,6 +262,7 @@ public class SelectProfessionActivity extends BaseActivity implements View.OnCli
 
             @Override
             public void onFinish(int what) {
+                DialogUtils.dismissProgressDialog();
             }
         });
     }
@@ -277,47 +282,48 @@ public class SelectProfessionActivity extends BaseActivity implements View.OnCli
         }
     }
 
-    /**
-     * ease chat regist
-     *
-     * @param user
-     * @param pass
-     */
-    private void HXRegist(final String user, final String pass) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // 调用sdk注册方法
-                try {
-                    EMChatManager.getInstance().createAccountOnServer(user, pass);
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            // 保存用户名
-                            DemoHelper.getInstance().setCurrentUserName(user);
-                            DialogUtils.dismissProgressDialog();
-                            ToastUtil.showLongToast(mContext, getResources().getString(R.string.Registered_successfully));
-                        }
-                    });
-                } catch (final EaseMobException e) {
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            DialogUtils.dismissProgressDialog();
-                            int errorCode = e.getErrorCode();
-                            if (errorCode == EMError.NONETWORK_ERROR) {
-                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.network_anomalies));
-                            } else if (errorCode == EMError.USER_ALREADY_EXISTS) {
-                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.User_already_exists));
-                            } else if (errorCode == EMError.UNAUTHORIZED) {
-                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.registration_failed_without_permission));
-                            } else if (errorCode == EMError.ILLEGAL_USER_NAME) {
-                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.illegal_user_name));
-                            } else {
-                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.Registration_failed) + e.getMessage());
-                            }
-                        }
-                    });
-                }
-            }
-        }).start();
-    }
+//    /**
+//     * ease chat regist
+//     *
+//     * @param user
+//     * @param pass
+//     */
+//    private void HXRegist(final String user, final String pass) {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                // 调用sdk注册方法
+//                try {
+//                    EMChatManager.getInstance().createAccountOnServer(user, pass);
+//                    runOnUiThread(new Runnable() {
+//                        public void run() {
+//                            // 保存用户名
+//                            DemoHelper.getInstance().setCurrentUserName(user);
+//                            DialogUtils.dismissProgressDialog();
+//                            ToastUtil.showLongToast(mContext, getResources().getString(R.string.Registered_successfully));
+//                            finish();
+//                        }
+//                    });
+//                } catch (final EaseMobException e) {
+//                    runOnUiThread(new Runnable() {
+//                        public void run() {
+//                            DialogUtils.dismissProgressDialog();
+//                            int errorCode = e.getErrorCode();
+//                            if (errorCode == EMError.NONETWORK_ERROR) {
+//                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.network_anomalies));
+//                            } else if (errorCode == EMError.USER_ALREADY_EXISTS) {
+//                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.User_already_exists));
+//                            } else if (errorCode == EMError.UNAUTHORIZED) {
+//                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.registration_failed_without_permission));
+//                            } else if (errorCode == EMError.ILLEGAL_USER_NAME) {
+//                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.illegal_user_name));
+//                            } else {
+//                                ToastUtil.showLongToast(mContext, getResources().getString(R.string.Registration_failed) + e.getMessage());
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        }).start();
+//    }
 }

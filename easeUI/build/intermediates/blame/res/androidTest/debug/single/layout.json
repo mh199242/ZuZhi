@@ -72,12 +72,12 @@
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_row_chat_history.xml"
     },
     {
-        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_row_sent_voice_call.xml",
-        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_row_sent_voice_call.xml"
-    },
-    {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_widget_emojicon_tab_bar.xml",
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_widget_emojicon_tab_bar.xml"
+    },
+    {
+        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_row_sent_voice_call.xml",
+        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_row_sent_voice_call.xml"
     },
     {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_row_sent_location.xml",

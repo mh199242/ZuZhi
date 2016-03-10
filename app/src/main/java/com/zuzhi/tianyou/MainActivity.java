@@ -4,7 +4,9 @@ package com.zuzhi.tianyou;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Process;
 import android.support.v4.app.FragmentManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -25,9 +27,13 @@ import com.zuzhi.tianyou.fragment.ClassFragment;
 import com.zuzhi.tianyou.fragment.IndexFragment;
 import com.zuzhi.tianyou.fragment.MyFragment;
 import com.zuzhi.tianyou.utils.AMapUtils;
+import com.zuzhi.tianyou.utils.ActivityCollector;
+import com.zuzhi.tianyou.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener, AMapLocationListener {
 
@@ -226,7 +232,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             //back  返回
             case R.id.ll_title_bar_left:
             case R.id.bt_title_bar_left:
-                finish();
+                exitBy2Click();
                 break;
             //city 城市
             case R.id.tv_title_bar_city:
@@ -242,6 +248,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        exitBy2Click();
+        return true;
+    }
+
     // location listener 定位监听
     @Override
     public void onLocationChanged(AMapLocation loc) {
@@ -253,8 +266,49 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
     }
 
+    /**
+     * exit method of double click
+     * 双击退出函数
+     */
+    private static Boolean isExit = false;
+
+    private void exitBy2Click() {
+        Timer tExit = null;
+        if (isExit == false) {
+            //ready for exit 准备退出
+            isExit = true;
+            ToastUtil.showLongToast(this, getResources().getString(R.string.click_again_to_exit));
+            tExit = new Timer();
+            tExit.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    // cancle exit 取消退出
+                    isExit = false;
+                }
+            }, 2000); // if don't click back in two second, start timertask to cancle mission
+            // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+
+        } else {
+            //exit
+            //高德地图
+            if (null != locationClient) {
+                /**
+                 * 如果AMapLocationClient是在当前Activity实例化的，
+                 * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
+                 */
+                locationClient.onDestroy();
+                locationClient = null;
+                locationOption = null;
+            }
+            MyApplication.getInstance().queue.cancelAll();// 退出APP时停止所有请求
+            MyApplication.getInstance().queue.stop();// 退出APP时停止队列
+            ActivityCollector.finishAll();
+            android.os.Process.killProcess(Process.myPid());
+        }
+    }
+
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
         //高德地图
         if (null != locationClient) {
@@ -266,5 +320,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             locationClient = null;
             locationOption = null;
         }
+        MyApplication.getInstance().queue.cancelAll();// 退出APP时停止所有请求
+        MyApplication.getInstance().queue.stop();// 退出APP时停止队列
     }
 }

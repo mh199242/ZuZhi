@@ -19,8 +19,6 @@ public class Cons {
     //wechat sdk app secret 微信SDK SECRET
     public static final String WECHAT_SECRET = "17be9786ed83131bfd2fc22ba5521495";
 
-    //is login 是否登陆
-    public static boolean B_ISLOGIN = false;
     //IndexFragment tag
     public static final String FRAMENT_INDEX = "IndexFragment";
 
@@ -34,6 +32,8 @@ public class Cons {
     //域名
     public final static String DOMAIN = "http://101.201.208.117:8080/";
 
+    //image host address
+    public static String IMG_HOST = "";
     //域名
 //    public final static String DOMAIN = "http://192.168.1.136:9080/";
 
@@ -53,20 +53,8 @@ public class Cons {
     //get profession interface
     public final static String GET_PROFESSION = "dict";
 
-    //修改头像接口
-    public final static String CHANGE_HEAD = "Member/changeavatar";
-
-    //修改密码接口
-    public final static String CHANGE_PASSWORD = "Member/changepass";
-
-    //意见反馈接口
-    public final static String SUGGESTION_POST = "Member/feedback";
-
-    //修改昵称接口
-    public final static String CHANGE_NICKNAME = "Member/changecnname";
-
-    //每日签到接口
-    public final static String SIGN_IN = "Member/signin";
+    //bind cellphone interface
+    public final static String BIND_CELLPHONE = "bindPhone";
 
     //图片缓存目录
     public final static String CACHE_IMAGE_DIR = "ZuZhi/ImgCache";

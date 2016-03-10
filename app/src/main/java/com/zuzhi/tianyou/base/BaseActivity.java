@@ -2,6 +2,7 @@ package com.zuzhi.tianyou.base;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.utils.ActivityCollector;
 
 
 /**
@@ -102,6 +104,7 @@ public abstract class BaseActivity extends FragmentActivity {
         initViews();
         initTitleBar();
         setTitleBar();
+        ActivityCollector.addActivity(this);
     }
 
     /**
@@ -186,6 +189,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
     /**
      * steep mode without titlebar 无标题栏沉浸
+     *
      * @param view
      */
     protected void NormalSteep(View view) {
@@ -201,6 +205,7 @@ public abstract class BaseActivity extends FragmentActivity {
 //                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 //        }
     }
+
     /**
      * get the height of status bar 获取状态栏高度
      *
@@ -213,5 +218,11 @@ public abstract class BaseActivity extends FragmentActivity {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
     }
 }

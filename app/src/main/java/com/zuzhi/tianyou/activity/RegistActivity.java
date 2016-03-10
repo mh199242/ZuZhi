@@ -253,8 +253,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
      * back button
      */
     public void back() {
-        intent = new Intent(this, LoginGuideActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     /**
@@ -295,29 +294,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 break;
             //cnfirm 确定
             case 0:
-                Looper.prepare();
-                new Thread(new Runnable() {
-                    public void run() {
-                        try {
-                            // 调用sdk注册方法
-                            EMChatManager.getInstance().createAccountOnServer(et_enter_cellphone.getText().toString(),
-                                    et_password.getText().toString());
-                        } catch (final EaseMobException e) {
-                            //注册失败
-                            int errorCode = e.getErrorCode();
-                            if (errorCode == EMError.NONETWORK_ERROR) {
-                                Toast.makeText(getApplicationContext(), "网络异常，请检查网络！", Toast.LENGTH_SHORT).show();
-                            } else if (errorCode == EMError.USER_ALREADY_EXISTS) {
-                                Toast.makeText(getApplicationContext(), "用户已存在！", Toast.LENGTH_SHORT).show();
-                            } else if (errorCode == EMError.UNAUTHORIZED) {
-                                Toast.makeText(getApplicationContext(), "注册失败，无权限！", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "注册失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                            return;
-                        }
-                    }
-                }).start();
+
 
                 break;
         }

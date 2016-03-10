@@ -1,7 +1,9 @@
 package com.zuzhi.tianyou.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -9,17 +11,21 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.easemob.EMCallBack;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMGroupManager;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnResponseListener;
 import com.yolanda.nohttp.Request;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.Response;
+import com.zuzhi.tianyou.MainActivity;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
-import com.zuzhi.tianyou.bean.LoginBean;
-import com.zuzhi.tianyou.entity.UserEntity;
+import com.zuzhi.tianyou.im.DemoHelper;
 import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.DialogUtils;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.StringUtils;
 import com.zuzhi.tianyou.utils.ToastUtil;
@@ -31,6 +37,9 @@ import org.json.JSONObject;
  * find password activity 找回密码页
  */
 public class FindPasswordActivity extends BaseActivity implements View.OnClickListener {
+    private String TAG = getClass().getSimpleName();
+
+    private Context mContext;
 
     /**
      * 获取验证码按钮
@@ -81,22 +90,19 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
 
 
     /**
-     * 获取intent 传参title字符串
+     * current activity title type
      */
-    private int titleIndex;
+    private static int mTitleIndex;
 
     /**
-     * 修改密码
+     * modify password
      */
     public static final int MODIFY_PASSWORD = 1;
+
     /**
      * 绑定手机
      */
     public static final int BIND_CELLPHONE = 2;
-    /**
-     * 修改密码intent传参名字
-     */
-    public static final String MODIFY_PASSWORD_STR = "MODIFY_PASSWORD_STR";
 
 
     @Override
@@ -104,13 +110,21 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
         return R.layout.activity_find_password;
     }
 
+    /**
+     * start this activity with title
+     *
+     * @param context
+     * @param titleIndex
+     */
+    public static void actionStart(Context context, int titleIndex) {
+        Intent intent = new Intent(context, FindPasswordActivity.class);
+        context.startActivity(intent);
+        mTitleIndex = titleIndex;
+    }
+
     @Override
     protected void initViews() {
-        //add this to exit list
-
-        titleIndex = getIntent().getIntExtra("title", 0);
-
-
+        mContext = this;
         timeCount = new TimeCount(60000, 1000);
 
         bt_identifying_code = (Button) findViewById(R.id.bt_find_password_identifying_code);
@@ -121,7 +135,6 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
         et_find_password_confirm_password = (EditText) findViewById(R.id.et_find_password_confirm_password);
 
         bt_identifying_code.setOnClickListener(this);
-        bt_confirm.setOnClickListener(this);
     }
 
     @Override
@@ -144,7 +157,7 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
 
         bt_title_bar_left.setOnClickListener(this);
         ll_title_bar_left.setOnClickListener(this);
-        switch (titleIndex) {
+        switch (mTitleIndex) {
             case MODIFY_PASSWORD:
                 tv_title_bar_text.setText(R.string.modify_password);
                 break;
@@ -164,29 +177,31 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
             //返回键
             case R.id.ll_title_bar_left:
             case R.id.bt_title_bar_left:
-                intent = new Intent(this, LoginGuideActivity.class);
-                startActivity(intent);
+                finish();
                 break;
             //获取验证码
             case R.id.bt_find_password_identifying_code:
                 indentifyingCode();
                 break;
-            //确定键
-            case R.id.bt_find_password_confirm:
-                resetPassword();
+        }
+    }
 
+    /**
+     * main button logic
+     *
+     * @param view
+     */
+    public void mainButton(View view) {
+        switch (mTitleIndex) {
+            case BIND_CELLPHONE:
+                bindCellphone();
+                break;
+            default:
+                resetPassword();
                 break;
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            intent = new Intent(this, LoginGuideActivity.class);
-            startActivity(intent);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
     /**
      * CountDownTimer 计数器
@@ -338,8 +353,9 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
                     jsonObject = response.get();
                     Logs.i("找回密码", jsonObject.toString());
                     if (jsonObject.getBoolean("success")) {
-                        intent = new Intent(FindPasswordActivity.this, FindPasswordSuccessActivity.class);
-                        startActivity(intent);
+                        //start activity
+                        SuccessActivity.actionStart(mContext, mTitleIndex);
+                        finish();
                     } else {
                         ToastUtil.showToast(FindPasswordActivity.this, jsonObject.getString("errorMessage"));
                     }
@@ -352,8 +368,8 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
                 ToastUtil.showToast(FindPasswordActivity.this, getResources().getString(R.string.request_fail));
-                Logs.i("获取验证码", "----------Error-------");
-                Logs.i("获取验证码", exception.toString());
+                Logs.i("找回密码", "----------Error-------");
+                Logs.i("找回密码", exception.toString());
             }
 
             @Override
@@ -361,6 +377,161 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
 
             }
         });
+    }
+
+    /**
+     * bind cellphone
+     */
+    private void bindCellphone() {
+        String newPass = et_find_password_enter_password.getText().toString();
+        String confirmPass = et_find_password_confirm_password.getText().toString();
+        String identifyingCode = et_find_password_enter_identifying_code.getText().toString();
+        final String cellphone = et_find_password_enter_cellphone.getText().toString();
+        //check password
+        if (!StringUtils.checkNumLength(newPass, 6, 16)) {
+            ToastUtil.showLongToast(this, "密码位数应在6-16位之间");
+            return;
+        } else if (StringUtils.isChinese(newPass)) {
+            ToastUtil.showLongToast(this, "密码中不应包含中文汉字和符号");
+            return;
+        } else if (!newPass.equals(confirmPass)) {
+            ToastUtil.showLongToast(this, "两次输入的密码不匹配");
+            return;
+        }
+        timeCount.start();
+        // NoHttp find password
+        String url = Cons.DOMAIN + Cons.BIND_CELLPHONE;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+
+        JSONObject postJson = new JSONObject();
+        try {
+            postJson.put("userId", MyApplication.user.getId());
+            postJson.put("password", newPass);
+            postJson.put("phone", cellphone);
+            postJson.put("yzm", identifyingCode);
+            postJson.put("callback", "");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request.setRequestBody(postJson.toString());
+
+        Logs.i("绑定手机", "---------url---------");
+        Logs.i("绑定手机", url);
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(FindPasswordActivity.this, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("bindPhone", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+                        //update user information
+                        MyApplication.user.setPhone(cellphone);
+                        MyApplication.updataUserInfo(mContext);
+                        //start actiity
+                        SuccessActivity.actionStart(mContext, mTitleIndex);
+                        finish();
+                    } else {
+                        ToastUtil.showToast(FindPasswordActivity.this, jsonObject.getString("errorMessage"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(FindPasswordActivity.this, getResources().getString(R.string.request_fail));
+                Logs.i("绑定手机", "----------Error-------");
+                Logs.i("绑定手机", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+    }
+
+    /**
+     * ease chat login
+     */
+    public void HXLogin() {
+        //easemob login 登陆环信
+        EMChatManager.getInstance().login("18600364741",
+                "111111", new EMCallBack() {//回调
+                    @Override
+                    public void onSuccess() {
+                        if (!DialogUtils.isShow()) {
+                            return;
+                        }
+
+
+                        if (!DialogUtils.isShow()) {
+                            return;
+                        }
+                        // 登陆成功，保存用户名
+                        DemoHelper.getInstance().setCurrentUserName("18600364741");
+                        // 注册群组和联系人监听
+                        DemoHelper.getInstance().registerGroupAndContactListener();
+
+                        // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
+                        // ** manually load all local groups and
+                        EMGroupManager.getInstance().loadAllGroups();
+                        EMChatManager.getInstance().loadAllConversations();
+
+                        // 更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
+                        boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(
+                                MyApplication.currentUserNick.trim());
+                        if (!updatenick) {
+                            Log.e("LoginActivity", "update current user nick fail");
+                        }
+                        //异步获取当前用户的昵称和头像(从自己服务器获取，demo使用的一个第三方服务)
+                        DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
+
+                        if (!FindPasswordActivity.this.isFinishing() && DialogUtils.isShow()) {
+                            DialogUtils.dismissProgressDialog();
+                        }
+
+                        // 进入主页面
+                        Intent intent = new Intent(mContext,
+                                MainActivity.class);
+                        startActivity(intent);
+                        Logs.i(TAG, "登陆聊天服务器成功！");
+                    }
+
+                    @Override
+                    public void onProgress(int progress, String status) {
+
+                    }
+
+                    @Override
+                    public void onError(int code, final String message) {
+                        if (!DialogUtils.isShow()) {
+                            return;
+                        }
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                DialogUtils.dismissProgressDialog();
+                                ToastUtil.showLongToast(mContext, getString(R.string.Login_failed) + message);
+                            }
+                        });
+
+                        Logs.i(TAG, "登陆聊天服务器失败！");
+                    }
+                });
     }
 }
 

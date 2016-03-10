@@ -78,9 +78,9 @@ public class MyApplication extends Application {
     /**
      * regist app to wechat 注册应用到微信
      */
-    private void regToWx() {
+    public void regToWx() {
         //通过WXAPIFactory工厂，获取IWXAPI的实例
-        wechat = WXAPIFactory.createWXAPI(this, Cons.WECHAT_APPID, true);
+        wechat = WXAPIFactory.createWXAPI(this, Cons.WECHAT_APPID, false);
 
         //将应用注册到微信
         wechat.registerApp(Cons.WECHAT_APPID);
