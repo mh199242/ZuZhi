@@ -1,5 +1,9 @@
 [
     {
+        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ease_chatting_setmode_voice_btn_normal.png",
+        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-xhdpi\\ease_chatting_setmode_voice_btn_normal.png"
+    },
+    {
         "merged": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ease_close_icon.png",
         "source": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\src\\main\\res\\drawable-xhdpi\\ease_close_icon.png"
     },

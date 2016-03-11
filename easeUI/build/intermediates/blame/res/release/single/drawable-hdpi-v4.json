@@ -580,6 +580,10 @@
         "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_dx_checkbox_on.png"
     },
     {
+        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ease_chatting_more_btn_normal.png",
+        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_chatting_more_btn_normal.png"
+    },
+    {
         "merged": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ease_chatting_setmode_voice_btn_pressed.png",
         "source": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\src\\main\\res\\drawable-hdpi\\ease_chatting_setmode_voice_btn_pressed.png"
     },

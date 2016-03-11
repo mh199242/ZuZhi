@@ -108,7 +108,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentLi
 
             case ContextMenuActivity.RESULT_CODE_FORWARD: // 转发消息
                 if(chatType == EaseConstant.CHATTYPE_CHATROOM){
-                    Toast.makeText(getActivity(), R.string.chatroom_not_support_forward, 1).show();
+                    Toast.makeText(getActivity(), R.string.chatroom_not_support_forward, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent intent = new Intent(getActivity(), ForwardMessageActivity.class);

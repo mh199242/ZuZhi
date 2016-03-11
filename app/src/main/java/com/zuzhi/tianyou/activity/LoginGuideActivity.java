@@ -162,20 +162,13 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MyApplication.getInstance().queue.cancelAll();// 退出APP时停止所有请求
-        MyApplication.getInstance().queue.stop();// 退出APP时停止队列
-    }
-
 
     /**
      * login 登陆
      *
      * @param view
      */
-    public void loginer(View view) {
+    public void zzLoginGuide(View view) {
         if (!EaseCommonUtils.isNetWorkConnected(this)) {
             Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
             return;
@@ -238,6 +231,7 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
                         HXLogin();
                     } else {
                         ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
+                        DialogUtils.dismissProgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -334,7 +328,7 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
      */
     public void HXLogin() {
         //easemob login 登陆环信
-        EMChatManager.getInstance().login("13501140314",
+        EMChatManager.getInstance().login("123456",
                 "123456", new EMCallBack() {//回调
                     @Override
                     public void onSuccess() {

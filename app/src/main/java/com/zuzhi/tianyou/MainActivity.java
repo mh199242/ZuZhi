@@ -342,8 +342,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             locationClient = null;
             locationOption = null;
         }
-        MyApplication.getInstance().queue.cancelAll();// 退出APP时停止所有请求
-        MyApplication.getInstance().queue.stop();// 退出APP时停止队列
     }
 
 

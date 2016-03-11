@@ -25,6 +25,8 @@ import com.easemob.easeui.widget.EaseChatMessageList;
 import com.easemob.easeui.widget.EaseChatMessageList.MessageListItemClickListener;
 import com.easemob.util.DateUtils;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public abstract class EaseChatRow extends LinearLayout {
     protected static final String TAG = EaseChatRow.class.getSimpleName();
 
@@ -35,7 +37,7 @@ public abstract class EaseChatRow extends LinearLayout {
     protected int position;
 
     protected TextView timeStampView;
-    protected ImageView userAvatarView;
+    protected CircleImageView userAvatarView;
     protected View bubbleLayout;
     protected TextView usernickView;
 
@@ -67,7 +69,7 @@ public abstract class EaseChatRow extends LinearLayout {
     private void initView() {
         onInflatView();
         timeStampView = (TextView) findViewById(R.id.timestamp);
-        userAvatarView = (ImageView) findViewById(R.id.iv_userhead);
+        userAvatarView = (CircleImageView) findViewById(R.id.iv_userhead);
         bubbleLayout = findViewById(R.id.bubble);
         usernickView = (TextView) findViewById(R.id.tv_userid);
 
@@ -296,11 +298,11 @@ public abstract class EaseChatRow extends LinearLayout {
                 if (message.status == EMMessage.Status.FAIL) {
 
                     if (message.getError() == EMError.MESSAGE_SEND_INVALID_CONTENT) {
-                        Toast.makeText(activity,activity.getString(R.string.send_fail) + activity.getString(R.string.error_send_invalid_content), 0).show();
+                        Toast.makeText(activity,activity.getString(R.string.send_fail) + activity.getString(R.string.error_send_invalid_content), Toast.LENGTH_LONG).show();
                     } else if (message.getError() == EMError.MESSAGE_SEND_NOT_IN_THE_GROUP) {
-                        Toast.makeText(activity,activity.getString(R.string.send_fail) + activity.getString(R.string.error_send_not_in_the_group), 0).show();
+                        Toast.makeText(activity,activity.getString(R.string.send_fail) + activity.getString(R.string.error_send_not_in_the_group), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(activity,activity.getString(R.string.send_fail) + activity.getString(R.string.connect_failuer_toast), 0).show();
+                        Toast.makeText(activity,activity.getString(R.string.send_fail) + activity.getString(R.string.connect_failuer_toast), Toast.LENGTH_LONG).show();
                     }
                 }
 

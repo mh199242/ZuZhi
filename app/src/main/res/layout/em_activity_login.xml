@@ -102,7 +102,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/em_button_register_bg"
                 android:gravity="center"
-                android:onClick="nextStep"
+                android:onClick="register"
                 android:paddingBottom="7dp"
                 android:paddingTop="7dp"
                 android:text="@string/register"

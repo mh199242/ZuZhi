@@ -69,12 +69,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      */
     private Intent intent;
 
-    /**
-     * login button 登录钮
-     *
-     * @return
-     */
-    private Button bt_login;
 
     /**
      * entered user name 用户输入的用户名
@@ -110,7 +104,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         et_password = (EditText) findViewById(R.id.et_login_password);
         tv_forget_password = (TextView) findViewById(R.id.tv_login_forget_password);
         tv_regist_quickly = (TextView) findViewById(R.id.tv_login_regist_quickly);
-        bt_login = (Button) findViewById(R.id.bt_login_login);
 
         tv_forget_password.setOnClickListener(this);
         tv_regist_quickly.setOnClickListener(this);
@@ -221,7 +214,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      *
      * @param view
      */
-    public void loginer(View view) {
+    public void zzLogin(View view) {
         if (!EaseCommonUtils.isNetWorkConnected(this)) {
             Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
             return;
@@ -284,6 +277,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         HXLogin();
                     } else {
                         ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
+                        DialogUtils.dismissProgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
