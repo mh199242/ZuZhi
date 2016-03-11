@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,22 +14,37 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.easemob.easeui.utils.EaseCommonUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.OnResponseListener;
+import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.RequestMethod;
+import com.yolanda.nohttp.Response;
 import com.zuzhi.tianyou.activity.MapActivity;
 import com.zuzhi.tianyou.activity.SearchHistoryActivity;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.base.BaseFragment;
+import com.zuzhi.tianyou.bean.IndexBean;
+import com.zuzhi.tianyou.bean.LoginBean;
 import com.zuzhi.tianyou.fragment.ClassFragment;
 import com.zuzhi.tianyou.fragment.IndexFragment;
 import com.zuzhi.tianyou.fragment.MyFragment;
 import com.zuzhi.tianyou.utils.AMapUtils;
 import com.zuzhi.tianyou.utils.ActivityCollector;
+import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.DialogUtils;
+import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +94,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      * intent 意图
      */
     private Intent mIntent;
+
+    /**
+     * index bean
+     */
+    private IndexBean indexBean = new IndexBean();
     //amap unit 高德地图组件相关
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
@@ -117,7 +138,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         rg_main = (RadioGroup) findViewById(R.id.rg_main);
         rg_main.setOnCheckedChangeListener(this);
 
-
+        //get server data
+        index();
     }
 
     @Override
@@ -322,5 +344,69 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
         MyApplication.getInstance().queue.cancelAll();// 退出APP时停止所有请求
         MyApplication.getInstance().queue.stop();// 退出APP时停止队列
+    }
+
+
+    /**
+     * get index information
+     */
+    public void index() {
+        if (!EaseCommonUtils.isNetWorkConnected(this)) {
+            Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        DialogUtils.showProgressDialog(this, getString(R.string.loading));
+
+
+        // NoHttp zuzhi login
+        String url = Cons.DOMAIN + Cons.INDEX;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+
+        Logs.i("足智首页", "---------url---------");
+        Logs.i("足智首页", url);
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("足智首页", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+                        indexBean = MyApplication.gson.fromJson(jsonObject.toString(), IndexBean.class);
+                        DialogUtils.dismissProgressDialog();
+                    } else {
+                        ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(mContext, getResources().getString(R.string.request_fail));
+                Logs.i("足智首页", "----------Error-------");
+                Logs.i("足智首页", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+
     }
 }

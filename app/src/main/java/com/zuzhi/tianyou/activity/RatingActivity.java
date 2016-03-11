@@ -58,7 +58,6 @@ public class RatingActivity extends BaseActivity implements View.OnClickListener
             case R.id.bt_title_bar_left:
                 finish();
                 break;
-
         }
     }
 }

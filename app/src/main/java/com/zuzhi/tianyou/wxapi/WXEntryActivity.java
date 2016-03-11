@@ -295,13 +295,13 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
      */
     public void HXLogin() {
         //easemob login 登陆环信
-        EMChatManager.getInstance().login("18600364741",
-                "111111", new EMCallBack() {//回调
+        EMChatManager.getInstance().login("13501140314",
+                "123456", new EMCallBack() {//回调
                     @Override
                     public void onSuccess() {
 
                         // 登陆成功，保存用户名
-                        DemoHelper.getInstance().setCurrentUserName("18600364741");
+                        DemoHelper.getInstance().setCurrentUserName("13501140314");
                         // 注册群组和联系人监听
                         DemoHelper.getInstance().registerGroupAndContactListener();
 

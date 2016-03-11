@@ -161,18 +161,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      */
     public void HXLogin() {
         //easemob login 登陆环信
-        EMChatManager.getInstance().login("18600364741",
-                "111111", new EMCallBack() {//回调
+        EMChatManager.getInstance().login("13501140314",
+                "123456", new EMCallBack() {//回调
                     @Override
                     public void onSuccess() {
-                        if (!DialogUtils.isShow()) {
-                            return;
-                        }
-
-
-                        if (!DialogUtils.isShow()) {
-                            return;
-                        }
                         // 登陆成功，保存用户名
                         DemoHelper.getInstance().setCurrentUserName(currentUsername);
                         // 注册群组和联系人监听
@@ -218,7 +210,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 ToastUtil.showLongToast(mContext, getString(R.string.Login_failed) + message);
                             }
                         });
-
+                        MyApplication.clearUserInfo(mContext);
                         Logs.i(TAG, "登陆聊天服务器失败！");
                     }
                 });
@@ -284,6 +276,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     jsonObject = response.get();
                     Logs.i("足智登陆", jsonObject.toString());
                     if (jsonObject.getBoolean("success")) {
+                        LoginBean bean = MyApplication.gson.fromJson(jsonObject.toString(), LoginBean.class);
+                        //update user information
+                        MyApplication.user = bean.value;
+                        MyApplication.updataUserInfo(mContext);
+                        Cons.IMG_HOST = bean.getImgHost() + "/";
                         HXLogin();
                     } else {
                         ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));

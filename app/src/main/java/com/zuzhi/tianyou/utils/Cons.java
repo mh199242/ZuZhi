@@ -56,8 +56,13 @@ public class Cons {
     //bind cellphone interface
     public final static String BIND_CELLPHONE = "bindPhone";
 
+    //index interface
+    public final static String INDEX = "index";
+
     //图片缓存目录
     public final static String CACHE_IMAGE_DIR = "ZuZhi/ImgCache";
+
+
 
 
     /**
