@@ -1,5 +1,7 @@
 package com.zuzhi.tianyou.fragment;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -13,9 +15,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.easemob.easeui.utils.EaseCommonUtils;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnResponseListener;
 import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.Response;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
@@ -30,15 +34,20 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexTopicAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.VisitHistoryAdapter;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.bean.BannerImageBean;
+import com.zuzhi.tianyou.bean.IndexBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
 import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.DialogUtils;
+import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 import com.zuzhi.tianyou.views.AutoScrollViewPager;
 
 import android.os.Handler;
+import android.widget.Toast;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -51,16 +60,15 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
     private String TAG = "com.zuzhi.tianyou.fragment.IndexFragment";
 
+    /**
+     * index bean
+     */
+    IndexBean indexBean = new IndexBean();
 
     /**
-     * data of class category 首页数据源
+     * index value entity
      */
-    private ArrayList<HashMap<String, Object>> mData;
-
-    /**
-     * banner entity list 轮播图片实体类列表
-     */
-    private List<ImageEntity> list_Entity_Banner = new ArrayList<ImageEntity>();
+    IndexBean.ValueEntity valueEntity;
 
     /**
      * banner 轮播器
@@ -127,10 +135,14 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     ImagePagerAdapter adp_ip;
 
+
+    Context mContext;
+
     public IndexFragment() {
     }
 
 
+    @SuppressLint("ValidFragment")
     public IndexFragment(LinearLayout titleBar) {
         this.titleBar = titleBar;
     }
@@ -160,6 +172,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void initView(View view) {
+        mContext = getContext();
         //init nearly visti test data
         ArrayList<HashMap<String, Object>> data_visitHistory = new ArrayList<HashMap<String, Object>>();
         for (int i = 0; i < 10; i++) {
@@ -267,8 +280,31 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                 getContext().startActivity(intent);
             }
         });
-        //get image from internet
-        getImage();
+
+        //get index data from server
+        index();
+
+
+        //init message handler
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    //complete download 下载完毕
+                    case 0x01:
+                        b_bannerDownload = true;
+                        setBanner();
+                        break;
+                    //banner scroll message 轮播图滚动
+                    case 0x02:
+                        if (b_bannerDownload) {
+                            setBannerIndex(ll_pointer_banner, (i_bannerPointerIndex) % valueEntity.getAd().size());
+                        }
+                        break;
+
+                }
+            }
+        };
 
     }
 
@@ -300,81 +336,17 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     }
 
     /**
-     * get image for net 联网获取轮播图
-     */
-    private void getImage() {
-
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    //complete download 下载完毕
-                    case 0x01:
-                        b_bannerDownload = true;
-                        setBanner();
-                        break;
-                    //banner scroll message 轮播图滚动
-                    case 0x02:
-                        if (b_bannerDownload) {
-                            setBannerIndex(ll_pointer_banner, (i_bannerPointerIndex) % list_Entity_Banner.size());
-                        }
-                        break;
-
-                }
-            }
-        };
-
-        String url = "http://byh.qweweq.com/index.php/App/index/banner";
-        final Request<JSONObject> request =
-                NoHttp.createJsonObjectRequest(url);
-        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
-            @Override
-            public void onStart(int what) {
-
-            }
-
-            @Override
-            public void onSucceed(int what, Response<JSONObject> response) {
-                JSONObject jsonObject = null;
-                if (response.get() == null) {
-                    ToastUtil.showToast(getActivity(), getResources().getString(R.string.data_error));
-                    return;
-                }
-                jsonObject = response.get();
-                BannerImageBean bean = MyApplication.gson.fromJson(jsonObject.toString(), BannerImageBean.class);
-                List<ImageEntity> list = bean.data;
-                list_Entity_Banner.addAll(list);
-                Message msg = Message.obtain();
-                msg.what = 0x01;
-                mHandler.sendMessage(msg);
-
-            }
-
-            @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-                ToastUtil.showToast(getActivity(), getResources().getString(R.string.request_fail));
-            }
-
-            @Override
-            public void onFinish(int what) {
-
-            }
-        });
-
-    }
-
-
-    /**
      * set banner options 设置轮播属性
      */
     private void setBanner() {
         // TODO Auto-generated method stub
-        adp_ip = new ImagePagerAdapter(getContext(), list_Entity_Banner).setInfiniteLoop(true);
+
+        adp_ip = new ImagePagerAdapter(getContext(), valueEntity).setInfiniteLoop(true);
         asvp_banner.setAdapter(adp_ip);
         asvp_banner.setOnPageChangeListener(new MyOnPageChangeListener());
         asvp_banner.setInterval(5000);
         asvp_banner.startAutoScroll();
-        asvp_banner.setCurrentItem(100 - 100 % list_Entity_Banner.size());
+        asvp_banner.setCurrentItem(100 - 100 % valueEntity.getAd().size());
         setBannerIndex(ll_pointer_banner, 0);
     }
 
@@ -388,7 +360,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     private List<ImageView> setBannerIndex(LinearLayout viewgroup, int position) {
 
-        int size = list_Entity_Banner == null ? 0 : list_Entity_Banner.size();
+        int size = valueEntity.getAd() == null ? 0 : valueEntity.getAd().size();
 
         if (size == 0)
             return null;
@@ -457,6 +429,80 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                 titleBar.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+
+    /**
+     * get index information
+     */
+    public void index() {
+        if (!EaseCommonUtils.isNetWorkConnected(mContext)) {
+            Toast.makeText(mContext, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        DialogUtils.showProgressDialog(mContext, getString(R.string.loading));
+
+
+        // NoHttp zuzhi login
+        String url = Cons.DOMAIN + Cons.INDEX;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+
+        Logs.i("足智首页", "---------url---------");
+        Logs.i("足智首页", url);
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("足智首页", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+
+                        indexBean = MyApplication.gson.fromJson(jsonObject.toString(), IndexBean.class);
+                        valueEntity = indexBean.getValue();
+
+                        //set img server host
+                        Cons.IMG_HOST = indexBean.getImgHost() + "/";
+                        //send a get data success message
+                        Message msg = Message.obtain();
+                        msg.what = 0x01;
+                        mHandler.sendMessage(msg);
+
+                        DialogUtils.dismissProgressDialog();
+                    } else {
+                        ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(mContext, getResources().getString(R.string.request_fail));
+                Logs.i("足智首页", "----------Error-------");
+                Logs.i("足智首页", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+
     }
 }
 

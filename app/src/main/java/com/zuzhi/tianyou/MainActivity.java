@@ -95,10 +95,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      */
     private Intent mIntent;
 
-    /**
-     * index bean
-     */
-    private IndexBean indexBean = new IndexBean();
     //amap unit 高德地图组件相关
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
@@ -138,8 +134,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         rg_main = (RadioGroup) findViewById(R.id.rg_main);
         rg_main.setOnCheckedChangeListener(this);
 
-        //get server data
-        index();
     }
 
     @Override
@@ -345,66 +339,5 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
 
-    /**
-     * get index information
-     */
-    public void index() {
-        if (!EaseCommonUtils.isNetWorkConnected(this)) {
-            Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        DialogUtils.showProgressDialog(this, getString(R.string.loading));
-
-
-        // NoHttp zuzhi login
-        String url = Cons.DOMAIN + Cons.INDEX;
-        final Request<JSONObject> request =
-                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
-
-        Logs.i("足智首页", "---------url---------");
-        Logs.i("足智首页", url);
-
-        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
-            @Override
-            public void onStart(int what) {
-
-            }
-
-            @Override
-            public void onSucceed(int what, Response<JSONObject> response) {
-                JSONObject jsonObject = null;
-                try {
-                    if (response.get() == null) {
-                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
-                        return;
-                    }
-                    jsonObject = response.get();
-                    Logs.i("足智首页", jsonObject.toString());
-                    if (jsonObject.getBoolean("success")) {
-                        indexBean = MyApplication.gson.fromJson(jsonObject.toString(), IndexBean.class);
-                        DialogUtils.dismissProgressDialog();
-                    } else {
-                        ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-                ToastUtil.showToast(mContext, getResources().getString(R.string.request_fail));
-                Logs.i("足智首页", "----------Error-------");
-                Logs.i("足智首页", exception.toString());
-            }
-
-            @Override
-            public void onFinish(int what) {
-
-            }
-        });
-
-    }
 }

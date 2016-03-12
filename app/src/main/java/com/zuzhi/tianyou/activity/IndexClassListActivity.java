@@ -329,14 +329,14 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
      * set banner options 设置轮播属性
      */
     private void setBanner() {
-        // TODO Auto-generated method stub
-        adp_ip = new ImagePagerAdapter(this, list_Entity_Banner).setInfiniteLoop(true);
-        asvp_banner.setAdapter(adp_ip);
-        asvp_banner.setOnPageChangeListener(new MyOnPageChangeListener());
-        asvp_banner.setInterval(5000);
-        asvp_banner.startAutoScroll();
-        asvp_banner.setCurrentItem(100 - 100 % list_Entity_Banner.size());
-        setBannerIndex(ll_pointer_banner, 0);
+//        // TODO Auto-generated method stub
+//        adp_ip = new ImagePagerAdapter(this, list_Entity_Banner).setInfiniteLoop(true);
+//        asvp_banner.setAdapter(adp_ip);
+//        asvp_banner.setOnPageChangeListener(new MyOnPageChangeListener());
+//        asvp_banner.setInterval(5000);
+//        asvp_banner.startAutoScroll();
+//        asvp_banner.setCurrentItem(100 - 100 % list_Entity_Banner.size());
+//        setBannerIndex(ll_pointer_banner, 0);
     }
 
 

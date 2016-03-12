@@ -15,9 +15,11 @@ import android.widget.ImageView.ScaleType;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zuzhi.tianyou.MyApplication;
+import com.zuzhi.tianyou.bean.IndexBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zuzhi.tianyou.utils.Cons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +29,19 @@ import java.util.List;
  *
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2014-2-23
  */
-public class ImagePagerAdapter extends RecyclingPagerAdapter{
+public class ImagePagerAdapter extends RecyclingPagerAdapter {
 
     private Context context;
-    private List<ImageEntity> imageIdList;
+    //index data
+    private IndexBean.ValueEntity mValueEntity;
     private DisplayImageOptions options;
     private int size;
     private boolean isInfiniteLoop;
 
-    public ImagePagerAdapter(Context context, List<ImageEntity> imageIdList) {
+    public ImagePagerAdapter(Context context, IndexBean.ValueEntity valueEntity) {
         this.context = context;
-        this.imageIdList = imageIdList;
-        // this.size = ListUtils.getSize(imageIdList);
-        this.size = imageIdList.size();
+        mValueEntity = valueEntity;
+        this.size = mValueEntity.getAd().size();
         isInfiniteLoop = false;
 
     }
@@ -80,8 +82,8 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter{
             holder = (ViewHolder) view.getTag();
         }
         holder.imageView.setScaleType(ScaleType.FIT_XY);
-        ImageLoader.getInstance().displayImage(
-                imageIdList.get(getPosition(position)).getUrl(),
+        ImageLoader.getInstance().displayImage(Cons.IMG_HOST +
+                        mValueEntity.getAd().get(getPosition(position)).getImgUrl(),
                 holder.imageView, MyApplication.dis_ImgOptions);
 
         return view;
