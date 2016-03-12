@@ -14,7 +14,7 @@ public class SharepreUtil {
 	public static SharedPreferences getInstant(Context context) {
 		if (sp == null) {
 			sp = context
-					.getSharedPreferences("manyishequ", context.MODE_PRIVATE);
+					.getSharedPreferences("zuzhi", context.MODE_PRIVATE);
 		}
 		return sp;
 	}

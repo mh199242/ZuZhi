@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -238,13 +239,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,
 
         //read&set userinformation
         //set user name
-        if (MyApplication.user.getName().equals("")) {
+        if (MyApplication.user.getId() == 0) {
             tv_my_name.setText(R.string.unlogin);
         } else {
-            tv_my_name.setText(MyApplication.user.getName());
+            if(TextUtils.isEmpty(MyApplication.user.getName())){
+                tv_my_name.setText(MyApplication.user.getPhone());
+            }else{
+                tv_my_name.setText(MyApplication.user.getName());
+            }
+
         }
         //set head
-        if (MyApplication.user.getHeadImg().equals("")) {
+        if (TextUtils.isEmpty(MyApplication.user.getHeadImg())) {
             civ_my_head.setImageResource(R.drawable.empty);
         } else {
             ImageLoader.getInstance().displayImage(

@@ -159,7 +159,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onSuccess() {
                         // 登陆成功，保存用户名
-                        DemoHelper.getInstance().setCurrentUserName(currentUsername);
+                        DemoHelper.getInstance().setCurrentUserName("13501140314");
                         // 注册群组和联系人监听
                         DemoHelper.getInstance().registerGroupAndContactListener();
 

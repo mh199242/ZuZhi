@@ -11,7 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.alertview.OnItemClickListener;
+import com.google.android.gms.plus.model.people.Person;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.bean.IndexBean;
+import com.zuzhi.tianyou.utils.Cons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +24,7 @@ import java.util.HashMap;
  * adpater of index guide recyclerview 首页导航栏适配器
  */
 public class IndexGuideAdapter extends RecyclerView.Adapter<IndexGuideAdapter.MyViewHolder> {
-    private ArrayList<HashMap<String, Object>> mData;
+    private IndexBean.ValueEntity mValueEntity;
     private Context mContext;
     private OnItemClickLitener mOnItemClickLitener;
 
@@ -36,10 +40,10 @@ public class IndexGuideAdapter extends RecyclerView.Adapter<IndexGuideAdapter.My
      * init 初始化适配器，载入数据源
      *
      * @param context 上下文
-     * @param data    数据源
+     * @param valueEntity    数据源
      */
-    public IndexGuideAdapter(Context context, ArrayList<HashMap<String, Object>> data) {
-        mData = data;
+    public IndexGuideAdapter(Context context, IndexBean.ValueEntity valueEntity) {
+        mValueEntity = valueEntity;
         mContext = context;
     }
 
@@ -53,9 +57,10 @@ public class IndexGuideAdapter extends RecyclerView.Adapter<IndexGuideAdapter.My
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        holder.tv_guide.setText((String) mData.get(position).get("string"));
-        holder.iv_guide.setBackgroundDrawable((Drawable) mData.get(position).get("image"));
-
+        holder.tv_guide.setText(mValueEntity.getCategory().get(position).getName());
+        ImageLoader.getInstance().displayImage(
+                Cons.IMG_HOST + mValueEntity.getCategory().get(position).getImgUrl(),
+                holder.iv_guide);
         //set on item click listener 设置item点击监听
         if (mOnItemClickLitener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +75,7 @@ public class IndexGuideAdapter extends RecyclerView.Adapter<IndexGuideAdapter.My
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mValueEntity.getCategory().size();
     }
 
     class MyViewHolder extends ViewHolder {

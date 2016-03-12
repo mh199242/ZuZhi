@@ -45,8 +45,7 @@
         <!-- index 主页 -->
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity="com.zuzhi.tianyou.activity.MainActivity"/>
+            android:launchMode="singleTask" />
 
         <!-- login activity 登陆页 -->
         <activity android:name=".activity.LoginActivity" />

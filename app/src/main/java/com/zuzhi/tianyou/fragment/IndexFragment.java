@@ -10,11 +10,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.easemob.chat.EMConversation;
 import com.easemob.easeui.utils.EaseCommonUtils;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnResponseListener;
@@ -36,6 +38,8 @@ import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.bean.BannerImageBean;
 import com.zuzhi.tianyou.bean.IndexBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
+import com.zuzhi.tianyou.im.Constant;
+import com.zuzhi.tianyou.im.ui.ChatActivity;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.DialogUtils;
 import com.zuzhi.tianyou.utils.Logs;
@@ -121,11 +125,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     private RecyclerView rv_hot_service;
 
     /**
-     * layout of phone contact 电话联系布局
-     */
-    private LinearLayout ll_phone_contact;
-
-    /**
      * titlebar 标题栏透传
      */
     LinearLayout titleBar;
@@ -135,10 +134,20 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     ImagePagerAdapter adp_ip;
 
+    /**
+     * layout of online service
+     */
+    LinearLayout ll_online_service;
+
+    /**
+     * layout of phone contact
+     */
+    LinearLayout ll_phone_contact;
 
     Context mContext;
 
     public IndexFragment() {
+
     }
 
 
@@ -173,6 +182,9 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected void initView(View view) {
         mContext = getContext();
+        //get index data from server
+        index();
+
         //init nearly visti test data
         ArrayList<HashMap<String, Object>> data_visitHistory = new ArrayList<HashMap<String, Object>>();
         for (int i = 0; i < 10; i++) {
@@ -181,14 +193,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             data_visitHistory.add(map);
         }
 
-        //init guide test data
-        ArrayList<HashMap<String, Object>> data_guide = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < Cons.STRARR_INDEX_GUIDE.length; i++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("string", Cons.STRARR_INDEX_GUIDE[i]);
-            map.put("image", getResources().getDrawable(Cons.ID_DRAWABLE_INDEX_GUIDE[i]));
-            data_guide.add(map);
-        }
 
         //init topic test data
         ArrayList<HashMap<String, Object>> data_topic = new ArrayList<HashMap<String, Object>>();
@@ -228,8 +232,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         rv_guide = (RecyclerView) view.findViewById(R.id.rv_index_guide);
         rv_topic = (RecyclerView) view.findViewById(R.id.rv_index_topic);
         rv_hot_service = (RecyclerView) view.findViewById(R.id.rv_index_hot_service);
+        ll_online_service = (LinearLayout) view.findViewById(R.id.ll_index_online_service);
         ll_phone_contact = (LinearLayout) view.findViewById(R.id.ll_index_phone_contact);
-
 
         //set adapters
         HotServiceAdapter adp_hotService = new HotServiceAdapter(getContext(), data_hotService);
@@ -245,9 +249,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         rv_visit_history.setAdapter(adp_visitHistory);
         rv_visit_history.setLayoutManager(new LinearLayoutManager(getContext(), OrientationHelper.HORIZONTAL, false));
 
-        IndexGuideAdapter adp_guide = new IndexGuideAdapter(getContext(), data_guide);
-        rv_guide.setAdapter(adp_guide);
-        rv_guide.setLayoutManager(new GuideLayoutManager(getContext(), 4, data_guide.size()));
 
 //        rv_guide.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
@@ -256,6 +257,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
         //set listeners
         ll_phone_contact.setOnClickListener(this);
+        ll_online_service.setOnClickListener(this);
+
         adp_topic.setOnItemClickLitener(new IndexTopicAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -264,14 +267,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                 getContext().startActivity(intent);
             }
         });
-        adp_guide.setOnItemClickLitener(new IndexGuideAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                //start class level activity 启动类目列表页面
-                Intent intent = new Intent(getContext(), IndexClassListActivity.class);
-                getContext().startActivity(intent);
-            }
-        });
+
         adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -280,9 +276,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                 getContext().startActivity(intent);
             }
         });
-
-        //get index data from server
-        index();
 
 
         //init message handler
@@ -293,7 +286,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                     //complete download 下载完毕
                     case 0x01:
                         b_bannerDownload = true;
-                        setBanner();
+                        initData();
                         break;
                     //banner scroll message 轮播图滚动
                     case 0x02:
@@ -308,17 +301,21 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            //call phone 拨打电话
-            case R.id.ll_index_phone_contact:
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.CALL");
-                intent.setData(Uri.parse("tel:" + 10086));
-                startActivity(intent);
-                break;
+
+    /**
+     * phoneContact logic
+     */
+    public void phoneContact() {
+        String phone = valueEntity.getCustomerService().getPhone();
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtil.showToast(getContext(), getString(R.string.data_error));
+        } else {
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.CALL");
+            intent.setData(Uri.parse("tel:" + valueEntity.getCustomerService().getPhone()));
+            startActivity(intent);
         }
+
     }
 
     @Override
@@ -348,6 +345,14 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         asvp_banner.startAutoScroll();
         asvp_banner.setCurrentItem(100 - 100 % valueEntity.getAd().size());
         setBannerIndex(ll_pointer_banner, 0);
+    }
+
+    /**
+     * init data of view
+     */
+    private void initData() {
+        setBanner();
+        initGuideData();
     }
 
 
@@ -390,6 +395,20 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         }
 
         return list_bannerPointer;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            //online server
+            case R.id.ll_index_online_service:
+                onlineService();
+                break;
+            //phone contact
+            case R.id.ll_index_phone_contact:
+                phoneContact();
+                break;
+        }
     }
 
 
@@ -502,6 +521,40 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
             }
         });
+
+    }
+
+    /**
+     * init guide bar data
+     */
+    private void initGuideData() {
+        IndexGuideAdapter adp_guide = new IndexGuideAdapter(getContext(), valueEntity);
+        rv_guide.setAdapter(adp_guide);
+        rv_guide.setLayoutManager(new GuideLayoutManager(getContext(), 4, valueEntity.getCategory().size()));
+        adp_guide.setOnItemClickLitener(new IndexGuideAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //start class level activity 启动类目列表页面
+                Intent intent = new Intent(getContext(), IndexClassListActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * contact to online server
+     */
+    public void onlineService() {
+        String username = valueEntity.getCustomerService().getId();
+        if (TextUtils.isEmpty(username)) {
+            ToastUtil.showToast(getContext(), getString(R.string.data_error));
+        } else {
+            username = valueEntity.getCustomerService().getId();
+            // enter chat activity
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            intent.putExtra(Constant.EXTRA_USER_ID, username);
+            startActivity(intent);
+        }
 
     }
 }

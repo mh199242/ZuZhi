@@ -1,11 +1,11 @@
 [
     {
-        "merged": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_switch_button.xml",
-        "source": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_widget_switch_button.xml"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_chat_menu_item.xml",
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_chat_menu_item.xml"
+    },
+    {
+        "merged": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_widget_switch_button.xml",
+        "source": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_widget_switch_button.xml"
     },
     {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_row_expression.xml",
@@ -56,16 +56,16 @@
         "source": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_row_received_voice.xml"
     },
     {
-        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_conversation_item.xml",
-        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_conversation_item.xml"
+        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_chat_message_list.xml",
+        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_chat_message_list.xml"
     },
     {
         "merged": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_row_received_bigexpression.xml",
         "source": "D:\\GitHubWorkspace\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_row_received_bigexpression.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_chat_message_list.xml",
-        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_chat_message_list.xml"
+        "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_conversation_item.xml",
+        "source": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_conversation_item.xml"
     },
     {
         "merged": "D:\\Android\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\layout\\ease_row_received_voice_call.xml",

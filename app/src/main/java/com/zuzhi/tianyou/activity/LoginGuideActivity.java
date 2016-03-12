@@ -328,7 +328,7 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
      */
     public void HXLogin() {
         //easemob login 登陆环信
-        EMChatManager.getInstance().login("123456",
+        EMChatManager.getInstance().login("13501140314",
                 "123456", new EMCallBack() {//回调
                     @Override
                     public void onSuccess() {
