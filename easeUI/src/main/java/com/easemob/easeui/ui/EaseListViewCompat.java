@@ -59,10 +59,10 @@ public class EaseListViewCompat extends ListView {
             default:
                 break;
         }
-
         if (mFocusedItemView != null) {
             mFocusedItemView.onRequireTouchEvent(event);
         }
+
 
         return super.onTouchEvent(event);
     }

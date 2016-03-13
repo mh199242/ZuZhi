@@ -84,7 +84,10 @@ public class EaseSlideView extends LinearLayout {
         }
     }
 
-    public void onRequireTouchEvent(MotionEvent event) {
+
+
+    public boolean onRequireTouchEvent(MotionEvent event) {
+        boolean result = false;
         int x = (int) event.getX();
         int y = (int) event.getY();
         int scrollX = getScrollX();
@@ -117,6 +120,7 @@ public class EaseSlideView extends LinearLayout {
                     }
                     this.scrollTo(newScrollX, 0);
                 }
+                result = true;
                 break;
             }
             case MotionEvent.ACTION_UP: {
@@ -138,6 +142,7 @@ public class EaseSlideView extends LinearLayout {
 
         mLastX = x;
         mLastY = y;
+        return result;
     }
 
     private void smoothScrollTo(int destX, int destY) {

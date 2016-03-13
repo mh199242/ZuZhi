@@ -46,8 +46,10 @@ import com.easemob.easeui.utils.EaseSmileUtils;
 import com.easemob.easeui.utils.EaseUserUtils;
 import com.easemob.util.DateUtils;
 
+import org.apache.commons.logging.LogSource;
+
 public class EaseConversationList extends ListView {
-    
+
     protected int primaryColor;
     protected int secondaryColor;
     protected int timeColor;
@@ -56,25 +58,25 @@ public class EaseConversationList extends ListView {
     protected float timeSize;
 
     protected final int MSG_REFRESH_ADAPTER_DATA = 0;
-    
+
     protected Context context;
     protected EaseConversationAdapater adapter;
 
     protected List<EMConversation> conversationList = new ArrayList<EMConversation>();
     protected EaseSlideView mFocusedItemView;
-    
-    
+
+
     public EaseConversationList(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
-    
+
     public EaseConversationList(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);
     }
 
-    
+
     private void init(Context context, AttributeSet attrs) {
         this.context = context;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EaseConversationList);
@@ -84,12 +86,12 @@ public class EaseConversationList extends ListView {
         primarySize = ta.getDimensionPixelSize(R.styleable.EaseConversationList_cvsListPrimaryTextSize, 0);
         secondarySize = ta.getDimensionPixelSize(R.styleable.EaseConversationList_cvsListSecondaryTextSize, 0);
         timeSize = ta.getDimension(R.styleable.EaseConversationList_cvsListTimeTextSize, 0);
-        
+
         ta.recycle();
-        
+
     }
-    
-    public void init(List<EMConversation> conversationList){
+
+    public void init(List<EMConversation> conversationList) {
         this.conversationList = conversationList;
         adapter = new EaseConversationAdapater(context, 0, convertEMConversation2EaseEMConversation(conversationList));
         adapter.setPrimaryColor(primaryColor);
@@ -100,30 +102,30 @@ public class EaseConversationList extends ListView {
         adapter.setTimeSize(timeSize);
         setAdapter(adapter);
     }
-    
+
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message message) {
             switch (message.what) {
-            case MSG_REFRESH_ADAPTER_DATA:
-                if (adapter != null) {
-                    conversationList.clear();
-                    conversationList.addAll(loadConversationsWithRecentChat());
-                    adapter.notifyDataSetChanged();
-                }
-                break;
-            default:
-                break;
+                case MSG_REFRESH_ADAPTER_DATA:
+                    if (adapter != null) {
+                        conversationList.clear();
+                        conversationList.addAll(loadConversationsWithRecentChat());
+                        adapter.notifyDataSetChanged();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     };
-    
+
 
     /**
      * 获取所有会话
      *
-     * @return
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        +    */
+     * @return +
+     */
     private List<EMConversation> loadConversationsWithRecentChat() {
         // 获取所有会话，包括陌生人
         Map<String, EMConversation> conversations = EMChatManager.getInstance().getAllConversations();
@@ -157,7 +159,7 @@ public class EaseConversationList extends ListView {
 
     /**
      * 根据最后一条消息的时间排序
-     * 
+     *
      * @param conversationList
      */
     private void sortConversationByLastChatTime(List<Pair<Long, EMConversation>> conversationList) {
@@ -176,22 +178,22 @@ public class EaseConversationList extends ListView {
 
         });
     }
-    
+
     public EaseEmConversation getItem(int position) {
-        return (EaseEmConversation)adapter.getItem(position);
+        return (EaseEmConversation) adapter.getItem(position);
     }
-    
+
     public void refresh() {
         conversationList = loadConversationsWithRecentChat();
 
         handler.sendEmptyMessage(MSG_REFRESH_ADAPTER_DATA);
     }
-    
+
     public void filter(CharSequence str) {
         adapter.getFilter().filter(str);
     }
 
-    public List<EaseEmConversation> convertEMConversation2EaseEMConversation(List<EMConversation> emConversation){
+    public List<EaseEmConversation> convertEMConversation2EaseEMConversation(List<EMConversation> emConversation) {
         List<EaseEmConversation> resultList = new ArrayList<>();
 
         for (EMConversation conversation : emConversation) {
@@ -203,6 +205,7 @@ public class EaseConversationList extends ListView {
         return resultList;
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -211,16 +214,26 @@ public class EaseConversationList extends ListView {
                 int y = (int) event.getY();
                 int position = pointToPosition(x, y);
                 if (position != INVALID_POSITION) {
+                    Log.i("环信", "position");
                     EaseEmConversation data = (EaseEmConversation) getItemAtPosition(position);
                     mFocusedItemView = data.slideView;
+                } else {
+                    mFocusedItemView = null;
                 }
             }
             default:
                 break;
         }
+
         if (mFocusedItemView != null) {
             mFocusedItemView.onRequireTouchEvent(event);
+            boolean isScroll = mFocusedItemView.onRequireTouchEvent(event);
+            if (isScroll) {
+                event.setAction(MotionEvent.ACTION_CANCEL);
+            }
         }
+
+
         return super.onTouchEvent(event);
     }
 
