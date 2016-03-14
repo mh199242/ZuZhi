@@ -59,6 +59,9 @@ public class Cons {
     //index interface
     public final static String INDEX = "index";
 
+    //index shop details
+    public final static String SHOP_DETAILS = "shop";
+
     //图片缓存目录
     public final static String CACHE_IMAGE_DIR = "ZuZhi/ImgCache";
 

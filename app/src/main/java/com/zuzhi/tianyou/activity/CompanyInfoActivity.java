@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,7 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.easemob.easeui.utils.EaseCommonUtils;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.OnResponseListener;
+import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.RequestMethod;
+import com.yolanda.nohttp.Response;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.CertificateAdapter;
@@ -26,12 +35,21 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.HotServiceAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.MastersAdapter;
 import com.zuzhi.tianyou.adapter.viewpageradapter.CompanyInfoAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.bean.IndexBean;
+import com.zuzhi.tianyou.bean.LoginBean;
 import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.DialogUtils;
+import com.zuzhi.tianyou.utils.Logs;
+import com.zuzhi.tianyou.utils.ToastUtil;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 /**
  * company information activity 公司信息页
  */
@@ -82,6 +100,11 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
      */
     ScrollView sv_details;
 
+    /**
+     * company id
+     */
+    String comanyId;
+
     @Override
     protected int setContent() {
         return R.layout.activity_company_info;
@@ -90,6 +113,10 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void initViews() {
         //init hot service test data
+        getCompanyInfo();
+
+
+
         ArrayList<HashMap<String, Object>> data_hotService = new ArrayList<HashMap<String, Object>>();
         for (int i = 0; i < Cons.STRARR_INDEX_HOT_SERVICE_TITLE.length; i++) {
             HashMap<String, Object> map = new HashMap<String, Object>();
@@ -183,5 +210,82 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
         }
+    }
+
+    /**
+     * get company info 获取公司信息
+     */
+    public void getCompanyInfo() {
+        //check network state
+        if (!EaseCommonUtils.isNetWorkConnected(this)) {
+            Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        DialogUtils.showProgressDialog(this, getString(R.string.loading));
+
+        //get company id
+        if (getIntent().getExtras().getSerializable("AdEntity") != null) {
+            IndexBean.ValueEntity.AdEntity adEntity
+                    = (IndexBean.ValueEntity.AdEntity) getIntent().getExtras().getSerializable("AdEntity");
+            comanyId = adEntity.getObjId();
+        }
+        // NoHttp zuzhi shop details
+        String url = Cons.DOMAIN + Cons.SHOP_DETAILS;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+
+        JSONObject postJson = new JSONObject();
+        try {
+            postJson.put("callback", "");
+            postJson.put("shopId", comanyId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request.setRequestBody(postJson.toString());
+
+        Logs.i("足智店铺", "---------url---------");
+        Logs.i("足智店铺", url);
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("足智店铺", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+
+                    } else {
+                        ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
+                        DialogUtils.dismissProgressDialog();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(mContext, getResources().getString(R.string.request_fail));
+                Logs.i("足智店铺", "----------Error-------");
+                Logs.i("足智店铺", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+
     }
 }
