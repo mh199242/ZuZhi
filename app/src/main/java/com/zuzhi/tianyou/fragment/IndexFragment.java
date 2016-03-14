@@ -3,8 +3,8 @@ package com.zuzhi.tianyou.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.easemob.chat.EMConversation;
 import com.easemob.easeui.utils.EaseCommonUtils;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnResponseListener;
@@ -26,7 +25,9 @@ import com.yolanda.nohttp.Response;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.activity.CommodityInfoActivity;
+import com.zuzhi.tianyou.activity.CompanyInfoActivity;
 import com.zuzhi.tianyou.activity.IndexClassListActivity;
+import com.zuzhi.tianyou.activity.LoginActivity;
 import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
 import com.zuzhi.tianyou.adapter.layoutmanager.GuideLayoutManager;
 import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
@@ -35,9 +36,7 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexGuideAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexTopicAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.VisitHistoryAdapter;
 import com.zuzhi.tianyou.base.BaseFragment;
-import com.zuzhi.tianyou.bean.BannerImageBean;
 import com.zuzhi.tianyou.bean.IndexBean;
-import com.zuzhi.tianyou.entity.ImageEntity;
 import com.zuzhi.tianyou.im.Constant;
 import com.zuzhi.tianyou.im.ui.ChatActivity;
 import com.zuzhi.tianyou.utils.Cons;
@@ -72,7 +71,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     /**
      * index value entity
      */
-    IndexBean.ValueEntity valueEntity;
+    IndexBean.ValueEntity mValueEntity;
 
     /**
      * banner 轮播器
@@ -194,22 +193,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         }
 
 
-        //init topic test data
-        ArrayList<HashMap<String, Object>> data_topic = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < Cons.STRARR_INDEX_TOPIC.length; i++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("topic", Cons.STRARR_INDEX_TOPIC[i]);
-            map.put("arr_title", Cons.STRARR_INDEX_TOPIC_TITLE[i]);
-            map.put("arr_info", Cons.STRARR_INDEX_TOPIC_INFO[i]);
-            Drawable[] drawables = new Drawable[Cons.IDARR_INDEX_TOPIC_IMG[i].length];
-            for (int j = 0; j < drawables.length; j++) {
-                drawables[j] = getResources().getDrawable(Cons.IDARR_INDEX_TOPIC_IMG[i][j]);
-            }
-            map.put("arr_img", drawables);
-            data_topic.add(map);
-        }
-
-
         //init hot service test data
         ArrayList<HashMap<String, Object>> data_hotService = new ArrayList<HashMap<String, Object>>();
         for (int i = 0; i < Cons.STRARR_INDEX_HOT_SERVICE_TITLE.length; i++) {
@@ -240,10 +223,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         rv_hot_service.setAdapter(adp_hotService);
         rv_hot_service.setLayoutManager(new TopicLayoutManager(getContext(), OrientationHelper.VERTICAL, false, data_hotService.size()));
 
-        IndexTopicAdapter adp_topic =
-                new IndexTopicAdapter(getContext(), data_topic);
-        rv_topic.setAdapter(adp_topic);
-        rv_topic.setLayoutManager(new TopicLayoutManager(getContext(), OrientationHelper.VERTICAL, false, data_topic.size()));
 
         VisitHistoryAdapter adp_visitHistory = new VisitHistoryAdapter(getContext(), data_visitHistory);
         rv_visit_history.setAdapter(adp_visitHistory);
@@ -258,15 +237,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         //set listeners
         ll_phone_contact.setOnClickListener(this);
         ll_online_service.setOnClickListener(this);
-
-        adp_topic.setOnItemClickLitener(new IndexTopicAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                //start class level activity 启动类目列表页面
-                Intent intent = new Intent(getContext(), IndexClassListActivity.class);
-                getContext().startActivity(intent);
-            }
-        });
 
         adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
             @Override
@@ -291,7 +261,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                     //banner scroll message 轮播图滚动
                     case 0x02:
                         if (b_bannerDownload) {
-                            setBannerIndex(ll_pointer_banner, (i_bannerPointerIndex) % valueEntity.getAd().size());
+                            setBannerIndex(ll_pointer_banner, (i_bannerPointerIndex) % mValueEntity.getAd().size());
                         }
                         break;
 
@@ -306,13 +276,13 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      * phoneContact logic
      */
     public void phoneContact() {
-        String phone = valueEntity.getCustomerService().getPhone();
+        String phone = mValueEntity.getCustomerService().getPhone();
         if (TextUtils.isEmpty(phone)) {
             ToastUtil.showToast(getContext(), getString(R.string.data_error));
         } else {
             Intent intent = new Intent();
             intent.setAction("android.intent.action.CALL");
-            intent.setData(Uri.parse("tel:" + valueEntity.getCustomerService().getPhone()));
+            intent.setData(Uri.parse("tel:" + mValueEntity.getCustomerService().getPhone()));
             startActivity(intent);
         }
 
@@ -338,12 +308,12 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     private void setBanner() {
         // TODO Auto-generated method stub
 
-        adp_ip = new ImagePagerAdapter(getContext(), valueEntity).setInfiniteLoop(true);
+        adp_ip = new ImagePagerAdapter(getContext(), mValueEntity).setInfiniteLoop(true);
         asvp_banner.setAdapter(adp_ip);
         asvp_banner.setOnPageChangeListener(new MyOnPageChangeListener());
         asvp_banner.setInterval(5000);
         asvp_banner.startAutoScroll();
-        asvp_banner.setCurrentItem(100 - 100 % valueEntity.getAd().size());
+        asvp_banner.setCurrentItem(100 - 100 % mValueEntity.getAd().size());
         setBannerIndex(ll_pointer_banner, 0);
     }
 
@@ -353,6 +323,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     private void initData() {
         setBanner();
         initGuideData();
+        initTopicData();
     }
 
 
@@ -365,7 +336,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     private List<ImageView> setBannerIndex(LinearLayout viewgroup, int position) {
 
-        int size = valueEntity.getAd() == null ? 0 : valueEntity.getAd().size();
+        int size = mValueEntity.getAd() == null ? 0 : mValueEntity.getAd().size();
 
         if (size == 0)
             return null;
@@ -402,7 +373,16 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         switch (v.getId()) {
             //online server
             case R.id.ll_index_online_service:
-                onlineService();
+                //Check custom login state
+                if (MyApplication.user.getId() == 0) {
+                    //start login activity
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    //open easichat ui
+                    onlineService();
+                }
+
                 break;
             //phone contact
             case R.id.ll_index_phone_contact:
@@ -490,7 +470,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                     if (jsonObject.getBoolean("success")) {
 
                         indexBean = MyApplication.gson.fromJson(jsonObject.toString(), IndexBean.class);
-                        valueEntity = indexBean.getValue();
+                        mValueEntity = indexBean.getValue();
 
                         //set img server host
                         Cons.IMG_HOST = indexBean.getImgHost() + "/";
@@ -528,15 +508,52 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      * init guide bar data
      */
     private void initGuideData() {
-        IndexGuideAdapter adp_guide = new IndexGuideAdapter(getContext(), valueEntity);
+        IndexGuideAdapter adp_guide = new IndexGuideAdapter(getContext(), mValueEntity);
         rv_guide.setAdapter(adp_guide);
-        rv_guide.setLayoutManager(new GuideLayoutManager(getContext(), 4, valueEntity.getCategory().size()));
+        rv_guide.setLayoutManager(new GuideLayoutManager(getContext(), 4, mValueEntity.getCategory().size()));
         adp_guide.setOnItemClickLitener(new IndexGuideAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                //start class level activity 启动类目列表页面
-                Intent intent = new Intent(getContext(), IndexClassListActivity.class);
-                getContext().startActivity(intent);
+                Intent intent;
+                Bundle bundle = new Bundle();
+                switch (mValueEntity.getAd().get(position).getTargetType()) {
+                    //click to jump type is CompanyInfoActivity
+                    case "shopDetails":
+                        //carry AdEntity to CompanyInfoActivity
+                        intent = new Intent(getContext(), CompanyInfoActivity.class);
+                        bundle.putSerializable("CategoryEntity", mValueEntity.getCategory().get(position));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        break;
+                    case "itemList":
+                        //carry AdEntity to IndexClassListActivity
+                        intent = new Intent(getContext(), IndexClassListActivity.class);
+                        bundle.putSerializable("CategoryEntity", mValueEntity.getCategory().get(position));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        break;
+
+                }
+            }
+        });
+    }
+
+    /**
+     * init guide bar data
+     */
+    private void initTopicData() {
+        final IndexTopicAdapter adp_topic =
+                new IndexTopicAdapter(getContext(), mValueEntity);
+        rv_topic.setAdapter(adp_topic);
+        rv_topic.setLayoutManager(new TopicLayoutManager(getContext(),
+                OrientationHelper.VERTICAL,
+                false,
+                mValueEntity.getContent().size()));
+        adp_topic.setOnItemClickLitener(new IndexTopicAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //set click position
+                adp_topic.setSelection(position);
             }
         });
     }
@@ -545,11 +562,11 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      * contact to online server
      */
     public void onlineService() {
-        String username = valueEntity.getCustomerService().getId();
+        String username = mValueEntity.getCustomerService().getId();
         if (TextUtils.isEmpty(username)) {
             ToastUtil.showToast(getContext(), getString(R.string.data_error));
         } else {
-            username = valueEntity.getCustomerService().getId();
+            username = mValueEntity.getCustomerService().getId();
             // enter chat activity
             Intent intent = new Intent(getActivity(), ChatActivity.class);
             intent.putExtra(Constant.EXTRA_USER_ID, username);

@@ -185,7 +185,7 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
         tl_class_list.setupWithViewPager(vp_class_list);
 
         //set the proportion of autoscrollviewpager 设置轮播宽高比
-        ViewSetUtils.setViewHeigh(this, asvp_banner, 3.5f, 1);
+        ViewSetUtils.setViewHeigh(this, asvp_banner, 2, 1);
 
         //get image from internet
         getImage();

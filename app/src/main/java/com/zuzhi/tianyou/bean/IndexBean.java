@@ -1,5 +1,6 @@
 package com.zuzhi.tianyou.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -308,7 +309,7 @@ public class IndexBean {
                 return sub;
             }
 
-            public static class SubEntity {
+            public static class SubEntity implements Serializable{
                 private String imgUrl;
                 private long id;
                 private String objType;
@@ -384,7 +385,7 @@ public class IndexBean {
             }
         }
 
-        public static class AdEntity {
+        public static class AdEntity implements Serializable{
             private String imgUrl;
             private long id;
             private String objType;
@@ -459,7 +460,7 @@ public class IndexBean {
             }
         }
 
-        public static class CategoryEntity {
+        public static class CategoryEntity implements Serializable {
             private String imgUrl;
             private long id;
             private String objType;

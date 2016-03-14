@@ -3,6 +3,7 @@ package com.zuzhi.tianyou.adapter.recyclerviewadapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -14,8 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.activity.CompanyInfoActivity;
 import com.zuzhi.tianyou.activity.IndexClassListActivity;
+import com.zuzhi.tianyou.bean.IndexBean;
+import com.zuzhi.tianyou.utils.Cons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,9 +30,19 @@ import java.util.HashMap;
  * adpater of index topic recyclerview 首页推荐列表适配器
  */
 public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.MyViewHolder> {
-    private ArrayList<HashMap<String, Object>> mData;
+    private IndexBean.ValueEntity mValueEntity;
     private Context mContext;
     private OnItemClickLitener mOnItemClickLitener;
+
+    public int getSelection() {
+        return selection;
+    }
+
+    public void setSelection(int selection) {
+        this.selection = selection;
+    }
+
+    private int selection;
 
     /**
      * orientation type 水平模式
@@ -49,11 +65,11 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
     /**
      * init 初始化适配器，载入数据源
      *
-     * @param context 上下文
-     * @param data    数据源
+     * @param context     上下文
+     * @param valueEntity 数据源
      */
-    public IndexTopicAdapter(Context context, ArrayList<HashMap<String, Object>> data) {
-        mData = data;
+    public IndexTopicAdapter(Context context, IndexBean.ValueEntity valueEntity) {
+        mValueEntity = valueEntity;
         mContext = context;
     }
 
@@ -77,9 +93,9 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         //set topic text  设置推荐类别
-        holder.tv_topic.setText((String) mData.get(position).get("topic"));
+        holder.tv_topic.setText(mValueEntity.getContent().get(position).getName());
 
-        int length = ((String[]) mData.get(position).get("arr_title")).length;
+        int length = mValueEntity.getContent().get(position).getSub().size();
 
 
         if (getItemViewType(position) == TYPE_ORIENTATION) {
@@ -89,13 +105,14 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
 
                 if ((i + 1) % 3 == 1) {
                     //set topic title  设置推荐标题
-                    holder.tv_title_orientation1.setText(((String[]) mData.get(position).get("arr_title"))[i]);
+                    holder.tv_title_orientation1.setText(mValueEntity.getContent().get(position).getSub().get(i).getName());
 
                     //set topic info  设置推荐描述
-                    holder.tv_info_orientation1.setText(((String[]) mData.get(position).get("arr_info"))[i]);
+                    holder.tv_info_orientation1.setText(mValueEntity.getContent().get(position).getSub().get(i).getRemark());
 
                     //set topic info  设置推荐图片
-                    holder.iv_img_orientation1.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
+                    ImageLoader.getInstance().displayImage(Cons.IMG_HOST + mValueEntity.getContent().get(position).getSub().get(i).getImgUrl(),
+                            holder.iv_img_orientation1, MyApplication.dis_ImgOptions);
                     //left one view view余1处理
                     if (i + 1 > length / 3 * 3 && i == length - 1) {
                         //set layout style 设置布局样式
@@ -114,11 +131,12 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
 
                 if ((i + 1) % 3 == 2) {
                     //set topic title  设置推荐标题
-                    holder.tv_title_orientation2.setText(((String[]) mData.get(position).get("arr_title"))[i]);
+                    holder.tv_title_orientation2.setText(mValueEntity.getContent().get(position).getSub().get(i).getName());
                     //set topic info  设置推荐描述
-                    holder.tv_info_orientation2.setText(((String[]) mData.get(position).get("arr_info"))[i]);
+                    holder.tv_info_orientation2.setText(mValueEntity.getContent().get(position).getSub().get(i).getRemark());
                     //set topic info  设置推荐图片
-                    holder.iv_img_orientation2.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
+                    ImageLoader.getInstance().displayImage(Cons.IMG_HOST + mValueEntity.getContent().get(position).getSub().get(i).getImgUrl(),
+                            holder.iv_img_orientation2, MyApplication.dis_ImgOptions);
                     //left two view view余2处理
                     if (i + 1 > length / 3 * 3 && i == length - 1) {
                         //set layout style 设置布局样式
@@ -133,11 +151,12 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                 if ((i + 1) % 3 == 0) {
 
                     //set topic title  设置推荐标题
-                    holder.tv_title_orientation3.setText(((String[]) mData.get(position).get("arr_title"))[i]);
+                    holder.tv_title_orientation3.setText(mValueEntity.getContent().get(position).getSub().get(i).getName());
                     //set topic info  设置推荐描述
-                    holder.tv_info_orientation3.setText(((String[]) mData.get(position).get("arr_info"))[i]);
+                    holder.tv_info_orientation3.setText(mValueEntity.getContent().get(position).getSub().get(i).getRemark());
                     //set topic info  设置推荐图片
-                    holder.iv_img_orientation3.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
+                    ImageLoader.getInstance().displayImage(Cons.IMG_HOST + mValueEntity.getContent().get(position).getSub().get(i).getImgUrl(),
+                            holder.iv_img_orientation3, MyApplication.dis_ImgOptions);
 
                     holder.vp_data.addView(holder.ll_view);
                     holder.list_Views.add(holder.ll_view);
@@ -155,11 +174,12 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
             for (int i = 0; i < length; i++) {
                 if ((i + 1) % 3 == 1) {
                     //set topic title  设置推荐标题
-                    holder.tv_title_relative1.setText(((String[]) mData.get(position).get("arr_title"))[i]);
+                    holder.tv_title_relative1.setText(mValueEntity.getContent().get(position).getSub().get(i).getName());
                     //set topic info  设置推荐描述
-                    holder.tv_info_relative1.setText(((String[]) mData.get(position).get("arr_info"))[i]);
+                    holder.tv_info_relative1.setText(mValueEntity.getContent().get(position).getSub().get(i).getRemark());
                     //set topic info  设置推荐图片
-                    holder.iv_img_relative1.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
+                    ImageLoader.getInstance().displayImage(Cons.IMG_HOST + mValueEntity.getContent().get(position).getSub().get(i).getImgUrl(),
+                            holder.iv_img_relative1, MyApplication.dis_ImgOptions);
 
                     //left one view view余1处理
                     if (i + 1 > length / 3 * 3 && i == length - 1) {
@@ -178,11 +198,12 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
 
                 if ((i + 1) % 3 == 2) {
                     //set topic title  设置推荐标题
-                    holder.tv_title_relative2.setText(((String[]) mData.get(position).get("arr_title"))[i]);
+                    holder.tv_title_relative2.setText(mValueEntity.getContent().get(position).getSub().get(i).getName());
                     //set topic info  设置推荐描述
-                    holder.tv_info_relative2.setText(((String[]) mData.get(position).get("arr_info"))[i]);
+                    holder.tv_info_relative2.setText(mValueEntity.getContent().get(position).getSub().get(i).getRemark());
                     //set topic info  设置推荐图片
-                    holder.iv_img_relative2.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
+                    ImageLoader.getInstance().displayImage(Cons.IMG_HOST + mValueEntity.getContent().get(position).getSub().get(i).getImgUrl(),
+                            holder.iv_img_relative2, MyApplication.dis_ImgOptions);
 
                     //left two view view余2处理
                     if (i + 1 > length / 3 * 3 && i == length - 1) {
@@ -198,11 +219,12 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                 }
                 if ((i + 1) % 3 == 0) {
                     //set topic title  设置推荐标题
-                    holder.tv_title_relative3.setText(((String[]) mData.get(position).get("arr_title"))[i]);
+                    holder.tv_title_relative3.setText(mValueEntity.getContent().get(position).getSub().get(i).getName());
                     //set topic info  设置推荐描述
-                    holder.tv_info_relative3.setText(((String[]) mData.get(position).get("arr_info"))[i]);
+                    holder.tv_info_relative3.setText(mValueEntity.getContent().get(position).getSub().get(i).getRemark());
                     //set topic info  设置推荐图片
-                    holder.iv_img_relative3.setBackgroundDrawable(((Drawable[]) mData.get(position).get("arr_img"))[i]);
+                    ImageLoader.getInstance().displayImage(Cons.IMG_HOST + mValueEntity.getContent().get(position).getSub().get(i).getImgUrl(),
+                            holder.iv_img_relative3, MyApplication.dis_ImgOptions);
 
                     holder.vp_data.addView(holder.ll_view);
                     holder.list_Views.add(holder.ll_view);
@@ -232,7 +254,7 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mValueEntity.getContent().size();
     }
 
     class MyViewHolder extends ViewHolder implements View.OnClickListener {
@@ -472,16 +494,126 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
 
         @Override
         public void onClick(View v) {
+            Intent intent;
+            Bundle bundle = new Bundle();
             switch (v.getId()) {
                 //start class list activity 启动类目列表页面
                 case R.id.ll_item_viepager_topic_orientation1:
+                    switch (mValueEntity.getContent().get(selection).getSub().get(0).getTargetType()) {
+                        //carry SubEntity to CompanyInfoActivity
+                        case "shopDetails":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(0));
+                            intent = new Intent(mContext, CompanyInfoActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                        //carry SubEntity to IndexClassListActivity
+                        case "itemList":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(0));
+                            intent = new Intent(mContext, IndexClassListActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                    }
+
+                    break;
                 case R.id.ll_item_viepager_topic_orientation2:
+                    switch (mValueEntity.getContent().get(selection).getSub().get(1).getTargetType()) {
+                        //carry SubEntity to CompanyInfoActivity
+                        case "shopDetails":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(1));
+                            intent = new Intent(mContext, CompanyInfoActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                        //carry SubEntity to IndexClassListActivity
+                        case "itemList":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(1));
+                            intent = new Intent(mContext, IndexClassListActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                    }
                 case R.id.ll_item_viepager_topic_orientation3:
+                    switch (mValueEntity.getContent().get(selection).getSub().get(2).getTargetType()) {
+                        //carry SubEntity to CompanyInfoActivity
+                        case "shopDetails":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(2));
+                            intent = new Intent(mContext, CompanyInfoActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                        //carry SubEntity to IndexClassListActivity
+                        case "itemList":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(2));
+                            intent = new Intent(mContext, IndexClassListActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                    }
                 case R.id.ll_item_viepager_topic_relative1:
+                    switch (mValueEntity.getContent().get(selection).getSub().get(0).getTargetType()) {
+                        //carry SubEntity to CompanyInfoActivity
+                        case "shopDetails":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(0));
+                            intent = new Intent(mContext, CompanyInfoActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                        //carry SubEntity to IndexClassListActivity
+                        case "itemList":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(0));
+                            intent = new Intent(mContext, IndexClassListActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                    }
                 case R.id.rl_item_viepager_topic_relative2:
+                    switch (mValueEntity.getContent().get(selection).getSub().get(1).getTargetType()) {
+                        //carry SubEntity to CompanyInfoActivity
+                        case "shopDetails":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(1));
+                            intent = new Intent(mContext, CompanyInfoActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                        //carry SubEntity to IndexClassListActivity
+                        case "itemList":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(1));
+                            intent = new Intent(mContext, IndexClassListActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                    }
                 case R.id.rl_item_viepager_topic_relative3:
-                    Intent intent = new Intent(mContext, IndexClassListActivity.class);
-                    mContext.startActivity(intent);
+                    switch (mValueEntity.getContent().get(selection).getSub().get(2).getTargetType()) {
+                        //carry SubEntity to CompanyInfoActivity
+                        case "shopDetails":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(2));
+                            intent = new Intent(mContext, CompanyInfoActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                        //carry SubEntity to IndexClassListActivity
+                        case "itemList":
+                            bundle.putSerializable("SubEntity",
+                                    mValueEntity.getContent().get(selection).getSub().get(2));
+                            intent = new Intent(mContext, IndexClassListActivity.class);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                            break;
+                    }
                     break;
 
             }

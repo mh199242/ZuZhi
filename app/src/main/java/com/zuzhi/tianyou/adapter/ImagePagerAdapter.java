@@ -6,7 +6,9 @@
 package com.zuzhi.tianyou.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +17,8 @@ import android.widget.ImageView.ScaleType;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zuzhi.tianyou.MyApplication;
+import com.zuzhi.tianyou.activity.CompanyInfoActivity;
+import com.zuzhi.tianyou.activity.IndexClassListActivity;
 import com.zuzhi.tianyou.bean.IndexBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -82,6 +86,31 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
             holder = (ViewHolder) view.getTag();
         }
         holder.imageView.setScaleType(ScaleType.FIT_XY);
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                Bundle bundle = new Bundle();
+                switch (mValueEntity.getAd().get(getPosition(position)).getTargetType()) {
+                    //click to jump type is CompanyInfoActivity
+                    case "shopDetails":
+                        //carry AdEntity to CompanyInfoActivity
+                        intent = new Intent(context, CompanyInfoActivity.class);
+                        bundle.putSerializable("AdEntity", mValueEntity.getAd().get(getPosition(position)));
+                        intent.putExtras(bundle);
+                        context.startActivity(intent);
+                        break;
+                    case "itemList":
+                        //carry AdEntity to IndexClassListActivity
+                        intent = new Intent(context, IndexClassListActivity.class);
+                        bundle.putSerializable("AdEntity", mValueEntity.getAd().get(getPosition(position)));
+                        intent.putExtras(bundle);
+                        context.startActivity(intent);
+                        break;
+
+                }
+            }
+        });
         ImageLoader.getInstance().displayImage(Cons.IMG_HOST +
                         mValueEntity.getAd().get(getPosition(position)).getImgUrl(),
                 holder.imageView, MyApplication.dis_ImgOptions);
