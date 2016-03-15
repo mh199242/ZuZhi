@@ -30,7 +30,9 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.HotServiceAdapter;
 import com.zuzhi.tianyou.adapter.viewpageradapter.ClassListAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.bean.BannerImageBean;
+import com.zuzhi.tianyou.bean.IndexBean;
 import com.zuzhi.tianyou.entity.ImageEntity;
+import com.zuzhi.tianyou.entity.ItemListEntity;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
@@ -48,6 +50,11 @@ import java.util.List;
  */
 
 public class IndexClassListActivity extends BaseActivity implements View.OnClickListener {
+
+    /**
+     * ItemListEntity
+     */
+    List<ItemListEntity> mItemList;
 
     private String TAG = "com.zuzhi.tianyou.activity.IndexClassListActivity";
     /**
@@ -152,7 +159,7 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
         for (int i = 0; i < 8; i++) {
             //init and set up wiht recyclerview adapter 初始化并设置recyclerview适配器
             rv_class_list = new RecyclerView(this);
-            HotServiceAdapter adp_hotService = new HotServiceAdapter(this, data_hotService);
+            HotServiceAdapter adp_hotService = new HotServiceAdapter(this, mItemList);
             adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
                 @Override
                 public void onItemClick(View view, int position) {
@@ -424,4 +431,32 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
     }
 
 
+    /**
+     * change data to ItemList
+     *
+     * @param hotServiceEntityList
+     */
+    private void initItemList(List<IndexBean.ValueEntity.HotServiceEntity> hotServiceEntityList) {
+        mItemList = new ArrayList<ItemListEntity>(hotServiceEntityList.size());
+        for (int i = 0; i < hotServiceEntityList.size(); i++) {
+            mItemList.get(i).setItemShopPrice(hotServiceEntityList.get(i).getItemShopPrice());
+            mItemList.get(i).setItemPromoteEndDate(hotServiceEntityList.get(i).getItemPromoteEndDate());
+            mItemList.get(i).setItemPromoteStartDate(hotServiceEntityList.get(i).getItemPromoteStartDate());
+            mItemList.get(i).setExpertId(hotServiceEntityList.get(i).getExpertId());
+            mItemList.get(i).setExpertName(hotServiceEntityList.get(i).getExpertName());
+            mItemList.get(i).setId(hotServiceEntityList.get(i).getId());
+            mItemList.get(i).setItemPromotePrice(hotServiceEntityList.get(i).getItemPromotePrice());
+            mItemList.get(i).setItemMarketPrice(hotServiceEntityList.get(i).getItemMarketPrice());
+            mItemList.get(i).setItemPromote(hotServiceEntityList.get(i).isItemPromote());
+            mItemList.get(i).setShopName(hotServiceEntityList.get(i).getShopName());
+            mItemList.get(i).setShopId(hotServiceEntityList.get(i).getShopId());
+            mItemList.get(i).setItemImg(hotServiceEntityList.get(i).getItemImg());
+            mItemList.get(i).setName(hotServiceEntityList.get(i).getName());
+            mItemList.get(i).setExpertWorkingHours(hotServiceEntityList.get(i).getExpertWorkingHours());
+            mItemList.get(i).setItemThumbImg(hotServiceEntityList.get(i).getItemThumbImg());
+
+        }
+
+    }
 }
+

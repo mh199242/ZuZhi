@@ -66,8 +66,6 @@ public class Cons {
     public final static String CACHE_IMAGE_DIR = "ZuZhi/ImgCache";
 
 
-
-
     /**
      * 手机号验证
      *
@@ -208,7 +206,8 @@ public class Cons {
      */
     public static int[] IDARR_MASTERS_HEAD = new int[]{
             R.drawable.temp_vp_master1, R.drawable.temp_vp_master2, R.drawable.temp_vp_master3,
-            R.drawable.temp_vp_master1};
+            R.drawable.temp_vp_master1, R.drawable.temp_vp_master1, R.drawable.temp_vp_master1,
+            R.drawable.temp_vp_master1, R.drawable.temp_vp_master1, R.drawable.temp_vp_master1};
 
     /**
      * test data of masters name 专家团姓名测试数据
@@ -235,12 +234,24 @@ public class Cons {
             "企业上市",
             "财会统计",
             "风险评估",
+            "企业税务",
+            "风险评估",
+            "企业税务",
+            "企业上市",
+            "财会统计",
+            "风险评估",
+            "企业税务",
+            "风险评估",
             "企业税务"};
 
     /**
      * test data of masters good at1 专家团擅长领域2测试数据
      */
     public static String[] STRARR_MASTERS_GODD_AT2 = new String[]{
+            "财会统计",
+            "风险评估",
+            "企业税务",
+            "企业上市",
             "财会统计",
             "风险评估",
             "企业税务",

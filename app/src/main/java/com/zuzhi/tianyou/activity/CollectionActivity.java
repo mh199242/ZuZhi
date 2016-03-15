@@ -57,16 +57,16 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
         }
 
         //set adapters
-        final HotServiceAdapter adp_hotService = new HotServiceAdapter(this, data_hotService);
-        rv_collection.setAdapter(adp_hotService);
-        rv_collection.setLayoutManager(new LinearLayoutManager(this));
-        adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(CollectionActivity.this, CommodityInfoActivity.class);
-                startActivity(intent);
-            }
-        });
+//        final HotServiceAdapter adp_hotService = new HotServiceAdapter(this, data_hotService);
+//        rv_collection.setAdapter(adp_hotService);
+//        rv_collection.setLayoutManager(new LinearLayoutManager(this));
+//        adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Intent intent = new Intent(CollectionActivity.this, CommodityInfoActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         //set drag state
         //0则不执行拖动或者滑动
         ItemTouchHelper.Callback mCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
@@ -90,7 +90,7 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
                         Collections.swap(data_hotService, i, i - 1);
                     }
                 }
-                adp_hotService.notifyItemMoved(fromPosition, toPosition);
+//                adp_hotService.notifyItemMoved(fromPosition, toPosition);
                 //返回true表示执行拖动
                 return true;
             }
@@ -99,7 +99,7 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 data_hotService.remove(position);
-                adp_hotService.notifyItemRemoved(position);
+//                adp_hotService.notifyItemRemoved(position);
             }
 
             @Override

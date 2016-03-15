@@ -86,6 +86,7 @@
                 android:textSize="@dimen/font_14" />
 
             <TextView
+                android:id="@+id/tv_company_info_order_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -116,6 +117,7 @@
                 android:textSize="@dimen/font_14" />
 
             <TextView
+                android:id="@+id/tv_company_info_feed_back_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -146,10 +148,11 @@
                 android:textSize="@dimen/font_14" />
 
             <TextView
+                android:id="@+id/tv_company_info_com_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="4.9分"
+                android:text="3.9分"
                 android:textColor="@color/color_text_orange"
                 android:textSize="@dimen/font_14" />
 
@@ -172,10 +175,10 @@
         app:tabTextColor="@color/color_normal_text" />
 
     <android.support.v4.view.ViewPager
-        android:overScrollMode="never"
         android:id="@+id/vp_company_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:overScrollMode="never" />
 
 </LinearLayout>

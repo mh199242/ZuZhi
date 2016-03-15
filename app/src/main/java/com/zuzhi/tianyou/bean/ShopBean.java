@@ -1,5 +1,9 @@
 package com.zuzhi.tianyou.bean;
 
+import com.zuzhi.tianyou.entity.ExpertListEntity;
+import com.zuzhi.tianyou.entity.ItemListEntity;
+import com.zuzhi.tianyou.entity.ShopCertificateEntity;
+
 import java.util.List;
 
 /**
@@ -21,6 +25,7 @@ public class ShopBean {
      * errorCode : 0
      * imgHost : http://101.200.160.210
      * success : true
+     * shopLogo : /shop/2016/3/11/70110eca8d9240999e39ddd9ebb636d4.JPG
      */
 
     private Object models;
@@ -31,6 +36,7 @@ public class ShopBean {
     private String pageStr;
     private int totalCount;
     private int pageNo;
+
     /**
      * remark : 本事务所。。。。。。。。
      * gzsd : 4
@@ -170,10 +176,7 @@ public class ShopBean {
         private String year;
         private String comScore;
         private String shopLogo;
-        /**
-         * url : /shop/2016/3/11/ec2ba76c583547f2981ef7c32c4d5469.JPG
-         * name : 等级证书
-         */
+
 
         private List<ShopCertificateEntity> shopCertificate;
         /**
@@ -319,229 +322,6 @@ public class ShopBean {
             return expertList;
         }
 
-        public static class ShopCertificateEntity {
-            private String url;
-            private String name;
 
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getUrl() {
-                return url;
-            }
-
-            public String getName() {
-                return name;
-            }
-        }
-
-        public static class ItemListEntity {
-            private int itemShopPrice;
-            private Object itemPromoteEndDate;
-            private Object itemPromoteStartDate;
-            private long expertId;
-            private String expertName;
-            private long id;
-            private int itemPromotePrice;
-            private Object itemMarketPrice;
-            private boolean itemPromote;
-            private String shopName;
-            private long shopId;
-            private String itemImg;
-            private String name;
-            private String expertWorkingHours;
-            private String itemThumbImg;
-
-            public void setItemShopPrice(int itemShopPrice) {
-                this.itemShopPrice = itemShopPrice;
-            }
-
-            public void setItemPromoteEndDate(Object itemPromoteEndDate) {
-                this.itemPromoteEndDate = itemPromoteEndDate;
-            }
-
-            public void setItemPromoteStartDate(Object itemPromoteStartDate) {
-                this.itemPromoteStartDate = itemPromoteStartDate;
-            }
-
-            public void setExpertId(long expertId) {
-                this.expertId = expertId;
-            }
-
-            public void setExpertName(String expertName) {
-                this.expertName = expertName;
-            }
-
-            public void setId(long id) {
-                this.id = id;
-            }
-
-            public void setItemPromotePrice(int itemPromotePrice) {
-                this.itemPromotePrice = itemPromotePrice;
-            }
-
-            public void setItemMarketPrice(Object itemMarketPrice) {
-                this.itemMarketPrice = itemMarketPrice;
-            }
-
-            public void setItemPromote(boolean itemPromote) {
-                this.itemPromote = itemPromote;
-            }
-
-            public void setShopName(String shopName) {
-                this.shopName = shopName;
-            }
-
-            public void setShopId(long shopId) {
-                this.shopId = shopId;
-            }
-
-            public void setItemImg(String itemImg) {
-                this.itemImg = itemImg;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public void setExpertWorkingHours(String expertWorkingHours) {
-                this.expertWorkingHours = expertWorkingHours;
-            }
-
-            public void setItemThumbImg(String itemThumbImg) {
-                this.itemThumbImg = itemThumbImg;
-            }
-
-            public int getItemShopPrice() {
-                return itemShopPrice;
-            }
-
-            public Object getItemPromoteEndDate() {
-                return itemPromoteEndDate;
-            }
-
-            public Object getItemPromoteStartDate() {
-                return itemPromoteStartDate;
-            }
-
-            public long getExpertId() {
-                return expertId;
-            }
-
-            public String getExpertName() {
-                return expertName;
-            }
-
-            public long getId() {
-                return id;
-            }
-
-            public int getItemPromotePrice() {
-                return itemPromotePrice;
-            }
-
-            public Object getItemMarketPrice() {
-                return itemMarketPrice;
-            }
-
-            public boolean isItemPromote() {
-                return itemPromote;
-            }
-
-            public String getShopName() {
-                return shopName;
-            }
-
-            public long getShopId() {
-                return shopId;
-            }
-
-            public String getItemImg() {
-                return itemImg;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public String getExpertWorkingHours() {
-                return expertWorkingHours;
-            }
-
-            public String getItemThumbImg() {
-                return itemThumbImg;
-            }
-        }
-
-        public static class ExpertListEntity {
-            private String myd;
-            private int orderNum;
-            private String workingHours;
-            private String pj;
-            private String name;
-            private long seId;
-            private List<?> scly;
-
-            public void setMyd(String myd) {
-                this.myd = myd;
-            }
-
-            public void setOrderNum(int orderNum) {
-                this.orderNum = orderNum;
-            }
-
-            public void setWorkingHours(String workingHours) {
-                this.workingHours = workingHours;
-            }
-
-            public void setPj(String pj) {
-                this.pj = pj;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public void setSeId(long seId) {
-                this.seId = seId;
-            }
-
-            public void setScly(List<?> scly) {
-                this.scly = scly;
-            }
-
-            public String getMyd() {
-                return myd;
-            }
-
-            public int getOrderNum() {
-                return orderNum;
-            }
-
-            public String getWorkingHours() {
-                return workingHours;
-            }
-
-            public String getPj() {
-                return pj;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public long getSeId() {
-                return seId;
-            }
-
-            public List<?> getScly() {
-                return scly;
-            }
-        }
     }
 }

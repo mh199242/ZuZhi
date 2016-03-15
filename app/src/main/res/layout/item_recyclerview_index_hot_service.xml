@@ -22,7 +22,8 @@
             android:layout_height="110dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/temp_icon1" />
+            android:background="@drawable/temp_icon1"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tv_item_hot_service_title"
@@ -94,9 +95,9 @@
     </RelativeLayout>
 
     <TextView
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_separation_line"
-        android:background="@color/color_separation_line"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_separation_line" />
 </LinearLayout>
 

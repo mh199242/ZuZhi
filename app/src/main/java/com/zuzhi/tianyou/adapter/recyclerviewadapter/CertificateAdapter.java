@@ -12,15 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.entity.ShopCertificateEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * adpater of hot commodity info's certificate recyclerview 商品详情证书适配器
  */
 public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.MyViewHolder> {
-    private ArrayList<HashMap<String, Object>> mData;
+    private List<ShopCertificateEntity> mShopCertificateList;
     private Context mContext;
     private OnItemClickLitener mOnItemClickLitener;
 
@@ -35,11 +37,11 @@ public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.
     /**
      * init 初始化适配器，载入数据源
      *
-     * @param context 上下文
-     * @param data    数据源
+     * @param context             上下文
+     * @param shopCertificateList 数据源
      */
-    public CertificateAdapter(Context context, ArrayList<HashMap<String, Object>> data) {
-        mData = data;
+    public CertificateAdapter(Context context, List<ShopCertificateEntity> shopCertificateList) {
+        mShopCertificateList = shopCertificateList;
         mContext = context;
     }
 
@@ -54,7 +56,7 @@ public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        holder.tv_certificate.setText((String) mData.get(position).get("certificate"));
+        holder.tv_certificate.setText(mShopCertificateList.get(position).getName());
 
         if (mOnItemClickLitener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +72,7 @@ public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mShopCertificateList.size();
     }
 
     class MyViewHolder extends ViewHolder {

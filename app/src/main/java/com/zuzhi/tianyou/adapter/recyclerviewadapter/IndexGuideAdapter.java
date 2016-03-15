@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.google.android.gms.plus.model.people.Person;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.bean.IndexBean;
 import com.zuzhi.tianyou.utils.Cons;
@@ -60,7 +61,8 @@ public class IndexGuideAdapter extends RecyclerView.Adapter<IndexGuideAdapter.My
         holder.tv_guide.setText(mValueEntity.getCategory().get(position).getName());
         ImageLoader.getInstance().displayImage(
                 Cons.IMG_HOST + mValueEntity.getCategory().get(position).getImgUrl(),
-                holder.iv_guide);
+                holder.iv_guide,
+                MyApplication.dis_ImgOptions);
         //set on item click listener 设置item点击监听
         if (mOnItemClickLitener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -1,7 +1,10 @@
 package com.zuzhi.tianyou.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -16,12 +19,17 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easemob.easeui.utils.EaseCommonUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnResponseListener;
 import com.yolanda.nohttp.Request;
@@ -37,6 +45,9 @@ import com.zuzhi.tianyou.adapter.viewpageradapter.CompanyInfoAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.bean.IndexBean;
 import com.zuzhi.tianyou.bean.LoginBean;
+import com.zuzhi.tianyou.bean.ShopBean;
+import com.zuzhi.tianyou.entity.ItemListEntity;
+import com.zuzhi.tianyou.utils.BitmapUtils;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.DialogUtils;
 import com.zuzhi.tianyou.utils.Logs;
@@ -46,14 +57,26 @@ import com.zuzhi.tianyou.utils.ViewSetUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * company information activity 公司信息页
  */
 public class CompanyInfoActivity extends BaseActivity implements View.OnClickListener {
+
+    /**
+     * item entity list
+     */
+    List<ItemListEntity> mItemList;
+    /**
+     * Shop Bean
+     */
+    ShopBean mShopBean;
 
     /**
      * back button 返回按钮
@@ -105,31 +128,80 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
      */
     String comanyId;
 
+    /**
+     * company name
+     */
+    TextView tv_company_info_company_name;
+
+    /**
+     * company des
+     */
+    TextView tv_company_info_company_des;
+
+    /**
+     * order number
+     */
+    TextView tv_company_info_order_num;
+
+    /**
+     * feed back rate
+     */
+    TextView tv_company_info_feed_back_rate;
+
+    /**
+     * com score
+     */
+    TextView tv_company_info_com_score;
+
+    /**
+     * company logo
+     */
+    CircleImageView civ_company_info_icon;
+
+    /**
+     * complete quality text view
+     */
+    TextView tv_company_details_complete_quality_rating;
+
+    /**
+     * complete quality progress bar
+     */
+    ProgressBar pb_company_details_complete_quality_rating;
+
+    /**
+     * work speed text view
+     */
+    TextView tv_company_details_work_speed_rating;
+
+    /**
+     * work speed progress bar
+     */
+    ProgressBar pb_company_details_work_speed_rating;
+
+
+    /**
+     * service attitude text view
+     */
+    TextView tv_company_details_service_attitude_rating;
+
+    /**
+     * service attitude progress bar
+     */
+    ProgressBar pb_company_details_service_attitude_rating;
+
+
     @Override
+
     protected int setContent() {
         return R.layout.activity_company_info;
     }
 
     @Override
     protected void initViews() {
+        mContext = this;
         //init hot service test data
         getCompanyInfo();
 
-
-
-        ArrayList<HashMap<String, Object>> data_hotService = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < Cons.STRARR_INDEX_HOT_SERVICE_TITLE.length; i++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("hot_service_img", getResources().getDrawable(Cons.IDARR_INDEX_HOT_SERVICE_IMG[i]));
-            map.put("hot_service_title", Cons.STRARR_INDEX_HOT_SERVICE_TITLE[i]);
-            map.put("hot_service_info1", Cons.STRARR_INDEX_HOT_SERVICE_INFO1[i]);
-            map.put("hot_service_info2", Cons.STRARR_INDEX_HOT_SERVICE_INFO2[i]);
-            map.put("hot_service_price1", Cons.STRARR_INDEX_HOT_SERVICE_PRICE1[i]);
-            map.put("hot_service_price2", Cons.STRARR_INDEX_HOT_SERVICE_PRICE2[i]);
-            map.put("hot_service_attribute", Cons.STRARR_INDEX_HOT_SERVICE_ATTRIBUTE[i]);
-
-            data_hotService.add(map);
-        }
         //init certificate test data
         ArrayList<HashMap<String, Object>> data_certificate = new ArrayList<HashMap<String, Object>>();
         for (int i = 0; i < 3; i++) {
@@ -138,54 +210,23 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
             data_certificate.add(map);
         }
         //init views
+        tv_company_info_feed_back_rate = (TextView) findViewById(R.id.tv_company_info_feed_back_rate);
+        tv_company_info_order_num = (TextView) findViewById(R.id.tv_company_info_order_num);
+        tv_company_info_company_name = (TextView) findViewById(R.id.tv_company_info_company_name);
         vp_company_info = (ViewPager) findViewById(R.id.vp_company_info);
         tl_company_info = (TabLayout) findViewById(R.id.tl_company_info);
+        tv_company_info_company_des = (TextView) findViewById(R.id.tv_company_info_company_des);
         sv_details = (ScrollView) LayoutInflater.from(this).inflate(R.layout.item_viewpager_company_details, null);
         rv_certificate = (RecyclerView) sv_details.findViewById(R.id.rv_company_details_certificate);
+        tv_company_info_com_score = (TextView) findViewById(R.id.tv_company_info_com_score);
+        civ_company_info_icon = (CircleImageView) findViewById(R.id.civ_company_info_icon);
+        tv_company_details_complete_quality_rating = (TextView) sv_details.findViewById(R.id.tv_company_details_complete_quality_rating);
+        pb_company_details_complete_quality_rating = (ProgressBar) sv_details.findViewById(R.id.pb_company_details_complete_quality_rating);
+        tv_company_details_work_speed_rating = (TextView) sv_details.findViewById(R.id.tv_company_details_work_speed_rating);
+        pb_company_details_work_speed_rating = (ProgressBar) sv_details.findViewById(R.id.pb_company_details_work_speed_rating);
+        tv_company_details_service_attitude_rating = (TextView) sv_details.findViewById(R.id.tv_company_details_service_attitude_rating);
+        pb_company_details_service_attitude_rating = (ProgressBar) sv_details.findViewById(R.id.pb_company_details_service_attitude_rating);
 
-        CertificateAdapter adp_certificate = new CertificateAdapter(this, data_certificate);
-        rv_certificate.setAdapter(adp_certificate);
-        rv_certificate.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_certificate.size()));
-
-        rv_company_service = new RecyclerView(this);
-        HotServiceAdapter adp_hotService = new HotServiceAdapter(this, data_hotService);
-        adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                //start commodity info activity  启动商品详情页
-                Intent intent = new Intent(CompanyInfoActivity.this, CommodityInfoActivity.class);
-                startActivity(intent);
-            }
-        });
-        rv_company_service.setAdapter(adp_hotService);
-        rv_company_service.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        rv_company_service.setLayoutManager(new LinearLayoutManager(this));
-
-        rv_masters = new RecyclerView(this);
-        MastersAdapter adp_masters = new MastersAdapter(this);
-        rv_masters.setAdapter(adp_masters);
-        rv_company_service.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        rv_masters.setLayoutManager(new LinearLayoutManager(this));
-
-        //add views
-        list_view.add(rv_company_service);
-        list_view.add(rv_masters);
-        list_view.add(sv_details);
-
-        list_tab.add(getResources().getString(R.string.service_list));
-        list_tab.add(getResources().getString(R.string.company_masters));
-        list_tab.add(getResources().getString(R.string.company_details));
-
-        for (int i = 0; i < list_view.size(); i++) {
-            vp_company_info.addView(list_view.get(i));
-            tl_company_info.addTab(tl_company_info.newTab().setText(list_tab.get(i)));
-        }
-
-        //set up viewpager
-        vp_company_info.setAdapter(new CompanyInfoAdapter(list_view, list_tab));
-        vp_company_info.setOffscreenPageLimit(3);
-//        ViewSetUtils.setViewHeigh(this, vp_company_info, 1, 5);
-        tl_company_info.setupWithViewPager(vp_company_info);
 
     }
 
@@ -263,10 +304,11 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
                     jsonObject = response.get();
                     Logs.i("足智店铺", jsonObject.toString());
                     if (jsonObject.getBoolean("success")) {
-
+                        mShopBean = MyApplication.gson.fromJson(jsonObject.toString(), ShopBean.class);
+                        Cons.IMG_HOST = mShopBean.getImgHost();
+                        onInitData();
                     } else {
                         ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
-                        DialogUtils.dismissProgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -283,9 +325,146 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onFinish(int what) {
+                DialogUtils.dismissProgressDialog();
+            }
+        });
+
+    }
+
+
+    /**
+     * init server data
+     */
+    private void onInitData() {
+
+        rv_company_service = new RecyclerView(this);
+        HotServiceAdapter adp_hotService = new HotServiceAdapter(this, mShopBean.getValue().getItemList());
+        adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //start commodity info activity  启动商品详情页
+                Intent intent = new Intent(CompanyInfoActivity.this, CommodityInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+        rv_company_service.setAdapter(adp_hotService);
+        rv_company_service.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        rv_company_service.setLayoutManager(new LinearLayoutManager(this));
+
+        rv_masters = new RecyclerView(this);
+        MastersAdapter adp_masters = new MastersAdapter(this, mShopBean.getValue().getExpertList());
+        rv_masters.setAdapter(adp_masters);
+        rv_masters.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        rv_masters.setLayoutManager(new LinearLayoutManager(this));
+
+        CertificateAdapter adp_certificate = new CertificateAdapter(this, mShopBean.getValue().getShopCertificate());
+        rv_certificate.setAdapter(adp_certificate);
+        rv_certificate.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, mShopBean.getValue().getShopCertificate().size()));
+        adp_certificate.setOnItemClickLitener(new CertificateAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, final int position) {
+                DialogUtils.showProgressDialog(mContext, getString(R.string.loading));
+                //if not start a new thread, will block the UI thread
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageLoader.getInstance().loadImage(
+                                Cons.IMG_HOST +
+                                        mShopBean.getValue().
+                                                getShopCertificate().get(position).getUrl(),
+                                new ImageLoadingListener() {
+                                    @Override
+                                    public void onLoadingStarted(String imageUri, View view) {
+
+                                    }
+
+                                    @Override
+                                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                        DialogUtils.dismissProgressDialog();
+                                        ToastUtil.showToast(mContext, getString(R.string.data_error));
+                                    }
+
+                                    @Override
+                                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                        //use the system image explorer
+                                        DialogUtils.dismissProgressDialog();
+                                        String cachePath =
+                                                ImageLoader
+                                                        .getInstance()
+                                                        .getDiskCache()
+                                                        .get(imageUri).getPath();
+                                        //user the imageloader path to save bitmap
+                                        File file = new File(
+                                                StorageUtils.getOwnCacheDirectory(mContext, Cons.CACHE_IMAGE_DIR).getPath(),
+                                                "certificate.png"
+                                        );
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        Uri mUri = Uri.parse("file://" + BitmapUtils.save(file, loadedImage));
+                                        intent.setDataAndType(mUri, "image/*");
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void onLoadingCancelled(String imageUri, View view) {
+                                        DialogUtils.dismissProgressDialog();
+                                        ToastUtil.showToast(mContext, getString(R.string.data_error));
+                                    }
+                                });
+                    }
+                }).start();
+
 
             }
         });
 
+        //set views data
+        tv_company_info_company_name.setText(mShopBean.getValue().getName());
+        tv_company_info_company_des.setText(mShopBean.getValue().getRemark());
+        tv_company_info_order_num.setText(mShopBean.getValue().getOrderNum() + "单");
+        tv_company_info_feed_back_rate.setText(mShopBean.getValue().getFeedbackRate());
+        tv_company_info_com_score.setText(mShopBean.getValue().getComScore() + "分");
+        ImageLoader.getInstance().displayImage(
+                Cons.IMG_HOST + mShopBean.getValue().getShopLogo(),
+                civ_company_info_icon,
+                MyApplication.dis_ImgOptions);
+
+        tv_company_details_complete_quality_rating.setText(
+                mShopBean.getValue().getWczl() + "分");
+        float rating1 = mShopBean.getValue().getWczl();
+        pb_company_details_complete_quality_rating.setProgress(
+                (int) (rating1 / 5.0f * 100));
+
+        tv_company_details_work_speed_rating.setText(
+                mShopBean.getValue().getGzsd() + "分");
+        float rating2 = mShopBean.getValue().getGzsd();
+        pb_company_details_work_speed_rating.setProgress(
+                (int) (rating2 / 5.0f * 100));
+
+        tv_company_details_service_attitude_rating.setText(
+                mShopBean.getValue().getFwtd() + "分");
+        float rating3 = mShopBean.getValue().getFwtd();
+        pb_company_details_service_attitude_rating.setProgress(
+                (int) (rating3 / 5.0f * 100));
+
+
+        //add views
+        list_view.add(rv_company_service);
+        list_view.add(rv_masters);
+        list_view.add(sv_details);
+
+        list_tab.add(getResources().getString(R.string.service_list));
+        list_tab.add(getResources().getString(R.string.company_masters));
+        list_tab.add(getResources().getString(R.string.company_details));
+
+        for (int i = 0; i < list_view.size(); i++) {
+            vp_company_info.addView(list_view.get(i));
+            tl_company_info.addTab(tl_company_info.newTab().setText(list_tab.get(i)));
+        }
+
+        //set up viewpager
+        vp_company_info.setAdapter(new CompanyInfoAdapter(list_view, list_tab));
+        vp_company_info.setOffscreenPageLimit(3);
+//        ViewSetUtils.setViewHeigh(this, vp_company_info, 1, 5);
+        tl_company_info.setupWithViewPager(vp_company_info);
     }
 }

@@ -14,10 +14,13 @@ import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.HotServiceAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.bean.IndexBean;
+import com.zuzhi.tianyou.entity.ItemListEntity;
 import com.zuzhi.tianyou.utils.Cons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -25,6 +28,7 @@ import java.util.HashMap;
  */
 public class OrderInfoActivity extends BaseActivity implements View.OnClickListener {
 
+    private List<ItemListEntity> mItemList;
     EditText et_opinion;
     Button bt_opinion_submit;
     RecyclerView rv_recommend;
@@ -66,26 +70,14 @@ public class OrderInfoActivity extends BaseActivity implements View.OnClickListe
         bt_rating = (Button) findViewById(R.id.bt_order_info_rating);
 
         //init hot service test data
-        ArrayList<HashMap<String, Object>> data_hotService = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < Cons.STRARR_INDEX_HOT_SERVICE_TITLE.length; i++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("hot_service_img", getResources().getDrawable(Cons.IDARR_INDEX_HOT_SERVICE_IMG[i]));
-            map.put("hot_service_title", Cons.STRARR_INDEX_HOT_SERVICE_TITLE[i]);
-            map.put("hot_service_info1", Cons.STRARR_INDEX_HOT_SERVICE_INFO1[i]);
-            map.put("hot_service_info2", Cons.STRARR_INDEX_HOT_SERVICE_INFO2[i]);
-            map.put("hot_service_price1", Cons.STRARR_INDEX_HOT_SERVICE_PRICE1[i]);
-            map.put("hot_service_price2", Cons.STRARR_INDEX_HOT_SERVICE_PRICE2[i]);
-            map.put("hot_service_attribute", Cons.STRARR_INDEX_HOT_SERVICE_ATTRIBUTE[i]);
 
-            data_hotService.add(map);
-        }
 
         //重画recylerview以后会显示最下面，手动滚动到顶端
         scrollView.smoothScrollTo(0, 0);
         rv_recommend = (RecyclerView) findViewById(R.id.rv_recommend);
-        HotServiceAdapter adp_hotService = new HotServiceAdapter(this, data_hotService);
+        HotServiceAdapter adp_hotService = new HotServiceAdapter(this, mItemList);
         rv_recommend.setAdapter(adp_hotService);
-        rv_recommend.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_hotService.size()));
+        rv_recommend.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, mItemList.size()));
 
         //set listeners
         adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
@@ -155,6 +147,33 @@ public class OrderInfoActivity extends BaseActivity implements View.OnClickListe
                 intent = new Intent(this, RatingActivity.class);
                 startActivity(intent);
                 break;
+
+        }
+    }
+
+    /**
+     * change data to ItemList
+     *
+     * @param hotServiceEntityList
+     */
+    private void initItemList(List<IndexBean.ValueEntity.HotServiceEntity> hotServiceEntityList) {
+        mItemList = new ArrayList<ItemListEntity>(hotServiceEntityList.size());
+        for (int i = 0; i < hotServiceEntityList.size(); i++) {
+            mItemList.get(i).setItemShopPrice(hotServiceEntityList.get(i).getItemShopPrice());
+            mItemList.get(i).setItemPromoteEndDate(hotServiceEntityList.get(i).getItemPromoteEndDate());
+            mItemList.get(i).setItemPromoteStartDate(hotServiceEntityList.get(i).getItemPromoteStartDate());
+            mItemList.get(i).setExpertId(hotServiceEntityList.get(i).getExpertId());
+            mItemList.get(i).setExpertName(hotServiceEntityList.get(i).getExpertName());
+            mItemList.get(i).setId(hotServiceEntityList.get(i).getId());
+            mItemList.get(i).setItemPromotePrice(hotServiceEntityList.get(i).getItemPromotePrice());
+            mItemList.get(i).setItemMarketPrice(hotServiceEntityList.get(i).getItemMarketPrice());
+            mItemList.get(i).setItemPromote(hotServiceEntityList.get(i).isItemPromote());
+            mItemList.get(i).setShopName(hotServiceEntityList.get(i).getShopName());
+            mItemList.get(i).setShopId(hotServiceEntityList.get(i).getShopId());
+            mItemList.get(i).setItemImg(hotServiceEntityList.get(i).getItemImg());
+            mItemList.get(i).setName(hotServiceEntityList.get(i).getName());
+            mItemList.get(i).setExpertWorkingHours(hotServiceEntityList.get(i).getExpertWorkingHours());
+            mItemList.get(i).setItemThumbImg(hotServiceEntityList.get(i).getItemThumbImg());
 
         }
     }

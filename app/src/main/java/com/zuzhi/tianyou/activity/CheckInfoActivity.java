@@ -48,39 +48,24 @@ public class CheckInfoActivity extends BaseActivity implements View.OnClickListe
         rv_status = (RecyclerView) findViewById(R.id.rv_check_info_order_info);
         rv_recommend = (RecyclerView) findViewById(R.id.rv_check_info_recommend);
 
-        //init hot service test data
-        ArrayList<HashMap<String, Object>> data_hotService = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < Cons.STRARR_INDEX_HOT_SERVICE_TITLE.length; i++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("hot_service_img", getResources().getDrawable(Cons.IDARR_INDEX_HOT_SERVICE_IMG[i]));
-            map.put("hot_service_title", Cons.STRARR_INDEX_HOT_SERVICE_TITLE[i]);
-            map.put("hot_service_info1", Cons.STRARR_INDEX_HOT_SERVICE_INFO1[i]);
-            map.put("hot_service_info2", Cons.STRARR_INDEX_HOT_SERVICE_INFO2[i]);
-            map.put("hot_service_price1", Cons.STRARR_INDEX_HOT_SERVICE_PRICE1[i]);
-            map.put("hot_service_price2", Cons.STRARR_INDEX_HOT_SERVICE_PRICE2[i]);
-            map.put("hot_service_attribute", Cons.STRARR_INDEX_HOT_SERVICE_ATTRIBUTE[i]);
-
-            data_hotService.add(map);
-        }
-
         //set adapters
         OrderStatusAdapter adp_orderStatus = new OrderStatusAdapter(this);
         rv_status.setAdapter(adp_orderStatus);
         rv_status.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, Cons.IDARR_ORDER_COLOR.length));
 
-        HotServiceAdapter adp_hotService = new HotServiceAdapter(this, data_hotService);
-        rv_recommend.setAdapter(adp_hotService);
-        rv_recommend.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_hotService.size()));
+//        HotServiceAdapter adp_hotService = new HotServiceAdapter(this, data_hotService);
+//        rv_recommend.setAdapter(adp_hotService);
+//        rv_recommend.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_hotService.size()));
 
         //set listeners
-        adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(
-                        CheckInfoActivity.this, CommodityInfoActivity.class);
-                startActivity(intent);
-            }
-        });
+//        adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Intent intent = new Intent(
+//                        CheckInfoActivity.this, CommodityInfoActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override

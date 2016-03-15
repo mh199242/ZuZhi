@@ -42,7 +42,8 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         tv_personal_name.setText(MyApplication.user.getName());
         ImageLoader.getInstance().displayImage(
                 Cons.IMG_HOST + MyApplication.user.getHeadImg(),
-                civ_personal_head
+                civ_personal_head,
+                MyApplication.dis_ImgOptions
         );
     }
 

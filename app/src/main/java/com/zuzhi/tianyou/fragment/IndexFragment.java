@@ -37,6 +37,7 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.IndexTopicAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.VisitHistoryAdapter;
 import com.zuzhi.tianyou.base.BaseFragment;
 import com.zuzhi.tianyou.bean.IndexBean;
+import com.zuzhi.tianyou.entity.ItemListEntity;
 import com.zuzhi.tianyou.im.Constant;
 import com.zuzhi.tianyou.im.ui.ChatActivity;
 import com.zuzhi.tianyou.utils.Cons;
@@ -61,6 +62,7 @@ import java.util.List;
 public class IndexFragment extends BaseFragment implements View.OnClickListener {
 
 
+    private List<ItemListEntity> mItemList;
     private String TAG = "com.zuzhi.tianyou.fragment.IndexFragment";
 
     /**
@@ -193,21 +195,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         }
 
 
-        //init hot service test data
-        ArrayList<HashMap<String, Object>> data_hotService = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < Cons.STRARR_INDEX_HOT_SERVICE_TITLE.length; i++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("hot_service_img", getResources().getDrawable(Cons.IDARR_INDEX_HOT_SERVICE_IMG[i]));
-            map.put("hot_service_title", Cons.STRARR_INDEX_HOT_SERVICE_TITLE[i]);
-            map.put("hot_service_info1", Cons.STRARR_INDEX_HOT_SERVICE_INFO1[i]);
-            map.put("hot_service_info2", Cons.STRARR_INDEX_HOT_SERVICE_INFO2[i]);
-            map.put("hot_service_price1", Cons.STRARR_INDEX_HOT_SERVICE_PRICE1[i]);
-            map.put("hot_service_price2", Cons.STRARR_INDEX_HOT_SERVICE_PRICE2[i]);
-            map.put("hot_service_attribute", Cons.STRARR_INDEX_HOT_SERVICE_ATTRIBUTE[i]);
-
-            data_hotService.add(map);
-        }
-
         //find views
         asvp_banner = (AutoScrollViewPager) view.findViewById(R.id.asvp_banner);
         ll_pointer_banner = (LinearLayout) view.findViewById(R.id.ll_pointer_banner);
@@ -219,9 +206,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         ll_phone_contact = (LinearLayout) view.findViewById(R.id.ll_index_phone_contact);
 
         //set adapters
-        HotServiceAdapter adp_hotService = new HotServiceAdapter(getContext(), data_hotService);
-        rv_hot_service.setAdapter(adp_hotService);
-        rv_hot_service.setLayoutManager(new TopicLayoutManager(getContext(), OrientationHelper.VERTICAL, false, data_hotService.size()));
 
 
         VisitHistoryAdapter adp_visitHistory = new VisitHistoryAdapter(getContext(), data_visitHistory);
@@ -238,14 +222,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         ll_phone_contact.setOnClickListener(this);
         ll_online_service.setOnClickListener(this);
 
-        adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                //start class level activity 启动商品详情页面
-                Intent intent = new Intent(getContext(), CommodityInfoActivity.class);
-                getContext().startActivity(intent);
-            }
-        });
+
 
 
         //init message handler
@@ -474,6 +451,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
                         //set img server host
                         Cons.IMG_HOST = indexBean.getImgHost() + "/";
+                        //convert list
+                        initItemList(indexBean.getValue().getHotService());
                         //send a get data success message
                         Message msg = Message.obtain();
                         msg.what = 0x01;
@@ -571,6 +550,48 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             Intent intent = new Intent(getActivity(), ChatActivity.class);
             intent.putExtra(Constant.EXTRA_USER_ID, username);
             startActivity(intent);
+        }
+
+    }
+
+
+    /**
+     * change data to ItemList
+     *
+     * @param hotServiceEntityList
+     */
+    private void initItemList(List<IndexBean.ValueEntity.HotServiceEntity> hotServiceEntityList) {
+        mItemList = new ArrayList<ItemListEntity>(hotServiceEntityList.size());
+        for (int i = 0; i < hotServiceEntityList.size(); i++) {
+            mItemList.get(i).setItemShopPrice(hotServiceEntityList.get(i).getItemShopPrice());
+            mItemList.get(i).setItemPromoteEndDate(hotServiceEntityList.get(i).getItemPromoteEndDate());
+            mItemList.get(i).setItemPromoteStartDate(hotServiceEntityList.get(i).getItemPromoteStartDate());
+            mItemList.get(i).setExpertId(hotServiceEntityList.get(i).getExpertId());
+            mItemList.get(i).setExpertName(hotServiceEntityList.get(i).getExpertName());
+            mItemList.get(i).setId(hotServiceEntityList.get(i).getId());
+            mItemList.get(i).setItemPromotePrice(hotServiceEntityList.get(i).getItemPromotePrice());
+            mItemList.get(i).setItemMarketPrice(hotServiceEntityList.get(i).getItemMarketPrice());
+            mItemList.get(i).setItemPromote(hotServiceEntityList.get(i).isItemPromote());
+            mItemList.get(i).setShopName(hotServiceEntityList.get(i).getShopName());
+            mItemList.get(i).setShopId(hotServiceEntityList.get(i).getShopId());
+            mItemList.get(i).setItemImg(hotServiceEntityList.get(i).getItemImg());
+            mItemList.get(i).setName(hotServiceEntityList.get(i).getName());
+            mItemList.get(i).setExpertWorkingHours(hotServiceEntityList.get(i).getExpertWorkingHours());
+            mItemList.get(i).setItemThumbImg(hotServiceEntityList.get(i).getItemThumbImg());
+
+        }
+        if(mItemList.size() != 0){
+            HotServiceAdapter adp_hotService = new HotServiceAdapter(getContext(), mItemList);
+            rv_hot_service.setAdapter(adp_hotService);
+            rv_hot_service.setLayoutManager(new TopicLayoutManager(getContext(), OrientationHelper.VERTICAL, false, mItemList.size()));
+            adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    //start class level activity 启动商品详情页面
+                    Intent intent = new Intent(getContext(), CommodityInfoActivity.class);
+                    getContext().startActivity(intent);
+                }
+            });
         }
 
     }

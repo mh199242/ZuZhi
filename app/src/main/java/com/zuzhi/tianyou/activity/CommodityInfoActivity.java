@@ -30,6 +30,7 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.CertificateAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.EvaluateAdapter;
 import com.zuzhi.tianyou.adapter.viewpageradapter.CommodityInfoAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.entity.ShopCertificateEntity;
 import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
@@ -46,6 +47,10 @@ import java.util.ListIterator;
  */
 public class CommodityInfoActivity extends BaseActivity implements View.OnClickListener, com.bigkoo.alertview.OnItemClickListener, com.bigkoo.alertview.OnDismissListener {
 
+    /**
+     * ShopCertificateEntity List
+     */
+    List<ShopCertificateEntity> mShopCertificateList;
     /**
      * commodity certificate recyclerview 商品证书列表
      */
@@ -188,7 +193,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         }
 
         //set adapters
-        CertificateAdapter adp_certificate = new CertificateAdapter(this, data_certificate);
+        CertificateAdapter adp_certificate = new CertificateAdapter(this, mShopCertificateList);
         rv_certificate.setAdapter(adp_certificate);
         rv_certificate.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_certificate.size()));
 

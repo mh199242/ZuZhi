@@ -10,11 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zuzhi.tianyou.R;
+import com.zuzhi.tianyou.entity.ExpertListEntity;
 import com.zuzhi.tianyou.utils.Cons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -24,6 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MastersAdapter extends RecyclerView.Adapter<MastersAdapter.MyViewHolder> {
     private Context mContext;
     private OnItemClickLitener mOnItemClickLitener;
+    private List<ExpertListEntity> mExpertListEntity;
 
     public interface OnItemClickLitener {
         void onItemClick(View view, int position);
@@ -37,8 +41,10 @@ public class MastersAdapter extends RecyclerView.Adapter<MastersAdapter.MyViewHo
      * init 初始化适配器，载入数据源
      *
      * @param context 上下文
+     * @param expertList 数据源
      */
-    public MastersAdapter(Context context) {
+    public MastersAdapter(Context context, List<ExpertListEntity> expertList) {
+        mExpertListEntity = expertList;
         mContext = context;
     }
 
@@ -54,13 +60,13 @@ public class MastersAdapter extends RecyclerView.Adapter<MastersAdapter.MyViewHo
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.civ_head.setImageDrawable(mContext.getResources().getDrawable(Cons.IDARR_MASTERS_HEAD[position]));
-        holder.tv_name.setText(Cons.STRARR_MASTERS_NAME[position]);
-        holder.tv_exp.setText(Cons.STRARR_MASTERS_EXP[position]);
+        holder.tv_name.setText(mExpertListEntity.get(position).getName());
+        holder.tv_exp.setText(mExpertListEntity.get(position).getWorkingHours() + "经验");
         holder.tv_good_at1.setText(Cons.STRARR_MASTERS_GODD_AT1[position]);
         holder.tv_good_at2.setText(Cons.STRARR_MASTERS_GODD_AT2[position]);
-        holder.tv_good_evaluate_percent.setText(Cons.STRARR_MASTERS_GODD_EVALUATE_PERCENT[position]);
-        holder.tv_complete_number.setText(Cons.STRARR_MASTERS_COMPLETE_NUMBER[position]);
-        holder.tv_evaluate_number.setText(Cons.STRARR_MASTERS_EVALUATE_NUMBER[position]);
+        holder.tv_good_evaluate_percent.setText(mExpertListEntity.get(position).getMyd());
+        holder.tv_complete_number.setText(String.valueOf(mExpertListEntity.get(position).getOrderNum()));
+        holder.tv_evaluate_number.setText(mExpertListEntity.get(position).getPj());
 
         if (mOnItemClickLitener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +82,7 @@ public class MastersAdapter extends RecyclerView.Adapter<MastersAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return Cons.STRARR_MASTERS_NAME.length;
+        return mExpertListEntity.size();
     }
 
     class MyViewHolder extends ViewHolder {
