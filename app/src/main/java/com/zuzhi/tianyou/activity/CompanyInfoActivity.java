@@ -46,6 +46,7 @@ import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.bean.IndexBean;
 import com.zuzhi.tianyou.bean.LoginBean;
 import com.zuzhi.tianyou.bean.ShopBean;
+import com.zuzhi.tianyou.entity.AdEntity;
 import com.zuzhi.tianyou.entity.ItemListEntity;
 import com.zuzhi.tianyou.utils.BitmapUtils;
 import com.zuzhi.tianyou.utils.Cons;
@@ -266,8 +267,8 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
 
         //get company id
         if (getIntent().getExtras().getSerializable("AdEntity") != null) {
-            IndexBean.ValueEntity.AdEntity adEntity
-                    = (IndexBean.ValueEntity.AdEntity) getIntent().getExtras().getSerializable("AdEntity");
+            AdEntity adEntity
+                    = (AdEntity) getIntent().getExtras().getSerializable("AdEntity");
             comanyId = adEntity.getObjId();
         }
         // NoHttp zuzhi shop details

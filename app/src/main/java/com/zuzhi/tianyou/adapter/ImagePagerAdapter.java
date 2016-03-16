@@ -101,10 +101,10 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
                         context.startActivity(intent);
                         break;
                     case "itemList":
-                        //carry AdEntity to IndexClassListActivity
+                        //carry adId to IndexClassListActivity
                         intent = new Intent(context, IndexClassListActivity.class);
-                        bundle.putSerializable("AdEntity", mValueEntity.getAd().get(getPosition(position)));
-                        intent.putExtras(bundle);
+                        intent.putExtra("adId",
+                                String.valueOf(mValueEntity.getAd().get(getPosition(position)).getId()));
                         context.startActivity(intent);
                         break;
 

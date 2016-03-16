@@ -130,6 +130,7 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
+        DialogUtils.dismissProgressDialog();
     }
 
     @Override
@@ -160,7 +161,6 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
         req.state = "loginguide";
         MyApplication.getInstance().wechat.sendReq(req);
     }
-
 
 
     /**

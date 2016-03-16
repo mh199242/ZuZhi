@@ -194,7 +194,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             data_visitHistory.add(map);
         }
 
-
         //find views
         asvp_banner = (AutoScrollViewPager) view.findViewById(R.id.asvp_banner);
         ll_pointer_banner = (LinearLayout) view.findViewById(R.id.ll_pointer_banner);
@@ -206,14 +205,12 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         ll_phone_contact = (LinearLayout) view.findViewById(R.id.ll_index_phone_contact);
 
         //set adapters
-
-
         VisitHistoryAdapter adp_visitHistory = new VisitHistoryAdapter(getContext(), data_visitHistory);
         rv_visit_history.setAdapter(adp_visitHistory);
         rv_visit_history.setLayoutManager(new LinearLayoutManager(getContext(), OrientationHelper.HORIZONTAL, false));
 
 
-//        rv_guide.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        //rv_guide.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
         //set the proportion of autoscrollviewpager 设置轮播宽高比
         ViewSetUtils.setViewHeigh(getContext(), asvp_banner, 2.5f, 1);
@@ -221,8 +218,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         //set listeners
         ll_phone_contact.setOnClickListener(this);
         ll_online_service.setOnClickListener(this);
-
-
 
 
         //init message handler
@@ -234,6 +229,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                     case 0x01:
                         b_bannerDownload = true;
                         initData();
+                        DialogUtils.dismissProgressDialog();
                         break;
                     //banner scroll message 轮播图滚动
                     case 0x02:
@@ -419,7 +415,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
         DialogUtils.showProgressDialog(mContext, getString(R.string.loading));
 
-
         // NoHttp zuzhi login
         String url = Cons.DOMAIN + Cons.INDEX;
         final Request<JSONObject> request =
@@ -428,6 +423,12 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         Logs.i("足智首页", "---------url---------");
         Logs.i("足智首页", url);
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).start();
         MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
             @Override
             public void onStart(int what) {
@@ -457,8 +458,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                         Message msg = Message.obtain();
                         msg.what = 0x01;
                         mHandler.sendMessage(msg);
-
-                        DialogUtils.dismissProgressDialog();
                     } else {
                         ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
                     }
@@ -495,7 +494,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             public void onItemClick(View view, int position) {
                 Intent intent;
                 Bundle bundle = new Bundle();
-                switch (mValueEntity.getAd().get(position).getTargetType()) {
+                switch (mValueEntity.getCategory().get(position).getTargetType()) {
                     //click to jump type is CompanyInfoActivity
                     case "shopDetails":
                         //carry AdEntity to CompanyInfoActivity
@@ -507,8 +506,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                     case "itemList":
                         //carry AdEntity to IndexClassListActivity
                         intent = new Intent(getContext(), IndexClassListActivity.class);
-                        bundle.putSerializable("CategoryEntity", mValueEntity.getCategory().get(position));
-                        intent.putExtras(bundle);
+                        intent.putExtra("adId",
+                                String.valueOf(mValueEntity.getCategory().get(position).getId()));
                         startActivity(intent);
                         break;
 
@@ -580,7 +579,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             mItemList.get(i).setItemThumbImg(hotServiceEntityList.get(i).getItemThumbImg());
 
         }
-        if(mItemList.size() != 0){
+        if (mItemList.size() != 0) {
             HotServiceAdapter adp_hotService = new HotServiceAdapter(getContext(), mItemList);
             rv_hot_service.setAdapter(adp_hotService);
             rv_hot_service.setLayoutManager(new TopicLayoutManager(getContext(), OrientationHelper.VERTICAL, false, mItemList.size()));

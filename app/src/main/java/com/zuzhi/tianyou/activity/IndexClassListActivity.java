@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,32 +19,43 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.easemob.easeui.utils.EaseCommonUtils;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnResponseListener;
 import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.Response;
 import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.ImagePagerAdapter;
+import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.HotServiceAdapter;
 import com.zuzhi.tianyou.adapter.viewpageradapter.ClassListAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
 import com.zuzhi.tianyou.bean.BannerImageBean;
+import com.zuzhi.tianyou.bean.ClassListBean;
 import com.zuzhi.tianyou.bean.IndexBean;
+import com.zuzhi.tianyou.bean.ItemListBean;
+import com.zuzhi.tianyou.entity.AdEntity;
 import com.zuzhi.tianyou.entity.ImageEntity;
 import com.zuzhi.tianyou.entity.ItemListEntity;
 import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.DialogUtils;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 import com.zuzhi.tianyou.views.AutoScrollViewPager;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * index class list activity 首页类目列表页
@@ -52,9 +64,34 @@ import java.util.List;
 public class IndexClassListActivity extends BaseActivity implements View.OnClickListener {
 
     /**
-     * ItemListEntity
+     * used to browse item list's position
+     */
+    Set<Integer> browseSet = new HashSet<Integer>();
+
+    /**
+     * ad id
+     */
+    String adId;
+
+    /**
+     * ItemListEntity list
      */
     List<ItemListEntity> mItemList;
+
+    /**
+     * Class List java Bean
+     */
+    ClassListBean mClassListBean;
+
+    /**
+     * Item List java Bean
+     */
+    ItemListBean mItemListBean;
+
+    /**
+     * Class List CategoryEntity list
+     */
+    List<ClassListBean.ValueEntity.CategoryEntity> mCategoryList;
 
     private String TAG = "com.zuzhi.tianyou.activity.IndexClassListActivity";
     /**
@@ -135,69 +172,13 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void initViews() {
+        //get class list data
+        classList();
         //find views
         asvp_banner = (AutoScrollViewPager) findViewById(R.id.asvp_banner);
         ll_pointer_banner = (LinearLayout) findViewById(R.id.ll_pointer_banner);
         vp_class_list = (ViewPager) findViewById(R.id.vp_class_list);
         tl_class_list = (TabLayout) findViewById(R.id.tl_class_list);
-
-        //init hot service test data 加载测试数据
-        ArrayList<HashMap<String, Object>> data_hotService = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < Cons.STRARR_INDEX_HOT_SERVICE_TITLE.length; i++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("hot_service_img", getResources().getDrawable(Cons.IDARR_INDEX_HOT_SERVICE_IMG[i]));
-            map.put("hot_service_title", Cons.STRARR_INDEX_HOT_SERVICE_TITLE[i]);
-            map.put("hot_service_info1", Cons.STRARR_INDEX_HOT_SERVICE_INFO1[i]);
-            map.put("hot_service_info2", Cons.STRARR_INDEX_HOT_SERVICE_INFO2[i]);
-            map.put("hot_service_price1", Cons.STRARR_INDEX_HOT_SERVICE_PRICE1[i]);
-            map.put("hot_service_price2", Cons.STRARR_INDEX_HOT_SERVICE_PRICE2[i]);
-            map.put("hot_service_attribute", Cons.STRARR_INDEX_HOT_SERVICE_ATTRIBUTE[i]);
-
-            data_hotService.add(map);
-        }
-
-        for (int i = 0; i < 8; i++) {
-            //init and set up wiht recyclerview adapter 初始化并设置recyclerview适配器
-            rv_class_list = new RecyclerView(this);
-            HotServiceAdapter adp_hotService = new HotServiceAdapter(this, mItemList);
-            adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    //start commodity info activity 启动商品详情页
-                    Intent intent = new Intent(mContext, CommodityInfoActivity.class);
-                    startActivity(intent);
-                }
-            });
-            rv_class_list.setAdapter(adp_hotService);
-            //rv_class_list.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_hotService.size()));
-            rv_class_list.setLayoutManager(new LinearLayoutManager(this, OrientationHelper.VERTICAL, false));
-
-            //add test viewpager views
-            vp_class_list.addView(rv_class_list);
-            //add test viewpager view to list
-            list_views.add(rv_class_list);
-            //add tab views
-            list_tabs.add("标签" + i);
-            tl_class_list.addTab(tl_class_list.newTab().setText(list_tabs.get(i)));
-        }
-
-        //set up with viewpager adpater 给ViewPager设置适配器
-        ClassListAdapter adp_classList = new ClassListAdapter(list_views, list_tabs);
-        vp_class_list.setAdapter(adp_classList);
-
-        //set up with tablayout adpater给Tabs设置适配器
-        tl_class_list.setTabsFromPagerAdapter(adp_classList);
-
-        //tablayout setup with viewPager 将TabLayout和ViewPager关联起来。
-        tl_class_list.setupWithViewPager(vp_class_list);
-
-        //set the proportion of autoscrollviewpager 设置轮播宽高比
-        ViewSetUtils.setViewHeigh(this, asvp_banner, 2, 1);
-
-        //get image from internet
-        getImage();
-
-
     }
 
     @Override
@@ -432,29 +413,261 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
 
 
     /**
+     * get class list data
+     */
+    public void classList() {
+        if (!EaseCommonUtils.isNetWorkConnected(mContext)) {
+            Toast.makeText(mContext, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(getIntent().getStringExtra("adId"))) {
+            ToastUtil.showToast(mContext, getString(R.string.data_error));
+            return;
+        } else {
+            adId = getIntent().getStringExtra("adId");
+        }
+
+
+        // NoHttp zuzhi class list
+        String url = Cons.DOMAIN + Cons.CLASS_LIST
+                + "?adId="
+                + adId;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.GET);
+
+        Logs.i("足智类目列表", "---------url---------");
+        Logs.i("足智类目列表", url);
+
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("足智类目列表", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+                        mClassListBean = MyApplication.gson.fromJson(jsonObject.toString(),
+                                ClassListBean.class);
+                        mCategoryList = mClassListBean.getValue().getCategory();
+                        onInitData();
+                        browseSet.add(0);
+                        getItemData(0);
+                    } else {
+                        ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(mContext, getResources().getString(R.string.request_fail));
+                Logs.i("足智类目列表", "----------Error-------");
+                Logs.i("足智类目列表", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+
+    }
+
+    /**
+     * init view data
+     */
+    private void onInitData() {
+        //add views
+        for (int i = 0; i < mCategoryList.size(); i++) {
+            //init and set up wiht recyclerview adapter 初始化并设置recyclerview适配器
+            rv_class_list = new RecyclerView(this);
+
+            //add test viewpager views
+            vp_class_list.addView(rv_class_list);
+            //add test viewpager view to list
+            list_views.add(rv_class_list);
+            //add tab views
+            list_tabs.add(mCategoryList.get(i).getName());
+            tl_class_list.addTab(tl_class_list.newTab().setText(list_tabs.get(i)));
+        }
+
+
+        //set up with viewpager adpater 给ViewPager设置适配器
+        ClassListAdapter adp_classList = new ClassListAdapter(list_views, list_tabs);
+        vp_class_list.setAdapter(adp_classList);
+        vp_class_list.setOnPageChangeListener(new MyViewPagerChangeListener());
+
+        //set up with tablayout adpater给Tabs设置适配器
+        tl_class_list.setTabsFromPagerAdapter(adp_classList);
+
+        //tablayout setup with viewPager 将TabLayout和ViewPager关联起来。
+        tl_class_list.setupWithViewPager(vp_class_list);
+
+        //set the proportion of autoscrollviewpager 设置轮播宽高比
+        ViewSetUtils.setViewHeigh(this, asvp_banner, 2, 1);
+
+        //get image from internet
+        getImage();
+    }
+
+
+    /**
+     * get item data
+     */
+    private void getItemData(final int position) {
+
+        if (!EaseCommonUtils.isNetWorkConnected(mContext)) {
+            Toast.makeText(mContext, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // NoHttp zuzhi item
+        String url = Cons.DOMAIN + Cons.ITEM;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+        JSONObject postJson = new JSONObject();
+        try {
+            postJson.put("callback", "");
+            postJson.put("adId",
+                    String.valueOf(mCategoryList.get(position).getId()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request.setRequestBody(postJson.toString());
+
+        Logs.i("足智物品列表", "---------url---------");
+        Logs.i("足智物品列表", url);
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("足智物品列表", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+                        mItemListBean = MyApplication.gson.fromJson(jsonObject.toString(),
+                                ItemListBean.class);
+                        initItemList(mItemListBean.getValue());
+                        initItemData(position);
+                    } else {
+                        ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(mContext, getResources().getString(R.string.request_fail));
+                Logs.i("足智物品列表", "----------Error-------");
+                Logs.i("足智物品列表", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+
+    }
+
+    /**
+     * set item data to views
+     */
+    private void initItemData(int position) {
+        HotServiceAdapter adp_hotService = new HotServiceAdapter(this, mItemList);
+        adp_hotService.setOnItemClickLitener(new HotServiceAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //start commodity info activity 启动商品详情页
+                Intent intent = new Intent(mContext, CommodityInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+        ((RecyclerView) list_views.get(position)).setAdapter(adp_hotService);
+        ((RecyclerView) list_views.get(position)).setLayoutManager(
+                new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, mItemList.size()));
+
+    }
+
+    class MyViewPagerChangeListener implements ViewPager.OnPageChangeListener {
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            //check used to browse data
+            for (int i : browseSet) {
+                if (i == position)
+                    return;
+            }
+            //if not browse,then get data
+            browseSet.add(position);
+            getItemData(position);
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+
+    }
+
+    /**
      * change data to ItemList
      *
-     * @param hotServiceEntityList
+     * @param list
      */
-    private void initItemList(List<IndexBean.ValueEntity.HotServiceEntity> hotServiceEntityList) {
-        mItemList = new ArrayList<ItemListEntity>(hotServiceEntityList.size());
-        for (int i = 0; i < hotServiceEntityList.size(); i++) {
-            mItemList.get(i).setItemShopPrice(hotServiceEntityList.get(i).getItemShopPrice());
-            mItemList.get(i).setItemPromoteEndDate(hotServiceEntityList.get(i).getItemPromoteEndDate());
-            mItemList.get(i).setItemPromoteStartDate(hotServiceEntityList.get(i).getItemPromoteStartDate());
-            mItemList.get(i).setExpertId(hotServiceEntityList.get(i).getExpertId());
-            mItemList.get(i).setExpertName(hotServiceEntityList.get(i).getExpertName());
-            mItemList.get(i).setId(hotServiceEntityList.get(i).getId());
-            mItemList.get(i).setItemPromotePrice(hotServiceEntityList.get(i).getItemPromotePrice());
-            mItemList.get(i).setItemMarketPrice(hotServiceEntityList.get(i).getItemMarketPrice());
-            mItemList.get(i).setItemPromote(hotServiceEntityList.get(i).isItemPromote());
-            mItemList.get(i).setShopName(hotServiceEntityList.get(i).getShopName());
-            mItemList.get(i).setShopId(hotServiceEntityList.get(i).getShopId());
-            mItemList.get(i).setItemImg(hotServiceEntityList.get(i).getItemImg());
-            mItemList.get(i).setName(hotServiceEntityList.get(i).getName());
-            mItemList.get(i).setExpertWorkingHours(hotServiceEntityList.get(i).getExpertWorkingHours());
-            mItemList.get(i).setItemThumbImg(hotServiceEntityList.get(i).getItemThumbImg());
-
+    private void initItemList(List<ItemListBean.ValueEntity> list) {
+        mItemList = new ArrayList<ItemListEntity>();
+        for (int i = 0; i < list.size(); i++) {
+            ItemListEntity entity = new ItemListEntity();
+            entity.setItemShopPrice(list.get(i).getItemShopPrice());
+            entity.setItemPromoteEndDate(list.get(i).getItemPromoteEndDate());
+            entity.setItemPromoteStartDate(list.get(i).getItemPromoteStartDate());
+            entity.setExpertId(list.get(i).getExpertId());
+            entity.setExpertName(list.get(i).getExpertName());
+            entity.setId(list.get(i).getId());
+            entity.setItemPromotePrice(list.get(i).getItemPromotePrice());
+            entity.setItemMarketPrice(list.get(i).getItemMarketPrice());
+            entity.setItemPromote(list.get(i).isItemPromote());
+            entity.setShopName(list.get(i).getShopName());
+            entity.setShopId(list.get(i).getShopId());
+            entity.setItemImg(list.get(i).getItemImg());
+            entity.setName(list.get(i).getName());
+            entity.setExpertWorkingHours(list.get(i).getExpertWorkingHours());
+            entity.setItemThumbImg(list.get(i).getItemThumbImg());
+            mItemList.add(entity);
         }
 
     }
