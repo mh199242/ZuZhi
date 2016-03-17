@@ -502,18 +502,16 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                     switch (mValueEntity.getContent().get(selection).getSub().get(0).getTargetType()) {
                         //carry SubEntity to CompanyInfoActivity
                         case "shopDetails":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(0));
                             intent = new Intent(mContext, CompanyInfoActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("shopId",
+                                    mValueEntity.getContent().get(selection).getSub().get(0).getObjId());
                             mContext.startActivity(intent);
                             break;
                         //carry SubEntity to IndexClassListActivity
                         case "itemList":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(0));
                             intent = new Intent(mContext, IndexClassListActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("adId",
+                                    String.valueOf(mValueEntity.getContent().get(selection).getSub().get(0).getId()));
                             mContext.startActivity(intent);
                             break;
                     }
@@ -523,18 +521,16 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                     switch (mValueEntity.getContent().get(selection).getSub().get(1).getTargetType()) {
                         //carry SubEntity to CompanyInfoActivity
                         case "shopDetails":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(1));
                             intent = new Intent(mContext, CompanyInfoActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("shopId",
+                                    mValueEntity.getContent().get(selection).getSub().get(1).getObjId());
                             mContext.startActivity(intent);
                             break;
                         //carry SubEntity to IndexClassListActivity
                         case "itemList":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(1));
                             intent = new Intent(mContext, IndexClassListActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("adId",
+                                    String.valueOf(mValueEntity.getContent().get(selection).getSub().get(1).getId()));
                             mContext.startActivity(intent);
                             break;
                     }
@@ -542,18 +538,16 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                     switch (mValueEntity.getContent().get(selection).getSub().get(2).getTargetType()) {
                         //carry SubEntity to CompanyInfoActivity
                         case "shopDetails":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(2));
                             intent = new Intent(mContext, CompanyInfoActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("shopId",
+                                    mValueEntity.getContent().get(selection).getSub().get(2).getObjId());
                             mContext.startActivity(intent);
                             break;
                         //carry SubEntity to IndexClassListActivity
                         case "itemList":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(2));
                             intent = new Intent(mContext, IndexClassListActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("adId",
+                                    String.valueOf(mValueEntity.getContent().get(selection).getSub().get(2).getId()));
                             mContext.startActivity(intent);
                             break;
                     }
@@ -561,18 +555,16 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                     switch (mValueEntity.getContent().get(selection).getSub().get(0).getTargetType()) {
                         //carry SubEntity to CompanyInfoActivity
                         case "shopDetails":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(0));
                             intent = new Intent(mContext, CompanyInfoActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("shopId",
+                                    mValueEntity.getContent().get(selection).getSub().get(0).getObjId());
                             mContext.startActivity(intent);
                             break;
                         //carry SubEntity to IndexClassListActivity
                         case "itemList":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(0));
                             intent = new Intent(mContext, IndexClassListActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("adId",
+                                    String.valueOf(mValueEntity.getContent().get(selection).getSub().get(0).getId()));
                             mContext.startActivity(intent);
                             break;
                     }
@@ -580,18 +572,16 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                     switch (mValueEntity.getContent().get(selection).getSub().get(1).getTargetType()) {
                         //carry SubEntity to CompanyInfoActivity
                         case "shopDetails":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(1));
                             intent = new Intent(mContext, CompanyInfoActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("shopId",
+                                    mValueEntity.getContent().get(selection).getSub().get(1).getObjId());
                             mContext.startActivity(intent);
                             break;
                         //carry SubEntity to IndexClassListActivity
                         case "itemList":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(1));
                             intent = new Intent(mContext, IndexClassListActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("adId",
+                                    String.valueOf(mValueEntity.getContent().get(selection).getSub().get(1).getId()));
                             mContext.startActivity(intent);
                             break;
                     }
@@ -599,18 +589,16 @@ public class IndexTopicAdapter extends RecyclerView.Adapter<IndexTopicAdapter.My
                     switch (mValueEntity.getContent().get(selection).getSub().get(2).getTargetType()) {
                         //carry SubEntity to CompanyInfoActivity
                         case "shopDetails":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(2));
                             intent = new Intent(mContext, CompanyInfoActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("shopId",
+                                    mValueEntity.getContent().get(selection).getSub().get(2).getObjId());
                             mContext.startActivity(intent);
                             break;
                         //carry SubEntity to IndexClassListActivity
                         case "itemList":
-                            bundle.putSerializable("SubEntity",
-                                    mValueEntity.getContent().get(selection).getSub().get(2));
                             intent = new Intent(mContext, IndexClassListActivity.class);
-                            intent.putExtras(bundle);
+                            intent.putExtra("adId",
+                                    String.valueOf(mValueEntity.getContent().get(selection).getSub().get(2).getId()));
                             mContext.startActivity(intent);
                             break;
                     }

@@ -1,12 +1,8 @@
 package com.zuzhi.tianyou.activity;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,12 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,8 +35,6 @@ import com.zuzhi.tianyou.adapter.recyclerviewadapter.HotServiceAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.MastersAdapter;
 import com.zuzhi.tianyou.adapter.viewpageradapter.CompanyInfoAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
-import com.zuzhi.tianyou.bean.IndexBean;
-import com.zuzhi.tianyou.bean.LoginBean;
 import com.zuzhi.tianyou.bean.ShopBean;
 import com.zuzhi.tianyou.entity.AdEntity;
 import com.zuzhi.tianyou.entity.ItemListEntity;
@@ -53,7 +43,6 @@ import com.zuzhi.tianyou.utils.Cons;
 import com.zuzhi.tianyou.utils.DialogUtils;
 import com.zuzhi.tianyou.utils.Logs;
 import com.zuzhi.tianyou.utils.ToastUtil;
-import com.zuzhi.tianyou.utils.ViewSetUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -127,7 +116,7 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
     /**
      * company id
      */
-    String comanyId;
+    String shopId;
 
     /**
      * company name
@@ -263,14 +252,15 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
             Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
             return;
         }
+        //get company id
+        if (TextUtils.isEmpty(getIntent().getStringExtra("shopId"))) {
+            ToastUtil.showToast(this, getString(R.string.data_error));
+            return;
+        } else {
+            shopId = getIntent().getStringExtra("shopId");
+        }
         DialogUtils.showProgressDialog(this, getString(R.string.loading));
 
-        //get company id
-        if (getIntent().getExtras().getSerializable("AdEntity") != null) {
-            AdEntity adEntity
-                    = (AdEntity) getIntent().getExtras().getSerializable("AdEntity");
-            comanyId = adEntity.getObjId();
-        }
         // NoHttp zuzhi shop details
         String url = Cons.DOMAIN + Cons.SHOP_DETAILS;
         final Request<JSONObject> request =
@@ -279,7 +269,7 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
         JSONObject postJson = new JSONObject();
         try {
             postJson.put("callback", "");
-            postJson.put("shopId", comanyId);
+            postJson.put("shopId", shopId);
         } catch (JSONException e) {
             e.printStackTrace();
         }

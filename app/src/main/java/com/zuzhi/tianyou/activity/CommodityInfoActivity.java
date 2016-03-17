@@ -1,6 +1,7 @@
 package com.zuzhi.tianyou.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -12,29 +13,54 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ViewUtils;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
+import com.easemob.easeui.utils.EaseCommonUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.OnResponseListener;
+import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.RequestMethod;
+import com.yolanda.nohttp.Response;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.adapter.layoutmanager.TopicLayoutManager;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.CertificateAdapter;
 import com.zuzhi.tianyou.adapter.recyclerviewadapter.EvaluateAdapter;
 import com.zuzhi.tianyou.adapter.viewpageradapter.CommodityInfoAdapter;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.bean.ItemDetailBean;
+import com.zuzhi.tianyou.bean.LoginBean;
 import com.zuzhi.tianyou.entity.ShopCertificateEntity;
+import com.zuzhi.tianyou.im.Constant;
+import com.zuzhi.tianyou.im.ui.ChatActivity;
+import com.zuzhi.tianyou.utils.BitmapUtils;
 import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.DialogUtils;
 import com.zuzhi.tianyou.utils.Logs;
+import com.zuzhi.tianyou.utils.ToastUtil;
 import com.zuzhi.tianyou.utils.ViewSetUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -48,9 +74,11 @@ import java.util.ListIterator;
 public class CommodityInfoActivity extends BaseActivity implements View.OnClickListener, com.bigkoo.alertview.OnItemClickListener, com.bigkoo.alertview.OnDismissListener {
 
     /**
-     * ShopCertificateEntity List
+     * itemDetail java bean
      */
-    List<ShopCertificateEntity> mShopCertificateList;
+    ItemDetailBean mItemDetailBean;
+
+
     /**
      * commodity certificate recyclerview 商品证书列表
      */
@@ -67,9 +95,9 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
     private ViewPager vp_commdity_info;
 
     /**
-     * text of service details 服务详情
+     * web of service details 服务详情
      */
-    private TextView tv_service_details;
+    private WebView wv_service_details;
 
     /**
      * evaluate recyclerview 评价列表
@@ -112,21 +140,10 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
     private Button bt_contact_us;
 
     /**
-     * coolection boolean 是否收藏
-     */
-    private Boolean b_isCollect = false;
-
-    /**
      * bottom alertview icon list下部弹出对话框图组
      */
     private Drawable[] mDrawables;
 
-    /**
-     * text price2 价格2
-     *
-     * @return
-     */
-    private TextView tv_commodity_info_price2;
 
     /**
      * company name layout 公司名字布局
@@ -138,6 +155,63 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
      */
     private TextView tv_buy;
 
+    /**
+     * item name
+     */
+    private TextView tv_title;
+
+    /**
+     * price 1
+     */
+    private TextView tv_price1;
+
+    /**
+     * price 2
+     */
+    private TextView tv_price2;
+
+    /**
+     * attribute
+     */
+    private TextView tv_attribute;
+
+    /**
+     * saled number
+     */
+    private TextView tv_saled;
+
+    /**
+     * worker name
+     */
+    private TextView tv_info1;
+
+    /**
+     * worker exp
+     */
+    private TextView tv_info2;
+
+    /**
+     * company name
+     */
+    private TextView tv_company_name;
+
+    /**
+     * company description
+     */
+    private TextView tv_company_des;
+
+
+    /**
+     * item id
+     */
+    private String itemId;
+
+
+    /**
+     * is cellection
+     */
+    private boolean b_isCollection = false;
+
     @Override
     protected int setContent() {
         return R.layout.activity_commodity_info;
@@ -145,6 +219,10 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initViews() {
+        mContext = this;
+        DialogUtils.showProgressDialog(this, getString(R.string.loading));
+        //get data from server
+        getItemDetail();
         //set sheet alert icon
         mDrawables = new Drawable[]{
                 getResources().getDrawable(R.drawable.ser_service_blue),
@@ -152,7 +230,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         };
         //finde views
         rv_certificate = (RecyclerView) findViewById(R.id.rv_commodity_info_certificate);
-        tv_service_details = (TextView) LayoutInflater.from(this).inflate(R.layout.item_viewpager_service_details, null);
+        wv_service_details = (WebView) LayoutInflater.from(this).inflate(R.layout.item_viewpager_service_details, null);
         rv_evaluate = new RecyclerView(this);
         tl_commodity_info = (TabLayout) findViewById(R.id.tl_commodity_info);
         vp_commdity_info = (ViewPager) findViewById(R.id.vp_commodity_info);
@@ -161,90 +239,17 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         cb_collection = (CheckBox) findViewById(R.id.cb_commodity_info_cellection);
         ll_contact_us = (LinearLayout) findViewById(R.id.ll_commodity_contact_us);
         bt_contact_us = (Button) findViewById(R.id.bt_commodity_info_contact_us);
-        tv_commodity_info_price2 = (TextView) findViewById(R.id.tv_commodity_info_price2);
-        tv_commodity_info_price2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         rl_company_name = (RelativeLayout) findViewById(R.id.rl_commodity_info_company_name);
         tv_buy = (TextView) findViewById(R.id.tv_commodity_info_buy);
-
-
-        //init test data
-        ArrayList<HashMap<String, Object>> data_certificate = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < 3; i++) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("certificate", "证书" + i);
-            data_certificate.add(map);
-        }
-
-        ArrayList<HashMap<String, Object>> data_evaluate = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < Cons.IDARR_EVALUATE_HEAD.length + 1; i++) {
-            HashMap<String, Object> map = map = new HashMap<String, Object>();
-            if (i == 0) {
-                map.put("percent", "98%");
-                map.put("number", "53");
-                data_evaluate.add(map);
-            } else {
-                map.put("head", getResources().getDrawable(Cons.IDARR_EVALUATE_HEAD[i - 1]));
-                map.put("name", Cons.STRARR_EVALUATE_NAME[i - 1]);
-                map.put("rating", Cons.RATINGARR_EVALUATE[i - 1]);
-                map.put("date", Cons.STRARR_EVALUATE_DATE[i - 1]);
-                map.put("content", Cons.STRARR_EVALUATE_CONTENT[i - 1]);
-                data_evaluate.add(map);
-            }
-        }
-
-        //set adapters
-        CertificateAdapter adp_certificate = new CertificateAdapter(this, mShopCertificateList);
-        rv_certificate.setAdapter(adp_certificate);
-        rv_certificate.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_certificate.size()));
-
-        EvaluateAdapter adp_evaluate = new EvaluateAdapter(this, data_evaluate);
-        adp_evaluate.setOnItemClickLitener(new EvaluateAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                if (position == 0) {
-                    //start all evaluate activity 启动全部评价页面
-                    Intent intent = new Intent(CommodityInfoActivity.this, AllEvaluateActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-        rv_evaluate.setAdapter(adp_evaluate);
-        rv_evaluate.setLayoutManager(new LinearLayoutManager(this));
-        ViewSetUtils.setRecyclverViewHeightBasedOnChildren(rv_evaluate);
-//        rv_evaluate.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_evaluate.size()));
-
-        //set viewpage
-        //add viewpager views
-        vp_commdity_info.addView(tv_service_details);
-        list_views.add(tv_service_details);
-        list_tabs.add(getResources().getString(R.string.service_details));
-
-        vp_commdity_info.addView(rv_evaluate);
-        list_views.add(rv_evaluate);
-        list_tabs.add(getResources().getString(R.string.evaluate));
-
-        //set up with viewpager adpater 给ViewPager设置适配器
-        CommodityInfoAdapter adp_commodityInfo = new CommodityInfoAdapter(list_views, list_tabs);
-        vp_commdity_info.setAdapter(adp_commodityInfo);
-        ViewSetUtils.setViewHeigh(this, vp_commdity_info, 1f, 1f);
-
-        //set up with tablayout adpater给Tabs设置适配器
-        tl_commodity_info.setTabsFromPagerAdapter(adp_commodityInfo);
-
-        //tablayout setup with viewPager 将TabLayout和ViewPager关联起来。
-        tl_commodity_info.setupWithViewPager(vp_commdity_info);
-
-
-        //set listeners
-        bt_back.setOnClickListener(this);
-        ll_collection.setOnClickListener(this);
-        cb_collection.setOnClickListener(this);
-        ll_contact_us.setOnClickListener(this);
-        bt_contact_us.setOnClickListener(this);
-        rl_company_name.setOnClickListener(this);
-        tv_buy.setOnClickListener(this);
-        //work out the problem : when the edittext in scrollview, edittext can't get the focus
-
+        tv_title = (TextView) findViewById(R.id.tv_commodity_info_title);
+        tv_price1 = (TextView) findViewById(R.id.tv_commodity_info_price1);
+        tv_price2 = (TextView) findViewById(R.id.tv_commodity_info_price2);
+        tv_attribute = (TextView) findViewById(R.id.tv_commodity_info_attribute);
+        tv_saled = (TextView) findViewById(R.id.tv_commodity_info_saled);
+        tv_info1 = (TextView) findViewById(R.id.tv_commodity_info_info1);
+        tv_info2 = (TextView) findViewById(R.id.tv_commodity_info_info2);
+        tv_company_name = (TextView) findViewById(R.id.tv_commodity_info_company_name);
+        tv_company_des = (TextView) findViewById(R.id.tv_commodity_info_company_des);
     }
 
     @Override
@@ -269,8 +274,11 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
             //collect 收藏
             case R.id.cb_commodity_info_cellection:
             case R.id.ll_commodity_collection:
-                b_isCollect = !b_isCollect;
-                cb_collection.setChecked(b_isCollect);
+                if (b_isCollection) {
+                    unCollection();
+                } else {
+                    collection();
+                }
                 break;
             //contact us 联系我们
             case R.id.ll_commodity_contact_us:
@@ -289,6 +297,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
             case R.id.rl_commodity_info_company_name:
                 //start company info activity 启动商户详情页面
                 intent = new Intent(this, CompanyInfoActivity.class);
+                intent.putExtra("shopId", String.valueOf(mItemDetailBean.getValue().getShopId()));
                 startActivity(intent);
                 break;
             //buy right now 立即购买
@@ -311,7 +320,15 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         switch (position) {
             //send message 发送消息
             case 0:
-
+                String username = String.valueOf(mItemDetailBean.getValue().getId());
+                if (TextUtils.isEmpty(username)) {
+                    ToastUtil.showToast(mContext, getString(R.string.data_error));
+                } else {
+                    // enter chat activity
+                    Intent intent = new Intent(mContext, ChatActivity.class);
+                    intent.putExtra(Constant.EXTRA_USER_ID, username);
+                    startActivity(intent);
+                }
                 break;
             //call cellphone 拨打电话
             case 1:
@@ -321,5 +338,411 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
                 startActivity(intent);
                 break;
         }
+    }
+
+
+    /**
+     * item detail
+     */
+    public void getItemDetail() {
+
+        if (!EaseCommonUtils.isNetWorkConnected(this)) {
+            Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        if (TextUtils.isEmpty(getIntent().getStringExtra("itemId"))) {
+            ToastUtil.showToast(this, getString(R.string.data_error));
+            return;
+        } else {
+            itemId = getIntent().getStringExtra("itemId");
+        }
+
+        // NoHttp zuzhi item detail
+        String url = Cons.DOMAIN + Cons.ITEM_DETAIL;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+
+        JSONObject postJson = new JSONObject();
+        try {
+            postJson.put("callback", "");
+            postJson.put("itemId", itemId);
+            if (MyApplication.user.getId() != 0) {
+                postJson.put("userId",
+                        String.valueOf(MyApplication.user.getId()));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request.setRequestBody(postJson.toString());
+
+        Logs.i("足智物品详情", "---------url---------");
+        Logs.i("足智物品详情", url);
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("足智物品详情", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+                        mItemDetailBean = MyApplication.gson.fromJson(jsonObject.toString(),
+                                ItemDetailBean.class);
+                        initViewData();
+                    } else {
+                        ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
+                        DialogUtils.dismissProgressDialog();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(mContext, getResources().getString(R.string.request_fail));
+                Logs.i("足智物品详情", "----------Error-------");
+                Logs.i("足智物品详情", exception.toString());
+                DialogUtils.dismissProgressDialog();
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+
+    }
+
+    /**
+     * init views data from bean
+     */
+    private void initViewData() {
+        //init test data
+        ArrayList<HashMap<String, Object>> data_evaluate = new ArrayList<HashMap<String, Object>>();
+        for (int i = 0; i < Cons.IDARR_EVALUATE_HEAD.length + 1; i++) {
+            HashMap<String, Object> map = map = new HashMap<String, Object>();
+            if (i == 0) {
+                map.put("percent", "98%");
+                map.put("number", "53");
+                data_evaluate.add(map);
+            } else {
+                map.put("head", getResources().getDrawable(Cons.IDARR_EVALUATE_HEAD[i - 1]));
+                map.put("name", Cons.STRARR_EVALUATE_NAME[i - 1]);
+                map.put("rating", Cons.RATINGARR_EVALUATE[i - 1]);
+                map.put("date", Cons.STRARR_EVALUATE_DATE[i - 1]);
+                map.put("content", Cons.STRARR_EVALUATE_CONTENT[i - 1]);
+                data_evaluate.add(map);
+            }
+        }
+
+        //set adapters
+        CertificateAdapter adp_certificate = new CertificateAdapter(this,
+                mItemDetailBean.getValue().getShopCertificate());
+        rv_certificate.setAdapter(adp_certificate);
+        rv_certificate.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false,
+                mItemDetailBean.getValue().getShopCertificate().size()));
+        adp_certificate.setOnItemClickLitener(new CertificateAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, final int position) {
+                DialogUtils.showProgressDialog(mContext, getString(R.string.loading));
+                //if not start a new thread, will block the UI thread
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageLoader.getInstance().loadImage(
+                                Cons.IMG_HOST +
+                                        mItemDetailBean.getValue().
+                                                getShopCertificate().get(position).getUrl(),
+                                new ImageLoadingListener() {
+                                    @Override
+                                    public void onLoadingStarted(String imageUri, View view) {
+
+                                    }
+
+                                    @Override
+                                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                        DialogUtils.dismissProgressDialog();
+                                        ToastUtil.showToast(mContext, getString(R.string.data_error));
+                                    }
+
+                                    @Override
+                                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                        //use the system image explorer
+                                        DialogUtils.dismissProgressDialog();
+                                        String cachePath =
+                                                ImageLoader
+                                                        .getInstance()
+                                                        .getDiskCache()
+                                                        .get(imageUri).getPath();
+                                        //user the imageloader path to save bitmap
+                                        File file = new File(
+                                                StorageUtils.getOwnCacheDirectory(mContext, Cons.CACHE_IMAGE_DIR).getPath(),
+                                                "certificate.png"
+                                        );
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        Uri mUri = Uri.parse("file://" + BitmapUtils.save(file, loadedImage));
+                                        intent.setDataAndType(mUri, "image/*");
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void onLoadingCancelled(String imageUri, View view) {
+                                        DialogUtils.dismissProgressDialog();
+                                        ToastUtil.showToast(mContext, getString(R.string.data_error));
+                                    }
+                                });
+                    }
+                }).start();
+
+
+            }
+        });
+
+        EvaluateAdapter adp_evaluate = new EvaluateAdapter(this, data_evaluate);
+        adp_evaluate.setOnItemClickLitener(new EvaluateAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (position == 0) {
+                    //start all evaluate activity 启动全部评价页面
+                    Intent intent = new Intent(CommodityInfoActivity.this, AllEvaluateActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        rv_evaluate.setAdapter(adp_evaluate);
+        rv_evaluate.setLayoutManager(new LinearLayoutManager(this));
+        ViewSetUtils.setRecyclverViewHeightBasedOnChildren(rv_evaluate);
+//        rv_evaluate.setLayoutManager(new TopicLayoutManager(this, OrientationHelper.VERTICAL, false, data_evaluate.size()));
+
+        //set viewpager
+        //add viewpager views
+        wv_service_details.loadUrl
+                (Cons.IMG_HOST + mItemDetailBean.getValue().getItemViewUrl());
+        vp_commdity_info.addView(wv_service_details);
+        list_views.add(wv_service_details);
+        list_tabs.add(getResources().getString(R.string.service_details));
+
+        vp_commdity_info.addView(rv_evaluate);
+        list_views.add(rv_evaluate);
+        list_tabs.add(getResources().getString(R.string.evaluate));
+
+        //set up with viewpager adpater 给ViewPager设置适配器
+        CommodityInfoAdapter adp_commodityInfo = new CommodityInfoAdapter(list_views, list_tabs);
+        vp_commdity_info.setAdapter(adp_commodityInfo);
+        ViewSetUtils.setViewHeigh(this, vp_commdity_info, 1f, 1f);
+
+        //set up with tablayout adpater给Tabs设置适配器
+        tl_commodity_info.setTabsFromPagerAdapter(adp_commodityInfo);
+
+        //tablayout setup with viewPager 将TabLayout和ViewPager关联起来。
+        tl_commodity_info.setupWithViewPager(vp_commdity_info);
+
+
+        //set text
+        tv_title.setText(mItemDetailBean.getValue().getName());
+        if (mItemDetailBean.getValue().isItemPromote()) {
+            tv_price1.setText("￥" + String.valueOf(mItemDetailBean.getValue().getItemPromotePrice()));
+        } else {
+            tv_attribute.setVisibility(View.GONE);
+            tv_price1.setText("￥" + String.valueOf(mItemDetailBean.getValue().getItemShopPrice()));
+            tv_price2.setVisibility(View.GONE);
+        }
+        tv_price2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        tv_price2.setText("￥" + String.valueOf(mItemDetailBean.getValue().getItemMarketPrice()));
+        tv_saled.setText("已售出" + mItemDetailBean.getValue().getItemSaleNum() + "单");
+        tv_info1.setText("由" + mItemDetailBean.getValue().getExpertName() + "提供服务");
+        tv_info2.setText(mItemDetailBean.getValue().getExpertWorkingHours() + "年经验");
+        tv_company_name.setText(mItemDetailBean.getValue().getShopName());
+        tv_company_des.setText(mItemDetailBean.getValue().getShopRemark());
+        switch (mItemDetailBean.getValue().getCollectionFlag()) {
+            case 0:
+                b_isCollection = false;
+                cb_collection.setChecked(b_isCollection);
+                break;
+            case 1:
+                b_isCollection = true;
+                cb_collection.setChecked(b_isCollection);
+                break;
+        }
+
+
+        //set listeners
+        bt_back.setOnClickListener(this);
+        ll_collection.setOnClickListener(this);
+        cb_collection.setOnClickListener(this);
+        ll_contact_us.setOnClickListener(this);
+        bt_contact_us.setOnClickListener(this);
+        rl_company_name.setOnClickListener(this);
+        tv_buy.setOnClickListener(this);
+        DialogUtils.dismissProgressDialog();
+    }
+
+
+    /**
+     * collection
+     */
+    private void collection() {
+
+        if (!EaseCommonUtils.isNetWorkConnected(this)) {
+            Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(String.valueOf(MyApplication.user.getId()))) {
+            ToastUtil.showToast(this, getString(R.string.unlogin));
+            return;
+        }
+        // NoHttp zuzhi collection
+        String url = Cons.DOMAIN + Cons.COLLECTION;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+
+        JSONObject postJson = new JSONObject();
+        try {
+            postJson.put("callback", "");
+            postJson.put("userId", String.valueOf(MyApplication.user.getId()));
+            postJson.put("itemId", itemId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request.setRequestBody(postJson.toString());
+
+        Logs.i("足智收藏", "---------url---------");
+        Logs.i("足智收藏", url);
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("足智收藏", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+                        b_isCollection = true;
+                        cb_collection.setChecked(b_isCollection);
+
+                    } else {
+                        ToastUtil.showToast(mContext, jsonObject.getString("message"));
+                        DialogUtils.dismissProgressDialog();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(mContext, getResources().getString(R.string.request_fail));
+                Logs.i("足智收藏", "----------Error-------");
+                Logs.i("足智收藏", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+
+    }
+
+    /**
+     * uncollection
+     */
+    private void unCollection() {
+
+        if (!EaseCommonUtils.isNetWorkConnected(this)) {
+            Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(String.valueOf(MyApplication.user.getId()))) {
+            ToastUtil.showToast(this, getString(R.string.unlogin));
+            return;
+        }
+        // NoHttp zuzhi collection
+        String url = Cons.DOMAIN + Cons.UNCOLLECTION;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+
+        JSONObject postJson = new JSONObject();
+        try {
+            postJson.put("callback", "");
+            postJson.put("userId", String.valueOf(MyApplication.user.getId()));
+            postJson.put("itemId", itemId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request.setRequestBody(postJson.toString());
+
+        Logs.i("足智取消收藏", "---------url---------");
+        Logs.i("足智取消收藏", url);
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("足智取消收藏", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+                        b_isCollection = false;
+                        cb_collection.setChecked(b_isCollection);
+
+                    } else {
+                        cb_collection.setChecked(true);
+                        ToastUtil.showToast(mContext, jsonObject.getString("message"));
+                        DialogUtils.dismissProgressDialog();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(mContext, getResources().getString(R.string.request_fail));
+                Logs.i("足智取消收藏", "----------Error-------");
+                Logs.i("足智取消收藏", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+
     }
 }

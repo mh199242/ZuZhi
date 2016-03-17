@@ -96,7 +96,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
                     case "shopDetails":
                         //carry AdEntity to CompanyInfoActivity
                         intent = new Intent(context, CompanyInfoActivity.class);
-                        bundle.putSerializable("AdEntity", mValueEntity.getAd().get(getPosition(position)));
+                        bundle.putSerializable("shopId", mValueEntity.getAd().get(getPosition(position)).getObjId());
                         intent.putExtras(bundle);
                         context.startActivity(intent);
                         break;

@@ -497,11 +497,11 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                 switch (mValueEntity.getCategory().get(position).getTargetType()) {
                     //click to jump type is CompanyInfoActivity
                     case "shopDetails":
-                        //carry AdEntity to CompanyInfoActivity
-                        intent = new Intent(getContext(), CompanyInfoActivity.class);
-                        bundle.putSerializable("CategoryEntity", mValueEntity.getCategory().get(position));
-                        intent.putExtras(bundle);
-                        startActivity(intent);
+                        //carry shopId to CompanyInfoActivity
+                        intent = new Intent(mContext, CompanyInfoActivity.class);
+                        intent.putExtra("shopId",
+                                mValueEntity.getCategory().get(position).getObjId());
+                        mContext.startActivity(intent);
                         break;
                     case "itemList":
                         //carry AdEntity to IndexClassListActivity

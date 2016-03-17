@@ -142,7 +142,7 @@
                     android:textSize="@dimen/font_13" />
 
                 <TextView
-                    android:id="@+id/tv_item_hot_service_info2"
+                    android:id="@+id/tv_commodity_info_info2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/tv_commodity_info_info1"

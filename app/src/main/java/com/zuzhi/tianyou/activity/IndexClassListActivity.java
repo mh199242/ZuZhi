@@ -607,6 +607,7 @@ public class IndexClassListActivity extends BaseActivity implements View.OnClick
             public void onItemClick(View view, int position) {
                 //start commodity info activity 启动商品详情页
                 Intent intent = new Intent(mContext, CommodityInfoActivity.class);
+                intent.putExtra("itemId", String.valueOf(mItemList.get(position).getId()));
                 startActivity(intent);
             }
         });

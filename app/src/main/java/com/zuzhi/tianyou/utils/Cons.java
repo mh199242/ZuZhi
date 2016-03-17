@@ -68,6 +68,16 @@ public class Cons {
     //item interface
     public final static String ITEM = "item";
 
+    //item details interface
+    public final static String ITEM_DETAIL = "itemdetail";
+
+    //collection interface
+    public final static String COLLECTION = "userCollection";
+
+    //uncollection interface
+    public final static String UNCOLLECTION = "escCollection";
+
+
     //图片缓存目录
     public final static String CACHE_IMAGE_DIR = "ZuZhi/ImgCache";
 
