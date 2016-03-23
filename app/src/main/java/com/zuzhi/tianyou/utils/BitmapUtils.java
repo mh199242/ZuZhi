@@ -48,7 +48,7 @@ public class BitmapUtils {
      * @return
      */
     public static Bitmap getSmallBitmap(String filePath) {
-        final BitmapFactory.Options options = new BitmapFactory.Options();
+        final Options options = new Options();
         //开始读入图片，此时把options.inJustDecodeBounds 设回true了
         options.inJustDecodeBounds = true;
         Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
@@ -71,7 +71,7 @@ public class BitmapUtils {
      * @param reqHeight
      * @return
      */
-    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    private static int calculateInSampleSize(Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
         //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
@@ -122,7 +122,7 @@ public class BitmapUtils {
             image.compress(Bitmap.CompressFormat.JPEG, 50, baos);//这里压缩50%，把压缩后的数据存放到baos中
         }
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
-        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+        Options newOpts = new Options();
         //开始读入图片，此时把options.inJustDecodeBounds 设回true了
         newOpts.inJustDecodeBounds = true;
         Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);

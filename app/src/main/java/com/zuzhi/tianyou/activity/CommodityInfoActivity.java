@@ -2,6 +2,7 @@ package com.zuzhi.tianyou.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -29,10 +30,15 @@ import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
 import com.easemob.easeui.utils.EaseCommonUtils;
+import com.google.gson.annotations.Until;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXTextObject;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnResponseListener;
 import com.yolanda.nohttp.Request;
@@ -60,6 +66,7 @@ import com.zuzhi.tianyou.utils.ViewSetUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -142,7 +149,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
     /**
      * bottom alertview icon list下部弹出对话框图组
      */
-    private Drawable[] mDrawables;
+    private Drawable[] mDrawables, mShareDrawables;
 
 
     /**
@@ -200,11 +207,21 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
      */
     private TextView tv_company_des;
 
+    /**
+     * share layout
+     */
+    LinearLayout ll_commodity_share;
+
 
     /**
      * item id
      */
     private String itemId;
+
+    /**
+     * alretview
+     */
+    private AlertView av_contact, av_share;
 
 
     /**
@@ -228,6 +245,12 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
                 getResources().getDrawable(R.drawable.ser_service_blue),
                 getResources().getDrawable(R.drawable.ser_phone)
         };
+        mShareDrawables = new Drawable[]{
+                getResources().getDrawable(R.drawable.wechat),
+                getResources().getDrawable(R.drawable.wechatmoments),
+                getResources().getDrawable(R.drawable.qq),
+                getResources().getDrawable(R.drawable.sinaweibo)
+        };
         //finde views
         rv_certificate = (RecyclerView) findViewById(R.id.rv_commodity_info_certificate);
         wv_service_details = (WebView) LayoutInflater.from(this).inflate(R.layout.item_viewpager_service_details, null);
@@ -250,6 +273,23 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         tv_info2 = (TextView) findViewById(R.id.tv_commodity_info_info2);
         tv_company_name = (TextView) findViewById(R.id.tv_commodity_info_company_name);
         tv_company_des = (TextView) findViewById(R.id.tv_commodity_info_company_des);
+        ll_commodity_share = (LinearLayout) findViewById(R.id.ll_commodity_share);
+
+        av_contact = new AlertView(mDrawables, null, getResources().getString(R.string.warrning),
+                getResources().getString(R.string.cancel),
+                new String[]{getResources().getString(R.string.send_message),
+                        getResources().getString(R.string.our_phone)},
+                null, this, AlertView.Style.ActionSheet, this)
+                .setCancelable(true)
+                .setOnDismissListener(this);
+        av_share = new AlertView(mShareDrawables,
+                null,
+                "请选择分享平台",
+                getResources().getString(R.string.cancel),
+                new String[]{"微信好友", "微信朋友圈", "QQ", "新浪微博"},
+                null, this, AlertView.Style.ActionSheet, this)
+                .setCancelable(true)
+                .setOnDismissListener(this);
     }
 
     @Override
@@ -284,14 +324,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
             case R.id.ll_commodity_contact_us:
             case R.id.bt_commodity_info_contact_us:
                 //alert customs dialog 弹出自己定对话框
-                new AlertView(mDrawables, null, getResources().getString(R.string.warrning),
-                        getResources().getString(R.string.cancel),
-                        new String[]{getResources().getString(R.string.send_message),
-                                getResources().getString(R.string.our_phone)},
-                        null, this, AlertView.Style.ActionSheet, this)
-                        .setCancelable(true)
-                        .setOnDismissListener(this)
-                        .show();
+                av_contact.show();
                 break;
             //comany name 公司名字
             case R.id.rl_commodity_info_company_name:
@@ -306,6 +339,11 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
                 intent = new Intent(this, ConfirmOrderActivity.class);
                 startActivity(intent);
                 break;
+            //share
+            case R.id.ll_commodity_share:
+                //alert customs dialog 弹出自己定对话框
+                av_share.show();
+                break;
         }
     }
 
@@ -317,27 +355,64 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onItemClick(Object o, int position) {
         Logs.i(Cons.ACTIVITY_COMMODITYINFO, "点击了位置为" + position + "的按钮");
-        switch (position) {
-            //send message 发送消息
-            case 0:
-                String username = String.valueOf(mItemDetailBean.getValue().getId());
-                if (TextUtils.isEmpty(username)) {
-                    ToastUtil.showToast(mContext, getString(R.string.data_error));
-                } else {
-                    // enter chat activity
-                    Intent intent = new Intent(mContext, ChatActivity.class);
-                    intent.putExtra(Constant.EXTRA_USER_ID, username);
+        if (o == av_contact) {
+            switch (position) {
+                //send message 发送消息
+                case 0:
+                    String username = String.valueOf(mItemDetailBean.getValue().getId());
+                    if (TextUtils.isEmpty(username)) {
+                        ToastUtil.showToast(mContext, getString(R.string.data_error));
+                    } else {
+                        // enter chat activity
+                        Intent intent = new Intent(mContext, ChatActivity.class);
+                        intent.putExtra(Constant.EXTRA_USER_ID, username);
+                        startActivity(intent);
+                    }
+                    break;
+                //call cellphone 拨打电话
+                case 1:
+                    Intent intent = new Intent();
+                    intent.setAction("android.intent.action.CALL");
+                    intent.setData(Uri.parse("tel:" + getResources().getString(R.string.our_phone)));
                     startActivity(intent);
-                }
-                break;
-            //call cellphone 拨打电话
-            case 1:
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.CALL");
-                intent.setData(Uri.parse("tel:" + getResources().getString(R.string.our_phone)));
-                startActivity(intent);
-                break;
+                    break;
+            }
+        } else if (o == av_share) {
+            switch (position) {
+                //share to wechat friends
+                case 0:
+                    // 初始化一个WXTextObject对象
+                    WXWebpageObject wxWebpageObject = new WXWebpageObject();
+                    wxWebpageObject.webpageUrl = "http://www.hichinavc.com/";
+                    // 用WXWebpageObject对象初始化一个WXWebpageObject对象,填写标题、描述
+                    WXMediaMessage msg = new WXMediaMessage(wxWebpageObject);
+                    msg.title = "测试标题";
+                    msg.description = "测试描述";
+                    Bitmap thumb =
+                            BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    thumb.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    msg.thumbData = byteArray;
+
+                    // 构造一个Req
+                    SendMessageToWX.Req req = new SendMessageToWX.Req();
+                    req.transaction = String.valueOf(System.currentTimeMillis()); // transaction字段用于唯一标识一个请求
+                    req.message = msg;
+                    req.scene = SendMessageToWX.Req.WXSceneSession;
+                    // 调用api接口发送数据到微信
+                    MyApplication.getInstance().wechat.sendReq(req);
+                    break;
+                //call cellphone 拨打电话
+                case 1:
+                    Intent intent = new Intent();
+                    intent.setAction("android.intent.action.CALL");
+                    intent.setData(Uri.parse("tel:" + getResources().getString(R.string.our_phone)));
+                    startActivity(intent);
+                    break;
+            }
         }
+
     }
 
 
@@ -587,6 +662,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
         bt_contact_us.setOnClickListener(this);
         rl_company_name.setOnClickListener(this);
         tv_buy.setOnClickListener(this);
+        ll_commodity_share.setOnClickListener(this);
         DialogUtils.dismissProgressDialog();
     }
 
