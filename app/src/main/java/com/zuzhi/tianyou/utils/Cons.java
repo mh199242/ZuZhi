@@ -77,9 +77,13 @@ public class Cons {
     //uncollection interface
     public final static String UNCOLLECTION = "escCollection";
 
+    //order detail
+    public final static String ORDER_DETAIL = "orderDetail";
 
     //图片缓存目录
     public final static String CACHE_IMAGE_DIR = "ZuZhi/ImgCache";
+
+
 
 
     /**

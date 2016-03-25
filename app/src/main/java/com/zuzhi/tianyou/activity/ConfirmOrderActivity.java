@@ -1,16 +1,32 @@
 package com.zuzhi.tianyou.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.easemob.easeui.utils.EaseCommonUtils;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.OnResponseListener;
+import com.yolanda.nohttp.Request;
+import com.yolanda.nohttp.RequestMethod;
+import com.yolanda.nohttp.Response;
+import com.zuzhi.tianyou.MyApplication;
 import com.zuzhi.tianyou.R;
 import com.zuzhi.tianyou.base.BaseActivity;
+import com.zuzhi.tianyou.bean.LoginBean;
+import com.zuzhi.tianyou.utils.Cons;
+import com.zuzhi.tianyou.utils.DialogUtils;
+import com.zuzhi.tianyou.utils.Logs;
+import com.zuzhi.tianyou.utils.ToastUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 /**
@@ -27,8 +43,15 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
      */
     private TextView tv_commit_order;
 
-    /** 开发票View */
+    /**
+     * 开发票View
+     */
     private TextView mMakeInvoice;
+
+    /**
+     * order id
+     */
+    private String mOrderId;
 
 
     @Override
@@ -60,6 +83,11 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         //set listeners
         tv_commit_order.setOnClickListener(this);
         mMakeInvoice.setOnClickListener(this);
+
+
+        mOrderId = getIntent().getStringExtra("orderId");
+
+        getOrderDetail();
     }
 
     @Override
@@ -100,6 +128,78 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 startActivity(new Intent(this, MakeInvoiceActivity.class));
                 break;
         }
+
+    }
+
+    /**
+     * get order detail
+     */
+    public void getOrderDetail() {
+        if (!EaseCommonUtils.isNetWorkConnected(this)) {
+            Toast.makeText(this, R.string.network_isnot_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        DialogUtils.showProgressDialog(this, getString(R.string.loading));
+
+
+        // NoHttp zuzhi login
+        String url = Cons.DOMAIN + Cons.ORDER_DETAIL;
+        final Request<JSONObject> request =
+                NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+
+        JSONObject postJson = new JSONObject();
+        try {
+            postJson.put("callback", "");
+            postJson.put("orderId", mOrderId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request.setRequestBody(postJson.toString());
+
+        Logs.i("足智订单详情", "---------url---------");
+        Logs.i("足智订单详情", url);
+
+        MyApplication.getInstance().queue.add(0, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                JSONObject jsonObject = null;
+                try {
+                    if (response.get() == null) {
+                        ToastUtil.showToast(mContext, getResources().getString(R.string.data_error));
+                        return;
+                    }
+                    jsonObject = response.get();
+                    Logs.i("足智订单详情", jsonObject.toString());
+                    if (jsonObject.getBoolean("success")) {
+
+                    } else {
+                        ToastUtil.showToast(mContext, jsonObject.getString("errorMessage"));
+                        DialogUtils.dismissProgressDialog();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                ToastUtil.showToast(mContext, getResources().getString(R.string.request_fail));
+                Logs.i("足智订单详情", "----------Error-------");
+                Logs.i("足智订单详情", exception.toString());
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
 
     }
 }

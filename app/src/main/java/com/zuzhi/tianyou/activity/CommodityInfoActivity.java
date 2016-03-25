@@ -337,6 +337,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
             case R.id.tv_commodity_info_buy:
                 //start confirm order activity 启动确认订单页面
                 intent = new Intent(this, ConfirmOrderActivity.class);
+                intent.putExtra("orderId", String.valueOf(mItemDetailBean.getValue().getId()));
                 startActivity(intent);
                 break;
             //share
@@ -378,37 +379,45 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
                     break;
             }
         } else if (o == av_share) {
+            // 初始化一个WXTextObject对象
+            WXWebpageObject wxWebpageObject = new WXWebpageObject();
+            // 用WXWebpageObject对象初始化一个WXWebpageObject对象,填写标题、描述
+            WXMediaMessage msg = new WXMediaMessage(wxWebpageObject);
+            Bitmap thumb =
+                    BitmapFactory.decodeResource(getResources(), R.drawable.qq);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            thumb.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            // 构造一个Req
+            SendMessageToWX.Req req = new SendMessageToWX.Req();
             switch (position) {
+
                 //share to wechat friends
                 case 0:
-                    // 初始化一个WXTextObject对象
-//                    WXWebpageObject wxWebpageObject = new WXWebpageObject();
-//                    wxWebpageObject.webpageUrl = "http://www.hichinavc.com/";
-//                    // 用WXWebpageObject对象初始化一个WXWebpageObject对象,填写标题、描述
-//                    WXMediaMessage msg = new WXMediaMessage(wxWebpageObject);
-//                    msg.title = "测试标题";
-//                    msg.description = "测试描述";
-//                    Bitmap thumb =
-//                            BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                    thumb.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                    byte[] byteArray = stream.toByteArray();
-//                    msg.thumbData = byteArray;
-//
-//                    // 构造一个Req
-//                    SendMessageToWX.Req req = new SendMessageToWX.Req();
-//                    req.transaction = String.valueOf(System.currentTimeMillis()); // transaction字段用于唯一标识一个请求
-//                    req.message = msg;
-//                    req.scene = SendMessageToWX.Req.WXSceneSession;
-//                    // 调用api接口发送数据到微信
-//                    MyApplication.getInstance().wechat.sendReq(req);
+                    wxWebpageObject.webpageUrl = "http://www.hichinavc.com/";
+                    msg.title = "测试标题";
+                    msg.description = "测试描述";
+                    msg.thumbData = byteArray;
+
+                    req.transaction = "webpage"; // transaction字段用于唯一标识一个请求
+                    req.message = msg;
+                    req.scene = SendMessageToWX.Req.WXSceneSession;
+                    // 调用api接口发送数据到微信
+                    MyApplication.getInstance().wechat.sendReq(req);
                     break;
-                //call cellphone 拨打电话
+                //share to wechat timeline
                 case 1:
-                    Intent intent = new Intent();
-                    intent.setAction("android.intent.action.CALL");
-                    intent.setData(Uri.parse("tel:" + getResources().getString(R.string.our_phone)));
-                    startActivity(intent);
+                    wxWebpageObject.webpageUrl = "http://www.hichinavc.com/";
+
+                    msg.title = "测试标题";
+                    msg.description = "测试描述";
+                    msg.thumbData = byteArray;
+
+                    req.transaction = "webpage"; // transaction字段用于唯一标识一个请求
+                    req.message = msg;
+                    req.scene = SendMessageToWX.Req.WXSceneTimeline;
+                    // 调用api接口发送数据到微信
+                    MyApplication.getInstance().wechat.sendReq(req);
                     break;
             }
         }

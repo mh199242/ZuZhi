@@ -541,7 +541,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
      */
     public void onlineService() {
         String username = mValueEntity.getCustomerService().getId();
-        if (TextUtils.isEmpty(username)) {
+        if (TextUtils.isEmpty(username) || username.equals("0")) {
             ToastUtil.showToast(getContext(), getString(R.string.data_error));
         } else {
             username = mValueEntity.getCustomerService().getId();

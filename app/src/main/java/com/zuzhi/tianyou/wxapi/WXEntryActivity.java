@@ -90,6 +90,10 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         Intent intent;
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
+                if (baseResp.transaction.equals("webpage")) {
+                    finish();
+                    return;
+                }
                 getAccessToken(baseResp);
                 break;
             //取消登录
