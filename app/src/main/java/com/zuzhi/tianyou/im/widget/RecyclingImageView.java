@@ -40,7 +40,7 @@ public class RecyclingImageView extends ImageView {
     }
 
     /**
-     * @see android.widget.ImageView#onDetachedFromWindow()
+     * @see ImageView#onDetachedFromWindow()
      */
     @Override
     protected void onDetachedFromWindow() {
@@ -51,7 +51,7 @@ public class RecyclingImageView extends ImageView {
     }
 
     /**
-     * @see android.widget.ImageView#setImageDrawable(android.graphics.drawable.Drawable)
+     * @see ImageView#setImageDrawable(Drawable)
      */
     @Override
     public void setImageDrawable(Drawable drawable) {

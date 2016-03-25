@@ -86,7 +86,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
      */
     @Override
     public void onResp(BaseResp baseResp) {
-        state = ((SendAuth.Resp) baseResp).state;
+//        state = ((SendAuth.Resp) baseResp).state;
         Intent intent;
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:

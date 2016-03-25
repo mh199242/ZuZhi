@@ -94,7 +94,7 @@ public abstract class RecyclingPagerAdapter extends PagerAdapter {
    * Get a View that displays the data at the specified position in the data set. You can either
    * create a View manually or inflate it from an XML layout file. When the View is inflated, the
    * parent View (GridView, ListView...) will apply default layout parameters unless you use
-   * {@link android.view.LayoutInflater#inflate(int, android.view.ViewGroup, boolean)}
+   * {@link android.view.LayoutInflater#inflate(int, ViewGroup, boolean)}
    * to specify a root view and to prevent attachment to the root.
    *
    * @param position The position of the item within the adapter's data set of the item whose view
