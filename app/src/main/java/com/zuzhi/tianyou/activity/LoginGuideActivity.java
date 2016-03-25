@@ -312,7 +312,7 @@ public class LoginGuideActivity extends BaseActivity implements View.OnClickList
             MyApplication.getInstance().queue.cancelAll();// 退出APP时停止所有请求
             MyApplication.getInstance().queue.stop();// 退出APP时停止队列
             ActivityCollector.finishAll();
-            Process.killProcess(Process.myPid());
+            android.os.Process.killProcess(Process.myPid());
         }
     }
 

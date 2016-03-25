@@ -382,26 +382,26 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
                 //share to wechat friends
                 case 0:
                     // 初始化一个WXTextObject对象
-                    WXWebpageObject wxWebpageObject = new WXWebpageObject();
-                    wxWebpageObject.webpageUrl = "http://www.hichinavc.com/";
-                    // 用WXWebpageObject对象初始化一个WXWebpageObject对象,填写标题、描述
-                    WXMediaMessage msg = new WXMediaMessage(wxWebpageObject);
-                    msg.title = "测试标题";
-                    msg.description = "测试描述";
-                    Bitmap thumb =
-                            BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    thumb.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    byte[] byteArray = stream.toByteArray();
-                    msg.thumbData = byteArray;
-
-                    // 构造一个Req
-                    SendMessageToWX.Req req = new SendMessageToWX.Req();
-                    req.transaction = String.valueOf(System.currentTimeMillis()); // transaction字段用于唯一标识一个请求
-                    req.message = msg;
-                    req.scene = SendMessageToWX.Req.WXSceneSession;
-                    // 调用api接口发送数据到微信
-                    MyApplication.getInstance().wechat.sendReq(req);
+//                    WXWebpageObject wxWebpageObject = new WXWebpageObject();
+//                    wxWebpageObject.webpageUrl = "http://www.hichinavc.com/";
+//                    // 用WXWebpageObject对象初始化一个WXWebpageObject对象,填写标题、描述
+//                    WXMediaMessage msg = new WXMediaMessage(wxWebpageObject);
+//                    msg.title = "测试标题";
+//                    msg.description = "测试描述";
+//                    Bitmap thumb =
+//                            BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                    thumb.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                    byte[] byteArray = stream.toByteArray();
+//                    msg.thumbData = byteArray;
+//
+//                    // 构造一个Req
+//                    SendMessageToWX.Req req = new SendMessageToWX.Req();
+//                    req.transaction = String.valueOf(System.currentTimeMillis()); // transaction字段用于唯一标识一个请求
+//                    req.message = msg;
+//                    req.scene = SendMessageToWX.Req.WXSceneSession;
+//                    // 调用api接口发送数据到微信
+//                    MyApplication.getInstance().wechat.sendReq(req);
                     break;
                 //call cellphone 拨打电话
                 case 1:

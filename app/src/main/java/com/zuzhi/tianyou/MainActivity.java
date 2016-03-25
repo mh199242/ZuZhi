@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private AMapLocationClientOption locationOption = null;
 
     Handler mHandler = new Handler() {
-        public void dispatchMessage(Message msg) {
+        public void dispatchMessage(android.os.Message msg) {
             switch (msg.what) {
                 //start location 开始定位
                 case AMapUtils.MSG_LOCATION_START:
@@ -319,7 +319,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             MyApplication.getInstance().queue.cancelAll();// 退出APP时停止所有请求
             MyApplication.getInstance().queue.stop();// 退出APP时停止队列
             ActivityCollector.finishAll();
-            Process.killProcess(Process.myPid());
+            android.os.Process.killProcess(Process.myPid());
         }
     }
 

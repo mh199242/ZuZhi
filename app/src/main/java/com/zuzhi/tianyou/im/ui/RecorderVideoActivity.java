@@ -139,7 +139,7 @@ public class RecorderVideoActivity extends BaseActivity implements
 			} else {
 				mCamera = Camera.open(CameraInfo.CAMERA_FACING_FRONT);
 			}
-			Parameters camParams = mCamera.getParameters();
+			Camera.Parameters camParams = mCamera.getParameters();
 			mCamera.lock();
 			mSurfaceHolder = mVideoView.getHolder();
 			mSurfaceHolder.addCallback(this);
@@ -183,7 +183,7 @@ public class RecorderVideoActivity extends BaseActivity implements
 		List<Size> resolutionList = Utils.getResolutionList(mCamera);
 		if (resolutionList != null && resolutionList.size() > 0) {
 			Collections.sort(resolutionList, new Utils.ResolutionComparator());
-			Size previewSize = null;
+			Camera.Size previewSize = null;
 			boolean hasSize = false;
 			// 如果摄像头支持640*480，那么强制设为640*480
 			for (int i = 0; i < resolutionList.size(); i++) {
