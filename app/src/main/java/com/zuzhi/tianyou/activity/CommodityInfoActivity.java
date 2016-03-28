@@ -245,6 +245,7 @@ public class CommodityInfoActivity extends BaseActivity implements View.OnClickL
                 getResources().getDrawable(R.drawable.ser_service_blue),
                 getResources().getDrawable(R.drawable.ser_phone)
         };
+
         mShareDrawables = new Drawable[]{
                 getResources().getDrawable(R.drawable.wechat),
                 getResources().getDrawable(R.drawable.wechatmoments),
