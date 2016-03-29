@@ -20,12 +20,12 @@
         "source": "D:\\code\\work\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_row_contact.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_widget_emojicon_tab_bar.xml",
-        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_widget_emojicon_tab_bar.xml"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_conversation_item.xml",
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_conversation_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_widget_emojicon_tab_bar.xml",
+        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_widget_emojicon_tab_bar.xml"
     },
     {
         "merged": "D:\\code\\work\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_row_received_voice.xml",
@@ -148,12 +148,12 @@
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_row_received_video.xml"
     },
     {
-        "merged": "D:\\code\\work\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_row_sent_video_call.xml",
-        "source": "D:\\code\\work\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_row_sent_video_call.xml"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_commom_back_btn.xml",
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_commom_back_btn.xml"
+    },
+    {
+        "merged": "D:\\code\\work\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_row_sent_video_call.xml",
+        "source": "D:\\code\\work\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_row_sent_video_call.xml"
     },
     {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_row_sent_message.xml",
@@ -180,12 +180,12 @@
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_widget_switch_button.xml"
     },
     {
-        "merged": "D:\\code\\work\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_fragment_conversation_list.xml",
-        "source": "D:\\code\\work\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_fragment_conversation_list.xml"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_widget_contact_list.xml",
         "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_widget_contact_list.xml"
+    },
+    {
+        "merged": "D:\\code\\work\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_fragment_conversation_list.xml",
+        "source": "D:\\code\\work\\ZuZhi\\easeUI\\src\\main\\res\\layout\\ease_fragment_conversation_list.xml"
     },
     {
         "merged": "D:\\code\\work\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\debug\\layout\\ease_showvideo_activity.xml",
