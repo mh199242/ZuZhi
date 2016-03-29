@@ -80,10 +80,11 @@ public class Cons {
     //order detail
     public final static String ORDER_DETAIL = "orderDetail";
 
+    //patCharge
+    public final static String PAY_CHARGE = "payCharge";
+
     //图片缓存目录
     public final static String CACHE_IMAGE_DIR = "ZuZhi/ImgCache";
-
-
 
 
     /**

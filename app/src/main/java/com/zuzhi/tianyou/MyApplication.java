@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.support.multidex.MultiDexApplication;
 
 import com.easemob.chat.EMChat;
 import com.google.gson.Gson;
@@ -32,7 +33,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     //wechart api
     public IWXAPI wechat;
 
