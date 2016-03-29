@@ -8,12 +8,12 @@
         "source": "D:\\code\\work\\ZuZhi\\easeUI\\src\\main\\res\\anim\\push_top_out2.xml"
     },
     {
-        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\anim\\push_top_in.xml",
-        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\anim\\push_top_in.xml"
-    },
-    {
         "merged": "D:\\code\\work\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\anim\\slide_out_to_right.xml",
         "source": "D:\\code\\work\\ZuZhi\\easeUI\\src\\main\\res\\anim\\slide_out_to_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\anim\\push_top_in.xml",
+        "source": "C:\\Users\\Administrator\\AndroidStudioProjects\\ZuZhi\\easeUI\\src\\main\\res\\anim\\push_top_in.xml"
     },
     {
         "merged": "D:\\code\\work\\ZuZhi\\easeUI\\build\\intermediates\\res\\merged\\release\\anim\\head_in.xml",

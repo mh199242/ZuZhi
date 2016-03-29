@@ -72,8 +72,8 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         rl_my_coupons.setOnClickListener(this);
 
         mDrawables = new Drawable[]{
-                getResources().getDrawable(R.drawable.ic_launcher),
-                getResources().getDrawable(R.drawable.ic_launcher)
+                getResources().getDrawable(R.drawable.camera),
+                getResources().getDrawable(R.drawable.album)
         };
 
         head_av = new AlertView(mDrawables, null, "请选择喜欢的照片作为头像",
@@ -127,12 +127,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
             case R.id.ll_title_bar_left:
                 finish();
                 break;
-
-            //change head icon 修改头像
             case R.id.civ_personal_head:
-                Toast.makeText(this, R.string.modify_phone_num, Toast.LENGTH_LONG).show();
-                break;
-
             case R.id.rl_my_coupons:
                 head_av.show();
                 break;
