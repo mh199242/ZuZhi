@@ -254,7 +254,7 @@ public class MyApplication extends MultiDexApplication {
     }
 
     /**
-     * 清除图片缓存
+     * clear image cache
      */
     public void clearImageLoaderCachek() {
 //        ImageLoader.getInstance().clearMemoryCache();  // 清除内存缓存
